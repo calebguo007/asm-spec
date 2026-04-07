@@ -1,0 +1,420 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asm-protocol.org/schema/v0.3/manifest.json",
+  "title": "Agent Service Manifest",
+  "description": "A standardized descriptor for AI service value — pricing, quality, SLA, payment, and verification. v0.3 adds receipt_endpoint, verification, updated_at, and ttl for Signed Receipts integration and manifest freshness.",
+  "type": "object",
+  "required": ["asm_version", "service_id", "taxonomy"],
+  "properties": {
+    "asm_version": {
+      "const": "0.3",
+      "description": "ASM specification version"
+    },
+    "service_id": {
+      "type": "string",
+      "description": "Globally unique service identifier. Recommended format: <provider>/<service>@<version>",
+      "examples": ["anthropic/claude-sonnet-4@4.0", "black-forest-labs/flux-1.1-pro@1.1"]
+    },
+    "taxonomy": {
+      "type": "string",
+      "pattern": "^[a-z]+\\.[a-z_]+(?:\\.[a-z_]+)?$",
+      "description": "Standardized service category. Format: <domain>.<category>[.<subcategory>]",
+      "examples": ["ai.llm.chat", "ai.vision.image_generation", "ai.video.generation"]
+    },
+    "display_name": {
+      "type": "string",
+      "description": "Human-readable service name"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the last manifest update. Agents use this to assess data freshness and detect stale manifests."
+    },
+    "ttl": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Time-to-live in seconds. Indicates how long this manifest can be cached before re-fetching. 0 = always re-fetch. Recommended: 3600 (1 hour) for stable services, 300 (5 min) for volatile pricing.",
+      "default": 3600
+    },
+    "provider": {
+      "type": "object",
+      "description": "Service provider information",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Provider organization name"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Provider website URL"
+        },
+        "verified_by": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of entities that have verified this provider",
+          "examples": [["google-cloud-marketplace", "stripe-verified"]]
+        }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "description": "Service capability declarations",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of what the service does"
+        },
+        "input_modalities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["text", "image", "audio", "video", "file", "structured_data"]
+          },
+          "description": "Supported input types"
+        },
+        "output_modalities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["text", "image", "audio", "video", "file", "structured_data"]
+          },
+          "description": "Supported output types"
+        },
+        "supported_languages": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Supported languages in ISO 639-1 format"
+        },
+        "context_window": {
+          "type": "integer",
+          "description": "Maximum context window size in tokens (LLM-specific)"
+        },
+        "max_input_size": {
+          "type": "string",
+          "description": "Maximum input size (e.g., '2GB', '10MB')"
+        },
+        "max_output_size": {
+          "type": "string",
+          "description": "Maximum output size (e.g., '4096x4096', '8s')"
+        }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "description": "Pricing engine — supports multiple billing dimensions, tiered pricing, and conditional pricing",
+      "required": ["billing_dimensions"],
+      "properties": {
+        "billing_dimensions": {
+          "type": "array",
+          "description": "One or more billing dimensions. A single service can have multiple (e.g., LLM charges for both input and output tokens).",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["dimension", "unit", "cost_per_unit", "currency"],
+            "properties": {
+              "dimension": {
+                "type": "string",
+                "enum": [
+                  "input_token", "output_token", "token",
+                  "character", "word",
+                  "image", "pixel",
+                  "second", "minute",
+                  "request",
+                  "gpu_second",
+                  "byte",
+                  "query",
+                  "custom"
+                ],
+                "description": "Billing dimension identifier"
+              },
+              "unit": {
+                "type": "string",
+                "enum": ["per_1", "per_1K", "per_1M"],
+                "description": "Billing granularity"
+              },
+              "cost_per_unit": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Cost per unit in the specified currency"
+              },
+              "currency": {
+                "type": "string",
+                "default": "USD",
+                "description": "ISO 4217 currency code"
+              },
+              "tiers": {
+                "type": "array",
+                "description": "Tiered/volume pricing",
+                "items": {
+                  "type": "object",
+                  "required": ["up_to", "cost_per_unit"],
+                  "properties": {
+                    "up_to": {
+                      "oneOf": [
+                        { "type": "integer", "minimum": 0 },
+                        { "type": "string", "const": "unlimited" }
+                      ],
+                      "description": "Upper bound for this tier (integer or 'unlimited')"
+                    },
+                    "cost_per_unit": {
+                      "type": "number",
+                      "minimum": 0,
+                      "description": "Cost per unit within this tier"
+                    }
+                  }
+                }
+              },
+              "conditions": {
+                "type": "object",
+                "description": "Conditional pricing (e.g., price doubles when context > 200K)",
+                "properties": {
+                  "when": {
+                    "type": "string",
+                    "description": "Human-readable condition expression"
+                  },
+                  "cost_per_unit": {
+                    "type": "number",
+                    "minimum": 0,
+                    "description": "Cost when condition is met"
+                  }
+                },
+                "required": ["when", "cost_per_unit"]
+              }
+            }
+          }
+        },
+        "free_tier": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "dimension": { "type": "string" },
+                "limit": { "type": "number" },
+                "period": {
+                  "type": "string",
+                  "enum": ["daily", "monthly", "total"]
+                }
+              },
+              "required": ["dimension", "limit", "period"]
+            },
+            { "type": "null" }
+          ],
+          "description": "Free tier information, if available"
+        },
+        "batch_discount": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Batch/async mode discount rate. 0.5 = 50% off."
+        },
+        "estimated": {
+          "type": "boolean",
+          "default": false,
+          "description": "true = pricing is an estimate (e.g., GPU-based models with variable runtime)"
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "description": "Quality metrics and leaderboard rankings",
+      "properties": {
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "score"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Metric name (e.g., 'accuracy', 'WER', 'FID', 'MOS', 'LMSYS_Elo')"
+              },
+              "score": {
+                "type": "number",
+                "description": "Metric value"
+              },
+              "scale": {
+                "type": "string",
+                "description": "Score scale (e.g., '0-1', '0-100', '1-5', 'Elo', 'lower_is_better')"
+              },
+              "benchmark": {
+                "type": "string",
+                "description": "Name of the evaluation benchmark"
+              },
+              "benchmark_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL to the benchmark"
+              },
+              "evaluated_at": {
+                "type": "string",
+                "format": "date",
+                "description": "Date when the evaluation was performed"
+              },
+              "self_reported": {
+                "type": "boolean",
+                "default": true,
+                "description": "Whether this metric is self-reported by the provider (true) or independently verified (false)"
+              }
+            }
+          }
+        },
+        "leaderboard_rank": {
+          "type": "object",
+          "description": "Position in a public leaderboard",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Leaderboard name (e.g., 'LMSYS Chatbot Arena')"
+            },
+            "rank": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "total": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            },
+            "snapshot_date": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        }
+      }
+    },
+    "sla": {
+      "type": "object",
+      "description": "Service Level Agreement parameters",
+      "properties": {
+        "latency_p50": {
+          "type": "string",
+          "description": "Median latency (e.g., '1.2s', '200ms')"
+        },
+        "latency_p99": {
+          "type": "string",
+          "description": "99th percentile latency"
+        },
+        "throughput": {
+          "type": "string",
+          "description": "Throughput capacity (e.g., '100 req/min', '80 tokens/s')"
+        },
+        "uptime": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Availability as a decimal (e.g., 0.999 = 99.9%)"
+        },
+        "rate_limit": {
+          "type": "string",
+          "description": "Rate limit description (e.g., '4000 req/min')"
+        },
+        "max_concurrent": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum concurrent requests"
+        },
+        "cold_start": {
+          "type": "string",
+          "description": "Cold start time for GPU-based models (e.g., '~15s')"
+        },
+        "regions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Available deployment regions (e.g., ['us-east-1', 'eu-west-1'])"
+        }
+      }
+    },
+    "payment": {
+      "type": "object",
+      "description": "Payment methods and authentication — pre-wired for AP2 interop",
+      "properties": {
+        "methods": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["api_key_prepaid", "stripe", "ap2", "crypto", "invoice"]
+          },
+          "description": "Supported payment methods"
+        },
+        "auth_type": {
+          "type": "string",
+          "enum": ["api_key", "oauth2", "ap2_mandate", "none"],
+          "description": "Authentication mechanism required"
+        },
+        "ap2_endpoint": {
+          "type": "string",
+          "format": "uri",
+          "description": "AP2 protocol merchant endpoint (if AP2 is supported)"
+        },
+        "signup_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL for new account registration"
+        }
+      }
+    },
+    "receipt_endpoint": {
+      "type": "string",
+      "format": "uri",
+      "description": "Endpoint URL for Signed Receipts (IETF ACTA). After service execution, agents POST to this endpoint to obtain a cryptographically signed receipt proving actual delivery metrics. Enables the ASM trust delta: |declared - actual| / declared."
+    },
+    "verification": {
+      "type": "object",
+      "description": "Verification configuration for Signed Receipts integration. Enables agents to verify receipt authenticity and establish computable trust.",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "enum": ["signed-receipts-acta", "w3c-vc", "custom"],
+          "description": "Verification protocol used. 'signed-receipts-acta' = IETF ACTA Signed Receipts (recommended), 'w3c-vc' = W3C Verifiable Credentials, 'custom' = provider-specific."
+        },
+        "public_key": {
+          "type": "string",
+          "description": "Public key (PEM-encoded or JWK) for verifying signed receipts. Agents use this to validate that receipts were genuinely issued by the service provider."
+        },
+        "public_key_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to fetch the public key (alternative to inline public_key). Supports key rotation."
+        },
+        "receipt_schema_version": {
+          "type": "string",
+          "description": "Version of the receipt schema this service produces (e.g., '1.0')"
+        }
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Category-specific non-standard fields, isolated by namespace. Core schema remains stable; all domain-specific data goes here.",
+      "additionalProperties": true,
+      "examples": [
+        {
+          "llm": {
+            "supports_function_calling": true,
+            "supports_vision": true,
+            "supports_extended_thinking": true,
+            "max_output_tokens": 64000
+          }
+        },
+        {
+          "image_gen": {
+            "max_resolution": "4096x4096",
+            "styles": ["photorealistic", "artistic", "anime"]
+          }
+        },
+        {
+          "video_gen": {
+            "max_duration": "8s",
+            "resolutions": ["720p", "1080p", "4k"],
+            "supports_audio": true
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

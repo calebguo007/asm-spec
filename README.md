@@ -201,12 +201,16 @@ asm-spec/
 │   ├── voyageai-voyage-3-large.asm.json
 │   ├── replicate-gpu.asm.json
 │   └── runpod-gpu.asm.json
+├── schema/
+│   ├── asm-v0.2.schema.json          # Formal JSON Schema (v0.2)
+│   └── asm-v0.3.schema.json          # v0.3 Schema (+receipt_endpoint, verification, updated_at, ttl)
 ├── scorer/
-│   └── scorer.py                     # Filter + TOPSIS scoring engine
+│   └── scorer.py                     # Filter + TOPSIS + Trust Delta scoring engine
 ├── registry/
 │   └── src/index.ts                  # MCP Server (5 tools)
 ├── demo/
-│   └── e2e_demo.py                   # End-to-end demo (5 scenarios)
+│   ├── e2e_demo.py                   # End-to-end demo (5 scenarios)
+│   └── receipts_demo.py              # Signed Receipts trust pipeline demo
 └── paper/
     └── asm-paper-draft.md            # Academic paper draft
 ```
@@ -343,9 +347,9 @@ Integration status: active collaboration with the [Agent Receipts](https://githu
 - [x] Scorer (Weighted Average + TOPSIS)
 - [x] MCP Server (5 tools)
 - [x] E2E demo (5 scenarios)
-- [ ] Schema v0.3 (`receipt_endpoint`, `verification`, `updated_at`, `ttl`)
-- [ ] Trust delta scoring with exponential decay
-- [ ] Signed Receipts integration demo
+- [x] Schema v0.3 (`receipt_endpoint`, `verification`, `updated_at`, `ttl`)
+- [x] Trust delta scoring with exponential decay
+- [x] Signed Receipts integration demo
 - [ ] arXiv preprint
 - [ ] SEP proposal to MCP specification
 

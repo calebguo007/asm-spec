@@ -1,14 +1,14 @@
-"""
-ASM Scorer — Service selection engine for Agent Service Manifest.
+"""ASM Scorer — Service selection engine for Agent Service Manifest.
 
 v0.2: Weighted average scoring (demo-ready)
 v1.0: Filter (hard constraints) + TOPSIS (multi-criteria ranking)
+v1.1: Trust delta scoring with exponential decay (Signed Receipts integration)
 """
-
 from __future__ import annotations
 
 import json
 import math
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -385,8 +385,213 @@ def score_topsis(
     results.sort(key=lambda x: x.total_score, reverse=True)
     for i, r in enumerate(results):
         r.rank = i + 1
-        r.reasoning = _generate_reasoning(r, preferences)
+    r.reasoning = _generate_reasoning(r, preferences)
     return results
+
+
+# ──────────────────────────────────────────────
+# Stage 3: Trust Delta Scoring (v1.1)
+# ──────────────────────────────────────────────
+
+@dataclass
+class ReceiptRecord:
+    """A single execution receipt recording actual service delivery metrics."""
+    service_id: str
+    timestamp: float                  # Unix timestamp of execution
+    actual_latency_seconds: float     # Measured p50 latency
+    actual_quality_score: float       # Measured quality (normalized 0-1)
+    actual_uptime: float              # Observed availability (0-1)
+    actual_cost_per_unit: float       # Actual billed cost per unit
+
+@dataclass
+class TrustScore:
+    """Computed trust score for a service based on receipt history."""
+    service_id: str
+    trust_score: float                # Overall trust score (0-1, higher = more trustworthy)
+    delta_breakdown: dict[str, float] # Per-dimension trust deltas
+    num_receipts: int                 # Number of receipts used
+    confidence: float                 # Confidence level (0-1, based on sample size)
+    reasoning: str
+
+
+def compute_trust_delta(
+    declared: float,
+    actual: float,
+) -> float:
+    """Compute trust delta between declared and actual values.
+
+    trust_delta = |declared - actual| / declared
+
+    Returns 0.0 for perfect match, >1.0 for severe deviation.
+    A delta of 0.5 means 50% deviation from declared value.
+    """
+    if declared == 0:
+        return 0.0 if actual == 0 else 1.0
+    return abs(declared - actual) / abs(declared)
+
+
+def exponential_decay_weight(
+    timestamp: float,
+    now: float | None = None,
+    half_life_seconds: float = 7 * 24 * 3600,  # 1 week default
+) -> float:
+    """Compute exponential decay weight for a receipt based on age.
+
+    More recent receipts have higher weight. The weight halves every
+    `half_life_seconds`.
+
+    w(t) = exp(-ln(2) * age / half_life)
+
+    Args:
+        timestamp: Unix timestamp of the receipt
+        now: Current time (defaults to time.time())
+        half_life_seconds: Time for weight to halve (default: 1 week)
+
+    Returns:
+        Weight in (0, 1], where 1.0 = just now, 0.5 = one half-life ago
+    """
+    if now is None:
+        now = time.time()
+    age = max(now - timestamp, 0)
+    decay_constant = math.log(2) / half_life_seconds
+    return math.exp(-decay_constant * age)
+
+
+def compute_trust_score(
+    service: ServiceVector,
+    receipts: list[ReceiptRecord],
+    half_life_seconds: float = 7 * 24 * 3600,
+    now: float | None = None,
+) -> TrustScore:
+    """Compute trust score for a service using receipt history with
+    exponential decay weighting.
+
+    For each dimension (cost, quality, latency, uptime), computes:
+    1. Trust delta per receipt: |declared - actual| / declared
+    2. Weighted average delta using exponential decay (recent receipts matter more)
+    3. Overall trust score: 1 - mean(dimension_deltas), clamped to [0, 1]
+
+    Confidence increases with more receipts (asymptotic to 1.0).
+
+    Args:
+        service: The service's declared values (from manifest)
+        receipts: Historical execution receipts for this service
+        half_life_seconds: Decay half-life (default: 1 week)
+        now: Current time for decay calculation
+
+    Returns:
+        TrustScore with overall score, per-dimension breakdown, and reasoning
+    """
+    if not receipts:
+        return TrustScore(
+            service_id=service.service_id,
+            trust_score=0.5,  # Neutral — no data
+            delta_breakdown={},
+            num_receipts=0,
+            confidence=0.0,
+            reasoning=f"{service.display_name} has no receipt history. Trust score is neutral (0.5).",
+        )
+
+    if now is None:
+        now = time.time()
+
+    # Compute per-dimension weighted deltas
+    dimensions = {
+        "cost": ("cost_per_unit", "actual_cost_per_unit"),
+        "quality": ("quality_score", "actual_quality_score"),
+        "latency": ("latency_seconds", "actual_latency_seconds"),
+        "uptime": ("uptime", "actual_uptime"),
+    }
+
+    delta_breakdown: dict[str, float] = {}
+
+    for dim_name, (declared_attr, actual_attr) in dimensions.items():
+        declared_val = getattr(service, declared_attr)
+        weighted_delta_sum = 0.0
+        weight_sum = 0.0
+
+        for receipt in receipts:
+            actual_val = getattr(receipt, actual_attr)
+            delta = compute_trust_delta(declared_val, actual_val)
+            weight = exponential_decay_weight(receipt.timestamp, now, half_life_seconds)
+            weighted_delta_sum += delta * weight
+            weight_sum += weight
+
+        avg_delta = weighted_delta_sum / weight_sum if weight_sum > 0 else 0.0
+        delta_breakdown[dim_name] = round(avg_delta, 4)
+
+    # Overall trust score: 1 - mean(deltas), clamped to [0, 1]
+    mean_delta = sum(delta_breakdown.values()) / len(delta_breakdown) if delta_breakdown else 0.0
+    trust_score = max(0.0, min(1.0, 1.0 - mean_delta))
+
+    # Confidence: asymptotic based on receipt count
+    # confidence = 1 - exp(-n / 5), reaches ~0.86 at 10 receipts, ~0.98 at 20
+    confidence = 1.0 - math.exp(-len(receipts) / 5.0)
+
+    # Generate reasoning
+    worst_dim = max(delta_breakdown, key=delta_breakdown.get) if delta_breakdown else "N/A"
+    best_dim = min(delta_breakdown, key=delta_breakdown.get) if delta_breakdown else "N/A"
+    reasoning = (
+        f"{service.display_name} trust={trust_score:.3f} "
+        f"(confidence={confidence:.2f}, {len(receipts)} receipts). "
+        f"Most accurate: {best_dim} (delta={delta_breakdown.get(best_dim, 0):.3f}). "
+        f"Least accurate: {worst_dim} (delta={delta_breakdown.get(worst_dim, 0):.3f})."
+    )
+
+    return TrustScore(
+        service_id=service.service_id,
+        trust_score=round(trust_score, 4),
+        delta_breakdown=delta_breakdown,
+        num_receipts=len(receipts),
+        confidence=round(confidence, 4),
+        reasoning=reasoning,
+    )
+
+
+def adjust_scores_with_trust(
+    scored_services: list[ScoredService],
+    trust_scores: dict[str, TrustScore],
+    trust_weight: float = 0.2,
+) -> list[ScoredService]:
+    """Adjust service rankings by incorporating trust scores.
+
+    Final score = (1 - trust_weight) * original_score + trust_weight * trust_score * confidence
+
+    Services with high trust (accurate declarations) get a boost.
+    Services with low trust (inflated claims) get penalized.
+    Services with no receipt data are unaffected (trust=0.5, confidence=0).
+
+    Args:
+        scored_services: Original scored services from TOPSIS or weighted average
+        trust_scores: Map of service_id → TrustScore
+        trust_weight: How much trust affects the final score (0-1, default 0.2)
+
+    Returns:
+        Re-ranked list of ScoredService with trust-adjusted scores
+    """
+    adjusted = []
+    for scored in scored_services:
+        sid = scored.service.service_id
+        ts = trust_scores.get(sid)
+
+        if ts and ts.confidence > 0:
+            trust_adjustment = ts.trust_score * ts.confidence
+            new_score = (1 - trust_weight) * scored.total_score + trust_weight * trust_adjustment
+            new_breakdown = dict(scored.breakdown)
+            new_breakdown["trust"] = round(trust_adjustment, 4)
+            adjusted.append(ScoredService(
+                service=scored.service,
+                total_score=round(new_score, 4),
+                breakdown=new_breakdown,
+                reasoning=f"{scored.reasoning} Trust: {ts.reasoning}",
+            ))
+        else:
+            adjusted.append(scored)
+
+    adjusted.sort(key=lambda x: x.total_score, reverse=True)
+    for i, r in enumerate(adjusted):
+        r.rank = i + 1
+    return adjusted
 
 
 # ──────────────────────────────────────────────
