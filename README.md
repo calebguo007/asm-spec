@@ -354,6 +354,7 @@ Integration status: active collaboration with the [Agent Receipts](https://githu
 - [x] Signed Receipts integration demo
 - [x] arXiv preprint
 - [x] SEP proposal to MCP specification
+- [x] MCP community discussion ([#718](https://github.com/orgs/modelcontextprotocol/discussions/718))
 
 ---
 
