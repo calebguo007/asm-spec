@@ -80,6 +80,17 @@ interface ASMManifest {
     ap2_endpoint?: string;
     signup_url?: string;
   };
+  // v0.3 新增字段
+  updated_at?: string;
+  ttl?: number;
+  receipt_endpoint?: string;
+  receipt_types?: Record<string, unknown>;
+  verification?: {
+    protocol?: string;
+    public_key?: string;
+    public_key_url?: string;
+    receipt_schema_version?: string;
+  };
   extensions?: Record<string, unknown>;
 }
 
@@ -346,6 +357,19 @@ function formatManifestSummary(m: ASMManifest): string {
   if (m.payment?.methods)
     lines.push(`- Payment: ${m.payment.methods.join(", ")}`);
 
+  // v0.3 字段
+  if (m.updated_at) lines.push(`- Updated at: ${m.updated_at}`);
+  if (m.ttl !== undefined) lines.push(`- TTL: ${m.ttl}s`);
+  if (m.receipt_endpoint) lines.push(`- Receipt endpoint: ${m.receipt_endpoint}`);
+  if (m.verification) {
+    const vParts: string[] = [];
+    if (m.verification.protocol) vParts.push(`protocol=${m.verification.protocol}`);
+    if (m.verification.public_key) vParts.push(`public_key=${m.verification.public_key.slice(0, 16)}...`);
+    if (m.verification.public_key_url) vParts.push(`key_url=${m.verification.public_key_url}`);
+    if (m.verification.receipt_schema_version) vParts.push(`receipt_schema=${m.verification.receipt_schema_version}`);
+    if (vParts.length > 0) lines.push(`- Verification: ${vParts.join(", ")}`);
+  }
+
   return lines.join("\n");
 }
 
@@ -367,19 +391,21 @@ async function main() {
   // Create MCP Server
   const server = new McpServer({
     name: "asm-registry",
-    version: "0.2.0",
+    version: "0.3.0",
   });
 
   // ── Tool: asm_list ──
   server.tool(
     "asm_list",
-    "List all services in the ASM registry with summary info. Use this for an overview of available services.",
+    "List all services in the ASM registry with summary info. Use this for an overview of available services. Shows receipt support status.",
     {},
     async () => {
       const all = registry.getAll();
       const lines = all.map(
-        (m) =>
-          `• **${m.display_name || m.service_id}** — \`${m.taxonomy}\` — ${m.provider?.name || "Unknown"}`
+        (m) => {
+          const receiptsTag = m.receipt_endpoint ? " 🧾 receipts" : "";
+          return `• **${m.display_name || m.service_id}** — \`${m.taxonomy}\` — ${m.provider?.name || "Unknown"}${receiptsTag}`;
+        }
       );
       return {
         content: [
@@ -414,11 +440,32 @@ async function main() {
           ],
         };
       }
+      // 构建包含 v0.3 字段的详情输出
+      let detail = formatManifestSummary(m);
+
+      // v0.3 额外字段独立展示
+      const v03Lines: string[] = [];
+      if (m.updated_at) v03Lines.push(`- **Updated at**: ${m.updated_at}`);
+      if (m.ttl !== undefined) v03Lines.push(`- **TTL**: ${m.ttl}s`);
+      if (m.receipt_endpoint) v03Lines.push(`- **Receipt endpoint**: ${m.receipt_endpoint}`);
+      if (m.verification) {
+        v03Lines.push(`- **Verification**:`);
+        if (m.verification.protocol) v03Lines.push(`  - Protocol: ${m.verification.protocol}`);
+        if (m.verification.public_key) v03Lines.push(`  - Public key: \`${m.verification.public_key}\``);
+        if (m.verification.public_key_url) v03Lines.push(`  - Public key URL: ${m.verification.public_key_url}`);
+        if (m.verification.receipt_schema_version) v03Lines.push(`  - Receipt schema version: ${m.verification.receipt_schema_version}`);
+      }
+      if (v03Lines.length > 0) {
+        detail += "\n\n### Signed Receipts (v0.3)\n" + v03Lines.join("\n");
+      }
+
+      detail += "\n\n<details><summary>Raw JSON</summary>\n\n```json\n" + JSON.stringify(m, null, 2) + "\n```\n</details>";
+
       return {
         content: [
           {
             type: "text" as const,
-            text: formatManifestSummary(m) + "\n\n<details><summary>Raw JSON</summary>\n\n```json\n" + JSON.stringify(m, null, 2) + "\n```\n</details>",
+            text: detail,
           },
         ],
       };
@@ -454,9 +501,21 @@ async function main() {
         .string()
         .optional()
         .describe("Required output modality (text, image, audio, video)"),
+      has_receipts: z
+        .boolean()
+        .optional()
+        .describe("If true, only return services that have a receipt_endpoint (support Signed Receipts)"),
     },
     async (params) => {
-      const results = registry.query(params);
+      let results = registry.query(params);
+      // v0.3: 按 receipt_endpoint 过滤
+      if (params.has_receipts !== undefined) {
+        if (params.has_receipts) {
+          results = results.filter((m) => !!m.receipt_endpoint);
+        } else {
+          results = results.filter((m) => !m.receipt_endpoint);
+        }
+      }
       if (results.length === 0) {
         return {
           content: [
@@ -555,6 +614,18 @@ async function main() {
       rows.push([
         "Payment",
         ...manifests.map((m) => m.payment?.methods?.join(", ") || "—"),
+      ]);
+
+      // v0.3: Receipt endpoint
+      rows.push([
+        "Receipt endpoint",
+        ...manifests.map((m) => m.receipt_endpoint ? "✅ Yes" : "—"),
+      ]);
+
+      // v0.3: Verification protocol
+      rows.push([
+        "Verification",
+        ...manifests.map((m) => m.verification?.protocol || "—"),
       ]);
 
       // Format as markdown table
@@ -676,12 +747,12 @@ async function main() {
   // ── Resource: schema ──
   server.resource(
     "asm-schema",
-    "asm://schema/v0.2",
-    { description: "ASM v0.2 JSON Schema specification", mimeType: "application/json" },
+    "asm://schema/v0.3",
+    { description: "ASM v0.3 JSON Schema specification", mimeType: "application/json" },
     async () => {
-      const schemaPath = path.resolve(__dirname, "..", "..", "schema", "asm-v0.2.schema.json");
+      const schemaPath = path.resolve(__dirname, "..", "..", "schema", "asm-v0.3.schema.json");
       const content = fs.readFileSync(schemaPath, "utf-8");
-      return { contents: [{ uri: "asm://schema/v0.2", text: content, mimeType: "application/json" }] };
+      return { contents: [{ uri: "asm://schema/v0.3", text: content, mimeType: "application/json" }] };
     }
   );
 
