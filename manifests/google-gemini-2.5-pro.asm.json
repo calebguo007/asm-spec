@@ -1,18 +1,40 @@
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "google/gemini-2.5-pro@2.5",
   "taxonomy": "ai.llm.chat",
   "display_name": "Gemini 2.5 Pro",
+  "updated_at": "2026-04-10T00:00:00Z",
+  "ttl": 3600,
   "provider": {
     "name": "Google",
     "url": "https://ai.google.dev",
-    "verified_by": ["google-cloud-marketplace"]
+    "verified_by": [
+      "google-cloud-marketplace"
+    ]
   },
   "capabilities": {
     "description": "Advanced reasoning model with 1M token context, multimodal input including video",
-    "input_modalities": ["text", "image", "audio", "video"],
-    "output_modalities": ["text"],
-    "supported_languages": ["en", "zh", "ja", "ko", "fr", "de", "es", "pt", "ar", "hi"],
+    "input_modalities": [
+      "text",
+      "image",
+      "audio",
+      "video"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "fr",
+      "de",
+      "es",
+      "pt",
+      "ar",
+      "hi"
+    ],
     "context_window": 1000000
   },
   "pricing": {
@@ -24,17 +46,17 @@
         "currency": "USD",
         "conditions": {
           "when": "context > 200K tokens",
-          "cost_per_unit": 2.50
+          "cost_per_unit": 2.5
         }
       },
       {
         "dimension": "output_token",
         "unit": "per_1M",
-        "cost_per_unit": 10.00,
+        "cost_per_unit": 10.0,
         "currency": "USD",
         "conditions": {
           "when": "context > 200K tokens",
-          "cost_per_unit": 15.00
+          "cost_per_unit": 15.0
         }
       }
     ],
@@ -70,10 +92,16 @@
     "throughput": "60 tokens/s",
     "uptime": 0.999,
     "rate_limit": "1000 req/min",
-    "regions": ["us-central1", "eu-west-1"]
+    "regions": [
+      "us-central1",
+      "eu-west-1"
+    ]
   },
   "payment": {
-    "methods": ["api_key_prepaid", "invoice"],
+    "methods": [
+      "api_key_prepaid",
+      "invoice"
+    ],
     "auth_type": "api_key",
     "signup_url": "https://aistudio.google.com"
   },

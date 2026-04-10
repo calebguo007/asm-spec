@@ -1,18 +1,37 @@
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "openai/tts-1@1.0",
   "taxonomy": "ai.audio.tts",
   "display_name": "OpenAI TTS",
+  "updated_at": "2026-04-10T00:00:00Z",
+  "ttl": 3600,
   "provider": {
     "name": "OpenAI",
     "url": "https://openai.com",
-    "verified_by": ["azure-marketplace"]
+    "verified_by": [
+      "azure-marketplace"
+    ]
   },
   "capabilities": {
     "description": "Fast, affordable text-to-speech with 6 preset voices and streaming support",
-    "input_modalities": ["text"],
-    "output_modalities": ["audio"],
-    "supported_languages": ["en", "zh", "ja", "ko", "fr", "de", "es", "pt", "ar", "hi"],
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "audio"
+    ],
+    "supported_languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "fr",
+      "de",
+      "es",
+      "pt",
+      "ar",
+      "hi"
+    ],
     "max_input_size": "4096 characters"
   },
   "pricing": {
@@ -20,7 +39,7 @@
       {
         "dimension": "character",
         "unit": "per_1M",
-        "cost_per_unit": 15.00,
+        "cost_per_unit": 15.0,
         "currency": "USD"
       }
     ]
@@ -41,10 +60,16 @@
     "latency_p99": "1.5s",
     "throughput": "50 req/min",
     "uptime": 0.999,
-    "regions": ["us-east-1", "eu-west-1"]
+    "regions": [
+      "us-east-1",
+      "eu-west-1"
+    ]
   },
   "payment": {
-    "methods": ["api_key_prepaid", "stripe"],
+    "methods": [
+      "api_key_prepaid",
+      "stripe"
+    ],
     "auth_type": "api_key",
     "signup_url": "https://platform.openai.com"
   },
@@ -54,7 +79,14 @@
       "supports_voice_cloning": false,
       "supports_streaming": true,
       "supports_ssml": false,
-      "output_formats": ["mp3", "opus", "aac", "flac", "wav", "pcm"]
+      "output_formats": [
+        "mp3",
+        "opus",
+        "aac",
+        "flac",
+        "wav",
+        "pcm"
+      ]
     }
   }
 }

@@ -1,17 +1,25 @@
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "openai/dall-e-3@3.0",
   "taxonomy": "ai.vision.image_generation",
   "display_name": "DALL-E 3",
+  "updated_at": "2026-04-10T00:00:00Z",
+  "ttl": 3600,
   "provider": {
     "name": "OpenAI",
     "url": "https://openai.com",
-    "verified_by": ["azure-marketplace"]
+    "verified_by": [
+      "azure-marketplace"
+    ]
   },
   "capabilities": {
     "description": "Text-to-image generation with strong prompt adherence and text rendering",
-    "input_modalities": ["text"],
-    "output_modalities": ["image"],
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "image"
+    ],
     "max_output_size": "1792x1024"
   },
   "pricing": {
@@ -46,13 +54,19 @@
     "uptime": 0.999
   },
   "payment": {
-    "methods": ["api_key_prepaid", "stripe"],
+    "methods": [
+      "api_key_prepaid",
+      "stripe"
+    ],
     "auth_type": "api_key",
     "signup_url": "https://platform.openai.com"
   },
   "extensions": {
     "image_gen": {
-      "styles": ["vivid", "natural"],
+      "styles": [
+        "vivid",
+        "natural"
+      ],
       "supports_img2img": false,
       "supports_inpainting": false,
       "max_resolution": "1792x1024",

@@ -1,17 +1,39 @@
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "elevenlabs/tts-v2@2.0",
   "taxonomy": "ai.audio.tts",
   "display_name": "ElevenLabs TTS v2",
+  "updated_at": "2026-04-10T00:00:00Z",
+  "ttl": 3600,
   "provider": {
     "name": "ElevenLabs",
     "url": "https://elevenlabs.io"
   },
   "capabilities": {
     "description": "Premium text-to-speech with voice cloning, emotional range, and 32 languages",
-    "input_modalities": ["text"],
-    "output_modalities": ["audio"],
-    "supported_languages": ["en", "zh", "ja", "ko", "fr", "de", "es", "pt", "ar", "hi", "it", "pl", "nl", "sv", "tr"],
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "audio"
+    ],
+    "supported_languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "fr",
+      "de",
+      "es",
+      "pt",
+      "ar",
+      "hi",
+      "it",
+      "pl",
+      "nl",
+      "sv",
+      "tr"
+    ],
     "max_input_size": "5000 characters"
   },
   "pricing": {
@@ -19,7 +41,7 @@
       {
         "dimension": "character",
         "unit": "per_1M",
-        "cost_per_unit": 180.00,
+        "cost_per_unit": 180.0,
         "currency": "USD"
       }
     ]
@@ -42,7 +64,10 @@
     "uptime": 0.999
   },
   "payment": {
-    "methods": ["api_key_prepaid", "stripe"],
+    "methods": [
+      "api_key_prepaid",
+      "stripe"
+    ],
     "auth_type": "api_key",
     "signup_url": "https://elevenlabs.io/pricing"
   },
@@ -52,7 +77,12 @@
       "supports_voice_cloning": true,
       "supports_streaming": true,
       "supports_ssml": true,
-      "output_formats": ["mp3", "wav", "ogg", "pcm"]
+      "output_formats": [
+        "mp3",
+        "wav",
+        "ogg",
+        "pcm"
+      ]
     }
   }
 }

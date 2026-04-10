@@ -1,18 +1,39 @@
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "openai/gpt-4o@2024-11-20",
   "taxonomy": "ai.llm.chat",
   "display_name": "GPT-4o",
+  "updated_at": "2026-04-10T00:00:00Z",
+  "ttl": 3600,
   "provider": {
     "name": "OpenAI",
     "url": "https://openai.com",
-    "verified_by": ["azure-marketplace"]
+    "verified_by": [
+      "azure-marketplace"
+    ]
   },
   "capabilities": {
     "description": "Multimodal flagship model with text, image, and audio understanding",
-    "input_modalities": ["text", "image", "audio"],
-    "output_modalities": ["text"],
-    "supported_languages": ["en", "zh", "ja", "ko", "fr", "de", "es", "pt", "ru", "ar"],
+    "input_modalities": [
+      "text",
+      "image",
+      "audio"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "fr",
+      "de",
+      "es",
+      "pt",
+      "ru",
+      "ar"
+    ],
     "context_window": 128000
   },
   "pricing": {
@@ -20,13 +41,13 @@
       {
         "dimension": "input_token",
         "unit": "per_1M",
-        "cost_per_unit": 2.50,
+        "cost_per_unit": 2.5,
         "currency": "USD"
       },
       {
         "dimension": "output_token",
         "unit": "per_1M",
-        "cost_per_unit": 10.00,
+        "cost_per_unit": 10.0,
         "currency": "USD"
       }
     ],
@@ -58,10 +79,18 @@
     "throughput": "100 tokens/s",
     "uptime": 0.999,
     "rate_limit": "10000 req/min",
-    "regions": ["us-east-1", "eu-west-1", "ap-southeast-1"]
+    "regions": [
+      "us-east-1",
+      "eu-west-1",
+      "ap-southeast-1"
+    ]
   },
   "payment": {
-    "methods": ["api_key_prepaid", "stripe", "invoice"],
+    "methods": [
+      "api_key_prepaid",
+      "stripe",
+      "invoice"
+    ],
     "auth_type": "api_key",
     "signup_url": "https://platform.openai.com"
   },

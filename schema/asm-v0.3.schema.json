@@ -363,6 +363,39 @@
       "format": "uri",
       "description": "Endpoint URL for Signed Receipts (IETF ACTA). After service execution, agents POST to this endpoint to obtain a cryptographically signed receipt proving actual delivery metrics. Enables the ASM trust delta: |declared - actual| / declared."
     },
+    "receipt_types": {
+      "type": "object",
+      "description": "Defines the ASM-namespaced receipt types this service supports. These types appear in the 'type' field of ACTA signed receipt payloads.",
+      "properties": {
+        "asm:service_selection": {
+          "type": "object",
+          "description": "Receipt issued when an agent selects this service. Captures selection provenance for audit.",
+          "properties": {
+            "service_id": {
+              "type": "string",
+              "description": "The selected service's ASM service_id"
+            },
+            "taxonomy": {
+              "type": "string",
+              "description": "The taxonomy used for selection"
+            },
+            "declared_sla": {
+              "type": "object",
+              "description": "Snapshot of declared SLA at selection time (latency, uptime, etc.)"
+            },
+            "selection_reasoning": {
+              "type": "string",
+              "description": "Scorer output explaining why this service was chosen"
+            },
+            "roster_snapshot": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "List of service_ids that were available candidates at selection time. Enables auditors to verify the selection was made from the declared pool, not a restricted set."
+            }
+          }
+        }
+      }
+    },
     "verification": {
       "type": "object",
       "description": "Verification configuration for Signed Receipts integration. Enables agents to verify receipt authenticity and establish computable trust.",
@@ -374,7 +407,8 @@
         },
         "public_key": {
           "type": "string",
-          "description": "Public key (PEM-encoded or JWK) for verifying signed receipts. Agents use this to validate that receipts were genuinely issued by the service provider."
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "Ed25519 public key as 64-character lowercase hex string. Compatible with the --key flag in npx @veritasacta/verify. Agents use this for offline receipt signature verification without contacting the receipt endpoint."
         },
         "public_key_url": {
           "type": "string",

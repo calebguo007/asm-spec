@@ -1,16 +1,22 @@
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "black-forest-labs/flux-1.1-pro@1.1",
   "taxonomy": "ai.vision.image_generation",
   "display_name": "FLUX 1.1 Pro",
+  "updated_at": "2026-04-10T00:00:00Z",
+  "ttl": 3600,
   "provider": {
     "name": "Black Forest Labs (via Replicate)",
     "url": "https://replicate.com/black-forest-labs/flux-1.1-pro"
   },
   "capabilities": {
     "description": "State-of-the-art text-to-image generation with photorealistic quality",
-    "input_modalities": ["text"],
-    "output_modalities": ["image"],
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "image"
+    ],
     "max_output_size": "4096x4096"
   },
   "pricing": {
@@ -40,13 +46,20 @@
     "cold_start": "~15s"
   },
   "payment": {
-    "methods": ["api_key_prepaid", "stripe"],
+    "methods": [
+      "api_key_prepaid",
+      "stripe"
+    ],
     "auth_type": "api_key",
     "signup_url": "https://replicate.com/pricing"
   },
   "extensions": {
     "image_gen": {
-      "styles": ["photorealistic", "artistic", "anime"],
+      "styles": [
+        "photorealistic",
+        "artistic",
+        "anime"
+      ],
       "supports_img2img": false,
       "supports_inpainting": false,
       "max_resolution": "4096x4096"

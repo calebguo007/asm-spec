@@ -1,18 +1,35 @@
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "anthropic/claude-sonnet-4@4.0",
   "taxonomy": "ai.llm.chat",
   "display_name": "Claude Sonnet 4",
+  "updated_at": "2026-04-10T00:00:00Z",
+  "ttl": 3600,
   "provider": {
     "name": "Anthropic",
     "url": "https://www.anthropic.com",
-    "verified_by": ["google-cloud-marketplace"]
+    "verified_by": [
+      "google-cloud-marketplace"
+    ]
   },
   "capabilities": {
     "description": "High-performance chat model with vision, tool use, and extended thinking",
-    "input_modalities": ["text", "image"],
-    "output_modalities": ["text"],
-    "supported_languages": ["en", "zh", "ja", "ko", "fr", "de", "es"],
+    "input_modalities": [
+      "text",
+      "image"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "fr",
+      "de",
+      "es"
+    ],
     "context_window": 200000
   },
   "pricing": {
@@ -20,13 +37,13 @@
       {
         "dimension": "input_token",
         "unit": "per_1M",
-        "cost_per_unit": 3.00,
+        "cost_per_unit": 3.0,
         "currency": "USD"
       },
       {
         "dimension": "output_token",
         "unit": "per_1M",
-        "cost_per_unit": 15.00,
+        "cost_per_unit": 15.0,
         "currency": "USD"
       }
     ],
@@ -59,10 +76,16 @@
     "throughput": "80 tokens/s",
     "uptime": 0.999,
     "rate_limit": "4000 req/min",
-    "regions": ["us-east-1", "eu-west-1"]
+    "regions": [
+      "us-east-1",
+      "eu-west-1"
+    ]
   },
   "payment": {
-    "methods": ["api_key_prepaid", "stripe"],
+    "methods": [
+      "api_key_prepaid",
+      "stripe"
+    ],
     "auth_type": "api_key",
     "signup_url": "https://console.anthropic.com"
   },

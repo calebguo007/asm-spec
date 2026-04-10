@@ -1,16 +1,24 @@
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "replicate/gpu-serverless@1.0",
   "taxonomy": "infra.compute.gpu",
   "display_name": "Replicate Serverless GPU",
+  "updated_at": "2026-04-10T00:00:00Z",
+  "ttl": 300,
   "provider": {
     "name": "Replicate",
     "url": "https://replicate.com"
   },
   "capabilities": {
     "description": "Serverless GPU inference platform — pay-per-second for any model deployment",
-    "input_modalities": ["file", "structured_data"],
-    "output_modalities": ["file", "structured_data"]
+    "input_modalities": [
+      "file",
+      "structured_data"
+    ],
+    "output_modalities": [
+      "file",
+      "structured_data"
+    ]
   },
   "pricing": {
     "billing_dimensions": [
@@ -20,8 +28,14 @@
         "cost_per_unit": 0.000225,
         "currency": "USD",
         "tiers": [
-          { "up_to": 1000, "cost_per_unit": 0.000225 },
-          { "up_to": "unlimited", "cost_per_unit": 0.000200 }
+          {
+            "up_to": 1000,
+            "cost_per_unit": 0.000225
+          },
+          {
+            "up_to": "unlimited",
+            "cost_per_unit": 0.0002
+          }
         ]
       }
     ],
@@ -35,16 +49,28 @@
     "latency_p99": "30s",
     "cold_start": "~10s",
     "uptime": 0.995,
-    "regions": ["us-east-1", "us-west-2", "eu-west-1"]
+    "regions": [
+      "us-east-1",
+      "us-west-2",
+      "eu-west-1"
+    ]
   },
   "payment": {
-    "methods": ["api_key_prepaid", "stripe"],
+    "methods": [
+      "api_key_prepaid",
+      "stripe"
+    ],
     "auth_type": "api_key",
     "signup_url": "https://replicate.com/pricing"
   },
   "extensions": {
     "compute": {
-      "gpu_types": ["NVIDIA T4", "NVIDIA A40", "NVIDIA A100-40GB", "NVIDIA A100-80GB"],
+      "gpu_types": [
+        "NVIDIA T4",
+        "NVIDIA A40",
+        "NVIDIA A100-40GB",
+        "NVIDIA A100-80GB"
+      ],
       "supports_custom_models": true,
       "supports_autoscaling": true,
       "min_billing_increment": "1 second"

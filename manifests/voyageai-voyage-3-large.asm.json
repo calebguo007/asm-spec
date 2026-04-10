@@ -1,17 +1,31 @@
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "voyageai/voyage-3-large@3.0",
   "taxonomy": "ai.llm.embedding",
   "display_name": "Voyage 3 Large",
+  "updated_at": "2026-04-10T00:00:00Z",
+  "ttl": 3600,
   "provider": {
     "name": "Voyage AI",
     "url": "https://www.voyageai.com"
   },
   "capabilities": {
     "description": "High-performance text embedding optimized for retrieval, code search, and multilingual tasks",
-    "input_modalities": ["text"],
-    "output_modalities": ["structured_data"],
-    "supported_languages": ["en", "zh", "ja", "ko", "fr", "de", "es"],
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "fr",
+      "de",
+      "es"
+    ],
     "context_window": 32000
   },
   "pricing": {
@@ -50,7 +64,10 @@
     "uptime": 0.998
   },
   "payment": {
-    "methods": ["api_key_prepaid", "stripe"],
+    "methods": [
+      "api_key_prepaid",
+      "stripe"
+    ],
     "auth_type": "api_key",
     "signup_url": "https://dash.voyageai.com"
   },

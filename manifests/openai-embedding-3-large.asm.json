@@ -1,18 +1,34 @@
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "openai/text-embedding-3-large@3.0",
   "taxonomy": "ai.llm.embedding",
   "display_name": "text-embedding-3-large",
+  "updated_at": "2026-04-10T00:00:00Z",
+  "ttl": 3600,
   "provider": {
     "name": "OpenAI",
     "url": "https://openai.com",
-    "verified_by": ["azure-marketplace"]
+    "verified_by": [
+      "azure-marketplace"
+    ]
   },
   "capabilities": {
     "description": "High-dimensional text embedding model (3072 dimensions) for semantic search and RAG",
-    "input_modalities": ["text"],
-    "output_modalities": ["structured_data"],
-    "supported_languages": ["en", "zh", "ja", "ko", "fr", "de", "es"],
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "fr",
+      "de",
+      "es"
+    ],
     "context_window": 8191
   },
   "pricing": {
@@ -43,10 +59,16 @@
     "latency_p99": "500ms",
     "throughput": "3000 req/min",
     "uptime": 0.999,
-    "regions": ["us-east-1", "eu-west-1"]
+    "regions": [
+      "us-east-1",
+      "eu-west-1"
+    ]
   },
   "payment": {
-    "methods": ["api_key_prepaid", "stripe"],
+    "methods": [
+      "api_key_prepaid",
+      "stripe"
+    ],
     "auth_type": "api_key",
     "signup_url": "https://platform.openai.com"
   },

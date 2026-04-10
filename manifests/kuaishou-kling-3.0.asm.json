@@ -1,16 +1,23 @@
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "kuaishou/kling-3.0@3.0",
   "taxonomy": "ai.video.generation",
   "display_name": "Kling 3.0",
+  "updated_at": "2026-04-10T00:00:00Z",
+  "ttl": 3600,
   "provider": {
     "name": "Kuaishou (via fal.ai)",
     "url": "https://klingai.com"
   },
   "capabilities": {
     "description": "High-quality text/image-to-video generation with native 4K support and 15s max duration",
-    "input_modalities": ["text", "image"],
-    "output_modalities": ["video"]
+    "input_modalities": [
+      "text",
+      "image"
+    ],
+    "output_modalities": [
+      "video"
+    ]
   },
   "pricing": {
     "billing_dimensions": [
@@ -42,17 +49,27 @@
   "sla": {
     "latency_p50": "60s",
     "latency_p99": "180s",
-    "regions": ["us-east-1", "cn-north-1"]
+    "regions": [
+      "us-east-1",
+      "cn-north-1"
+    ]
   },
   "payment": {
-    "methods": ["api_key_prepaid", "stripe"],
+    "methods": [
+      "api_key_prepaid",
+      "stripe"
+    ],
     "auth_type": "api_key",
     "signup_url": "https://fal.ai"
   },
   "extensions": {
     "video_gen": {
       "max_duration": "15s",
-      "resolutions": ["720p", "1080p", "4k"],
+      "resolutions": [
+        "720p",
+        "1080p",
+        "4k"
+      ],
       "supports_audio": false,
       "supports_img2vid": true
     }
