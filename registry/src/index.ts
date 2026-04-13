@@ -194,7 +194,7 @@ export function parseLatency(s?: string): number {
   return isNaN(n) ? Infinity : n;
 }
 
-export function extractPrimaryCost(m: ASMManifest): number {
+export function extractPrimaryCost(m: ASMManifest, ioRatio: number = 0.3): number {
   const dims = m.pricing?.billing_dimensions;
   if (!dims || dims.length === 0) return 0;
 
@@ -211,7 +211,8 @@ export function extractPrimaryCost(m: ASMManifest): number {
   }
 
   if (inputCost !== null && outputCost !== null) {
-    return 0.3 * inputCost + 0.7 * outputCost;
+    // 可配置的 IO 比例：ioRatio * input + (1 - ioRatio) * output
+    return ioRatio * inputCost + (1 - ioRatio) * outputCost;
   }
 
   let cost = dims[0].cost_per_unit;
@@ -299,6 +300,127 @@ export function scoreServices(
       total_score: Math.round(total * 10000) / 10000,
       breakdown: bd,
       reasoning: `${m.display_name || m.service_id} scored ${total.toFixed(3)} (cost=${bd.cost.toFixed(2)}, quality=${bd.quality.toFixed(2)}, speed=${bd.speed.toFixed(2)}, reliability=${bd.reliability.toFixed(2)}). Strongest weighted dimension: ${topDim}.`,
+      rank: 0,
+    };
+  });
+
+  results.sort((a, b) => b.total_score - a.total_score);
+  results.forEach((r, i) => (r.rank = i + 1));
+  return results;
+}
+
+/**
+ * TOPSIS (Technique for Order Preference by Similarity to Ideal Solution)
+ * 
+ * 与 scorer.py 的 score_topsis 完全对齐的 TypeScript 实现。
+ * 步骤：
+ *   1. 构建决策矩阵 (n services × 4 criteria)
+ *   2. 向量归一化
+ *   3. 加权
+ *   4. 找到正理想解 (A+) 和负理想解 (A-)
+ *   5. 计算每个服务到 A+ 和 A- 的距离
+ *   6. 计算贴近度: C = d- / (d+ + d-)
+ *   7. 按 C 排序（越高越好）
+ */
+export function scoreTopsis(
+  manifests: ASMManifest[],
+  weights: { cost: number; quality: number; speed: number; reliability: number },
+  ioRatio: number = 0.3
+): ScoreResult[] {
+  if (manifests.length === 0) return [];
+
+  const n = manifests.length;
+  const numCriteria = 4;
+
+  // Step 1: 决策矩阵 — [cost(minimize), quality(maximize), latency(minimize), uptime(maximize)]
+  const isBenefit = [false, true, false, true];
+  const w = [weights.cost, weights.quality, weights.speed, weights.reliability];
+
+  const raw: number[][] = manifests.map((m) => [
+    extractPrimaryCost(m, ioRatio),
+    extractPrimaryQuality(m),
+    parseLatency(m.sla?.latency_p50),
+    m.sla?.uptime ?? 0.5,
+  ]);
+
+  // Step 2: 向量归一化
+  const norm: number[][] = Array.from({ length: n }, () => Array(numCriteria).fill(0));
+  for (let j = 0; j < numCriteria; j++) {
+    const colSumSq = Math.sqrt(raw.reduce((sum, row) => sum + row[j] ** 2, 0));
+    if (colSumSq === 0) continue;
+    for (let i = 0; i < n; i++) {
+      norm[i][j] = raw[i][j] / colSumSq;
+    }
+  }
+
+  // Step 3: 加权归一化矩阵
+  const weighted: number[][] = norm.map((row) =>
+    row.map((val, j) => val * w[j])
+  );
+
+  // Step 4: 正理想解和负理想解
+  const aPos: number[] = [];
+  const aNeg: number[] = [];
+  for (let j = 0; j < numCriteria; j++) {
+    const col = weighted.map((row) => row[j]);
+    if (isBenefit[j]) {
+      aPos.push(Math.max(...col));
+      aNeg.push(Math.min(...col));
+    } else {
+      aPos.push(Math.min(...col));
+      aNeg.push(Math.max(...col));
+    }
+  }
+
+  // Step 5: 到理想解的距离
+  const dPos: number[] = [];
+  const dNeg: number[] = [];
+  for (let i = 0; i < n; i++) {
+    const dp = Math.sqrt(weighted[i].reduce((sum, val, j) => sum + (val - aPos[j]) ** 2, 0));
+    const dn = Math.sqrt(weighted[i].reduce((sum, val, j) => sum + (val - aNeg[j]) ** 2, 0));
+    dPos.push(dp);
+    dNeg.push(dn);
+  }
+
+  // Step 6: 贴近度系数
+  const labels = ["cost", "quality", "speed", "reliability"] as const;
+  const results: ScoreResult[] = manifests.map((m, i) => {
+    const denom = dPos[i] + dNeg[i];
+    const c = denom > 0 ? dNeg[i] / denom : 0.5;
+
+    // 构建 breakdown（将加权归一化值转为 0-1 展示分数）
+    const bd: Record<string, number> = {};
+    for (let j = 0; j < numCriteria; j++) {
+      const col = weighted.map((row) => row[j]);
+      const vmin = Math.min(...col);
+      const vmax = Math.max(...col);
+      if (vmax === vmin) {
+        bd[labels[j]] = 1.0;
+      } else if (isBenefit[j]) {
+        bd[labels[j]] = Math.round(((weighted[i][j] - vmin) / (vmax - vmin)) * 10000) / 10000;
+      } else {
+        bd[labels[j]] = Math.round(((vmax - weighted[i][j]) / (vmax - vmin)) * 10000) / 10000;
+      }
+    }
+
+    const dims = labels.map((name, j) => ({
+      name,
+      val: w[j] * bd[name],
+    }));
+    const topDim = dims.sort((a, b) => b.val - a.val)[0].name;
+
+    return {
+      service_id: m.service_id,
+      display_name: m.display_name || m.service_id,
+      taxonomy: m.taxonomy,
+      total_score: Math.round(c * 10000) / 10000,
+      breakdown: {
+        cost: bd.cost,
+        quality: bd.quality,
+        speed: bd.speed,
+        reliability: bd.reliability,
+      },
+      reasoning: `${m.display_name || m.service_id} scored ${c.toFixed(3)} (cost=${bd.cost.toFixed(2)}, quality=${bd.quality.toFixed(2)}, speed=${bd.speed.toFixed(2)}, reliability=${bd.reliability.toFixed(2)}). Strongest weighted dimension: ${topDim}. [TOPSIS]`,
       rank: 0,
     };
   });
@@ -656,7 +778,7 @@ async function main() {
   // ── Tool: asm_score ──
   server.tool(
     "asm_score",
-    "Score and rank services based on user preferences. Provide a taxonomy to filter, then set weights (0-1, must sum to 1) for cost, quality, speed, and reliability. Returns ranked recommendations with reasoning.",
+    "Score and rank services based on user preferences. Supports two methods: 'topsis' (default, multi-criteria decision analysis aligned with Python scorer) and 'weighted_average'. Also supports io_ratio for configurable input/output token cost blending.",
     {
       taxonomy: z
         .string()
@@ -666,8 +788,18 @@ async function main() {
       w_quality: z.number().min(0).max(1).default(0.3).describe("Weight for quality (higher is better). Default 0.3"),
       w_speed: z.number().min(0).max(1).default(0.2).describe("Weight for speed/latency (lower is better). Default 0.2"),
       w_reliability: z.number().min(0).max(1).default(0.2).describe("Weight for reliability/uptime (higher is better). Default 0.2"),
+      method: z
+        .enum(["topsis", "weighted_average"])
+        .default("topsis")
+        .describe("Scoring method. 'topsis' = TOPSIS multi-criteria analysis (default, aligned with Python scorer). 'weighted_average' = simple weighted average."),
+      io_ratio: z
+        .number()
+        .min(0)
+        .max(1)
+        .default(0.3)
+        .describe("Input/output token cost blend ratio. 0.3 = chat (default), 0.8 = RAG, 0.1 = creative writing, 0.5 = balanced."),
     },
-    async ({ taxonomy, w_cost, w_quality, w_speed, w_reliability }) => {
+    async ({ taxonomy, w_cost, w_quality, w_speed, w_reliability, method, io_ratio }) => {
       // Normalize weights
       const total = w_cost + w_quality + w_speed + w_reliability;
       const weights = {
@@ -693,10 +825,15 @@ async function main() {
         };
       }
 
-      const results = scoreServices(candidates, weights);
+      const results = method === "topsis"
+        ? scoreTopsis(candidates, weights, io_ratio)
+        : scoreServices(candidates, weights);
 
-      let text = `# ASM Service Ranking\n\n`;
+      const methodLabel = method === "topsis" ? "TOPSIS" : "Weighted Average";
+      let text = `# ASM Service Ranking (${methodLabel})\n\n`;
+      text += `**Method**: ${methodLabel}\n`;
       text += `**Weights**: cost=${weights.cost.toFixed(2)}, quality=${weights.quality.toFixed(2)}, speed=${weights.speed.toFixed(2)}, reliability=${weights.reliability.toFixed(2)}\n`;
+      text += `**IO Ratio**: ${io_ratio} (input token cost weight)\n`;
       text += `**Candidates**: ${candidates.length} services`;
       if (taxonomy) text += ` (taxonomy: \`${taxonomy}\`)`;
       text += "\n\n";

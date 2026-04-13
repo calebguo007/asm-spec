@@ -1,7 +1,7 @@
 {
   "name": "asm-registry",
-  "version": "0.2.0",
-  "description": "ASM Registry \u2014 MCP Server for querying Agent Service Manifests",
+  "version": "0.3.0",
+  "description": "ASM Registry — MCP Server for querying Agent Service Manifests",
   "main": "dist/index.js",
   "bin": {
     "asm-registry": "dist/index.js"
@@ -10,7 +10,9 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
-    "start:http": "npx ts-node src/http.ts"
+    "start:http": "npx ts-node src/http.ts",
+    "test": "tsx src/test_scorer.ts",
+    "test:topsis": "tsx src/test_topsis.ts"
   },
   "keywords": [
     "asm",

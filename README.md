@@ -138,7 +138,7 @@ Selection + Execution
 
 ---
 
-## Schema (v0.2)
+## Schema (v0.3)
 
 ASM manifests are JSON documents with **only 3 required fields**:
 
@@ -185,36 +185,38 @@ ai.video.editing                 infra.storage.vector
 ```
 asm-spec/
 ├── schema/
-│   └── asm-v0.2.schema.json        # Formal JSON Schema
-├── manifests/                        # 14 real-world service manifests
+│   ├── asm-v0.2.schema.json          # JSON Schema (v0.2)
+│   └── asm-v0.3.schema.json          # JSON Schema (v0.3: +receipts, verification, ttl)
+├── manifests/                         # 14 real-world service manifests
 │   ├── anthropic-claude-sonnet-4.asm.json
 │   ├── openai-gpt-4o.asm.json
 │   ├── google-gemini-2.5-pro.asm.json
-│   ├── bfl-flux-1.1-pro.asm.json
-│   ├── openai-dall-e-3.asm.json
-│   ├── google-imagen-3.asm.json
-│   ├── google-veo-3.1.asm.json
-│   ├── kuaishou-kling-3.0.asm.json
-│   ├── elevenlabs-tts.asm.json
-│   ├── openai-tts.asm.json
-│   ├── openai-embedding-3-large.asm.json
-│   ├── voyageai-voyage-3-large.asm.json
-│   ├── replicate-gpu.asm.json
-│   └── runpod-gpu.asm.json
-├── schema/
-│   ├── asm-v0.2.schema.json          # Formal JSON Schema (v0.2)
-│   └── asm-v0.3.schema.json          # v0.3 Schema (+receipt_endpoint, verification, updated_at, ttl)
+│   └── ... (14 services across 6 categories)
 ├── scorer/
-│   └── scorer.py                     # Filter + TOPSIS + Trust Delta scoring engine
+│   ├── scorer.py                      # Filter + TOPSIS + Trust Delta scoring engine
+│   └── test_scorer.py                 # Unit tests (golden, io_ratio, cross-language parity)
 ├── registry/
-│   └── src/index.ts                  # MCP Server (5 tools)
+│   └── src/
+│       ├── index.ts                   # MCP Server (5 tools, TOPSIS + Weighted Average)
+│       ├── http.ts                    # HTTP API (REST endpoints)
+│       ├── test_scorer.ts             # TypeScript unit tests
+│       └── test_topsis.ts             # TOPSIS cross-validation
+├── experiments/
+│   ├── ab_test.py                     # Simulated A/B test (TOPSIS vs Random vs Expensive)
+│   ├── real_ab_test.py                # Real API A/B test (live LLM calls)
+│   ├── analyze.py                     # Analysis & report generation
+│   └── results/                       # Test results (CSV + JSON + reports)
 ├── demo/
-│   ├── e2e_demo.py                   # End-to-end demo (5 scenarios)
-│   └── receipts_demo.py              # Signed Receipts trust pipeline demo
+│   ├── e2e_demo.py                    # End-to-end demo (5 scenarios)
+│   └── receipts_demo.py               # Signed Receipts trust pipeline demo
+├── integrations/
+│   └── langchain/                     # LangChain integration (callback + tools)
 ├── paper/
-│   └── asm-paper-draft.md            # Academic paper (Sections 1-8)
-└── sep/
-    └── sep-asm-service-value.md      # SEP proposal for MCP specification
+│   └── asm-paper-draft.md             # Academic paper draft
+├── sep/
+│   └── sep-asm-service-value.md       # SEP proposal for MCP specification
+└── docs/
+    └── internal/                      # Design notes, strategy docs, etc.
 ```
 
 ### 14 Services Across 6 Categories
@@ -232,7 +234,7 @@ asm-spec/
 
 ## Scorer
 
-Two scoring methods:
+Two scoring methods, **fully aligned** between Python and TypeScript (verified by cross-language parity tests):
 
 **Weighted Average** — simple, transparent, demo-ready.
 
@@ -241,6 +243,29 @@ Two scoring methods:
 Both support:
 - **Hard constraints** (filter): `quality >= 0.8 AND latency <= 5s`
 - **Soft preferences** (rank): `cost=0.4, quality=0.35, speed=0.15, reliability=0.10`
+- **Configurable io_ratio**: `0.3` (chat), `0.8` (RAG), `0.1` (creative writing) — controls input vs output token cost blending
+
+### Run Tests
+
+```bash
+# Python unit tests (3 tests: golden, io_ratio regression, cross-language parity)
+python3 scorer/test_scorer.py
+
+# TypeScript unit tests
+cd registry && npm test
+```
+
+### A/B Test Results (Real API Calls)
+
+ASM TOPSIS selection vs Random vs Most-Expensive strategy, tested with real LLM API calls:
+
+| Metric | ASM TOPSIS | Random | Expensive |
+|---|---|---|---|
+| TOPSIS Score | **0.8679** | 0.4571 | 0.3990 |
+| Response Quality | **0.97** | 0.76 | 0.90 |
+| Keyword Hit Rate | **100%** | 60% | 80% |
+
+Statistical significance: **A vs B p=0.048 ✅ | A vs C p=0.001 ✅**
 
 ---
 
@@ -347,14 +372,21 @@ Integration status: active collaboration with the [Agent Receipts](https://githu
 - [x] 18-category taxonomy
 - [x] 14 real-world manifests (6 categories)
 - [x] Scorer (Weighted Average + TOPSIS)
-- [x] MCP Server (5 tools)
+- [x] MCP Server (5 tools) + HTTP API
 - [x] E2E demo (5 scenarios)
 - [x] Schema v0.3 (`receipt_endpoint`, `verification`, `updated_at`, `ttl`)
 - [x] Trust delta scoring with exponential decay
 - [x] Signed Receipts integration demo
+- [x] Configurable io_ratio (chat/RAG/creative cost blending)
+- [x] Python ↔ TypeScript cross-language parity (verified)
+- [x] Unit tests (golden, regression, cross-language)
+- [x] **Real A/B test with live API calls** (TOPSIS vs Random: p<0.05 ✅)
 - [x] arXiv preprint
 - [x] SEP proposal to MCP specification
 - [x] MCP community discussion ([#718](https://github.com/orgs/modelcontextprotocol/discussions/718))
+- [ ] Automated manifest crawler pipeline
+- [ ] LangChain PR / framework integration
+- [ ] Conference submission (AAMAS / WWW)
 
 ---
 

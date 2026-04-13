@@ -1,0 +1,238 @@
+{
+  "experiment_info": {
+    "timestamp": "2026-04-13T15:05:57.730708",
+    "total_api_calls": 30,
+    "prompts_used": 10,
+    "type": "real_api_calls"
+  },
+  "summary": {
+    "A_ASM": {
+      "count": 10,
+      "topsis_mean": 0.8814,
+      "topsis_std": 0.0939,
+      "declared_cost_mean": 1.6e-07,
+      "declared_latency_mean": 0.135,
+      "declared_quality_mean": 0.6572,
+      "actual_latency_mean": 31.9456,
+      "actual_latency_std": 42.1835,
+      "quality_score_mean": 0.885,
+      "quality_score_std": 0.2082,
+      "keyword_hit_rate": 0.8
+    },
+    "B_Random": {
+      "count": 10,
+      "topsis_mean": 0.4692,
+      "topsis_std": 0.3209,
+      "declared_cost_mean": 5.32e-06,
+      "declared_latency_mean": 0.815,
+      "declared_quality_mean": 0.7712,
+      "actual_latency_mean": 13.5921,
+      "actual_latency_std": 17.0636,
+      "quality_score_mean": 0.935,
+      "quality_score_std": 0.1107,
+      "keyword_hit_rate": 0.9
+    },
+    "C_Expensive": {
+      "count": 10,
+      "topsis_mean": 0.3414,
+      "topsis_std": 0.176,
+      "declared_cost_mean": 1.14e-05,
+      "declared_latency_mean": 0.8,
+      "declared_quality_mean": 0.8167,
+      "actual_latency_mean": 36.1096,
+      "actual_latency_std": 31.3494,
+      "quality_score_mean": 0.78,
+      "quality_score_std": 0.2201,
+      "keyword_hit_rate": 0.6
+    }
+  },
+  "t_tests": {
+    "topsis_score": {
+      "A_vs_B": {
+        "t": 3.8981,
+        "p": 0.002696,
+        "significant": true
+      },
+      "A_vs_C": {
+        "t": 8.5605,
+        "p": 1e-06,
+        "significant": true
+      }
+    },
+    "actual_latency_s": {
+      "A_vs_B": {
+        "t": 1.2755,
+        "p": 0.226545,
+        "significant": false
+      },
+      "A_vs_C": {
+        "t": -0.2505,
+        "p": 0.805238,
+        "significant": false
+      }
+    },
+    "quality_score": {
+      "A_vs_B": {
+        "t": -0.6705,
+        "p": 0.513686,
+        "significant": false
+      },
+      "A_vs_C": {
+        "t": 1.0959,
+        "p": 0.28763,
+        "significant": false
+      }
+    }
+  },
+  "trust_analysis": {
+    "A_ASM": {
+      "latency_delta_mean": 236.5628,
+      "latency_delta_std": 300.1832
+    },
+    "B_Random": {
+      "latency_delta_mean": 44.8623,
+      "latency_delta_std": 65.8397
+    },
+    "C_Expensive": {
+      "latency_delta_mean": 44.137,
+      "latency_delta_std": 39.1868
+    }
+  },
+  "selection_freq": {
+    "A_ASM": {
+      "openai/text-embedding-3-large@3.0": 3,
+      "voyageai/voyage-3-large@3.0": 7
+    },
+    "B_Random": {
+      "google/gemini-2.5-pro@2.5": 4,
+      "openai/text-embedding-3-large@3.0": 2,
+      "openai/gpt-4o@2024-11-20": 3,
+      "voyageai/voyage-3-large@3.0": 1
+    },
+    "C_Expensive": {
+      "anthropic/claude-sonnet-4@4.0": 10
+    }
+  },
+  "category_breakdown": {
+    "code": {
+      "A_ASM": {
+        "count": 2,
+        "topsis_mean": 0.8211,
+        "quality_mean": 0.75,
+        "latency_mean": 71.0206
+      },
+      "B_Random": {
+        "count": 2,
+        "topsis_mean": 0.5177,
+        "quality_mean": 1.0,
+        "latency_mean": 10.2884
+      },
+      "C_Expensive": {
+        "count": 2,
+        "topsis_mean": 0.3694,
+        "quality_mean": 0.75,
+        "latency_mean": 48.2218
+      }
+    },
+    "creative": {
+      "A_ASM": {
+        "count": 2,
+        "topsis_mean": 0.8439,
+        "quality_mean": 1.0,
+        "latency_mean": 42.5956
+      },
+      "B_Random": {
+        "count": 2,
+        "topsis_mean": 0.7719,
+        "quality_mean": 1.0,
+        "latency_mean": 5.1646
+      },
+      "C_Expensive": {
+        "count": 2,
+        "topsis_mean": 0.2885,
+        "quality_mean": 0.8,
+        "latency_mean": 60.1267
+      }
+    },
+    "factual": {
+      "A_ASM": {
+        "count": 2,
+        "topsis_mean": 0.8498,
+        "quality_mean": 1.0,
+        "latency_mean": 5.4282
+      },
+      "B_Random": {
+        "count": 2,
+        "topsis_mean": 0.192,
+        "quality_mean": 1.0,
+        "latency_mean": 4.9216
+      },
+      "C_Expensive": {
+        "count": 2,
+        "topsis_mean": 0.4728,
+        "quality_mean": 1.0,
+        "latency_mean": 4.9757
+      }
+    },
+    "instruction": {
+      "A_ASM": {
+        "count": 1,
+        "topsis_mean": 0.9403,
+        "quality_mean": 1.0,
+        "latency_mean": 4.324
+      },
+      "B_Random": {
+        "count": 1,
+        "topsis_mean": 0.3415,
+        "quality_mean": 0.8,
+        "latency_mean": 60.1059
+      },
+      "C_Expensive": {
+        "count": 1,
+        "topsis_mean": 0.1038,
+        "quality_mean": 1.0,
+        "latency_mean": 6.8293
+      }
+    },
+    "reasoning": {
+      "A_ASM": {
+        "count": 2,
+        "topsis_mean": 0.9462,
+        "quality_mean": 0.925,
+        "latency_mean": 8.1536
+      },
+      "B_Random": {
+        "count": 2,
+        "topsis_mean": 0.6467,
+        "quality_mean": 0.925,
+        "latency_mean": 13.6814
+      },
+      "C_Expensive": {
+        "count": 2,
+        "topsis_mean": 0.2881,
+        "quality_mean": 0.5,
+        "latency_mean": 60.1004
+      }
+    },
+    "summary": {
+      "A_ASM": {
+        "count": 1,
+        "topsis_mean": 0.952,
+        "quality_mean": 0.5,
+        "latency_mean": 60.7355
+      },
+      "B_Random": {
+        "count": 1,
+        "topsis_mean": 0.0937,
+        "quality_mean": 0.7,
+        "latency_mean": 7.7034
+      },
+      "C_Expensive": {
+        "count": 1,
+        "topsis_mean": 0.4724,
+        "quality_mean": 0.7,
+        "latency_mean": 7.4174
+      }
+    }
+  }
+}

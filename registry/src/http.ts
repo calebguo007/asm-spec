@@ -27,6 +27,7 @@ import {
   extractPrimaryQuality,
   parseLatency,
   scoreServices,
+  scoreTopsis,
   formatManifestSummary,
 } from "./index.js";
 
@@ -266,13 +267,18 @@ app.post("/api/compare", (req: Request, res: Response) => {
     },
   }));
 
-  // 使用 scoreServices 计算综合评分（默认均衡权重）
-  const scores = scoreServices(manifests, {
+  // 使用 TOPSIS 计算综合评分（与 Python scorer 一致）
+  const ioRatio = req.body.io_ratio ?? 0.3;
+  const method = req.body.method ?? "topsis";
+  const weights = {
     cost: 0.25,
     quality: 0.25,
     speed: 0.25,
     reliability: 0.25,
-  });
+  };
+  const scores = method === "topsis"
+    ? scoreTopsis(manifests, weights, ioRatio)
+    : scoreServices(manifests, weights);
 
   res.json({
     compared: manifests.length,
@@ -288,6 +294,69 @@ app.post("/api/compare", (req: Request, res: Response) => {
   });
 });
 
+// ── POST /api/score → 评分排名 ──────────────────────
+
+app.post("/api/score", (req: Request, res: Response) => {
+  const {
+    taxonomy,
+    w_cost = 0.3,
+    w_quality = 0.3,
+    w_speed = 0.2,
+    w_reliability = 0.2,
+    method = "topsis",
+    io_ratio = 0.3,
+  } = req.body;
+
+  // 归一化权重
+  const total = w_cost + w_quality + w_speed + w_reliability;
+  const weights = {
+    cost: w_cost / total,
+    quality: w_quality / total,
+    speed: w_speed / total,
+    reliability: w_reliability / total,
+  };
+
+  let candidates = registry.getAll();
+  if (taxonomy) {
+    candidates = candidates.filter((m: ASMManifest) =>
+      m.taxonomy.startsWith(taxonomy)
+    );
+  }
+
+  if (candidates.length === 0) {
+    res.json({
+      method,
+      io_ratio,
+      weights,
+      count: 0,
+      ranking: [],
+      available_taxonomies: registry.listTaxonomies(),
+    });
+    return;
+  }
+
+  const results = method === "topsis"
+    ? scoreTopsis(candidates, weights, io_ratio)
+    : scoreServices(candidates, weights);
+
+  res.json({
+    method: method === "topsis" ? "TOPSIS" : "Weighted Average",
+    io_ratio,
+    weights,
+    taxonomy: taxonomy || null,
+    count: results.length,
+    ranking: results.map((r) => ({
+      rank: r.rank,
+      service_id: r.service_id,
+      display_name: r.display_name,
+      taxonomy: r.taxonomy,
+      total_score: r.total_score,
+      breakdown: r.breakdown,
+      reasoning: r.reasoning,
+    })),
+  });
+});
+
 // ── 启动服务器 ─────────────────────────────────────────
 
 app.listen(PORT, () => {
@@ -299,5 +368,6 @@ app.listen(PORT, () => {
   console.log(`     GET  /api/services/:id      — 获取服务详情`);
   console.log(`     POST /api/query             — 按条件查询服务`);
   console.log(`     POST /api/compare           — 对比多个服务`);
+  console.log(`     POST /api/score             — 评分排名（TOPSIS/加权平均）`);
   console.log(`\n   已加载 ${loadedCount} 个 ASM manifest\n`);
 });
