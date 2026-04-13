@@ -385,7 +385,7 @@ def score_topsis(
     results.sort(key=lambda x: x.total_score, reverse=True)
     for i, r in enumerate(results):
         r.rank = i + 1
-    r.reasoning = _generate_reasoning(r, preferences)
+        r.reasoning = _generate_reasoning(r, preferences)
     return results
 
 
