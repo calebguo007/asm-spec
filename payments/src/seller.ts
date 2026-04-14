@@ -27,6 +27,8 @@ import express, { Request, Response, NextFunction } from "express";
 import * as fs from "fs";
 import * as path from "path";
 import cors from "cors";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 import { loadConfig } from "./config.js";
 import { ledger } from "./ledger.js";
 import { trustStore } from "./trust-delta.js";
@@ -42,7 +44,17 @@ const config = loadConfig();
 
 const app = express();
 app.use(cors());
+app.use(helmet({ contentSecurityPolicy: false })); // Security headers (CSP disabled for SSE)
 app.use(express.json());
+
+// Rate limiting: 100 requests per minute per IP for paid endpoints
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "rate_limited", message: "Too many requests, please try again later" },
+});
 
 // ── Global State ───────────────────────────────────────────
 
@@ -100,7 +112,7 @@ function broadcastEvent(event: {
   for (let i = sseClients.length - 1; i >= 0; i--) {
     try {
       sseClients[i].res.write(payload);
-    } catch {
+    } catch (_e) {
       sseClients.splice(i, 1);
     }
   }
@@ -221,14 +233,53 @@ function mockPaymentMiddleware(price: string) {
 function decodePaymentResponse(res: Response): { transaction?: string; payer?: string; network?: string } | null {
   // x402 middleware sets PAYMENT-RESPONSE header after settlement
   // Value is base64-encoded JSON: { success, payer, transaction, network }
-  const raw = res.getHeader("payment-response") as string | undefined;
-  if (!raw) return null;
-  try {
-    const decoded = Buffer.from(raw, "base64").toString("utf-8");
-    return JSON.parse(decoded);
-  } catch {
-    return null;
+  // Try multiple header name variants (Express normalizes to lowercase)
+  const headerNames = [
+    "payment-response", "PAYMENT-RESPONSE", "Payment-Response",
+    "x-payment-response", "X-Payment-Response",
+    "x402-payment-response", "X402-Payment-Response",
+  ];
+  let raw: string | undefined;
+  for (const name of headerNames) {
+    const val = res.getHeader(name) as string | undefined;
+    if (val) { raw = val; break; }
   }
+
+  // Also scan all response headers for any payment-related header
+  if (!raw) {
+    const allHeaders = res.getHeaders();
+    for (const [key, val] of Object.entries(allHeaders)) {
+      if (key.toLowerCase().includes("payment") && typeof val === "string" && val.length > 10) {
+        raw = val;
+        break;
+      }
+    }
+  }
+
+  if (!raw) return null;
+
+  // Try multiple decoding strategies
+  const decoders: Array<() => any> = [
+    // Strategy 1: base64 → JSON
+    () => JSON.parse(Buffer.from(raw!, "base64").toString("utf-8")),
+    // Strategy 2: plain JSON
+    () => JSON.parse(raw!),
+    // Strategy 3: URL-encoded base64
+    () => JSON.parse(Buffer.from(decodeURIComponent(raw!), "base64").toString("utf-8")),
+    // Strategy 4: double base64
+    () => JSON.parse(Buffer.from(Buffer.from(raw!, "base64").toString("utf-8"), "base64").toString("utf-8")),
+  ];
+
+  for (const decoder of decoders) {
+    try {
+      const result = decoder();
+      if (result && typeof result === "object") {
+        return result;
+      }
+    } catch (_e) { /* try next strategy */ }
+  }
+
+  return null;
 }
 
 // ── Payment recording hook (records to ledger in live mode) ───────────
@@ -396,7 +447,7 @@ function registerRoutes() {
     ? mockPaymentMiddleware(config.scorePrice)
     : recordPayment("/api/score", config.scorePrice);
 
-  app.post("/api/score", scoreMiddleware, async (req: Request, res: Response) => {
+  app.post("/api/score", apiLimiter, scoreMiddleware, async (req: Request, res: Response) => {
     try {
       const data = await proxyToRegistry("/api/score", "POST", req.body);
       // live mode: settlement info decoded from PAYMENT-RESPONSE header by recordPayment hook
@@ -476,7 +527,7 @@ function registerRoutes() {
     ? mockPaymentMiddleware(config.queryPrice)
     : recordPayment("/api/query", config.queryPrice);
 
-  app.post("/api/query", queryMiddleware, async (req: Request, res: Response) => {
+  app.post("/api/query", apiLimiter, queryMiddleware, async (req: Request, res: Response) => {
     try {
       const data = await proxyToRegistry("/api/query", "POST", req.body);
       const settlement = (req as any).settlement;
@@ -547,7 +598,7 @@ function registerRoutes() {
     ? mockPaymentMiddleware(config.scorePrice)
     : recordPayment("/api/agent-decide", config.scorePrice);
 
-  app.post("/api/agent-decide", agentMiddleware, async (req: Request, res: Response) => {
+  app.post("/api/agent-decide", apiLimiter, agentMiddleware, async (req: Request, res: Response) => {
     const startTime = Date.now();
     try {
       const { request: agentRequest, gemini_api_key } = req.body;
@@ -606,7 +657,7 @@ function registerRoutes() {
             const timeout = setTimeout(() => controller.abort(), 3000);
             try {
               await fetch(svcEndpoint, { method: "HEAD", signal: controller.signal });
-            } catch { /* Timeout/unreachable also records latency */ }
+            } catch (_e) { /* Timeout/unreachable also records latency */ }
             clearTimeout(timeout);
           } else {
             // No real endpoint → simulate based on declared latency + real network jitter
@@ -615,29 +666,12 @@ function registerRoutes() {
             await new Promise(r => setTimeout(r, Math.max(20, declaredMs * 0.1 + jitterMs)));
           }
           serviceCallResult = { actualLatencyMs: Date.now() - callStart, success: true };
-        } catch {
+        } catch (_e) {
           serviceCallResult = { actualLatencyMs: Date.now() - callStart, success: false };
         }
       }
 
       const latencyMs = Date.now() - startTime;
-
-      // Broadcast: decision complete
-      broadcastEvent({
-        type: "decide",
-        agentAddress: agentAddr,
-        agentName,
-        data: {
-          action: "agent_decide",
-          request: agentRequest,
-          intent: { taxonomy: intent.taxonomy, weights: intent.weights, reasoning: intent.reasoning },
-          ranking: scoring.ranking?.slice(0, 3)?.map((s: any) => ({ display_name: s.display_name, score: s.total_score })),
-          winner: topService?.display_name,
-          amount: config.scorePrice,
-          txHash: settlement?.transaction || payment?.txHash,
-          latencyMs,
-        },
-      });
 
       // Step 4: Trust Delta loop — generate receipts for recommended services and update trust scores
       let trustUpdate = undefined;
@@ -668,6 +702,40 @@ function registerRoutes() {
         };
         trustUpdate = trustStore.addReceipt(receipt, declared);
       }
+
+      // Broadcast: decision complete (after trust is computed)
+      broadcastEvent({
+        type: "decide",
+        agentAddress: agentAddr,
+        agentName,
+        data: {
+          action: "agent_decide",
+          request: agentRequest,
+          intent: { taxonomy: intent.taxonomy, weights: intent.weights, reasoning: intent.reasoning },
+          ranking: scoring.ranking?.slice(0, 5)?.map((s: any) => ({
+            display_name: s.display_name,
+            score: s.total_score,
+            taxonomy: s.taxonomy,
+            breakdown: s.breakdown,
+          })),
+          winner: topService?.display_name,
+          winnerTaxonomy: topService?.taxonomy,
+          amount: config.scorePrice,
+          txHash: settlement?.transaction || payment?.txHash,
+          latencyMs,
+          serviceCall: serviceCallResult ? {
+            actualLatencyMs: serviceCallResult.actualLatencyMs,
+            declaredLatencyMs: topService ? (topService.breakdown?.speed ?? 0.5) * 1000 : null,
+            success: serviceCallResult.success,
+          } : undefined,
+          trust: trustUpdate ? {
+            serviceId: trustUpdate.serviceId,
+            trustScore: trustUpdate.trustScore,
+            confidence: trustUpdate.confidence,
+            numReceipts: trustUpdate.numReceipts,
+          } : undefined,
+        },
+      });
 
       res.json({
         request: agentRequest,
@@ -727,7 +795,7 @@ function registerRoutes() {
     try {
       const html = fs.readFileSync(htmlPath, "utf-8");
       res.send(html);
-    } catch {
+    } catch (_e) {
       res.send("<h1>Dashboard HTML not found</h1><p>Expected at: " + htmlPath + "</p>");
     }
   });

@@ -5,252 +5,388 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ASM — Agent Service Marketplace</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #050508; --bg1: #0a0a10; --bg2: #0f0f18; --bg3: #151522;
-      --border: #1a1a2e; --border2: #252540;
-      --t0: #f0f0f5; --t1: #b8b8cc; --t2: #7a7a94; --t3: #4a4a60;
-      --blue: #4f8ff7; --green: #34d399; --amber: #fbbf24; --rose: #fb7185;
-      --purple: #a78bfa; --cyan: #22d3ee; --orange: #fb923c; --pink: #f472b6;
-      --serif: 'Instrument Serif', Georgia, serif;
-      --sans: 'Space Grotesk', system-ui, sans-serif;
-      --mono: 'JetBrains Mono', 'SF Mono', monospace;
+      --bg:    #0A0A0A;
+      --bg1:   #111111;
+      --bg2:   #171717;
+      --bg3:   #1A1A1A;
+      --border:#262626;
+      --border2:#333333;
+      --t0:    #F5F5F5;
+      --t1:    #B4B4B4;
+      --t2:    #8A8A8A;
+      --t3:    #6E6E6E;
+      --blue:  #0070F3;
+      --green: #00C853;
+      --amber: #F5A623;
+      --rose:  #E5484D;
+      --sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono:  'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
-    body { font-family:var(--sans); background:var(--bg); color:var(--t1); overflow-x:hidden; -webkit-font-smoothing:antialiased; }
-    body::after {
-      content:''; position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:0.015;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    body {
+      font-family:var(--sans); background:var(--bg); color:var(--t1);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.5; overflow-x:hidden;
     }
-    .bg-fx { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-    .bg-fx .orb { position:absolute; border-radius:50%; filter:blur(140px); }
-    .bg-fx .o1 { width:700px; height:500px; background:var(--blue); top:-200px; right:-200px; opacity:0.04; }
-    .bg-fx .o2 { width:400px; height:400px; background:var(--green); bottom:-100px; left:-100px; opacity:0.03; }
-    .page { max-width:1100px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+    }
+
+    /* ── LAYOUT ── */
+    .page { max-width:960px; margin:0 auto; padding:0 24px; }
 
     /* ── TOPBAR ── */
-    .topbar { display:flex; justify-content:space-between; align-items:center; padding:18px 0; border-bottom:1px solid var(--border); }
-    .topbar .logo { font-family:var(--mono); font-size:13px; font-weight:600; color:var(--t0); letter-spacing:1px; }
-    .topbar .logo span { color:var(--blue); }
-    .topbar .live-dot { display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10px; color:var(--green); }
-    .topbar .live-dot .dot { width:5px; height:5px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
+    .topbar {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:16px 0; border-bottom:1px solid var(--border);
+      position:sticky; top:0; z-index:50; background:rgba(10,10,10,0.85);
+      -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    }
+    .topbar .logo {
+      font-family:var(--mono); font-size:13px; font-weight:600; color:var(--t0);
+      letter-spacing:0.5px; display:flex; align-items:center; gap:8px;
+    }
+    .topbar .logo .logo-mark {
+      width:20px; height:20px; border-radius:4px; background:var(--blue);
+      display:flex; align-items:center; justify-content:center;
+      font-size:10px; font-weight:700; color:#fff;
+    }
+    .topbar .status {
+      display:flex; align-items:center; gap:6px;
+      font-family:var(--mono); font-size:11px; color:var(--t2);
+    }
+    .topbar .status .dot {
+      width:6px; height:6px; border-radius:50%;
+      background:var(--green); animation:pulse 2.5s ease-in-out infinite;
+    }
     @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
 
-    /* ── SVG icon uniform sizing ── */
-    .i-svg { display:inline-flex; align-items:center; justify-content:center; vertical-align:middle; flex-shrink:0; }
-    .i-svg svg { width:16px; height:16px; }
-    .i-svg.lg svg { width:36px; height:36px; }
-    .i-svg.md svg { width:20px; height:20px; }
-    .i-svg.sm svg { width:14px; height:14px; }
-    .i-svg.xs svg { width:12px; height:12px; }
-
-    /* ── ONBOARDING PROMPT ── */
+    /* ── ONBOARDING ── */
     .onboard {
-      margin:24px 0; padding:24px 28px; border-radius:14px;
-      background:linear-gradient(135deg, rgba(79,143,247,0.04) 0%, rgba(52,211,153,0.04) 100%);
-      border:1px solid rgba(79,143,247,0.12); position:relative;
+      margin:32px 0 24px; padding:1px; border-radius:12px;
+      background:linear-gradient(135deg, rgba(0,112,243,0.12), transparent 60%);
     }
-    .onboard .ob-label {
-      display:inline-flex; align-items:center; gap:6px;
-      font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:1.5px;
-      color:var(--blue); margin-bottom:10px;
+    .onboard-inner {
+      padding:24px; border-radius:11px; background:var(--bg);
     }
-    .onboard .ob-title {
-      font-family:var(--serif); font-size:22px; color:var(--t0); margin-bottom:6px; line-height:1.3;
+    .ob-badge {
+      display:inline-flex; align-items:center; gap:5px; padding:3px 10px;
+      border-radius:100px; background:rgba(0,112,243,0.08); border:1px solid rgba(0,112,243,0.15);
+      font-family:var(--mono); font-size:10px; font-weight:500; color:var(--blue);
+      text-transform:uppercase; letter-spacing:0.8px; margin-bottom:12px;
     }
-    .onboard .ob-desc { font-size:12px; color:var(--t2); margin-bottom:14px; line-height:1.5; }
-    .onboard .ob-prompt-wrap {
-      position:relative; border-radius:10px; overflow:hidden;
-      border:1px solid var(--border2); background:var(--bg1);
-    }
-    .onboard .ob-prompt {
-      font-family:var(--mono); font-size:11px; line-height:1.65; color:var(--t1);
-      padding:16px 52px 16px 16px; white-space:pre-wrap; word-break:break-word;
-      max-height:220px; overflow-y:auto; user-select:all;
-    }
-    .onboard .ob-prompt::-webkit-scrollbar { width:4px; }
-    .onboard .ob-prompt::-webkit-scrollbar-track { background:var(--bg2); }
-    .onboard .ob-prompt::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
-    .onboard .ob-copy {
-      position:absolute; top:8px; right:8px; width:34px; height:34px; border-radius:8px;
-      background:var(--bg3); border:1px solid var(--border2); color:var(--t2);
-      font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center;
-      transition:all 0.2s; z-index:2; padding:0;
-    }
-    .onboard .ob-copy:hover { background:var(--blue); color:#fff; border-color:var(--blue); }
-    .onboard .ob-copy:hover svg path, .onboard .ob-copy:hover svg polyline, .onboard .ob-copy:hover svg rect { stroke:#fff; }
-    .onboard .ob-copy.copied { background:var(--green); color:#fff; border-color:var(--green); }
-    .onboard .ob-copy.copied svg path, .onboard .ob-copy.copied svg polyline { stroke:#fff; }
+    .ob-badge svg { width:12px; height:12px; }
+    .ob-title { font-size:20px; font-weight:600; color:var(--t0); margin-bottom:6px; letter-spacing:-0.3px; }
+    .ob-desc { font-size:13px; color:var(--t1); margin-bottom:16px; max-width:600px; }
 
-    /* ── QUICK START TABS ── */
-    .qs-tabs { display:flex; gap:6px; margin-bottom:10px; }
+    /* tabs */
+    .qs-tabs { display:flex; gap:1px; margin-bottom:12px; background:var(--border); border-radius:8px; overflow:hidden; }
     .qs-tab {
-      font-family:var(--mono); font-size:10px; padding:4px 10px; border-radius:6px;
-      background:var(--bg3); color:var(--t3); border:1px solid transparent;
-      cursor:pointer; transition:all 0.2s;
+      font-family:var(--mono); font-size:11px; font-weight:500; padding:6px 14px;
+      background:var(--bg2); color:var(--t3); border:none; cursor:pointer;
+      transition:color 0.15s ease-out, background 0.15s ease-out;
     }
-    .qs-tab.active { color:var(--blue); border-color:var(--blue); background:rgba(79,143,247,0.06); }
-    .qs-tab:hover { color:var(--t1); }
+    .qs-tab:first-child { border-radius:8px 0 0 8px; }
+    .qs-tab:last-child { border-radius:0 8px 8px 0; }
+    .qs-tab.active { color:var(--t0); background:var(--bg3); }
+    .qs-tab:hover:not(.active) { color:var(--t1); }
 
-    /* ── LIVE FEED ── */
-    .feed-section { margin:24px 0; }
-    .feed-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
-    .feed-header h2 { font-family:var(--serif); font-size:22px; color:var(--t0); }
-    .feed-header .feed-count { font-family:var(--mono); font-size:10px; color:var(--t3); padding:3px 8px; border-radius:4px; background:var(--bg3); }
-    .feed-status {
-      display:flex; align-items:center; gap:6px; font-size:11px; color:var(--t3);
-      margin-bottom:12px; padding:8px 12px; border-radius:8px; background:var(--bg1); border:1px solid var(--border);
+    /* prompt box */
+    .ob-prompt-wrap {
+      position:relative; border-radius:8px; overflow:hidden;
+      border:1px solid var(--border); background:var(--bg1);
     }
-    .feed-status .fs-dot { width:6px; height:6px; border-radius:50%; }
-    .feed-status .fs-dot.connected { background:var(--green); animation:pulse 2s infinite; }
-    .feed-status .fs-dot.waiting { background:var(--amber); animation:pulse 1.5s infinite; }
+    .ob-prompt {
+      font-family:var(--mono); font-size:11px; line-height:1.7; color:var(--t1);
+      padding:14px 48px 14px 14px; white-space:pre-wrap; word-break:break-word;
+      max-height:200px; overflow-y:auto; user-select:all;
+    }
+    .ob-prompt::-webkit-scrollbar { width:4px; }
+    .ob-prompt::-webkit-scrollbar-track { background:transparent; }
+    .ob-prompt::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+    .ob-copy {
+      position:absolute; top:8px; right:8px; width:32px; height:32px; border-radius:6px;
+      background:var(--bg2); border:1px solid var(--border); color:var(--t1);
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      transition:all 0.15s ease-out; z-index:2; padding:0;
+    }
+    .ob-copy svg { width:14px; height:14px; }
+    .ob-copy:hover { background:var(--blue); color:#fff; border-color:var(--blue); }
+    .ob-copy.copied { background:var(--green); color:#fff; border-color:var(--green); }
+
+    /* ── STATS ── */
+    .stats-grid {
+      display:grid; grid-template-columns:repeat(5,1fr); gap:1px;
+      background:var(--border); border-radius:10px; overflow:hidden; margin:24px 0;
+    }
+    .stat-cell {
+      padding:16px; background:var(--bg1);
+      transition:background 0.15s ease-out;
+    }
+    .stat-cell:hover { background:var(--bg2); }
+    .stat-cell .sv {
+      font-family:var(--mono); font-size:20px; font-weight:600; color:var(--t0);
+      letter-spacing:-0.5px;
+    }
+    .stat-cell .sl {
+      font-size:11px; color:var(--t2); margin-top:2px;
+      text-transform:uppercase; letter-spacing:0.5px;
+    }
+
+    /* ── DEMO BAR ── */
+    .demo-bar {
+      display:flex; align-items:center; gap:12px; padding:12px 16px;
+      background:var(--bg1); border:1px solid var(--border); border-radius:10px;
+      margin-bottom:24px;
+    }
+    .btn-demo {
+      font-family:var(--sans); font-size:12px; font-weight:500;
+      padding:8px 18px; border-radius:6px; border:none; cursor:pointer;
+      display:inline-flex; align-items:center; gap:6px;
+      background:#fff; color:#000; transition:all 0.15s ease-out;
+    }
+    .btn-demo:hover { background:#E0E0E0; }
+    .btn-demo:disabled { opacity:0.35; cursor:not-allowed; }
+    .btn-demo svg { width:12px; height:12px; }
+    .demo-info { font-size:12px; color:var(--t2); flex:1; }
+    .demo-info a { color:var(--blue); text-decoration:none; }
+    .demo-info a:hover { text-decoration:underline; }
+
+    /* ── FEED ── */
+    .feed-section { margin-bottom:16px; }
+    .feed-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+    .feed-header h2 { font-size:14px; font-weight:600; color:var(--t0); letter-spacing:-0.2px; }
+    .feed-count {
+      font-family:var(--mono); font-size:10px; color:var(--t3);
+      padding:3px 8px; border-radius:100px; background:var(--bg2); border:1px solid var(--border);
+    }
+    .feed-status {
+      display:flex; align-items:center; gap:6px; font-size:11px; color:var(--t2);
+      padding:8px 12px; border-radius:8px; background:var(--bg1); border:1px solid var(--border);
+      margin-bottom:16px;
+    }
+    .feed-status .fs-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+    .feed-status .fs-dot.connected { background:var(--green); animation:pulse 2.5s ease-in-out infinite; }
+    .feed-status .fs-dot.waiting { background:var(--amber); animation:pulse 1.5s ease-in-out infinite; }
     .feed-status .fs-dot.disconnected { background:var(--rose); }
 
     /* ── TIMELINE ── */
     .timeline { position:relative; }
-    .timeline::before { content:''; position:absolute; left:19px; top:0; bottom:0; width:1px; background:var(--border); }
+    .timeline::before {
+      content:''; position:absolute; left:15px; top:0; bottom:0; width:1px;
+      background:linear-gradient(to bottom, var(--border), transparent);
+    }
     .tl-empty {
-      padding:40px 20px; text-align:center; color:var(--t3); font-size:12px;
-      border:1px dashed var(--border); border-radius:12px;
+      padding:48px 20px; text-align:center; color:var(--t2); font-size:12px;
+      border:1px dashed var(--border); border-radius:10px;
     }
-    .tl-empty .tl-empty-icon { margin-bottom:8px; display:flex; justify-content:center; }
+    .tl-empty svg { width:32px; height:32px; color:var(--t2); margin-bottom:8px; opacity:0.6; }
     .tl-entry {
-      position:relative; padding-left:48px; padding-bottom:18px;
-      animation:fadeUp 0.4s ease-out;
+      position:relative; padding-left:40px; padding-bottom:12px;
+      animation:fadeIn 0.3s ease-out;
     }
-    @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+
     .tl-entry .tl-dot {
-      position:absolute; left:12px; top:4px; width:15px; height:15px; border-radius:50%;
+      position:absolute; left:10px; top:6px; width:11px; height:11px; border-radius:50%;
       border:2px solid var(--border); background:var(--bg);
     }
-    .tl-entry.browse .tl-dot { border-color:var(--blue); background:rgba(79,143,247,0.15); }
-    .tl-entry.decide .tl-dot { border-color:var(--amber); background:rgba(251,191,36,0.15); }
-    .tl-entry.pay .tl-dot { border-color:var(--green); background:rgba(52,211,153,0.15); }
-    .tl-entry.connect .tl-dot { border-color:var(--purple); background:rgba(167,139,250,0.15); }
+    .tl-entry.browse .tl-dot  { border-color:var(--blue); background:rgba(0,112,243,0.2); }
+    .tl-entry.decide .tl-dot  { border-color:var(--blue); background:rgba(0,112,243,0.15); }
+    .tl-entry.pay .tl-dot     { border-color:var(--green); background:rgba(0,200,83,0.2); }
+    .tl-entry.connect .tl-dot { border-color:var(--blue); background:rgba(0,112,243,0.15); }
+
     .tl-card {
-      background:var(--bg1); border:1px solid var(--border); border-radius:12px;
-      padding:14px 18px; transition:border-color 0.2s;
+      background:var(--bg1); border:1px solid var(--border); border-radius:8px;
+      padding:12px 16px; transition:border-color 0.15s ease-out;
     }
     .tl-card:hover { border-color:var(--border2); }
-    .tl-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
-    .tl-head .tl-action { font-size:12px; font-weight:600; color:var(--t0); display:flex; align-items:center; gap:6px; }
-    .tl-head .tl-time { font-family:var(--mono); font-size:10px; color:var(--t3); }
-    .tl-body { font-size:12px; color:var(--t2); line-height:1.6; }
+    .tl-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+    .tl-action { font-size:12px; font-weight:600; color:var(--t0); display:flex; align-items:center; gap:5px; }
+    .tl-action svg { width:14px; height:14px; color:var(--t1); }
+    .tl-time { font-family:var(--mono); font-size:10px; color:var(--t2); }
+    .tl-body { font-size:12px; color:var(--t1); line-height:1.6; }
+
     .tl-body .intent {
       margin:6px 0; padding:8px 12px; border-radius:6px;
-      background:rgba(79,143,247,0.04); border-left:2px solid var(--blue);
+      background:var(--bg2); border-left:2px solid var(--blue);
       font-style:italic; color:var(--t1); font-size:11px;
     }
-    .tl-addr { font-family:var(--mono); font-size:9px; color:var(--t3); margin-top:4px; }
+    .tl-addr { font-family:var(--mono); font-size:10px; color:var(--t3); margin-top:6px; }
 
-    /* Ranking bar */
-    .tl-ranking { margin:8px 0 6px; }
-    .tl-rank-row { display:grid; grid-template-columns:18px 1fr 70px 50px; align-items:center; gap:6px; padding:3px 0; font-size:11px; }
-    .tl-rank-row .rk { font-family:var(--mono); font-size:9px; font-weight:700; width:16px; height:16px; display:flex; align-items:center; justify-content:center; border-radius:3px; }
-    .tl-rank-row .rk.r1 { background:rgba(52,211,153,0.12); color:var(--green); }
-    .tl-rank-row .rk.r2 { background:rgba(251,191,36,0.08); color:var(--amber); }
-    .tl-rank-row .rk.r3 { background:rgba(122,122,148,0.06); color:var(--t3); }
-    .tl-rank-row .sn { color:var(--t0); font-weight:500; }
-    .tl-rank-row .sn.win { color:var(--green); }
-    .tl-rank-row .bar-w { height:3px; background:var(--bg3); border-radius:2px; overflow:hidden; }
-    .tl-rank-row .bar { height:100%; border-radius:2px; }
-    .tl-rank-row .bar.g1 { background:linear-gradient(90deg,var(--green),var(--cyan)); }
-    .tl-rank-row .bar.g2 { background:var(--amber); }
-    .tl-rank-row .bar.g3 { background:var(--t3); }
-    .tl-rank-row .sc { font-family:var(--mono); font-size:10px; color:var(--t2); text-align:right; }
-    .pay-pill {
-      display:inline-flex; align-items:center; gap:5px; margin-top:4px;
+    /* ── TAXONOMY TAG ── */
+    .tax-tag {
+      display:inline-flex; align-items:center; gap:3px; font-family:var(--mono); font-size:10px;
+      padding:2px 8px; border-radius:4px; background:rgba(0,112,243,0.06); color:var(--blue);
+      border:1px solid rgba(0,112,243,0.1);
+    }
+
+    /* ── WEIGHT PILLS ── */
+    .tl-weights { display:flex; gap:4px; flex-wrap:wrap; margin:6px 0; }
+    .tl-weight-pill {
       font-family:var(--mono); font-size:10px; padding:3px 8px; border-radius:4px;
-      background:rgba(52,211,153,0.06); color:var(--green); border:1px solid rgba(52,211,153,0.1);
+      background:var(--bg2); color:var(--t1); display:flex; align-items:center; gap:4px;
+      border:1px solid var(--border);
     }
-    .pay-pill .i-svg svg { width:11px; height:11px; }
+    .wp-bar { width:24px; height:3px; background:var(--bg); border-radius:2px; overflow:hidden; }
+    .wp-fill { height:100%; border-radius:2px; }
+    .wp-fill.cost { background:var(--t1); }
+    .wp-fill.quality { background:var(--t1); }
+    .wp-fill.speed { background:var(--t1); }
+    .wp-fill.reliability { background:var(--t1); }
+
+    /* ── RANKING ── */
+    .tl-ranking { margin:8px 0 6px; }
+    .tl-rank-row {
+      display:grid; grid-template-columns:20px 1fr 80px 48px;
+      align-items:center; gap:6px; padding:4px 0; font-size:11px;
+    }
+    .rk {
+      font-family:var(--mono); font-size:10px; font-weight:700;
+      width:18px; height:18px; display:flex; align-items:center; justify-content:center;
+      border-radius:4px;
+    }
+    .rk.r1 { background:rgba(0,112,243,0.12); color:var(--blue); }
+    .rk.r2 { background:rgba(0,112,243,0.06); color:var(--t1); }
+    .rk.r3 { background:rgba(82,82,82,0.08); color:var(--t3); }
+    .sn { color:var(--t1); font-weight:500; }
+    .sn.win { color:var(--t0); }
+    .bar-w { height:3px; background:var(--bg3); border-radius:2px; overflow:hidden; }
+    .bar { height:100%; border-radius:2px; }
+    .bar.g1 { background:var(--blue); }
+    .bar.g2 { background:var(--blue); opacity:0.5; }
+    .bar.g3 { background:var(--t3); opacity:0.4; }
+    .sc { font-family:var(--mono); font-size:10px; color:var(--t1); text-align:right; }
+
+    /* ── SERVICE CALL ── */
+    .tl-svc-call {
+      display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:8px 0; padding:10px 12px;
+      border-radius:6px; background:var(--bg2); border:1px solid var(--border);
+    }
+    .sc-col { text-align:center; }
+    .sc-label { font-size:10px; color:var(--t2); text-transform:uppercase; letter-spacing:0.8px; }
+    .sc-val { font-family:var(--mono); font-size:15px; font-weight:600; margin-top:2px; }
+    .sc-val.actual { color:var(--blue); }
+    .sc-val.declared { color:var(--t1); }
+    .sc-delta {
+      grid-column:1/-1; text-align:center; font-family:var(--mono); font-size:10px; color:var(--t1);
+      padding-top:6px; border-top:1px solid var(--border);
+    }
+
+    /* ── TRUST ── */
+    .tl-trust {
+      display:flex; align-items:center; gap:10px; margin:8px 0; padding:8px 12px;
+      border-radius:6px; background:var(--bg2); border:1px solid var(--border);
+    }
+    .trust-score { font-family:var(--mono); font-size:18px; font-weight:700; color:var(--t0); min-width:52px; }
+    .trust-bar-w { flex:1; height:4px; background:var(--bg); border-radius:2px; overflow:hidden; }
+    .trust-bar { height:100%; border-radius:2px; background:var(--blue); opacity:0.7; }
+    .trust-meta { font-family:var(--mono); font-size:10px; color:var(--t2); white-space:nowrap; }
+
+    /* ── PAY PILL ── */
+    .pay-pill {
+      display:inline-flex; align-items:center; gap:4px; margin-top:6px;
+      font-family:var(--mono); font-size:10px; padding:4px 10px; border-radius:4px;
+      background:rgba(0,200,83,0.06); color:var(--green); border:1px solid rgba(0,200,83,0.12);
+    }
+    .pay-pill svg { width:10px; height:10px; }
+
+    /* ── BROWSE TAGS ── */
     .browse-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:6px; }
-    .browse-tag { font-size:10px; padding:3px 8px; border-radius:4px; background:rgba(79,143,247,0.06); color:var(--blue); border:1px solid rgba(79,143,247,0.1); }
-
-    /* ── STATS BAR ── */
-    .stats-bar {
-      display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:20px 0;
+    .browse-tag {
+      font-size:10px; padding:3px 8px; border-radius:4px;
+      background:rgba(0,112,243,0.06); color:var(--blue); border:1px solid rgba(0,112,243,0.1);
     }
-    .stat-card {
-      padding:14px; border-radius:10px; background:var(--bg1); border:1px solid var(--border);
-    }
-    .stat-card .sv { font-family:var(--mono); font-size:18px; font-weight:600; color:var(--t0); }
-    .stat-card .sl { font-size:9px; color:var(--t3); text-transform:uppercase; letter-spacing:1.5px; margin-top:2px; }
-
-    /* ── DEMO BUTTON ── */
-    .demo-bar {
-      display:flex; align-items:center; gap:12px; padding:12px 16px;
-      background:var(--bg1); border:1px solid var(--border); border-radius:10px;
-      margin-bottom:20px;
-    }
-    .demo-bar .db-btn {
-      font-family:var(--sans); font-size:11px; font-weight:600;
-      padding:7px 16px; border-radius:7px; border:none; cursor:pointer; transition:all 0.2s;
-      display:inline-flex; align-items:center; gap:6px;
-    }
-    .db-btn.primary { background:var(--blue); color:#fff; }
-    .db-btn.primary:hover { background:#3d7de5; }
-    .db-btn:disabled { opacity:0.4; cursor:not-allowed; }
-    .db-btn .i-svg svg { color:#fff; } .db-btn .i-svg svg path { stroke:#fff; fill:rgba(255,255,255,0.25); }
-    .demo-bar .db-info { font-size:10px; color:var(--t3); flex:1; }
 
     /* ── FOOTER ── */
-    .footer { padding:20px 0; text-align:center; font-size:10px; color:var(--t3); border-top:1px solid var(--border); margin-top:20px; }
-    .footer a { color:var(--t2); text-decoration:none; margin:0 8px; }
-    .footer a:hover { color:var(--blue); }
+    .footer {
+      padding:24px 0; text-align:center; font-size:11px; color:var(--t2);
+      border-top:1px solid var(--border); margin-top:32px;
+    }
+    .footer a { color:var(--t1); text-decoration:none; margin:0 8px; transition:color 0.15s; }
+    .footer a:hover { color:var(--t0); }
 
-    .rv { opacity:0; transform:translateY(16px); transition:all 0.5s cubic-bezier(0.16,1,0.3,1); }
+    /* ── REVEAL ANIMATION ── */
+    .rv { opacity:0; transform:translateY(12px); transition:all 0.4s cubic-bezier(0.16,1,0.3,1); }
     .rv.visible { opacity:1; transform:none; }
 
+    /* ── RESPONSIVE ── */
     @media (max-width:768px) {
-      .stats-bar { grid-template-columns:repeat(2,1fr); }
+      .stats-grid { grid-template-columns:repeat(3,1fr); }
+      .tl-rank-row { grid-template-columns:20px 1fr 60px 44px; }
+    }
+    @media (max-width:480px) {
+      .stats-grid { grid-template-columns:repeat(2,1fr); }
+      .page { padding:0 16px; }
+      .tl-weights { gap:3px; }
+      .ob-title { font-size:18px; }
     }
   </style>
 </head>
 <body>
-  <div class="bg-fx"><div class="orb o1"></div><div class="orb o2"></div></div>
-
   <div class="page">
+
+    <!-- ═══ TOPBAR ═══ -->
     <div class="topbar">
-      <div class="logo"><span>ASM</span> · Agent Service Marketplace</div>
-      <div class="live-dot"><div class="dot"></div> <span id="top-mode">Connecting…</span></div>
+      <div class="logo">
+        <span class="logo-mark">A</span>
+        ASM
+      </div>
+      <div class="status">
+        <div class="dot"></div>
+        <span id="top-mode">Connecting…</span>
+      </div>
     </div>
 
-    <!-- ═══ ONBOARDING PROMPT ═══ -->
+    <!-- ═══ ONBOARDING ═══ -->
     <div class="onboard rv" id="onboard">
-      <div class="ob-label"><span class="i-svg sm" id="ic-clipboard-label"></span> Copy this to your AI Agent</div>
-      <div class="ob-title">Connect your Agent to ASM</div>
-      <div class="ob-desc">
-        Paste this prompt to any AI agent (ChatGPT, Claude, Cursor, etc.) to let it discover, compare, and purchase services through ASM.
-        Your agent's activity will appear in the live feed below in real time.
-      </div>
+      <div class="onboard-inner">
+        <div class="ob-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Quick Start
+        </div>
+        <div class="ob-title">Connect your Agent to ASM</div>
+        <div class="ob-desc">
+          Paste this to any AI agent (ChatGPT, Claude, Cursor) to let it discover, compare, and pay for services.
+          Activity appears in the live feed below.
+        </div>
 
-      <div class="qs-tabs">
-        <div class="qs-tab active" onclick="switchPrompt('natural')">Natural Language</div>
-        <div class="qs-tab" onclick="switchPrompt('curl')">cURL / CLI</div>
-        <div class="qs-tab" onclick="switchPrompt('sdk')">TypeScript SDK</div>
-      </div>
+        <div class="qs-tabs">
+          <div class="qs-tab active" onclick="switchPrompt('natural')">Natural Language</div>
+          <div class="qs-tab" onclick="switchPrompt('curl')">cURL</div>
+          <div class="qs-tab" onclick="switchPrompt('sdk')">TypeScript</div>
+        </div>
 
-      <div class="ob-prompt-wrap">
-        <div class="ob-prompt" id="ob-prompt"></div>
-        <button class="ob-copy" id="ob-copy" onclick="copyPrompt()" title="Copy to clipboard"><span id="ob-copy-icon"></span></button>
+        <div class="ob-prompt-wrap">
+          <div class="ob-prompt" id="ob-prompt"></div>
+          <button class="ob-copy" id="ob-copy" onclick="copyPrompt()" title="Copy">
+            <svg id="ob-copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
       </div>
     </div>
 
     <!-- ═══ STATS ═══ -->
-    <div class="stats-bar rv">
-      <div class="stat-card"><div class="sv" id="s-services">—</div><div class="sl">Services</div></div>
-      <div class="stat-card"><div class="sv" id="s-decisions">0</div><div class="sl">Decisions</div></div>
-      <div class="stat-card"><div class="sv" id="s-spent">0</div><div class="sl">USDC Spent</div></div>
-      <div class="stat-card"><div class="sv" id="s-agents">0</div><div class="sl">Unique Agents</div></div>
+    <div class="stats-grid rv">
+      <div class="stat-cell"><div class="sv" id="s-services">—</div><div class="sl">Services</div></div>
+      <div class="stat-cell"><div class="sv" id="s-decisions">0</div><div class="sl">Decisions</div></div>
+      <div class="stat-cell"><div class="sv" id="s-spent">0.000</div><div class="sl">USDC Spent</div></div>
+      <div class="stat-cell"><div class="sv" id="s-agents">0</div><div class="sl">Agents</div></div>
+      <div class="stat-cell"><div class="sv" id="s-trust" >0</div><div class="sl">Trust Receipts</div></div>
     </div>
 
-    <!-- ═══ DEMO BAR ═══ -->
+    <!-- ═══ DEMO ═══ -->
     <div class="demo-bar rv">
-      <button class="db-btn primary" id="btn-demo" onclick="runLiveDemo()"><span id="btn-demo-icon"></span><span id="btn-demo-text"> Run Live Demo</span></button>
-      <span class="db-info" id="demo-info">Simulate an agent browsing and purchasing services — activity appears in real-time below.</span>
+      <button class="btn-demo" id="btn-demo" onclick="runLiveDemo()">
+        <svg id="btn-demo-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        <span id="btn-demo-text">Run Demo</span>
+      </button>
+      <span class="demo-info" id="demo-info">Simulate agents browsing and purchasing services in real-time.</span>
     </div>
 
     <!-- ═══ LIVE FEED ═══ -->
@@ -267,15 +403,20 @@
 
     <div class="timeline rv" id="timeline">
       <div class="tl-empty" id="tl-empty">
-        <div class="tl-empty-icon"><span class="i-svg lg" id="ic-eye-empty"></span></div>
-        Waiting for agent activity…<br>
-        <span style="font-size:10px;color:var(--t3);">Copy the prompt above to your AI, or click <strong>Run Live Demo</strong></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <div style="margin-top:4px;">Waiting for agent activity…</div>
+        <div style="font-size:10px;color:var(--t3);margin-top:4px;">Copy the prompt above, or click <strong style="color:var(--t1)">Run Demo</strong></div>
       </div>
     </div>
 
+    <!-- ═══ FOOTER ═══ -->
     <div class="footer">
       ASM v0.3 · Agent Service Marketplace · Circle Nanopayments on Arc<br>
-      <a href="/api/health">Health</a> <a href="/api/services">Services</a> <a href="/api/stats">Stats</a> <a href="/api/ledger/export">Export</a>
+      <a href="/api/health">Health</a>
+      <a href="/api/services">Services</a>
+      <a href="/api/stats">Stats</a>
+      <a href="/api/trust">Trust</a>
+      <a href="/api/ledger/export">Export</a>
     </div>
   </div>
 
@@ -283,93 +424,25 @@
 const API = '';
 const HOST = location.origin;
 
-// ══════════════════════════════════════════════════════
-// Hand-drawn style SVG icon system
-// Key features: irregular strokes, slight path jitter, rounded endpoints
-// ══════════════════════════════════════════════════════
+// ── SVG Icons (clean line style) ──────────────────────────────
 
-const ICO = {
-  // 📋 Clipboard — hand-drawn rectangle + clip
-  clipboard: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9.2 3.5c.3-1.1 1.3-1.5 2.8-1.5s2.5.4 2.8 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-    <rect x="8" y="3" width="8" height="2.5" rx="1.2" stroke="currentColor" stroke-width="1.4" fill="none"/>
-    <path d="M7.5 5.2c-1.5.1-2.5.8-2.5 2.3l.1 11.2c0 1.5 1 2.3 2.4 2.3h9c1.4 0 2.4-.8 2.4-2.3l.1-11.2c0-1.5-1-2.2-2.5-2.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M9 12.5h6M9 16h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
-  </svg>`,
-
-  // ✓ Check — hand-drawn checkmark
-  check: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4.5 12.8c1.2 1.5 3 3.8 4.8 6.2C12.5 13.2 16 8 20 4.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`,
-
-  // 👀 Eye/browse — hand-drawn eye + pupil
-  eye: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M2.5 12c1.5-4.2 5-7 9.5-7s8 2.8 9.5 7c-1.5 4.2-5 7-9.5 7s-8-2.8-9.5-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.5"/>
-    <circle cx="12" cy="12" r="1.2" fill="currentColor" opacity="0.6"/>
-  </svg>`,
-
-  // 🧠 Brain/decision — hand-drawn brain outline + neural paths
-  brain: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 2.5c-2 0-3.5 1-4.2 2.3C6.5 4.2 5 5.5 4.5 7.5c-.6 2 .2 3.8 1 5 -.5 1.5-.2 3.2.8 4.5 1 1.3 2.5 2 4 2.2.5.8 1.2 1.3 1.7 1.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M12 2.5c2 0 3.5 1 4.2 2.3 1.3-.6 2.8.7 3.3 2.7.6 2-.2 3.8-1 5 .5 1.5.2 3.2-.8 4.5-1 1.3-2.5 2-4 2.2-.5.8-1.2 1.3-1.7 1.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M12 5v16" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
-    <path d="M8.5 9c1.5.5 2.5 1 3.5 1M8 14c2-.5 3-1 4-1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity="0.35"/>
-    <path d="M15.5 9c-1.5.5-2.5 1-3.5 1M16 14c-2-.5-3-1-4-1" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity="0.35"/>
-  </svg>`,
-
-  // 💳 Payment/card — hand-drawn credit card
-  card: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="2.5" y="5" width="19" height="14" rx="2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M2.5 9.5h19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-    <path d="M6 14.5h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/>
-    <path d="M6 16.5h2.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity="0.35"/>
-    <rect x="16" y="13.5" width="3" height="2.2" rx="0.6" stroke="currentColor" stroke-width="1" opacity="0.4"/>
-  </svg>`,
-
-  // 💡 Lightbulb/reasoning — hand-drawn bulb + rays
-  bulb: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9 18h6M10 20.5h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-    <path d="M9.2 15.5c-1.5-1.2-2.7-3-2.7-5.2 0-3.1 2.5-5.8 5.5-5.8s5.5 2.7 5.5 5.8c0 2.2-1.2 4-2.7 5.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M12 4.5V2.5M5.5 7.5l-1.5-1M18.5 7.5l1.5-1M4 12.5H2.5M21.5 12.5H20" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity="0.35"/>
-  </svg>`,
-
-  // ▶ Play — hand-drawn triangle
-  play: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 4.5c0-.8.6-1 1.2-.6l11.5 7c.7.4.7 1.2 0 1.6l-11.5 7c-.6.4-1.2.2-1.2-.6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="currentColor" fill-opacity="0.15"/>
-  </svg>`,
-
-  // ⏳ Hourglass/wait — hand-drawn hourglass
-  hourglass: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 3h10M7 21h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-    <path d="M7.5 3c.2 3 1.5 5.5 4.5 7.5-3 2-4.3 4.5-4.5 7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M16.5 3c-.2 3-1.5 5.5-4.5 7.5 3 2 4.3 4.5 4.5 7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M9.5 17.5c1-.5 2.5-.8 2.5-.8s1.5.3 2.5.8" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
-  </svg>`,
+const SVG = {
+  copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+  eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>',
+  brain: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 00-4.8 3.6A4 4 0 004 9.5a4.5 4.5 0 001 8.5 4 4 0 007 2v1"/><path d="M12 2a5 5 0 014.8 3.6A4 4 0 0120 9.5a4.5 4.5 0 01-1 8.5 4 4 0 01-7 2v1"/><path d="M12 8v8" opacity="0.3"/></svg>',
+  card: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>',
+  bulb: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 18h6M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A7 7 0 1 0 8.5 11.5c.76.76 1.23 1.52 1.41 2.5"/></svg>',
+  play: '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6,3 20,12 6,21"/></svg>',
+  loader: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" opacity="0.4"/></svg>',
 };
 
-// Inject SVGs into static DOM placeholders
-function injectStaticIcons() {
-  const map = {
-    'ic-clipboard-label': ICO.clipboard,
-    'ob-copy-icon': ICO.clipboard,
-    'ic-eye-empty': ICO.eye,
-  };
-  for (const [id, svg] of Object.entries(map)) {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = svg;
-  }
-  // Demo button initial icon
-  document.getElementById('btn-demo-icon').innerHTML = ICO.play;
+function icon(name, size) {
+  const s = size || 14;
+  return `<span style="display:inline-flex;align-items:center;width:${s}px;height:${s}px;flex-shrink:0;">${SVG[name]||''}</span>`;
 }
 
-// Generate inline SVG strings (for JS dynamic insertion)
-function ico(name, cls) {
-  const extra = cls ? ` ${cls}` : '';
-  return `<span class="i-svg${extra}">${ICO[name] || ''}</span>`;
-}
-
-// ── Prompt Templates ──────────────────────────────────────
+// ── Prompt Templates ──────────────────────────────────
 
 const PROMPTS = {
   natural: `You have access to ASM (Agent Service Marketplace) — a protocol that helps you discover, compare, and select the best service for any task.
@@ -395,10 +468,17 @@ When you need to find a tool or service (LLM, database, email API, todo app, sea
 3. **Your owner can watch your decisions in real-time at:**
    ${HOST}
 
+## What happens behind the scenes
+- ASM scores services using TOPSIS (multi-criteria decision analysis) weighted by your preferences.
+- After selecting a service, ASM probes it to measure real latency and compares it against the declared specs.
+- A Trust Delta score is computed: services that consistently match their claims earn higher trust.
+- All of this is recorded on-chain via Circle Nanopayments on Arc Testnet.
+
 ## Important
 - Always include X-Buyer-Address and X-Agent-Name headers so your activity is visible.
 - Describe what you need in natural language — ASM understands cost/quality/speed/reliability preferences.
-- Each decision costs only $0.005 USDC — much cheaper than searching the web yourself.`,
+- Each decision costs only $0.005 USDC — much cheaper than searching the web yourself.
+- Your owner can watch your entire decision process (intent → ranking → service call → trust → payment) in real-time.`,
 
   curl: `# ASM — Agent Service Marketplace
 # Endpoint: ${HOST}
@@ -425,7 +505,6 @@ curl -s -X POST ${HOST}/api/score \\
 curl -N ${HOST}/api/events`,
 
   sdk: `import { ASMClient } from "./asm-client";
-// or: const resp = await fetch("${HOST}/api/agent-decide", { ... })
 
 const asm = new ASMClient({
   endpoint: "${HOST}",
@@ -447,13 +526,10 @@ console.log(result.recommendation);
 // Direct TOPSIS scoring
 const scored = await asm.score({
   taxonomy: "ai.llm.chat",
-  w_cost: 0.5,
-  w_quality: 0.3,
-  w_speed: 0.1,
-  w_reliability: 0.1,
+  w_cost: 0.5, w_quality: 0.3,
+  w_speed: 0.1, w_reliability: 0.1,
 });
-console.log(scored.ranking[0]);
-// → { display_name: "GPT-4o mini", total_score: 0.891 }`,
+console.log(scored.ranking[0]);`,
 };
 
 let currentPromptType = 'natural';
@@ -471,14 +547,11 @@ function copyPrompt() {
   const btn = document.getElementById('ob-copy');
   const iconEl = document.getElementById('ob-copy-icon');
   btn.classList.add('copied');
-  iconEl.innerHTML = ICO.check;
-  setTimeout(() => {
-    btn.classList.remove('copied');
-    iconEl.innerHTML = ICO.clipboard;
-  }, 1500);
+  iconEl.innerHTML = SVG.check;
+  setTimeout(() => { btn.classList.remove('copied'); iconEl.innerHTML = SVG.copy; }, 1500);
 }
 
-// ── SSE Real-time Connection ─────────────────────────────────────
+// ── SSE ─────────────────────────────────────────────────
 
 let evtSource = null;
 let eventCount = 0;
@@ -487,27 +560,19 @@ let uniqueAgents = new Set();
 function connectSSE() {
   if (evtSource) evtSource.close();
   evtSource = new EventSource(API + '/api/events');
-
   evtSource.onopen = () => {
-    const dot = document.querySelector('#feed-status .fs-dot');
-    dot.className = 'fs-dot connected';
+    document.querySelector('#feed-status .fs-dot').className = 'fs-dot connected';
     document.getElementById('feed-status-text').textContent = 'Connected — listening for agent activity';
   };
-
   evtSource.onmessage = (e) => {
     try {
       const evt = JSON.parse(e.data);
-      if (evt.type === 'welcome') {
-        document.getElementById('top-mode').textContent = 'Live · SSE Connected';
-        return;
-      }
+      if (evt.type === 'welcome') { document.getElementById('top-mode').textContent = 'Live'; return; }
       handleEvent(evt);
     } catch {}
   };
-
   evtSource.onerror = () => {
-    const dot = document.querySelector('#feed-status .fs-dot');
-    dot.className = 'fs-dot disconnected';
+    document.querySelector('#feed-status .fs-dot').className = 'fs-dot disconnected';
     document.getElementById('feed-status-text').textContent = 'Disconnected — reconnecting…';
     document.getElementById('top-mode').textContent = 'Reconnecting…';
   };
@@ -516,15 +581,12 @@ function connectSSE() {
 function handleEvent(evt) {
   eventCount++;
   document.getElementById('feed-count').textContent = `${eventCount} events`;
-
   if (evt.agentAddress) uniqueAgents.add(evt.agentAddress.toLowerCase());
   document.getElementById('s-agents').textContent = uniqueAgents.size;
 
-  // Remove empty state
   const empty = document.getElementById('tl-empty');
   if (empty) empty.remove();
 
-  const tl = document.getElementById('timeline');
   const time = new Date(evt.timestamp).toLocaleTimeString('en-US', { hour12:false, hour:'2-digit', minute:'2-digit', second:'2-digit' });
   const addrShort = evt.agentAddress ? (evt.agentAddress.slice(0,6) + '…' + evt.agentAddress.slice(-4)) : '—';
   const agentLabel = evt.agentName || addrShort;
@@ -532,63 +594,81 @@ function handleEvent(evt) {
   if (evt.type === 'browse') {
     const d = evt.data;
     let body = '';
-    if (d.action === 'list_services') {
-      body = `Discovered <strong>${d.count}</strong> services in the marketplace`;
-    } else if (d.action === 'agent_decide_start') {
-      body = `<div class="intent">${d.request}</div>`;
-    } else if (d.action === 'query') {
-      body = `Queried services with filters → <strong>${d.resultCount}</strong> results`;
-    }
+    if (d.action === 'list_services') body = `Discovered <strong>${d.count}</strong> services`;
+    else if (d.action === 'agent_decide_start') body = `<div class="intent">${d.request}</div>`;
+    else if (d.action === 'query') body = `Queried → <strong>${d.resultCount}</strong> results`;
     body += `<div class="tl-addr">${agentLabel} · ${addrShort}</div>`;
-    addEntry('browse', ico('eye','sm'), `${agentLabel} — Browsing`, body, time);
+    addEntry('browse', icon('eye'), `${agentLabel} — Browse`, body, time);
   }
 
   if (evt.type === 'decide') {
     const d = evt.data;
     let body = '';
     if (d.request) body += `<div class="intent">${d.request}</div>`;
-    if (d.intent?.reasoning) body += `<div style="font-size:10px;color:var(--t3);margin:4px 0;display:flex;align-items:flex-start;gap:4px;">${ico('bulb','xs')} ${d.intent.reasoning}</div>`;
 
-    if (d.ranking && d.ranking.length) {
-      const maxScore = d.ranking[0].score || 1;
-      body += '<div class="tl-ranking">';
-      d.ranking.forEach((s, i) => {
-        const pct = ((s.score / maxScore) * 100).toFixed(0);
-        body += `<div class="tl-rank-row">
-          <span class="rk r${i+1}">${i+1}</span>
-          <span class="sn ${i===0?'win':''}">${s.display_name}</span>
-          <div class="bar-w"><div class="bar g${i+1}" style="width:${pct}%"></div></div>
-          <span class="sc">${s.score?.toFixed(3) || '—'}</span>
-        </div>`;
+    if (d.intent?.reasoning) {
+      body += `<div style="font-size:10px;color:var(--t2);margin:4px 0;display:flex;align-items:flex-start;gap:4px;">${icon('bulb',12)} ${d.intent.reasoning}</div>`;
+    }
+    if (d.intent?.taxonomy || d.winnerTaxonomy) {
+      body += `<span class="tax-tag">${d.intent?.taxonomy || d.winnerTaxonomy}</span> `;
+    }
+
+    if (d.intent?.weights) {
+      const w = d.intent.weights;
+      body += '<div class="tl-weights">';
+      [['Cost',w.w_cost,'cost'],['Quality',w.w_quality,'quality'],['Speed',w.w_speed,'speed'],['Reliability',w.w_reliability,'reliability']].forEach(([l,v,c]) => {
+        const p = Math.round((v||0)*100);
+        body += `<span class="tl-weight-pill">${l} <span class="wp-bar"><span class="wp-fill ${c}" style="width:${p}%"></span></span> ${p}%</span>`;
       });
       body += '</div>';
     }
 
-    if (d.winner && d.amount) {
-      body += `<div class="pay-pill">${ico('check','xs')} ${d.amount} USDC → selected ${d.winner}</div>`;
+    if (d.ranking?.length) {
+      const mx = d.ranking[0].score || 1;
+      body += '<div class="tl-ranking">';
+      d.ranking.slice(0,3).forEach((s,i) => {
+        const p = ((s.score/mx)*100).toFixed(0);
+        body += `<div class="tl-rank-row"><span class="rk r${i+1}">${i+1}</span><span class="sn ${i===0?'win':''}">${s.display_name}</span><div class="bar-w"><div class="bar g${i+1}" style="width:${p}%"></div></div><span class="sc">${s.score?.toFixed(3)||'—'}</span></div>`;
+      });
+      body += '</div>';
     }
-    body += `<div class="tl-addr">${agentLabel} · ${addrShort}${d.latencyMs ? ' · ' + d.latencyMs + 'ms' : ''}</div>`;
-    addEntry('decide', ico('brain','sm'), `${agentLabel} — Decision`, body, time);
 
-    // Update stats
+    if (d.serviceCall) {
+      const sc = d.serviceCall;
+      const col = sc.success ? 'var(--blue)' : 'var(--rose)';
+      const txt = sc.success ? 'OK' : 'FAIL';
+      body += `<div class="tl-svc-call">
+        <div class="sc-col"><div class="sc-label">Actual</div><div class="sc-val actual">${sc.actualLatencyMs}ms</div></div>
+        <div class="sc-col"><div class="sc-label">Declared</div><div class="sc-val declared">${sc.declaredLatencyMs?.toFixed(0)||'?'}ms</div></div>
+        <div class="sc-delta">\u0394 ${sc.delta!=null?(sc.delta*100).toFixed(1)+'%':'N/A'} · <span style="color:${col}">${txt}</span></div>
+      </div>`;
+    }
+
+    if (d.trust) {
+      const ts = d.trust;
+      const p = Math.round((ts.trustScore||0)*100);
+      body += `<div class="tl-trust">
+        <span class="trust-score">${ts.trustScore?.toFixed(3)}</span>
+        <div class="trust-bar-w"><div class="trust-bar" style="width:${p}%"></div></div>
+        <span class="trust-meta">${ts.numReceipts} receipts · conf ${ts.confidence?.toFixed(2)}</span>
+      </div>`;
+    }
+
+    if (d.winner && d.amount) {
+      body += `<div class="pay-pill">${icon('check',10)} ${d.amount} USDC → ${d.winner}</div>`;
+    }
+    body += `<div class="tl-addr">${agentLabel} · ${addrShort}${d.latencyMs ? ' · '+d.latencyMs+'ms' : ''}</div>`;
+    addEntry('decide', icon('brain'), `${agentLabel} — Decision`, body, time);
     refreshStats();
   }
 }
 
 function addEntry(type, iconHtml, action, bodyHtml, timeStr) {
   const tl = document.getElementById('timeline');
-  const entry = document.createElement('div');
-  entry.className = `tl-entry ${type}`;
-  entry.innerHTML = `
-    <div class="tl-dot"></div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-action"><span class="icon">${iconHtml}</span> ${action}</span>
-        <span class="tl-time">${timeStr}</span>
-      </div>
-      <div class="tl-body">${bodyHtml}</div>
-    </div>`;
-  tl.insertBefore(entry, tl.firstChild);
+  const el = document.createElement('div');
+  el.className = `tl-entry ${type}`;
+  el.innerHTML = `<div class="tl-dot"></div><div class="tl-card"><div class="tl-head"><span class="tl-action">${iconHtml} ${action}</span><span class="tl-time">${timeStr}</span></div><div class="tl-body">${bodyHtml}</div></div>`;
+  tl.insertBefore(el, tl.firstChild);
   while (tl.children.length > 30) tl.removeChild(tl.lastChild);
 }
 
@@ -596,18 +676,20 @@ function addEntry(type, iconHtml, action, bodyHtml, timeStr) {
 
 async function refreshStats() {
   try {
-    const [stats, svc] = await Promise.all([
-      fetch(API + '/api/stats').then(r => r.json()).catch(() => ({})),
-      fetch(API + '/api/services').then(r => r.json()).catch(() => ({ count: 0 })),
+    const [stats, svc, trust] = await Promise.all([
+      fetch(API+'/api/stats').then(r=>r.json()).catch(()=>({})),
+      fetch(API+'/api/services').then(r=>r.json()).catch(()=>({count:0})),
+      fetch(API+'/api/trust').then(r=>r.json()).catch(()=>({totalReceipts:0})),
     ]);
     document.getElementById('s-services').textContent = svc.count || '—';
     document.getElementById('s-decisions').textContent = stats.totalTransactions || 0;
-    document.getElementById('s-spent').textContent = parseFloat(stats.totalVolume || '0').toFixed(3);
+    document.getElementById('s-spent').textContent = parseFloat(stats.totalVolume||'0').toFixed(3);
     if (stats.uniqueBuyers) document.getElementById('s-agents').textContent = Math.max(uniqueAgents.size, stats.uniqueBuyers);
+    document.getElementById('s-trust').textContent = trust.totalReceipts || 0;
   } catch {}
 }
 
-// ── Live Demo ────────────────────────────────────────
+// ── Demo ─────────────────────────────────────────────
 
 let demoRunning = false;
 
@@ -615,91 +697,98 @@ async function runLiveDemo() {
   if (demoRunning) return;
   demoRunning = true;
   const btn = document.getElementById('btn-demo');
-  const btnIcon = document.getElementById('btn-demo-icon');
   btn.disabled = true;
-  btnIcon.innerHTML = ICO.hourglass;
-  document.getElementById('btn-demo-text').textContent = ' Running…';
-  document.getElementById('demo-info').textContent = 'Demo agent is browsing and purchasing services…';
+  document.getElementById('btn-demo-icon').innerHTML = SVG.loader;
+  document.getElementById('btn-demo-text').textContent = 'Running…';
+  document.getElementById('demo-info').textContent = 'Agents are browsing and purchasing services…';
 
-  const demoTasks = [
-    { name: "ChatBot-Agent", request: "I need a cheap and fast LLM for customer support chatbot" },
-    { name: "Creative-Agent", request: "Find the best image generation service for professional marketing" },
-    { name: "DevOps-Agent", request: "I need a reliable CI/CD pipeline with Docker support" },
-    { name: "Research-Agent", request: "Looking for an AI-powered search API for my RAG pipeline" },
-    { name: "Assistant-Agent", request: "Help me find a simple todo app with reminders and good API" },
-    { name: "Notification-Agent", request: "I need the cheapest email API for transactional emails" },
+  const tasks = [
+    { name:"ChatBot-Agent", request:"I need a cheap and fast LLM for customer support chatbot" },
+    { name:"Creative-Agent", request:"Find the best image generation service for professional marketing" },
+    { name:"DevOps-Agent", request:"I need a reliable CI/CD pipeline with Docker support" },
+    { name:"Research-Agent", request:"Looking for an AI-powered search API for my RAG pipeline" },
+    { name:"Assistant-Agent", request:"Help me find a simple todo app with reminders and good API" },
+    { name:"Notification-Agent", request:"I need the cheapest email API for transactional emails" },
   ];
 
-  // Let Agent browse service list first
-  try {
-    await fetch(API + '/api/services', {
-      headers: { 'X-Buyer-Address': '0xDemoAgent000000000000000000000000000001', 'X-Agent-Name': 'Demo-Agent' },
-    });
-  } catch {}
+  try { await fetch(API+'/api/services',{headers:{'X-Buyer-Address':'0xDemoAgent000000000000000000000000000001','X-Agent-Name':'Demo-Agent'}}); } catch {}
+  await sleep(500);
 
-  await sleep(600);
-
-  for (const task of demoTasks) {
-    const addr = '0x' + Array.from(task.name).reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) >>> 0, 0).toString(16).padStart(40, '0');
+  for (const t of tasks) {
+    const addr = '0x'+Array.from(t.name).reduce((h,c)=>((h<<5)-h+c.charCodeAt(0))>>>0,0).toString(16).padStart(40,'0');
     try {
-      await fetch(API + '/api/agent-decide', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Buyer-Address': addr,
-          'X-Agent-Name': task.name,
-        },
-        body: JSON.stringify({ request: task.request }),
-      });
-    } catch {}
-    await sleep(800);
+      const r = await fetch(API+'/api/agent-decide',{method:'POST',headers:{'Content-Type':'application/json','X-Buyer-Address':addr,'X-Agent-Name':t.name},body:JSON.stringify({request:t.request})});
+      if (r.status===402) simulateDecision(t.name,addr,t.request);
+    } catch { simulateDecision(t.name,addr,t.request); }
+    await sleep(700);
   }
 
-  btnIcon.innerHTML = ICO.play;
-  document.getElementById('btn-demo-text').textContent = ' Run Live Demo';
+  document.getElementById('btn-demo-icon').innerHTML = SVG.play;
+  document.getElementById('btn-demo-text').textContent = 'Run Again';
   btn.disabled = false;
-  document.getElementById('demo-info').textContent = `Demo complete — ${demoTasks.length} agents made decisions. Run again or connect your own agent!`;
+  document.getElementById('demo-info').innerHTML = `<span style="color:var(--blue)">✓</span> ${tasks.length} agents completed. <a href="/api/trust" target="_blank">View Trust Scores →</a>`;
   demoRunning = false;
+  refreshStats();
 }
 
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function simulateDecision(agentName, agentAddr, request) {
+  const W = {
+    'ChatBot-Agent':{w_cost:.45,w_quality:.2,w_speed:.25,w_reliability:.1},
+    'Creative-Agent':{w_cost:.1,w_quality:.55,w_speed:.15,w_reliability:.2},
+    'DevOps-Agent':{w_cost:.15,w_quality:.2,w_speed:.15,w_reliability:.5},
+    'Research-Agent':{w_cost:.2,w_quality:.45,w_speed:.25,w_reliability:.1},
+    'Assistant-Agent':{w_cost:.3,w_quality:.25,w_speed:.3,w_reliability:.15},
+    'Notification-Agent':{w_cost:.5,w_quality:.15,w_speed:.2,w_reliability:.15},
+  };
+  const S = {
+    'llm':{w:'GPT-4o mini',t:'ai.llm.chat',s:.891,r:['Claude 3.5 Haiku','Gemini 2.0 Flash']},
+    'image generation':{w:'DALL-E 3',t:'ai.vision.image_generation',s:.847,r:['Midjourney v6','FLUX 1.1 Pro']},
+    'ci/cd':{w:'GitHub Actions',t:'tool.devops.ci',s:.863,r:['CircleCI','GitLab CI']},
+    'search':{w:'Tavily',t:'tool.data.search',s:.879,r:['Exa AI','SerpAPI']},
+    'todo':{w:'Todoist',t:'tool.productivity.todo',s:.856,r:['TickTick','Microsoft To Do']},
+    'email':{w:'Resend',t:'tool.communication.email',s:.892,r:['Postmark','SendGrid']},
+  };
+  const keys = Object.keys(S).sort((a,b)=>b.length-a.length);
+  const k = keys.find(k=>request.toLowerCase().includes(k))||keys[0];
+  const svc = S[k];
+  const aMs = 50+Math.floor(Math.random()*200), dMs = 100+Math.floor(Math.random()*150);
+  handleEvent({type:'decide',agentAddress:agentAddr,agentName,timestamp:new Date().toISOString(),data:{
+    action:'agent_decide',request,
+    intent:{taxonomy:svc.t,weights:W[agentName]||{w_cost:.25,w_quality:.25,w_speed:.25,w_reliability:.25},reasoning:'Rule engine: '+k},
+    ranking:[{display_name:svc.w,score:svc.s,taxonomy:svc.t},{display_name:svc.r[0],score:svc.s*.92,taxonomy:svc.t},{display_name:svc.r[1],score:svc.s*.85,taxonomy:svc.t}],
+    winner:svc.w,winnerTaxonomy:svc.t,amount:'$0.005',latencyMs:120+Math.floor(Math.random()*80),
+    serviceCall:{actualLatencyMs:aMs,declaredLatencyMs:dMs,success:true,delta:Math.abs(aMs-dMs)/dMs},
+    trust:{serviceId:svc.w,trustScore:.7+Math.random()*.15,confidence:.6+Math.random()*.3,numReceipts:2+Math.floor(Math.random()*5)},
+  }});
+}
+
+function sleep(ms) { return new Promise(r=>setTimeout(r,ms)); }
 
 // ── Init ─────────────────────────────────────────────
 
 async function init() {
-  // Inject static SVG icons
-  injectStaticIcons();
-
-  // Set initial prompt
   document.getElementById('ob-prompt').textContent = PROMPTS.natural;
-
-  // Connect SSE
   connectSSE();
-
-  // Load initial data
   refreshStats();
 
-  // Restore history
   try {
-    const ledger = await fetch(API + '/api/ledger').then(r => r.json());
-    if (ledger.recent && ledger.recent.length > 0) {
+    const ledger = await fetch(API+'/api/ledger').then(r=>r.json());
+    if (ledger.recent?.length) {
       const empty = document.getElementById('tl-empty');
       if (empty) empty.remove();
       ledger.recent.slice(-8).forEach(r => {
-        const time = new Date(r.timestamp).toLocaleTimeString('en-US', { hour12:false, hour:'2-digit', minute:'2-digit', second:'2-digit' });
-        const addr = r.buyerAddress?.slice(0,6) + '…' + r.buyerAddress?.slice(-4);
-        addEntry('pay', ico('card','sm'), `Payment — ${r.taxonomy || r.endpoint}`,
-          `<div class="pay-pill">${ico('check','xs')} ${r.amount} USDC · ${r.taxonomy || r.endpoint}</div><div class="tl-addr">${addr}</div>`,
-          time);
+        const time = new Date(r.timestamp).toLocaleTimeString('en-US',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});
+        const addr = r.buyerAddress?.slice(0,6)+'…'+r.buyerAddress?.slice(-4);
+        addEntry('pay',icon('card'),`Payment — ${r.taxonomy||r.endpoint}`,
+          `<div class="pay-pill">${icon('check',10)} ${r.amount} USDC · ${r.taxonomy||r.endpoint}</div><div class="tl-addr">${addr}</div>`,time);
         if (r.buyerAddress) uniqueAgents.add(r.buyerAddress.toLowerCase());
       });
       document.getElementById('feed-count').textContent = `${ledger.recent.length} events`;
     }
   } catch {}
 
-  // Scroll animation
-  const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.08 });
-  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+  const obs = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.05});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
 }
 
 init();

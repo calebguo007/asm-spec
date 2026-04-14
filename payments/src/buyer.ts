@@ -28,7 +28,7 @@ export class ASMBuyerClient {
     try {
       const account = privateKeyToAccount(this.config.buyerPrivateKey as `0x${string}`);
       this.buyerAddress = account.address;
-    } catch {
+    } catch (_e) {
       this.buyerAddress = `0xAgent${crypto.randomUUID().replace(/-/g, "").slice(0, 36)}`;
     }
   }

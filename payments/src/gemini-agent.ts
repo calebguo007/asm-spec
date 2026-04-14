@@ -113,7 +113,7 @@ Rules:
 - If the user emphasizes "fast" or "real-time", increase w_speed
 - If the user emphasizes "reliable" or "stable", increase w_reliability
 - If no preference is clear, use balanced weights (0.25 each)
-- Extract taxonomy from context clues (e.g., "translate" → "ai.llm.chat", "generate image" → "ai.vision.image_generation")
+- Extract taxonomy from context clues (e.g., "translate" → "ai.nlp.translation", "generate image" → "ai.vision.image_generation")
 - io_ratio: high for input-heavy tasks (RAG, summarization), low for output-heavy (generation)`;
 
 /**
@@ -189,7 +189,27 @@ function ruleBasedParse(request: string): ParsedIntent {
   let taxonomy: string | null = null;
 
   // AI Models
-  if (/\b(llm|chat|gpt|claude|gemini|translat|translate|summariz|writ|write|code)\b/.test(lower)) {
+  // Specific categories first (more precise matching takes priority)
+  // AI — Translation (must be before llm.chat since "translate" could match both)
+  if (/\b(translat(e|ion|or|ing)?|deepl|locali[sz](e|ation)?|interpret(er|ing)?|multilingual|japanese.*english|english.*chinese)\b/.test(lower) && !/\b(llm|gpt|claude)\b/.test(lower)) {
+    taxonomy = "ai.nlp.translation";
+  } else if (/\b(ocr|recognize text|scan.*document|extract.*text.*image|receipt.*scan)\b/.test(lower)) {
+    taxonomy = "ai.vision.ocr";
+  } else if (/\b(sandbox|sandboxed|safe.*execut|e2b|code.*run|isolated.*env|execut.*code|run.*code.*safe)\b/.test(lower)) {
+    taxonomy = "infra.compute.sandbox";
+  } else if (/\b(code.*complet|copilot|cursor|ai.*code|code.*assist|codewhisperer)\b/.test(lower)) {
+    taxonomy = "ai.code.completion";
+
+  // Scraping vs Browser automation (scraping is more specific)
+  } else if (/\b(scrape|crawl|firecrawl|jina|extract.*web|web.*data)\b/.test(lower) && !/\b(automat|test|selenium)\b/.test(lower)) {
+    taxonomy = "tool.data.scraping";
+
+  // Deployment vs CI/CD (deployment is more specific)
+  } else if (/\b(deploy(ment)?|hosting|go.*live|publish|vercel|fly\.io|netlify|railway|render|platform)\b/.test(lower) && !/\b(ci|cd|pipeline|build)\b/.test(lower)) {
+    taxonomy = "tool.devops.deployment";
+
+  // Now general AI models
+  } else if (/\b(llm|chat|gpt|claude|gemini|summariz|writ|write|convers|reason|answer)\b/.test(lower)) {
     taxonomy = "ai.llm.chat";
   } else if (/\b(image|imag|draw|picture|photo|dall|midjourney|flux|imagen)\b/.test(lower)) {
     taxonomy = "ai.vision.image_generation";
@@ -199,7 +219,7 @@ function ruleBasedParse(request: string): ParsedIntent {
     taxonomy = "ai.audio.tts";
   } else if (/\b(stt|transcri|dictation|dictation|whisper)\b/.test(lower)) {
     taxonomy = "ai.audio.stt";
-  } else if (/\b(embed|vector|vector|rag)\b/.test(lower)) {
+  } else if (/\b(embed(?!ding)|embedding.*model|rag.*embed)\b/.test(lower) && !/\b(database|db|store|pinecone|qdrant)\b/.test(lower)) {
     taxonomy = "ai.llm.embedding";
   } else if (/\b(gpu|compute|compute|train|train|inference)\b/.test(lower)) {
     taxonomy = "infra.compute.gpu";
@@ -217,7 +237,7 @@ function ruleBasedParse(request: string): ParsedIntent {
     taxonomy = "tool.automation.browser";
 
   // Tools — DevOps / CI
-  } else if (/\b(ci|cd|deploy|deploy|pipeline|github.?action|circleci|build|build|test)\b/.test(lower)) {
+  } else if (/\b(ci[\s/]?cd|build.*pipeline|ci.*pipeline|github.?action|circleci|jenkins|travis|gitlab.*ci|continuous.*integr)\b/.test(lower)) {
     taxonomy = "tool.devops.ci";
 
   // Tools — Communication
@@ -225,7 +245,7 @@ function ruleBasedParse(request: string): ParsedIntent {
     taxonomy = "tool.communication.email";
 
   // Tools — Data/Search
-  } else if (/\b(search|search|web.*search|tavily|exa|find|retriev|lookup)\b/.test(lower)) {
+  } else if (/\b(search|web.*search|tavily|exa|retriev|lookup|find.*info|find.*data)\b/.test(lower)) {
     taxonomy = "tool.data.search";
 
   // Tools — Communication/chat
@@ -235,12 +255,13 @@ function ruleBasedParse(request: string): ParsedIntent {
     taxonomy = "tool.communication.sms";
 
   // Infrastructure — Database
-  } else if (/\b(postgres|sql|database|database|supabase|neon|relational)\b/.test(lower)) {
-    taxonomy = "infra.database.postgres";
-  } else if (/\b(redis|cache|cache|kv|key.?value|session)\b/.test(lower)) {
-    taxonomy = "infra.database.kv";
-  } else if (/\b(vector|pinecone|qdrant|vectordatabase|similarity|vector)\b/.test(lower)) {
+  // Vector DB must be checked before postgres (both match "database")
+  } else if (/\b(vector.*(?:db|database|store)|pinecone|qdrant|weaviate|milvus|chroma|similarity.*search)\b/.test(lower)) {
     taxonomy = "infra.database.vector";
+  } else if (/\b(postgres|sql|database|supabase|neon|relational|mysql|sqlite)\b/.test(lower)) {
+    taxonomy = "infra.database.postgres";
+  } else if (/\b(redis|cache|kv|key.?value|session|memcache)\b/.test(lower)) {
+    taxonomy = "infra.database.kv";
 
   // Infrastructure — Storage/Network
   } else if (/\b(storage|storage|s3|r2|blob|object.*store|bucket)\b/.test(lower)) {
@@ -255,9 +276,8 @@ function ruleBasedParse(request: string): ParsedIntent {
     taxonomy = "infra.messaging.queue";
 
   // Tools — Deploy/Monitor
-  } else if (/\b(deploy|deploy|vercel|fly|hosting|go live|publish)\b/.test(lower)) {
-    taxonomy = "tool.devops.deployment";
-  } else if (/\b(monitor|monitor|sentry|error.*track|alert|alert)\b/.test(lower)) {
+
+  } else if (/\b(monitor(?:ing)?|sentry|error.*track|alert|observ|apm|performance.*monitor)\b/.test(lower)) {
     taxonomy = "tool.devops.monitoring";
   } else if (/\b(log|log|logging|betterstack)\b/.test(lower)) {
     taxonomy = "tool.devops.logging";
@@ -279,8 +299,7 @@ function ruleBasedParse(request: string): ParsedIntent {
     taxonomy = "tool.payment.processing";
 
   // Tools — Data Processing
-  } else if (/\b(scrape|scrape|crawl|firecrawl|jina|extract.*web)\b/.test(lower)) {
-    taxonomy = "tool.data.scraping";
+
   } else if (/\b(map|map|geocod|location|direction|places)\b/.test(lower)) {
     taxonomy = "tool.data.geolocation";
   } else if (/\b(weather|weather|forecast|temperature)\b/.test(lower)) {
@@ -295,16 +314,9 @@ function ruleBasedParse(request: string): ParsedIntent {
     taxonomy = "tool.data.visualization";
 
   // AI — translat/OCR/code
-  } else if (/\b(translat|translat|deepl|locali[sz])\b/.test(lower)) {
-    taxonomy = "ai.nlp.translation";
-  } else if (/\b(ocr|recognize|scan|scan|extract.*text.*image)\b/.test(lower)) {
-    taxonomy = "ai.vision.ocr";
-  } else if (/\b(code.*complet|copilot|cursor|code completion|ai.*code)\b/.test(lower)) {
-    taxonomy = "ai.code.completion";
 
   // Infrastructure — Compute
-  } else if (/\b(sandbox|sandbox|safe.*execut|e2b|code.*run)\b/.test(lower)) {
-    taxonomy = "infra.compute.sandbox";
+
   } else if (/\b(serverless|serverless|modal|lambda|function)\b/.test(lower)) {
     taxonomy = "infra.compute.serverless";
   }
@@ -332,7 +344,7 @@ function ruleBasedParse(request: string): ParsedIntent {
     weights: { w_cost, w_quality, w_speed, w_reliability },
     constraints: {},
     io_ratio,
-    reasoning: `Rule engine: taxonomy=${taxonomy || "all"}, preference=${w_cost > 0.4 ? "cost" : w_quality > 0.4 ? "quality" : w_speed > 0.4 ? "speed" : w_reliability > 0.4 ? "reliableity" : "balanced"}`,
+    reasoning: `Rule engine: taxonomy=${taxonomy || "all"}, preference=${w_cost > 0.4 ? "cost" : w_quality > 0.4 ? "quality" : w_speed > 0.4 ? "speed" : w_reliability > 0.4 ? "reliability" : "balanced"}`,
   };
 }
 

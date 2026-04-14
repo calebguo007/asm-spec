@@ -39,7 +39,7 @@ function header(text: string) {
 
 // ── On-chain tx collector (for Block Explorer links) ─────────
 const collectedTxHashes: string[] = [];
-const ARC_TESTNET_EXPLORER = "https://explorer.arcscan.net/tx";
+const ARC_TESTNET_EXPLORER = "https://testnet.arcscan.app/tx";
 
 function step(num: number, text: string) {
   console.log(`\n${B}${Y}  Step ${num}: ${text}${X}`);
@@ -335,11 +335,10 @@ async function main() {
           if (result.trust) {
             info(`    → Trust: ${result.trust.serviceId} trust=${result.trust.trustScore?.toFixed(3)} (${result.trust.numReceipts} receipts)`);
           }
-          // Collect on-chain tx hashes
-          if (result._txHash) {
-            collectedTxHashes.push(result._txHash);
-          } else if (result.payment?.txHash) {
-            collectedTxHashes.push(result.payment.txHash);
+          // Collect on-chain tx hashes (prefer _txHash from GatewayClient.pay())
+          const txh = result._txHash || result.payment?.txHash;
+          if (txh && txh.startsWith("0x") && txh.length >= 64 && !txh.includes("-")) {
+            collectedTxHashes.push(txh);
           }
           agentDecideTx++;
         } else if (task.action === "score") {
@@ -364,8 +363,8 @@ async function main() {
           }
           const rec = scoreResult.recommendation;
           ok(`${Y}[TOPSIS]${X} ${task.description} → ${B}${rec?.display_name || "N/A"}${X} (${rec?.score?.toFixed(4) || "N/A"})`);
-          if (scoreResult._txHash) collectedTxHashes.push(scoreResult._txHash);
-          else if (scoreResult.payment?.txHash) collectedTxHashes.push(scoreResult.payment.txHash);
+          const stxh = scoreResult._txHash || scoreResult.payment?.txHash;
+          if (stxh && stxh.startsWith("0x") && stxh.length >= 64 && !stxh.includes("-")) collectedTxHashes.push(stxh);
           scoreTx++;
         } else {
           const resp = await fetch(`${baseUrl}/api/query`, {
@@ -436,7 +435,7 @@ async function main() {
         // Collect txHash (silent)
         // Fill txns do not print each txHash, but record for Explorer
         if ((i + 1) % 10 === 0) ok(`Completed ${totalTx}  transactions`);
-      } catch { /* silent */ }
+      } catch (_e) { /* silent */ }
     }
     ok(`Fill complete, total ${totalTx}  txns`);
   }

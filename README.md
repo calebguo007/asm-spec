@@ -187,11 +187,11 @@ asm-spec/
 ├── schema/
 │   ├── asm-v0.2.schema.json          # JSON Schema (v0.2)
 │   └── asm-v0.3.schema.json          # JSON Schema (v0.3: +receipts, verification, ttl)
-├── manifests/                         # 14 real-world service manifests
+├── manifests/                         # 70 real-world service manifests
 │   ├── anthropic-claude-sonnet-4.asm.json
 │   ├── openai-gpt-4o.asm.json
 │   ├── google-gemini-2.5-pro.asm.json
-│   └── ... (14 services across 6 categories)
+│   └── ... (70 services across 47 categories)
 ├── scorer/
 │   ├── scorer.py                      # Filter + TOPSIS + Trust Delta scoring engine
 │   └── test_scorer.py                 # Unit tests (golden, io_ratio, cross-language parity)
@@ -370,7 +370,7 @@ Integration status: active collaboration with the [Agent Receipts](https://githu
 
 - [x] Schema v0.2 (JSON Schema)
 - [x] 18-category taxonomy
-- [x] 14 real-world manifests (6 categories)
+- [x] 70 real-world manifests (6 categories)
 - [x] Scorer (Weighted Average + TOPSIS)
 - [x] MCP Server (5 tools) + HTTP API
 - [x] E2E demo (5 scenarios)
