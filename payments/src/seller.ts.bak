@@ -1,0 +1,578 @@
+/**
+ * ASM × Circle Nanopayments — Seller 服务端
+ *
+ * 使用 x402 协议 + Circle Gateway Nanopayments 将 ASM Registry API 包装为付费端点。
+ *
+ * 付费端点（需要 USDC nanopayment）：
+ *   POST /api/score  → $0.005 USDC（TOPSIS 评分）
+ *   POST /api/query  → $0.002 USDC（条件查询）
+ *
+ * 免费端点：
+ *   GET  /api/services → 服务发现（不收费，降低门槛）
+ *   GET  /api/health   → 健康检查
+ *   GET  /api/ledger   → 交易记录
+ *   GET  /api/stats    → 交易统计
+ *   GET  /api/trust    → 信任评分
+ *   GET  /api/dashboard → 可视化面板
+ *   GET  /api/events   → SSE 实时事件流
+ *
+ * 两种运行模式：
+ *   - live: 使用 Circle Gateway + BatchFacilitatorClient + GatewayEvmScheme
+ *   - mock: 模拟 x402 支付流程，用于开发和演示
+ *
+ * 重要：所有路由注册必须在 x402 中间件之后，否则 Express 会跳过中间件。
+ */
+
+import express, { Request, Response, NextFunction } from "express";
+import * as fs from "fs";
+import * as path from "path";
+import cors from "cors";
+import { loadConfig } from "./config.js";
+import { ledger } from "./ledger.js";
+import { trustStore } from "./trust-delta.js";
+import { PaymentRecord } from "./types.js";
+import { parseAgentIntent } from "./gemini-agent.js";
+
+const config = loadConfig();
+
+// ── Express 应用 ───────────────────────────────────────
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// ── 全局状态 ───────────────────────────────────────────
+
+let x402Initialized = false;
+
+// ── SSE 事件广播系统 ──────────────────────────────────
+
+interface SSEClient {
+  id: string;
+  res: Response;
+}
+
+const sseClients: SSEClient[] = [];
+
+function broadcastEvent(event: {
+  type: 'connect' | 'browse' | 'decide' | 'pay' | 'disconnect';
+  agentAddress: string;
+  agentName?: string;
+  data: any;
+}) {
+  const payload = `data: ${JSON.stringify({ ...event, timestamp: new Date().toISOString() })}\n\n`;
+  for (let i = sseClients.length - 1; i >= 0; i--) {
+    try {
+      sseClients[i].res.write(payload);
+    } catch {
+      sseClients.splice(i, 1);
+    }
+  }
+}
+
+// ── x402 支付中间件初始化 ──────────────────────────────
+
+async function initX402(): Promise<boolean> {
+  if (config.mode !== "live") {
+    console.warn("⚠️  Mock 模式 — 跳过 x402 初始化");
+    return false;
+  }
+
+  try {
+    const { paymentMiddleware, x402ResourceServer } = await import("@x402/express");
+    const { BatchFacilitatorClient, GatewayEvmScheme } = await import("@circle-fin/x402-batching/server");
+    const { HTTPFacilitatorClient } = await import("@x402/core/server");
+
+    const batchClient = new BatchFacilitatorClient();
+    const httpClient = new HTTPFacilitatorClient({
+      url: "https://x402.org/facilitator",
+    });
+
+    const resourceServer = new x402ResourceServer([httpClient, batchClient] as any);
+    resourceServer.register(config.network as `${string}:${string}`, new GatewayEvmScheme());
+    await (resourceServer as any).initialize?.();
+
+    const routes = {
+      "POST /api/score": {
+        accepts: [
+          {
+            scheme: "exact" as const,
+            price: config.scorePrice,
+            network: config.network as `${string}:${string}`,
+            payTo: config.sellerAddress,
+          },
+        ],
+        description: "ASM TOPSIS multi-criteria service scoring",
+        mimeType: "application/json",
+      },
+      "POST /api/query": {
+        accepts: [
+          {
+            scheme: "exact" as const,
+            price: config.queryPrice,
+            network: config.network as `${string}:${string}`,
+            payTo: config.sellerAddress,
+          },
+        ],
+        description: "ASM service query with filters",
+        mimeType: "application/json",
+      },
+    };
+
+    // 挂载 x402 支付中间件 — 必须在路由注册之前
+    app.use(paymentMiddleware(routes, resourceServer));
+
+    console.log("✅ x402 支付中间件已初始化");
+    console.log(`   Seller: ${config.sellerAddress}`);
+    console.log(`   Network: ${config.network} (${config.chainName})`);
+    console.log(`   路由: ${Object.keys(routes).join(", ")}`);
+    x402Initialized = true;
+    return true;
+  } catch (err: any) {
+    console.warn("⚠️  x402 初始化失败，回退到 Mock 模式");
+    console.warn(`   错误: ${err.message}`);
+    return false;
+  }
+}
+
+// ── Mock 支付中间件（开发模式） ─────────────────────────
+
+function mockPaymentMiddleware(price: string) {
+  return (req: Request, _res: Response, next: NextFunction) => {
+    const buyerAddress = req.headers["x-buyer-address"] as string
+      || `0x${crypto.randomUUID().replace(/-/g, "").slice(0, 40)}`;
+    const paymentId = crypto.randomUUID();
+
+    const record: PaymentRecord = {
+      paymentId,
+      buyerAddress,
+      sellerAddress: config.sellerAddress,
+      amount: price.replace("$", ""),
+      endpoint: req.path,
+      taxonomy: req.body?.taxonomy,
+      chain: config.chainName,
+      network: config.network,
+      timestamp: new Date().toISOString(),
+      status: "settled",
+      txHash: `0xmock_${paymentId.slice(0, 16)}`,
+    };
+    ledger.record(record);
+
+    (req as any).payment = {
+      payerAddress: buyerAddress,
+      amount: price,
+      paymentId,
+      txHash: record.txHash,
+    };
+    next();
+  };
+}
+
+// ── 支付记录钩子（live 模式下记录到 ledger） ───────────
+
+function recordPayment(endpoint: string, price: string) {
+  return (req: Request, _res: Response, next: NextFunction) => {
+    if (x402Initialized) {
+      const payment = (req as any).payment;
+      const buyerAddr = payment?.payer
+        || req.headers["x-buyer-address"] as string
+        || "unknown";
+      const record: PaymentRecord = {
+        paymentId: crypto.randomUUID(),
+        buyerAddress: buyerAddr,
+        sellerAddress: config.sellerAddress,
+        amount: price.replace("$", ""),
+        endpoint,
+        taxonomy: req.body?.taxonomy,
+        chain: config.chainName,
+        network: config.network,
+        timestamp: new Date().toISOString(),
+        status: "settled",
+        txHash: payment?.transaction,
+      };
+      ledger.record(record);
+    }
+    next();
+  };
+}
+
+// ── 代理到 ASM Registry ────────────────────────────────
+
+async function proxyToRegistry(path: string, method: string = "GET", body?: any): Promise<any> {
+  const url = `${config.asmRegistryUrl}${path}`;
+  const options: RequestInit = {
+    method,
+    headers: { "Content-Type": "application/json" },
+  };
+  if (body && method !== "GET") {
+    options.body = JSON.stringify(body);
+  }
+  const resp = await fetch(url, options);
+  if (!resp.ok) {
+    throw new Error(`Registry API error: ${resp.status} ${resp.statusText}`);
+  }
+  return resp.json();
+}
+
+// ══════════════════════════════════════════════════════════
+// 注册所有路由（在 x402 中间件之后调用）
+// ══════════════════════════════════════════════════════════
+
+function registerRoutes() {
+  // ── Marketplace 首页 ───────────────────────────────────
+
+  app.get("/", (_req: Request, res: Response) => {
+    const htmlPath = path.resolve(__dirname, "marketplace.html");
+    if (fs.existsSync(htmlPath)) {
+      res.setHeader("Content-Type", "text/html");
+      res.send(fs.readFileSync(htmlPath, "utf-8"));
+    } else {
+      res.redirect("/api/dashboard");
+    }
+  });
+
+  // ── SSE 事件流（免费） ─────────────────────────────────
+  app.get("/api/events", (req: Request, res: Response) => {
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.flushHeaders();
+
+    const clientId = crypto.randomUUID();
+    const client: SSEClient = { id: clientId, res };
+    sseClients.push(client);
+
+    console.log(`📡 SSE client connected: ${clientId} (total: ${sseClients.length})`);
+
+    // 发送欢迎事件
+    res.write(`data: ${JSON.stringify({ type: "welcome", clientId, connectedClients: sseClients.length, timestamp: new Date().toISOString() })}\n\n`);
+
+    req.on("close", () => {
+      const idx = sseClients.findIndex(c => c.id === clientId);
+      if (idx !== -1) sseClients.splice(idx, 1);
+      console.log(`📡 SSE client disconnected: ${clientId} (total: ${sseClients.length})`);
+    });
+  });
+
+  // ── 健康检查（免费） ───────────────────────────────────
+  app.get("/api/health", (_req: Request, res: Response) => {
+    res.json({
+      status: "ok",
+      service: "asm-payments",
+      version: "0.2.0",
+      mode: x402Initialized ? "live (x402 + Circle Gateway)" : "mock",
+      chain: config.chainName,
+      network: config.network,
+      sellerAddress: config.sellerAddress,
+      pricing: { score: config.scorePrice, query: config.queryPrice },
+      ledger: { totalTransactions: ledger.count() },
+      trust: { totalReceipts: trustStore.getTotalReceiptCount() },
+      sseClients: sseClients.length,
+      timestamp: new Date().toISOString(),
+    });
+  });
+
+  // ── 服务列表（免费） ──────────────────────────────────
+  app.get("/api/services", async (req: Request, res: Response) => {
+    try {
+      const data = await proxyToRegistry("/api/services", "GET");
+
+      // 如果有 Agent 地址，广播浏览事件
+      const agentAddr = req.headers["x-buyer-address"] as string;
+      if (agentAddr) {
+        broadcastEvent({
+          type: "browse",
+          agentAddress: agentAddr,
+          agentName: req.headers["x-agent-name"] as string,
+          data: { action: "list_services", count: data.count },
+        });
+      }
+
+      res.json(data);
+    } catch (err: any) {
+      res.status(502).json({ error: "registry_unavailable", message: err.message });
+    }
+  });
+
+  // ── 评分排名（付费） ──────────────────────────────────
+  const scoreMiddleware = config.mode === "mock"
+    ? mockPaymentMiddleware(config.scorePrice)
+    : recordPayment("/api/score", config.scorePrice);
+
+  app.post("/api/score", scoreMiddleware, async (req: Request, res: Response) => {
+    try {
+      const data = await proxyToRegistry("/api/score", "POST", req.body);
+      const payment = (req as any).payment;
+
+      const paymentInfo = payment ? {
+        paymentId: payment.paymentId,
+        amount: config.scorePrice,
+        payer: payment.payerAddress || payment.payer,
+        txHash: payment.txHash || payment.transaction,
+        chain: config.chainName,
+        network: config.network,
+      } : undefined;
+
+      // 广播决策事件
+      const agentAddr = payment?.payerAddress || payment?.payer || req.headers["x-buyer-address"] as string || "unknown";
+      broadcastEvent({
+        type: "decide",
+        agentAddress: agentAddr,
+        agentName: req.headers["x-agent-name"] as string,
+        data: {
+          action: "score",
+          taxonomy: req.body?.taxonomy,
+          weights: { w_cost: req.body?.w_cost, w_quality: req.body?.w_quality, w_speed: req.body?.w_speed, w_reliability: req.body?.w_reliability },
+          ranking: data.ranking?.slice(0, 3)?.map((s: any) => ({ display_name: s.display_name, score: s.total_score })),
+          winner: data.ranking?.[0]?.display_name,
+          amount: config.scorePrice,
+          txHash: paymentInfo?.txHash,
+        },
+      });
+
+      res.json({
+        payment: paymentInfo,
+        scoring: data,
+        receipt: {
+          id: crypto.randomUUID(),
+          timestamp: new Date().toISOString(),
+          amount: config.scorePrice,
+          chain: config.chainName,
+          network: config.network,
+        },
+      });
+    } catch (err: any) {
+      res.status(502).json({ error: "registry_unavailable", message: err.message });
+    }
+  });
+
+  // ── 条件查询（付费） ──────────────────────────────────
+  const queryMiddleware = config.mode === "mock"
+    ? mockPaymentMiddleware(config.queryPrice)
+    : recordPayment("/api/query", config.queryPrice);
+
+  app.post("/api/query", queryMiddleware, async (req: Request, res: Response) => {
+    try {
+      const data = await proxyToRegistry("/api/query", "POST", req.body);
+      const payment = (req as any).payment;
+
+      const paymentInfo = payment ? {
+        paymentId: payment.paymentId,
+        amount: config.queryPrice,
+        payer: payment.payerAddress || payment.payer,
+        txHash: payment.txHash || payment.transaction,
+        chain: config.chainName,
+        network: config.network,
+      } : undefined;
+
+      // 广播查询事件
+      const agentAddr = payment?.payerAddress || payment?.payer || req.headers["x-buyer-address"] as string || "unknown";
+      broadcastEvent({
+        type: "browse",
+        agentAddress: agentAddr,
+        agentName: req.headers["x-agent-name"] as string,
+        data: { action: "query", filters: req.body, resultCount: data.count, amount: config.queryPrice },
+      });
+
+      res.json({
+        payment: paymentInfo,
+        query: data,
+        receipt: {
+          id: crypto.randomUUID(),
+          timestamp: new Date().toISOString(),
+          amount: config.queryPrice,
+          chain: config.chainName,
+          network: config.network,
+        },
+      });
+    } catch (err: any) {
+      res.status(502).json({ error: "registry_unavailable", message: err.message });
+    }
+  });
+
+  // ── 交易记录（免费） ──────────────────────────────────
+  app.get("/api/ledger", (_req: Request, res: Response) => {
+    res.json({ count: ledger.count(), recent: ledger.getRecent(50) });
+  });
+
+  // ── 交易统计（免费） ──────────────────────────────────
+  app.get("/api/stats", (_req: Request, res: Response) => {
+    res.json(ledger.getStats());
+  });
+
+  // ── 信任评分（免费） ──────────────────────────────────
+  app.get("/api/trust", (_req: Request, res: Response) => {
+    res.json({
+      totalReceipts: trustStore.getTotalReceiptCount(),
+      scores: trustStore.getAllScores(),
+    });
+  });
+
+  // ── 导出账本（免费） ──────────────────────────────────
+  app.get("/api/ledger/export", (_req: Request, res: Response) => {
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Content-Disposition",
+      `attachment; filename=asm-payments-ledger-${new Date().toISOString().slice(0, 10)}.json`);
+    res.send(ledger.exportJSON());
+  });
+
+  // ── Agent 语义决策（付费 — Gemini + TOPSIS + Trust） ──
+  const agentMiddleware = config.mode === "mock"
+    ? mockPaymentMiddleware(config.scorePrice)
+    : recordPayment("/api/agent-decide", config.scorePrice);
+
+  app.post("/api/agent-decide", agentMiddleware, async (req: Request, res: Response) => {
+    const startTime = Date.now();
+    try {
+      const { request: agentRequest, gemini_api_key } = req.body;
+
+      if (!agentRequest || typeof agentRequest !== "string") {
+        res.status(400).json({
+          error: "invalid_request",
+          message: "请提供 'request' 字段，描述你的服务需求（自然语言）",
+          example: { request: "I need a cheap and fast LLM for translation" },
+        });
+        return;
+      }
+
+      const payment = (req as any).payment;
+      const agentAddr = payment?.payerAddress || payment?.payer || req.headers["x-buyer-address"] as string || "unknown";
+      const agentName = req.headers["x-agent-name"] as string;
+
+      // 广播：Agent 开始决策
+      broadcastEvent({
+        type: "browse",
+        agentAddress: agentAddr,
+        agentName,
+        data: { action: "agent_decide_start", request: agentRequest },
+      });
+
+      // Step 1: Gemini 解析意图
+      const intent = await parseAgentIntent(agentRequest, gemini_api_key);
+
+      // Step 2: 调用 ASM TOPSIS 评分
+      const scoreParams = {
+        taxonomy: intent.taxonomy,
+        w_cost: intent.weights.w_cost,
+        w_quality: intent.weights.w_quality,
+        w_speed: intent.weights.w_speed,
+        w_reliability: intent.weights.w_reliability,
+        method: "topsis",
+        io_ratio: intent.io_ratio,
+      };
+      const scoring = await proxyToRegistry("/api/score", "POST", scoreParams);
+
+      // Step 3: 构建推荐
+      const topService = scoring.ranking?.[0];
+      const latencyMs = Date.now() - startTime;
+
+      // 广播：决策完成
+      broadcastEvent({
+        type: "decide",
+        agentAddress: agentAddr,
+        agentName,
+        data: {
+          action: "agent_decide",
+          request: agentRequest,
+          intent: { taxonomy: intent.taxonomy, weights: intent.weights, reasoning: intent.reasoning },
+          ranking: scoring.ranking?.slice(0, 3)?.map((s: any) => ({ display_name: s.display_name, score: s.total_score })),
+          winner: topService?.display_name,
+          amount: config.scorePrice,
+          txHash: payment?.txHash || payment?.transaction,
+          latencyMs,
+        },
+      });
+
+      res.json({
+        request: agentRequest,
+        intent: {
+          taxonomy: intent.taxonomy,
+          weights: intent.weights,
+          constraints: intent.constraints,
+          io_ratio: intent.io_ratio,
+          reasoning: intent.reasoning,
+        },
+        scoring: {
+          method: scoring.method,
+          count: scoring.count,
+          ranking: scoring.ranking?.slice(0, 5),  // Top 5
+        },
+        recommendation: topService ? {
+          service_id: topService.service_id,
+          display_name: topService.display_name,
+          score: topService.total_score,
+          reason: `${topService.display_name} 综合得分 ${topService.total_score?.toFixed(4)}，` +
+            `在 ${scoring.count} 个候选服务中排名第 1。` +
+            `决策依据：${intent.reasoning}`,
+        } : null,
+        payment: payment ? {
+          paymentId: payment.paymentId,
+          amount: config.scorePrice,
+          payer: payment.payerAddress || payment.payer,
+          txHash: payment.txHash || payment.transaction,
+          chain: config.chainName,
+          network: config.network,
+        } : undefined,
+        latencyMs,
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: "agent_decide_failed", message: err.message });
+    }
+  });
+
+  // ── Dashboard 页面（免费） ─────────────────────────────
+  app.get("/api/dashboard", (_req: Request, res: Response) => {
+    res.setHeader("Content-Type", "text/html");
+    const htmlPath = path.resolve(__dirname, "dashboard.html");
+    try {
+      const html = fs.readFileSync(htmlPath, "utf-8");
+      res.send(html);
+    } catch {
+      res.send("<h1>Dashboard HTML not found</h1><p>Expected at: " + htmlPath + "</p>");
+    }
+  });
+
+  console.log("   路由注册完成");
+}
+
+// ══════════════════════════════════════════════════════════
+// 启动
+// ══════════════════════════════════════════════════════════
+
+async function main() {
+  // 1. 先初始化 x402（挂载支付中间件）
+  await initX402();
+
+  // 2. 再注册所有路由（确保 x402 中间件在路由之前）
+  registerRoutes();
+
+  // 3. 启动服务器
+  app.listen(config.port, () => {
+    console.log(`\n🚀 ASM Payment Server 已启动`);
+    console.log(`   地址: http://localhost:${config.port}`);
+    console.log(`   模式: ${x402Initialized ? "🟢 LIVE (x402 + Circle Gateway)" : "🟡 MOCK (模拟支付)"}`);
+    console.log(`   链:   ${config.chainName} (${config.network})`);
+    console.log(`\n   付费端点:`);
+    console.log(`     POST /api/score   — ${config.scorePrice} USDC`);
+    console.log(`     POST /api/query   — ${config.queryPrice} USDC`);
+    console.log(`     POST /api/agent-decide — ${config.scorePrice} USDC (Gemini + TOPSIS)`);
+    console.log(`\n   免费端点:`);
+    console.log(`     GET  /api/health    — 健康检查`);
+    console.log(`     GET  /api/services  — 服务列表`);
+    console.log(`     GET  /api/ledger    — 交易记录`);
+    console.log(`     GET  /api/stats     — 交易统计`);
+    console.log(`     GET  /api/trust     — 信任评分`);
+    console.log(`     GET  /api/events    — SSE 实时事件流`);
+    console.log(`     GET  /api/dashboard — 可视化面板`);
+    console.log(`\n   依赖: ASM Registry → ${config.asmRegistryUrl}`);
+    console.log("");
+  });
+}
+
+main().catch((err) => {
+  console.error("❌ 启动失败:", err);
+  process.exit(1);
+});
+
+export { app };
