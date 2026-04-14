@@ -35,7 +35,7 @@ When an agent faces multiple services that can fulfill the same task, it has **z
 ### Run the Demo
 
 ```bash
-git clone https://github.com/asm-protocol/asm-spec.git
+git clone https://github.com/calebguo007/asm-spec.git
 cd asm-spec
 
 # End-to-end demo — pure Python, no dependencies
@@ -43,6 +43,17 @@ python3 demo/e2e_demo.py
 ```
 
 The demo simulates 5 scenarios where an agent selects services across LLM, image generation, video generation, and TTS categories.
+
+
+### Lint an MCP Server
+
+```bash
+cd tools/asm-lint
+npm install
+npx tsx src/cli.ts npx @modelcontextprotocol/server-filesystem /tmp
+```
+
+`asm-lint` scans any MCP Server and generates a quality report (8 checks, 100-point scoring). See [tools/asm-lint](tools/asm-lint/) for details.
 
 ### Run the Scorer
 
@@ -162,7 +173,7 @@ Everything else is optional — services expose what they can:
 
 Full schema: [`schema/asm-v0.2.schema.json`](schema/asm-v0.2.schema.json)
 
-### Taxonomy (18 categories)
+### Taxonomy (47 categories)
 
 Hierarchical, prefix-queryable (e.g., `ai.llm.*` returns all LLM services):
 
@@ -219,16 +230,17 @@ asm-spec/
     └── internal/                      # Design notes, strategy docs, etc.
 ```
 
-### 14 Services Across 6 Categories
+### 70 Services Across 47 Categories
 
-| Category | Services |
-|---|---|
-| **LLM Chat** | Claude Sonnet 4, GPT-4o, Gemini 2.5 Pro |
-| **Image Generation** | FLUX 1.1 Pro, DALL-E 3, Imagen 3 |
-| **Video Generation** | Veo 3.1, Kling 3.0 |
-| **Text-to-Speech** | ElevenLabs TTS v2, OpenAI TTS |
-| **Embedding** | text-embedding-3-large, Voyage 3 Large |
-| **GPU Compute** | Replicate Serverless, RunPod Serverless |
+| Domain | Categories | Example Services |
+|---|---|---|
+| **AI — LLM** | chat, completion, embedding | Claude Sonnet 4, GPT-4o, Gemini 2.5 Pro, DeepSeek V3 |
+| **AI — Vision** | image_generation, ocr, editing | FLUX 1.1 Pro, DALL-E 3, Imagen 3, Midjourney |
+| **AI — Video** | generation, subtitle, editing | Veo 3.1, Kling 3.0, Runway Gen-3 |
+| **AI — Audio** | tts, stt, music | ElevenLabs, OpenAI TTS, Whisper |
+| **AI — NLP** | translation, code, extraction | DeepL, Google Translate, GitHub Copilot |
+| **Tools** | email, sms, search, todo, calendar, CI/CD, monitoring | Resend, Twilio, Algolia, Todoist, Linear |
+| **Infra** | postgres, vector DB, KV, storage, auth, DNS, sandbox | Neon, Pinecone, Redis, Cloudflare R2, Auth0 |
 
 ---
 
@@ -370,7 +382,7 @@ Integration status: active collaboration with the [Agent Receipts](https://githu
 
 - [x] Schema v0.2 (JSON Schema)
 - [x] 18-category taxonomy
-- [x] 70 real-world manifests (6 categories)
+- [x] 70 real-world manifests (47 categories)
 - [x] Scorer (Weighted Average + TOPSIS)
 - [x] MCP Server (5 tools) + HTTP API
 - [x] E2E demo (5 scenarios)
@@ -409,7 +421,7 @@ ASM is an open protocol. Contributions welcome:
          for Autonomous Service Selection in Multi-Agent Systems},
   author={Guo, Yi},
   year={2026},
-  howpublished={\url{https://github.com/asm-protocol/asm-spec}}
+  howpublished={\url{https://github.com/calebguo007/asm-spec}}
 }
 ```
 
