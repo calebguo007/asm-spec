@@ -1,0 +1,54 @@
+{
+  "name": "asm-lint",
+  "version": "0.1.0",
+  "description": "Quality detection CLI for MCP Servers — scan, probe, and score any MCP Server",
+  "bin": {
+    "asm-lint": "./dist/cli.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "npx tsx src/cli.ts",
+    "lint": "npx tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "chalk": "^5.3.0",
+    "ora": "^8.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "@types/node": "^20.0.0"
+  },
+  "author": "ASM Protocol Contributors",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/calebguo007/asm-spec.git",
+    "directory": "tools/asm-lint"
+  },
+  "homepage": "https://github.com/calebguo007/asm-spec",
+  "bugs": {
+    "url": "https://github.com/calebguo007/asm-spec/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "mcp",
+    "quality",
+    "lint",
+    "agent",
+    "asm",
+    "ai",
+    "service",
+    "manifest",
+    "topsis",
+    "trust"
+  ],
+  "license": "MIT"
+}

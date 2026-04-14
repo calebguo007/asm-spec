@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 /**
- * Deposit USDC 到 Circle Gateway
+ * Deposit USDC to Circle Gateway
  *
  * Usage: npm run deposit -- <amount>
  * Example: npm run deposit -- 10
@@ -22,42 +22,42 @@ async function main() {
   const privateKey = process.env.BUYER_PRIVATE_KEY as `0x${string}`;
 
   if (!privateKey || privateKey === "0x0000000000000000000000000000000000000000000000000000000000000001") {
-    console.error("❌ 请在 .env 中设置真实的 BUYER_PRIVATE_KEY");
+    console.error("❌ Please set a real BUYER_PRIVATE_KEY in .env");
     process.exit(1);
   }
 
-  console.log(`\n🏦 Deposit ${amount} USDC 到 Circle Gateway...`);
-  console.log(`   链: ${chain}`);
+  console.log(`\n🏦 Depositing ${amount} USDC to Circle Gateway...`);
+  console.log(`   Chain: ${chain}`);
 
   const client = new GatewayClient({ chain, privateKey });
-  console.log(`   地址: ${client.address}`);
+  console.log(`   Address: ${client.address}`);
 
-  // 检查Current balance
+  // Check current balance
   const before = await client.getBalances();
   console.log(`\n   Current balance:`);
-  console.log(`     钱包 USDC: ${before.wallet.formatted}`);
-  console.log(`     Gateway:   ${before.gateway.formattedAvailable} (可用) / ${before.gateway.formattedTotal} (总计)`);
+  console.log(`     Wallet USDC: ${before.wallet.formatted}`);
+  console.log(`     Gateway:   ${before.gateway.formattedAvailable} (available) / ${before.gateway.formattedTotal} (total)`);
 
   // Deposit
-  console.log(`\n   正在Deposit ${amount} USDC...`);
+  console.log(`\n   Depositing ${amount} USDC...`);
   const result = await client.deposit(amount);
-  console.log(`   ✅ Deposit成功!`);
-  console.log(`     金额: ${result.formattedAmount} USDC`);
+  console.log(`   ✅ Deposit successful!`);
+  console.log(`     Amount: ${result.formattedAmount} USDC`);
   console.log(`     Deposit TX: ${result.depositTxHash}`);
   if (result.approvalTxHash) {
     console.log(`     Approval TX: ${result.approvalTxHash}`);
   }
 
-  // 检查新余额
+  // Check new balance
   const after = await client.getBalances();
-  console.log(`\n   新余额:`);
-  console.log(`     钱包 USDC: ${after.wallet.formatted}`);
-  console.log(`     Gateway:   ${after.gateway.formattedAvailable} (可用) / ${after.gateway.formattedTotal} (总计)`);
+  console.log(`\n   New balance:`);
+  console.log(`     Wallet USDC: ${after.wallet.formatted}`);
+  console.log(`     Gateway:   ${after.gateway.formattedAvailable} (available) / ${after.gateway.formattedTotal} (total)`);
 
-  console.log(`\n   查看交易: https://testnet.arcscan.app/tx/${result.depositTxHash}\n`);
+  console.log(`\n   View transaction: https://testnet.arcscan.app/tx/${result.depositTxHash}\n`);
 }
 
 main().catch((err) => {
-  console.error("❌ Deposit失败:", err.message);
+  console.error("❌ Deposit failed:", err.message);
   process.exit(1);
 });

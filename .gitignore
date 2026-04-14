@@ -43,7 +43,9 @@ CIRCLE-PRODUCT-FEEDBACK.md
 # Auxiliary dirs with Chinese comments (keep in private only)
 demo/
 experiments/
-tools/
+# tools/ — asm-lint is tracked, ignore build artifacts
+tools/*/node_modules/
+tools/*/dist/
 integrations/
 paper/x-twitter-thread.md
 ASM-STRATEGIC-ANALYSIS.md

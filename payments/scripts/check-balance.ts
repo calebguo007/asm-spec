@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 /**
- * Query Circle Gateway 余额
+ * Query Circle Gateway balance
  *
  * Usage: npm run balance
  */
@@ -19,31 +19,31 @@ async function main() {
   const privateKey = process.env.BUYER_PRIVATE_KEY as `0x${string}`;
 
   if (!privateKey || privateKey === "0x0000000000000000000000000000000000000000000000000000000000000001") {
-    console.error("❌ 请在 .env 中设置真实的 BUYER_PRIVATE_KEY");
-    console.log("\n💡 Mock 模式余额:");
-    console.log("   Gateway:   10.000000 USDC (模拟)");
-    console.log("   钱包:      100.000000 USDC (模拟)");
+    console.error("❌ Please set a real BUYER_PRIVATE_KEY in .env");
+    console.log("\n💡 Mock mode balance:");
+    console.log("   Gateway:   10.000000 USDC (simulated)");
+    console.log("   Wallet:      100.000000 USDC (simulated)");
     process.exit(0);
   }
 
-  console.log(`\n💰 Query余额...`);
-  console.log(`   链: ${chain}`);
+  console.log(`\n💰 Querying balance...`);
+  console.log(`   Chain: ${chain}`);
 
   const client = new GatewayClient({ chain, privateKey });
-  console.log(`   地址: ${client.address}`);
+  console.log(`   Address: ${client.address}`);
 
   const balances = await client.getBalances();
 
-  console.log(`\n   钱包 USDC:     ${balances.wallet.formatted}`);
-  console.log(`   Gateway 可用:  ${balances.gateway.formattedAvailable}`);
-  console.log(`   Gateway 总计:  ${balances.gateway.formattedTotal}`);
-  console.log(`   提现中:        ${balances.gateway.formattedWithdrawing}`);
-  console.log(`   可提现:        ${balances.gateway.formattedWithdrawable}`);
+  console.log(`\n   Wallet USDC:     ${balances.wallet.formatted}`);
+  console.log(`   Gateway available:  ${balances.gateway.formattedAvailable}`);
+  console.log(`   Gateway total:  ${balances.gateway.formattedTotal}`);
+  console.log(`   Withdrawing:        ${balances.gateway.formattedWithdrawing}`);
+  console.log(`   Withdrawable:        ${balances.gateway.formattedWithdrawable}`);
 
   console.log(`\n   View on-chain: https://testnet.arcscan.app/address/${client.address}\n`);
 }
 
 main().catch((err) => {
-  console.error("❌ Query失败:", err.message);
+  console.error("❌ Query failed:", err.message);
   process.exit(1);
 });

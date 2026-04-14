@@ -1,6 +1,6 @@
 import { parseAgentIntent } from "./src/gemini-agent.js";
 
-// 回归测试：使用 e2e-demo 中的实际请求
+// Regression tests: using actual requests from e2e-demo
 const tests: [string, string][] = [
   // Demo scenarios
   ["I need a cheap and fast LLM for customer service chatbot, budget is important", "ai.llm.chat"],
