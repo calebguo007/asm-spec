@@ -9,44 +9,26 @@ __pycache__/
 .vscode/
 .idea/
 *.tsbuildinfo
+*.bak
 
-# Internal docs (local only)
-调研文档.md
-冲刺计划-4月.md
-ASM曝光与学术规划.md
-论文阅读指南.md
-黑客松选择建议.md
-github-discussion-69-reply.md
-PROJECT-CONTEXT.md
-GIT-GUIDE.md
-manifest-signing-design.md
-design-notes-dimensions.md
-growth-strategy.md
-schema-org-analogy.md
-更新说明-20260407.md
-growth-landing-plan.md
-execution-guide.md
+# Internal docs — entire directories (never push to public)
+docs/internal/
+docs/hackathon/
 
-# Hackathon internal docs (Chinese content)
+# Legacy root-level internal docs (in case restored from private-full)
 HACKATHON.md
 DEMO-SCRIPT.md
 SUBMISSION-DRAFT.md
-README-HACKATHON-ADDITIONS.md
-WORKLOG-2026-04-14.md
-ASM-Pitch-Deck.pptx
 CIRCLE-PRODUCT-FEEDBACK.md
+VIDEO-RECORDING-GUIDE.md
+WORKLOG-*.md
+ASM-STRATEGIC-ANALYSIS.md
+ASM-Pitch-Deck.pptx
+README-HACKATHON-ADDITIONS.md
 
-# Additional internal Chinese docs
-更新说明-20260407.md
-*.bak
-
-# Auxiliary dirs with Chinese comments (keep in private only)
-demo/
-experiments/
-# tools/ — asm-lint is tracked, ignore build artifacts
+# Build artifacts
 tools/*/node_modules/
 tools/*/dist/
-integrations/
+
+# Paper internal drafts
 paper/x-twitter-thread.md
-ASM-STRATEGIC-ANALYSIS.md
-VIDEO-RECORDING-GUIDE.md
