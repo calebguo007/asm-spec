@@ -27,6 +27,7 @@ function startProcess(name: string, command: string, args: string[], cwd: string
     cwd,
     stdio: ["ignore", "pipe", "pipe"],
     env: { ...process.env },
+    shell: true,
   });
 
   proc.stdout?.on("data", (data: Buffer) => {
