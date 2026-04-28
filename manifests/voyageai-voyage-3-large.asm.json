@@ -73,10 +73,13 @@
   "payment": {
     "methods": [
       "api_key_prepaid",
-      "stripe"
+      "stripe",
+      "onchain_usdc"
     ],
     "auth_type": "api_key",
-    "signup_url": "https://dash.voyageai.com"
+    "signup_url": "https://dash.voyageai.com",
+    "onchain_address": "0x14D9a01533cecB6FaB0b74C363727f702C259a61",
+    "onchain_network": "eip155:5042002"
   },
   "extensions": {
     "embedding": {

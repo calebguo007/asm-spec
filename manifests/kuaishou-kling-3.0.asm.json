@@ -65,10 +65,13 @@
   "payment": {
     "methods": [
       "api_key_prepaid",
-      "stripe"
+      "stripe",
+      "onchain_usdc"
     ],
     "auth_type": "api_key",
-    "signup_url": "https://fal.ai"
+    "signup_url": "https://fal.ai",
+    "onchain_address": "0x45A190637BFF49449131A54054b2fb0DB4B13d30",
+    "onchain_network": "eip155:5042002"
   },
   "extensions": {
     "video_gen": {

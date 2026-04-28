@@ -91,10 +91,13 @@
   "payment": {
     "methods": [
       "api_key_prepaid",
-      "stripe"
+      "stripe",
+      "onchain_usdc"
     ],
     "auth_type": "api_key",
-    "signup_url": "https://console.anthropic.com"
+    "signup_url": "https://console.anthropic.com",
+    "onchain_address": "0xbA5Ae65c6fC3928075Bf3a47F450cA6b2da26c82",
+    "onchain_network": "eip155:5042002"
   },
   "extensions": {
     "llm": {

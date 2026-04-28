@@ -73,10 +73,13 @@
   "payment": {
     "methods": [
       "api_key_prepaid",
-      "stripe"
+      "stripe",
+      "onchain_usdc"
     ],
     "auth_type": "api_key",
-    "signup_url": "https://elevenlabs.io/pricing"
+    "signup_url": "https://elevenlabs.io/pricing",
+    "onchain_address": "0x3c985A6578134cbB485f97EB8526D2bd6247a1CA",
+    "onchain_network": "eip155:5042002"
   },
   "extensions": {
     "tts": {

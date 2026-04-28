@@ -56,10 +56,13 @@
     "methods": [
       "api_key_prepaid",
       "stripe",
-      "crypto"
+      "crypto",
+      "onchain_usdc"
     ],
     "auth_type": "api_key",
-    "signup_url": "https://www.runpod.io/pricing"
+    "signup_url": "https://www.runpod.io/pricing",
+    "onchain_address": "0x5131DD84651fd0285700A6f0BEdC6f2A9648005d",
+    "onchain_network": "eip155:5042002"
   },
   "extensions": {
     "compute": {

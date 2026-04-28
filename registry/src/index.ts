@@ -86,6 +86,11 @@ export interface ASMManifest {
     auth_type?: string;
     ap2_endpoint?: string;
     signup_url?: string;
+    /** Arc-testnet EVM address that receives USDC for this service.
+     *  Seeded by scripts/seed-onchain-addresses.ts from keccak256(salt::service_id). */
+    onchain_address?: string;
+    /** CAIP-2 network ID, e.g. "eip155:5042002" for Arc testnet. */
+    onchain_network?: string;
   };
   // v0.3 new fields
   updated_at?: string;
@@ -435,6 +440,127 @@ export function scoreTopsis(
   results.sort((a, b) => b.total_score - a.total_score);
   results.forEach((r, i) => (r.rank = i + 1));
   return results;
+}
+
+// ── Winner selection (benchmark/UI contract) ─────────────
+//
+// This is the shape the 50-tx benchmark and the frontend consume.
+// It keeps the "pick 1 from 2-5 same-category providers" story explicit: every call
+// returns the full shortlist with scores + the chosen winner + a
+// one-sentence reasoning, plus the on-chain address payment routes to.
+
+export interface WinnerCandidate {
+  service_id: string;
+  display_name: string;
+  price_usd: number;
+  latency_p50_ms: number;
+  quality: number;          // 0-1 normalized
+  uptime: number;           // 0-1 (raw uptime)
+  score: number;            // TOPSIS closeness
+  breakdown: { cost: number; quality: number; speed: number; reliability: number };
+  onchain_address?: string;
+  onchain_network?: string;
+  picked: boolean;
+  rank: number;
+}
+
+export interface WinnerPick {
+  taxonomy: string;
+  candidates: WinnerCandidate[];
+  winner: WinnerCandidate;
+  /** One-sentence explanation of why the winner was picked. */
+  reasoning: string;
+}
+
+/**
+ * Run TOPSIS over `manifests`, return the full shortlist + winner + reasoning.
+ * Does NOT filter — pass the candidate pool you already narrowed by taxonomy.
+ *
+ * Throws if `manifests` is empty (caller must ensure ≥ 1 candidate; ideally ≥ 2
+ * so the "pick one" story holds).
+ */
+export function pickWinner(
+  manifests: ASMManifest[],
+  weights: { cost: number; quality: number; speed: number; reliability: number } = {
+    cost: 0.3, quality: 0.3, speed: 0.2, reliability: 0.2,
+  },
+  ioRatio: number = 0.3,
+): WinnerPick {
+  if (manifests.length === 0) {
+    throw new Error("pickWinner: no candidates — cannot choose a winner");
+  }
+
+  const scored = scoreTopsis(manifests, weights, ioRatio);
+  // Index original manifests by service_id for onchain + raw-metric lookup.
+  const byId = new Map(manifests.map((m) => [m.service_id, m]));
+
+  const candidates: WinnerCandidate[] = scored.map((s) => {
+    const m = byId.get(s.service_id)!;
+    return {
+      service_id: s.service_id,
+      display_name: s.display_name,
+      price_usd: Number(extractPrimaryCost(m, ioRatio).toFixed(8)),
+      latency_p50_ms: Math.round(parseLatency(m.sla?.latency_p50) * 1000),
+      quality: Number(extractPrimaryQuality(m).toFixed(3)),
+      uptime: m.sla?.uptime ?? 0.5,
+      score: s.total_score,
+      breakdown: s.breakdown,
+      onchain_address: m.payment?.onchain_address,
+      onchain_network: m.payment?.onchain_network,
+      picked: s.rank === 1,
+      rank: s.rank,
+    };
+  });
+
+  const winner = candidates[0]; // rank 1
+  const runnerUp = candidates[1];
+  const taxonomy = winner ? byId.get(winner.service_id)!.taxonomy : "";
+
+  // One-sentence reasoning tuned for humans reading a dashboard.
+  const reasoning = buildReasoning(winner, runnerUp, candidates.length);
+
+  return { taxonomy, candidates, winner, reasoning };
+}
+
+function buildReasoning(
+  winner: WinnerCandidate,
+  runnerUp: WinnerCandidate | undefined,
+  poolSize: number,
+): string {
+  const bd = winner.breakdown;
+  // Identify winner's strongest dimension (the one most responsible for the score).
+  const dims = [
+    { name: "price", val: bd.cost },
+    { name: "quality", val: bd.quality },
+    { name: "speed", val: bd.speed },
+    { name: "reliability", val: bd.reliability },
+  ];
+  dims.sort((a, b) => b.val - a.val);
+  const top = dims[0].name;
+
+  const poolClause = `among ${poolSize} candidates`;
+  const priceClause = `$${winner.price_usd.toFixed(6)}/call`;
+  const qualityClause = `trust ${winner.quality.toFixed(2)}`;
+
+  if (!runnerUp) {
+    return `${winner.display_name} is the sole candidate ${poolClause}; picked at ${priceClause}, ${qualityClause}.`;
+  }
+
+  const margin = (winner.score - runnerUp.score).toFixed(3);
+
+  // Heuristic narrative keyed on the winning dimension.
+  switch (top) {
+    case "price":
+      return `${winner.display_name} wins on price (${priceClause}, ${qualityClause}) ${poolClause}; +${margin} ahead of ${runnerUp.display_name}.`;
+    case "quality":
+      return `${winner.display_name} wins on quality (${qualityClause}, ${priceClause}) ${poolClause}; +${margin} ahead of ${runnerUp.display_name}.`;
+    case "speed":
+      return `${winner.display_name} wins on latency (${winner.latency_p50_ms}ms p50, ${priceClause}) ${poolClause}; +${margin} ahead of ${runnerUp.display_name}.`;
+    case "reliability":
+      return `${winner.display_name} wins on reliability (uptime ${(winner.uptime * 100).toFixed(2)}%, ${priceClause}) ${poolClause}; +${margin} ahead of ${runnerUp.display_name}.`;
+    default:
+      return `${winner.display_name} picked ${poolClause} (score ${winner.score.toFixed(3)}, +${margin} ahead of ${runnerUp.display_name}).`;
+  }
 }
 
 // ── Format helpers ─────────────────────────────────────

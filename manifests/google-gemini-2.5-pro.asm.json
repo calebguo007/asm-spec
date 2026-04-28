@@ -107,10 +107,13 @@
   "payment": {
     "methods": [
       "api_key_prepaid",
-      "invoice"
+      "invoice",
+      "onchain_usdc"
     ],
     "auth_type": "api_key",
-    "signup_url": "https://aistudio.google.com"
+    "signup_url": "https://aistudio.google.com",
+    "onchain_address": "0xe0b9Bf2350Af7BC5e6F8d3eAd3Cf33515cb9F025",
+    "onchain_network": "eip155:5042002"
   },
   "extensions": {
     "llm": {

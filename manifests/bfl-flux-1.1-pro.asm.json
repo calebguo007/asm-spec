@@ -56,10 +56,13 @@
   "payment": {
     "methods": [
       "api_key_prepaid",
-      "stripe"
+      "stripe",
+      "onchain_usdc"
     ],
     "auth_type": "api_key",
-    "signup_url": "https://replicate.com/pricing"
+    "signup_url": "https://replicate.com/pricing",
+    "onchain_address": "0x746b0F52b979b18225CC31FC7EB1dd89a67100a9",
+    "onchain_network": "eip155:5042002"
   },
   "extensions": {
     "image_gen": {

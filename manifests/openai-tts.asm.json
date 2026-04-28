@@ -75,10 +75,13 @@
   "payment": {
     "methods": [
       "api_key_prepaid",
-      "stripe"
+      "stripe",
+      "onchain_usdc"
     ],
     "auth_type": "api_key",
-    "signup_url": "https://platform.openai.com"
+    "signup_url": "https://platform.openai.com",
+    "onchain_address": "0x2b0a2e691866F6B6D50A3B10c5ADD78fa7124CF7",
+    "onchain_network": "eip155:5042002"
   },
   "extensions": {
     "tts": {

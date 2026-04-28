@@ -96,10 +96,13 @@
     "methods": [
       "api_key_prepaid",
       "stripe",
-      "invoice"
+      "invoice",
+      "onchain_usdc"
     ],
     "auth_type": "api_key",
-    "signup_url": "https://platform.openai.com"
+    "signup_url": "https://platform.openai.com",
+    "onchain_address": "0xfd8A69A33Cd564B13E7f7195fE98d8Af6063dcFc",
+    "onchain_network": "eip155:5042002"
   },
   "extensions": {
     "llm": {

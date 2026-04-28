@@ -67,10 +67,13 @@
   "payment": {
     "methods": [
       "api_key_prepaid",
-      "invoice"
+      "invoice",
+      "onchain_usdc"
     ],
     "auth_type": "oauth2",
-    "signup_url": "https://console.cloud.google.com"
+    "signup_url": "https://console.cloud.google.com",
+    "onchain_address": "0xa7cDe0B6F843AcBFA7552d72B8899Ae1937da2d9",
+    "onchain_network": "eip155:5042002"
   },
   "extensions": {
     "video_gen": {
