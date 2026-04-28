@@ -3,6 +3,13 @@
   "service_id": "google/gemini-2.5-pro@2.5",
   "taxonomy": "ai.llm.chat",
   "display_name": "Gemini 2.5 Pro",
+  "provenance": {
+    "source_url": "https://ai.google.dev",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
   "updated_at": "2026-04-10T00:00:00Z",
   "ttl": 3600,
   "provider": {
@@ -52,11 +59,11 @@
       {
         "dimension": "output_token",
         "unit": "per_1M",
-        "cost_per_unit": 10.0,
+        "cost_per_unit": 10,
         "currency": "USD",
         "conditions": {
           "when": "context > 200K tokens",
-          "cost_per_unit": 15.0
+          "cost_per_unit": 15
         }
       }
     ],

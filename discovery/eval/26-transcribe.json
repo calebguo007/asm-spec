@@ -1,0 +1,33 @@
+{
+  "id": 26,
+  "category": "transcribe",
+  "prompt": "Transcribe ADHD-creator TikTok voiceover (30s) to match their tone",
+  "expected_taxonomy": "ai.audio.stt",
+  "matched_taxonomy": "ai.audio.stt",
+  "confidence": 0.4922,
+  "candidates": [
+    {
+      "taxonomy": "ai.audio.tts",
+      "score": 0.5009
+    },
+    {
+      "taxonomy": "ai.audio.stt",
+      "score": 0.4922
+    },
+    {
+      "taxonomy": "ai.llm.chat",
+      "score": 0.3843
+    },
+    {
+      "taxonomy": "tool.communication.chat",
+      "score": 0.3557
+    },
+    {
+      "taxonomy": "ai.video.generation",
+      "score": 0.3452
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.audio.stt for \"Transcribe ADHD-creator TikTok voiceover (30s) to match their tone\" (0.492). The user's action is transcribing audio (voiceover) to text, which is speech-to-text conversion, matching the ai.audio.stt taxonomy for the verb 'transcribe', not the domain of TikTok or tone matching.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

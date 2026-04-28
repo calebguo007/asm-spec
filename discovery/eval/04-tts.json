@@ -1,0 +1,33 @@
+{
+  "id": 4,
+  "category": "tts",
+  "prompt": "Voiceover script A, female voice, 30s, warm conversational",
+  "expected_taxonomy": "ai.audio.tts",
+  "matched_taxonomy": "ai.llm.chat",
+  "confidence": 0.3156,
+  "candidates": [
+    {
+      "taxonomy": "ai.audio.tts",
+      "score": 0.4734
+    },
+    {
+      "taxonomy": "ai.audio.stt",
+      "score": 0.4073
+    },
+    {
+      "taxonomy": "tool.communication.sms",
+      "score": 0.3169
+    },
+    {
+      "taxonomy": "ai.llm.chat",
+      "score": 0.3156
+    },
+    {
+      "taxonomy": "ai.video.generation",
+      "score": 0.2969
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.llm.chat for \"Voiceover script A, female voice, 30s, warm conversational\" (0.316). The user's task is to create a voiceover script, which is a text generation/writing action. The domain involves audio/voiceover, but the verb is 'script' (writing). ai.llm.chat is the taxonomy for generating text content, matching the action of writing a script, while ai.audio.tts would apply if the action were converting text to speech.",
+  "correct": false,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

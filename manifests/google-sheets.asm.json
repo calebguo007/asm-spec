@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "google/sheets-api@v4",
+  "taxonomy": "tool.productivity.spreadsheet",
+  "display_name": "Google Sheets",
+  "provenance": {
+    "source_url": "https://sheets.google.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Google",
+    "url": "https://sheets.google.com"
+  },
+  "capabilities": {
+    "description": "Spreadsheet API — read, write, and format cells, create charts, and automate data workflows",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_request",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "Free with Google account"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "100ms",
+    "latency_p99": "400ms",
+    "uptime": 0.9995,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://sheets.google.com",
+    "onchain_address": "0x71C4eDf7182028794Ab4dC85C9a372394D5439A4",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_formulas": true,
+      "supports_charts": true,
+      "supports_collaboration": true
+    }
+  }
+}

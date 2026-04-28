@@ -1,0 +1,33 @@
+{
+  "id": 30,
+  "category": "translate",
+  "prompt": "Translate to Spanish (LATAM), casual register",
+  "expected_taxonomy": "ai.nlp.translation",
+  "matched_taxonomy": "ai.nlp.translation",
+  "confidence": 0.3571,
+  "candidates": [
+    {
+      "taxonomy": "tool.communication.email",
+      "score": 0.3719
+    },
+    {
+      "taxonomy": "tool.communication.chat",
+      "score": 0.3604
+    },
+    {
+      "taxonomy": "ai.nlp.translation",
+      "score": 0.3571
+    },
+    {
+      "taxonomy": "ai.llm.chat",
+      "score": 0.3456
+    },
+    {
+      "taxonomy": "tool.communication.sms",
+      "score": 0.3444
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.nlp.translation for \"Translate to Spanish (LATAM), casual register\" (0.357). The user's task is to translate text into Spanish (LATAM) with a casual register, which is fundamentally a translation action. The taxonomy ai.nlp.translation directly corresponds to this action, while other candidates like tool.communication.email or ai.llm.chat relate to communication domains or general text generation, not the core translation verb.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

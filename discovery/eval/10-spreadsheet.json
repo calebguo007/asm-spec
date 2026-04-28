@@ -1,0 +1,33 @@
+{
+  "id": 10,
+  "category": "spreadsheet",
+  "prompt": "Tag 100 App Store review snippets by sentiment (pos/neg/neutral) in a sheet",
+  "expected_taxonomy": "tool.productivity.spreadsheet",
+  "matched_taxonomy": "tool.productivity.spreadsheet",
+  "confidence": 0.5122,
+  "candidates": [
+    {
+      "taxonomy": "tool.productivity.spreadsheet",
+      "score": 0.5122
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.4734
+    },
+    {
+      "taxonomy": "tool.data.scraping",
+      "score": 0.4492
+    },
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.4454
+    },
+    {
+      "taxonomy": "ai.code.completion",
+      "score": 0.4426
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.productivity.spreadsheet for \"Tag 100 App Store review snippets by sentiment (pos/neg/neutral) in a sheet\" (0.512). The user's action is tagging review snippets by sentiment in a sheet, which is a data organization and labeling task performed within a spreadsheet tool, aligning with the taxonomy for spreadsheet productivity tools.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

@@ -1,0 +1,3808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASM Registry Workbench</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --powered-strip-height: 32px;
+      --bg-0: #050608;
+      --bg-1: #0b0c10;
+      --bg-2: #111319;
+      --bg-3: #171a22;
+      --bg-4: #20232c;
+      --glass-0: rgba(11, 13, 17, 0.36);
+      --glass-1: rgba(18, 20, 27, 0.31);
+      --glass-2: rgba(30, 34, 44, 0.27);
+      --glass-3: rgba(255, 255, 255, 0.030);
+      --hairline: rgba(255, 255, 255, 0.13);
+      --hairline-strong: rgba(255, 255, 255, 0.21);
+      --inner-light: inset 0 1px 0 rgba(255, 255, 255, 0.09), inset 0 -1px 0 rgba(255, 255, 255, 0.024);
+      --panel-blur: 38px;
+      --accent-rgb: 88, 182, 143;
+      --secondary-rgb: 124, 111, 205;
+      --success-rgb: 62, 207, 142;
+      --warning-rgb: 245, 166, 35;
+      --danger-rgb: 224, 82, 82;
+      --info-rgb: 74, 158, 218;
+      --text: rgba(255, 255, 255, 0.94);
+      --text-soft: rgba(255, 255, 255, 0.66);
+      --text-dim: rgba(255, 255, 255, 0.42);
+      --border-soft: var(--hairline);
+      --border-mid: rgba(255, 255, 255, 0.15);
+      --border-strong: rgba(255, 255, 255, 0.24);
+      --accent: #58b68f;
+      --accent-soft: #8bd4b4;
+      --secondary: #7c6fcd;
+      --secondary-soft: #a394e8;
+      --success: #3ecf8e;
+      --warning: #f5a623;
+      --danger: #e05252;
+      --info: #4a9eda;
+      --mono: "SF Mono", "Fira Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+      --sans: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--bg-0);
+      color: var(--text);
+      font-family: var(--sans);
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    .app::before,
+    .app::after {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+    }
+
+    .app::before {
+      background:
+        radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.24) 0 1.05px, transparent 1.65px),
+        radial-gradient(circle at 1px 1px, rgba(var(--success-rgb), 0.20) 0 0.75px, transparent 1.45px),
+        linear-gradient(90deg, rgba(255,255,255,0.030) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.024) 1px, transparent 1px),
+        radial-gradient(circle at 20% 6%, rgba(var(--accent-rgb), 0.10), transparent 30%),
+        radial-gradient(circle at 78% 94%, rgba(var(--success-rgb), 0.075), transparent 34%);
+      background-position: 0 0, 11px 11px, 0 0, 0 0, 0 0, 0 0;
+      background-size: 22px 22px, 44px 44px, 88px 88px, 88px 88px, auto, auto;
+      opacity: 0.34;
+      mask-image: radial-gradient(circle at 50% 44%, rgba(0,0,0,1), rgba(0,0,0,0.86) 48%, transparent 96%);
+    }
+
+    .app::after {
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255,255,255,0.10), transparent 24%),
+        radial-gradient(circle at 100% 100%, rgba(var(--success-rgb), 0.07), transparent 32%),
+        linear-gradient(145deg, rgba(255,255,255,0.055), transparent 18%, transparent 76%, rgba(255,255,255,0.025));
+      opacity: 0.26;
+      mix-blend-mode: screen;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .mono {
+      font-family: var(--mono);
+    }
+
+    .app {
+      position: relative;
+      overflow: hidden;
+      min-height: calc(100vh - var(--powered-strip-height));
+      min-height: calc(100dvh - var(--powered-strip-height));
+      padding: 12px;
+      background:
+        radial-gradient(circle at 50% -20%, rgba(255, 255, 255, 0.045), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent 20%),
+        var(--bg-0);
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-rows: 58px minmax(0, 1fr);
+      gap: 12px;
+      height: calc(100vh - var(--powered-strip-height) - 24px);
+      height: calc(100dvh - var(--powered-strip-height) - 24px);
+    }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      background: var(--glass-0);
+      border: 0.5px solid var(--hairline);
+      box-shadow: var(--inner-light);
+      backdrop-filter: blur(var(--panel-blur)) saturate(1.08);
+      -webkit-backdrop-filter: blur(var(--panel-blur)) saturate(1.08);
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .panel::before,
+    .subpanel::before,
+    .service-card::before,
+    .metric-box::before,
+    .thumb-card::before,
+    .log-row::before,
+    .session-card::before,
+    .strip-metric::before,
+    .reasoning-box::before {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      content: "";
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.14), transparent 28%),
+        radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.09), transparent 42%),
+        radial-gradient(circle at 100% 100%, rgba(var(--success-rgb), 0.040), transparent 38%);
+      opacity: 0.34;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: 16px;
+    }
+
+    .brandline {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      white-space: nowrap;
+      font-size: 17px;
+      letter-spacing: 0.01em;
+    }
+
+    .brand strong {
+      font-weight: 650;
+      color: var(--text);
+    }
+
+    .brand span {
+      color: var(--accent-soft);
+      font-weight: 500;
+    }
+
+    .tabs {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border: 0.5px solid var(--hairline);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.035);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+    }
+
+    .tab {
+      border: 0.5px solid transparent;
+      background: transparent;
+      color: var(--text-soft);
+      padding: 7px 12px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: transform 0.16s ease, background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .tab:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .tab.active {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(var(--accent-rgb), 0.35);
+      color: var(--text);
+      box-shadow: inset 0 0 20px rgba(var(--accent-rgb), 0.12);
+    }
+
+    .tab:active,
+    .method-button:active,
+    .run-button:active {
+      transform: scale(0.98);
+    }
+
+    button:focus-visible,
+    select:focus-visible,
+    input[type="range"]:focus-visible {
+      outline: 1px solid rgba(var(--accent-rgb), 0.76);
+      outline-offset: 3px;
+    }
+
+    .status-pills {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    .page-jump {
+      position: relative;
+      isolation: isolate;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      padding: 7px 14px 7px 10px;
+      border-radius: 999px;
+      border: 0.5px solid rgba(var(--accent-rgb), 0.24);
+      background: rgba(255,255,255,0.035);
+      color: var(--text);
+      font-size: 11px;
+      line-height: 1;
+      white-space: nowrap;
+      font-family: var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        inset 0 -10px 20px rgba(0,0,0,0.06),
+        0 0 0 1px rgba(88,182,143,0.03);
+      overflow: hidden;
+      transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease, transform 0.16s ease, filter 0.18s ease;
+    }
+
+    .page-jump:hover {
+      color: var(--text);
+      border-color: rgba(var(--accent-rgb), 0.34);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        inset 0 -12px 24px rgba(0,0,0,0.08),
+        0 0 0 3px rgba(var(--accent-rgb), 0.045),
+        0 10px 20px rgba(0,0,0,0.12);
+      filter: brightness(1.04);
+      transform: translateY(-1px);
+    }
+
+    .page-jump::before {
+      position: absolute;
+      inset: -24%;
+      content: "";
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(151,255,210,0.20), rgba(88,182,143,0.09) 28%, rgba(124,111,205,0.05) 44%, transparent 66%);
+      mix-blend-mode: screen;
+      opacity: 0.72;
+      filter: blur(16px);
+      transform: translateX(-18%);
+      animation: pageJumpGlow 4.8s ease-in-out infinite alternate;
+    }
+
+    .page-jump-mark {
+      position: relative;
+      z-index: 1;
+      display: inline-grid;
+      place-items: center;
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(88,182,143,0.20), transparent 72%),
+        rgba(255,255,255,0.03);
+      border: 0.5px solid rgba(255,255,255,0.10);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+    }
+
+    .page-jump-mark::before {
+      width: 8px;
+      height: 8px;
+      content: "";
+      border-radius: 2px;
+      background:
+        linear-gradient(180deg, rgba(165,242,208,0.92), rgba(88,182,143,0.76));
+      box-shadow: 0 0 10px rgba(88,182,143,0.24);
+      transform: rotate(45deg);
+    }
+
+    .page-jump-text {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      box-shadow: none;
+    }
+
+    .page-jump-text::after {
+      content: "→";
+      color: rgba(255,255,255,0.76);
+      transform: translateY(-1px);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border: 0.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      color: var(--text-dim);
+      font-size: 11px;
+      line-height: 1;
+      white-space: nowrap;
+      font-family: var(--mono);
+      background: rgba(255, 255, 255, 0.026);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045);
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--success);
+      animation: blink 2s infinite ease-in-out;
+    }
+
+    @keyframes pageJumpGlow {
+      from { transform: translateX(-18%) scale(1); opacity: 0.52; }
+      to { transform: translateX(18%) scale(1.06); opacity: 0.82; }
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 204px minmax(0, 1fr) 340px;
+      gap: 12px;
+      min-height: 0;
+    }
+
+    .sidebar,
+    .stage {
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar {
+      padding: 15px;
+      gap: 12px;
+      border-radius: 16px;
+    }
+
+    .sidebar-left {
+      width: 204px;
+    }
+
+    .stage {
+      padding: 15px;
+      gap: 12px;
+      overflow: hidden;
+      border-radius: 18px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 6px;
+      border-bottom: 0.5px solid var(--border-soft);
+    }
+
+    .section-title {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin: 0;
+      font-weight: 650;
+    }
+
+    .tiny-note {
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.5;
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .control-note {
+      font-size: 10px;
+      line-height: 1.42;
+      max-width: 100%;
+    }
+
+    .control-block {
+      display: grid;
+      gap: 12px;
+    }
+
+    .control-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 0.5px solid var(--hairline);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      appearance: none;
+      border-radius: 10px;
+      font-size: 12px;
+      font-family: var(--mono);
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .select:hover {
+      border-color: rgba(var(--success-rgb), 0.34);
+      background: rgba(255, 255, 255, 0.055);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 3px rgba(var(--success-rgb), 0.045);
+    }
+
+    /* Native dropdown list: dark bg to match app theme (Chrome/Firefox honor this) */
+    .select option {
+      background: #0f1115;
+      color: rgba(255, 255, 255, 0.94);
+      padding: 8px 12px;
+    }
+    .select option:checked,
+    .select option:hover {
+      background: rgba(90, 200, 160, 0.18);
+      color: #ffffff;
+    }
+
+    /* Caret indicator (since appearance:none strips native arrow) */
+    .select {
+      background-image:
+        linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.55) 50%),
+        linear-gradient(-45deg, transparent 50%, rgba(255,255,255,0.55) 50%);
+      background-position:
+        calc(100% - 16px) 50%,
+        calc(100% - 11px) 50%;
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+      padding-right: 28px;
+    }
+
+    .slider-row {
+      display: grid;
+      gap: 7px;
+      padding: 1px 0 2px;
+    }
+
+    .slider-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .slider-head span:last-child {
+      color: var(--text);
+      font-family: var(--mono);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      margin: 0;
+      cursor: pointer;
+      background: transparent;
+      height: 22px;
+      --slider-fill: 50%;
+      --slider-start-rgb: 198, 86, 86;
+      --slider-end-rgb: var(--accent-rgb);
+      --slider-rgb: var(--accent-rgb);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 6px;
+      background:
+        linear-gradient(90deg, rgba(var(--slider-start-rgb), 0.92), rgba(var(--slider-end-rgb), 0.96)) 0 / var(--slider-fill) 100% no-repeat,
+        linear-gradient(90deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.13));
+      border-radius: 999px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.11), 0 0 12px rgba(var(--slider-rgb), 0.07);
+    }
+
+    input[type="range"]::-moz-range-track {
+      height: 6px;
+      background:
+        linear-gradient(90deg, rgba(var(--slider-start-rgb), 0.92), rgba(var(--slider-end-rgb), 0.96)) 0 / var(--slider-fill) 100% no-repeat,
+        linear-gradient(90deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.13));
+      border-radius: 999px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      width: 24px;
+      height: 24px;
+      margin-top: -9px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      opacity: 0;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      opacity: 0;
+    }
+
+    input[type="range"]:hover::-webkit-slider-runnable-track {
+      background:
+        linear-gradient(90deg, rgba(var(--slider-start-rgb), 0.96), rgba(var(--slider-end-rgb), 1)) 0 / var(--slider-fill) 100% no-repeat,
+        linear-gradient(90deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18));
+    }
+
+    .method-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .method-button {
+      border: 0.5px solid var(--hairline);
+      background: rgba(255, 255, 255, 0.035);
+      color: var(--text-soft);
+      font-size: 12px;
+      padding: 8px;
+      cursor: pointer;
+      border-radius: 9px;
+      transition: transform 0.12s ease, border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .method-button:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .method-button.active {
+      border-color: rgba(var(--accent-rgb), 0.58);
+      color: var(--text);
+      background: rgba(var(--accent-rgb), 0.10);
+      box-shadow: inset 0 0 16px rgba(var(--accent-rgb), 0.08);
+    }
+
+    .run-button {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      width: 100%;
+      border: 0.5px solid rgba(165, 242, 208, 0.22);
+      background:
+        linear-gradient(140deg, rgba(124, 230, 181, 0.98), rgba(63, 150, 112, 0.96) 44%, rgba(21, 77, 62, 0.98) 100%);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 12px 14px;
+      cursor: pointer;
+      border-radius: 10px;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -10px 24px rgba(0, 0, 0, 0.12),
+        0 10px 24px rgba(0, 0, 0, 0.16),
+        0 0 0 0 rgba(var(--accent-rgb), 0);
+      transition: transform 0.08s ease, filter 0.18s ease, box-shadow 0.22s ease, border-color 0.18s ease;
+    }
+
+    .run-button::before,
+    .run-button::after {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      border-radius: inherit;
+    }
+
+    .run-button::before {
+      inset: -38%;
+      background:
+        linear-gradient(
+          108deg,
+          transparent 6%,
+          rgba(210, 255, 240, 0.04) 18%,
+          rgba(225, 255, 246, 0.24) 30%,
+          rgba(151, 255, 210, 0.62) 45%,
+          rgba(71, 232, 156, 0.28) 58%,
+          rgba(211, 255, 242, 0.10) 70%,
+          transparent 84%
+        );
+      mix-blend-mode: screen;
+      opacity: 1;
+      animation: auroraFlow 4.4s linear infinite;
+    }
+
+    .run-button::after {
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 46%),
+        radial-gradient(circle at 16% 0%, rgba(255, 255, 255, 0.16), transparent 30%),
+        linear-gradient(115deg, transparent 18%, rgba(110, 255, 190, 0.20) 34%, transparent 54%);
+      opacity: 0.68;
+      animation: auroraFlowSecondary 5.6s linear infinite;
+    }
+
+    .run-button:hover {
+      filter: brightness(1.06);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -12px 28px rgba(0, 0, 0, 0.14),
+        0 0 0 3px rgba(var(--accent-rgb), 0.18),
+        0 14px 26px rgba(13, 33, 26, 0.30);
+    }
+
+    .run-button.is-pulsing {
+      animation: buttonPulse 0.42s ease;
+    }
+
+    .control-strip {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 6px;
+    }
+
+    .strip-metric {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 10px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 0.5px solid var(--hairline);
+      border-radius: 10px;
+      min-width: 0;
+      box-shadow: var(--inner-light);
+    }
+
+    .strip-metric .label {
+      min-width: 0;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.25;
+      color: var(--text-dim);
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .strip-metric .value {
+      flex-shrink: 0;
+      font-size: 14px;
+      font-family: var(--mono);
+      line-height: 1;
+      color: var(--text);
+      text-align: right;
+      transition: opacity 0.18s ease, filter 0.18s ease, transform 0.18s ease;
+    }
+
+    .strip-metric .value.is-changing {
+      opacity: 0;
+      filter: blur(4px);
+      transform: translateY(-3px);
+    }
+
+    .mode-view {
+      display: none;
+      min-height: 0;
+      height: 100%;
+    }
+
+    .mode-view.active {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      animation: modeEnter 0.28s cubic-bezier(.2, .75, .22, 1) both;
+    }
+
+    .live-view {
+      flex-direction: column;
+      gap: 12px;
+      min-height: 0;
+    }
+
+    .live-view.active {
+      animation: none;
+    }
+
+    .candidate-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-content: start;
+      gap: 12px;
+      overflow: auto;
+      padding: 2px 2px 4px;
+    }
+
+    .service-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 86px;
+      gap: 12px;
+      padding: 16px;
+      background: var(--glass-1);
+      border: 0.5px solid var(--hairline);
+      border-radius: 14px;
+      box-shadow: var(--inner-light);
+      backdrop-filter: blur(var(--panel-blur)) saturate(1.08);
+      -webkit-backdrop-filter: blur(var(--panel-blur)) saturate(1.08);
+      transition: transform 0.34s cubic-bezier(.2, .75, .2, 1), border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease, opacity 0.24s ease;
+      min-height: 148px;
+    }
+
+    .service-card:hover {
+      transform: translateY(-1px);
+      border-color: rgba(var(--success-rgb), 0.34);
+      background: rgba(18, 32, 27, 0.42);
+      box-shadow:
+        var(--inner-light),
+        0 0 0 3px rgba(var(--success-rgb), 0.055),
+        inset 0 0 34px rgba(var(--success-rgb), 0.045);
+    }
+
+    .service-card.winner {
+      background: rgba(16, 24, 22, 0.55);
+      border-color: rgba(var(--accent-rgb), 0.44);
+      box-shadow: var(--inner-light), inset 0 0 34px rgba(var(--accent-rgb), 0.055);
+    }
+
+    .winner-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(var(--accent-rgb), 0.90);
+      color: #ffffff;
+      font-size: 10px;
+      line-height: 1.2;
+      font-family: var(--mono);
+      letter-spacing: 0.08em;
+    }
+
+    .service-name {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.2;
+      padding-right: 56px;
+      letter-spacing: -0.015em;
+      min-height: 2.45em;
+      max-width: 12.5ch;
+      text-wrap: balance;
+    }
+
+    .service-id {
+      margin-top: 4px;
+      color: var(--text-dim);
+      font-size: 10px;
+      line-height: 1.38;
+      font-family: var(--mono);
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      max-width: 100%;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-size: 11px;
+      line-height: 1.6;
+      border: 0.5px solid transparent;
+      color: var(--text);
+      white-space: nowrap;
+      font-family: var(--mono);
+    }
+
+    .tag.cost {
+      color: var(--success);
+      background: rgba(62, 207, 142, 0.12);
+      border-color: rgba(62, 207, 142, 0.25);
+    }
+
+    .tag.latency {
+      color: var(--info);
+      background: rgba(74, 158, 218, 0.12);
+      border-color: rgba(74, 158, 218, 0.25);
+    }
+
+    .tag.uptime {
+      color: var(--warning);
+      background: rgba(245, 166, 35, 0.12);
+      border-color: rgba(245, 166, 35, 0.25);
+    }
+
+    .tag.meta {
+      color: var(--text-soft);
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .score-stack {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .score-number {
+      font-family: var(--mono);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .score-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      font-family: var(--mono);
+    }
+
+    .score-bar {
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.075);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .score-bar-fill {
+      height: 100%;
+      width: 0;
+      transition: width 0.5s cubic-bezier(.4, 0, .2, 1);
+      transform-origin: left center;
+    }
+
+    .analysis-view,
+    .proof-view {
+      min-height: 0;
+      width: 100%;
+      flex: 1;
+      overflow: hidden;
+      padding-right: 0;
+      scrollbar-color: rgba(var(--accent-rgb), 0.34) rgba(255, 255, 255, 0.045);
+      scrollbar-width: thin;
+    }
+
+    .analysis-view.active,
+    .proof-view.active {
+      display: block;
+    }
+
+    .analysis-view::-webkit-scrollbar,
+    .proof-view::-webkit-scrollbar,
+    .candidate-list::-webkit-scrollbar,
+    .benchmark-list::-webkit-scrollbar,
+    .log-list::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    .analysis-view::-webkit-scrollbar-track,
+    .proof-view::-webkit-scrollbar-track,
+    .candidate-list::-webkit-scrollbar-track,
+    .benchmark-list::-webkit-scrollbar-track,
+    .log-list::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.035);
+      border-radius: 999px;
+    }
+
+    .analysis-view::-webkit-scrollbar-thumb,
+    .proof-view::-webkit-scrollbar-thumb,
+    .candidate-list::-webkit-scrollbar-thumb,
+    .benchmark-list::-webkit-scrollbar-thumb,
+    .log-list::-webkit-scrollbar-thumb {
+      background: rgba(var(--accent-rgb), 0.34);
+      border-radius: 999px;
+    }
+
+    .analysis-grid {
+      display: grid;
+      grid-template-rows: minmax(196px, 0.84fr) minmax(154px, 0.64fr) 122px;
+      gap: 10px;
+      min-height: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+      gap: 10px;
+      min-height: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .subpanel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      padding: 14px;
+      background: rgba(18, 20, 27, 0.28);
+      border: 0.5px solid var(--hairline);
+      border-radius: 14px;
+      box-shadow: var(--inner-light);
+      backdrop-filter: blur(var(--panel-blur)) saturate(1.03);
+      -webkit-backdrop-filter: blur(var(--panel-blur)) saturate(1.03);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+    }
+
+    .subpanel:hover {
+      border-color: rgba(var(--success-rgb), 0.24);
+      background: rgba(18, 24, 24, 0.38);
+      box-shadow: var(--inner-light), 0 0 0 3px rgba(var(--success-rgb), 0.038), inset 0 0 28px rgba(var(--success-rgb), 0.025);
+    }
+
+    .subpanel-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .subpanel-title {
+      margin: 0;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      font-weight: 650;
+    }
+
+    .subpanel-kicker {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-family: var(--mono);
+    }
+
+    .canvas-wrap {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(255, 255, 255, 0.006)),
+        rgba(0, 0, 0, 0.035);
+      border: 0.5px solid rgba(255, 255, 255, 0.070);
+    }
+
+    .analysis-grid .canvas-wrap {
+      min-height: 0;
+    }
+
+    .proof-grid .canvas-wrap {
+      min-height: 220px;
+    }
+
+    .canvas-wrap canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      margin-top: 12px;
+      font-size: 11px;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-soft);
+      font-family: var(--mono);
+    }
+
+    .legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex: 0 0 auto;
+    }
+
+    .thumb-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      overflow: hidden;
+      padding-bottom: 2px;
+    }
+
+    .thumb-card {
+      position: relative;
+      display: grid;
+      grid-template-rows: auto auto auto;
+      align-content: start;
+      min-width: 0;
+      min-height: 100%;
+      padding: 10px 11px;
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 0.5px solid var(--hairline);
+      box-shadow: var(--inner-light);
+      transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .thumb-card:hover {
+      border-color: rgba(var(--success-rgb), 0.24);
+      background: rgba(255, 255, 255, 0.048);
+      box-shadow: var(--inner-light), 0 0 0 3px rgba(var(--success-rgb), 0.036);
+    }
+
+    .thumb-rank {
+      margin-bottom: 4px;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    .thumb-card .name {
+      font-size: 11px;
+      line-height: 1.22;
+      margin: 0 0 6px;
+    }
+
+    .thumb-card .meta {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 58px;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      font-size: 9px;
+      line-height: 1.3;
+      color: var(--text-dim);
+      font-family: var(--mono);
+    }
+
+    .thumb-card .meta .service {
+      position: relative;
+      display: block;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .thumb-card .meta .service-marquee {
+      display: inline-block;
+      min-width: max-content;
+      transform: translateX(0);
+      will-change: transform;
+    }
+
+    .thumb-card .meta .service.is-overflowing .service-marquee {
+      padding-right: 18px;
+      animation: marqueeSlide 8.2s linear infinite;
+    }
+
+    .thumb-card .meta .score {
+      min-width: 58px;
+      text-align: right;
+      justify-self: end;
+      color: var(--text);
+    }
+
+    .proof-left,
+    .proof-right {
+      display: grid;
+      gap: 12px;
+      min-height: 0;
+    }
+
+    .proof-left {
+      grid-template-rows: 270px minmax(0, 1fr);
+    }
+
+    .proof-right {
+      grid-template-rows: minmax(0, 1fr) 148px;
+    }
+
+    #proof-metrics-left,
+    #proof-metrics-right {
+      gap: 5px;
+    }
+
+    #proof-metrics-left {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    #proof-metrics-left .metric-box,
+    #proof-metrics-right .metric-box {
+      padding: 8px 9px;
+    }
+
+    #proof-metrics-right {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: repeat(2, minmax(0, 1fr));
+      align-content: stretch;
+      min-height: 0;
+    }
+
+    #proof-metrics-right .metric-box {
+      height: 100%;
+      max-height: 100%;
+      overflow: hidden;
+    }
+
+    #proof-metrics-left .metric-box .label,
+    #proof-metrics-right .metric-box .label {
+      margin-bottom: 2px;
+      font-size: 8px;
+    }
+
+    #proof-metrics-left .metric-box .value,
+    #proof-metrics-right .metric-box .value {
+      font-size: 14px;
+    }
+
+    #proof-metrics-left .metric-box .value {
+      font-size: 13px;
+    }
+
+    #proof-metrics-left .metric-box .sub,
+    #proof-metrics-right .metric-box .sub {
+      margin-top: 1px;
+      font-size: 8px;
+      line-height: 1.1;
+    }
+
+    .ab-rows {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .ab-row {
+      display: grid;
+      gap: 6px;
+    }
+
+    .ab-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .progress-track {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.065);
+      border-radius: 999px;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      transition: width 2.05s cubic-bezier(.2, .72, .18, 1);
+      box-shadow: 0 0 12px currentColor;
+    }
+
+    .proof-view.is-armed .progress-fill {
+      width: var(--target-width);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .metric-box {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-width: 0;
+      min-height: 0;
+      padding: 12px;
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 0.5px solid var(--hairline);
+      box-shadow: var(--inner-light);
+      transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .metric-box:hover {
+      border-color: rgba(var(--success-rgb), 0.22);
+      background: rgba(255, 255, 255, 0.048);
+      box-shadow: var(--inner-light), 0 0 0 3px rgba(var(--success-rgb), 0.028);
+    }
+
+    .metric-box .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .metric-box .value {
+      font-size: 20px;
+      font-family: var(--mono);
+      line-height: 1.1;
+      min-width: 0;
+    }
+
+    .metric-box .sub {
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .metric-overflow {
+      position: relative;
+      display: block;
+      width: 100%;
+      flex: 0 0 auto;
+      min-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .metric-overflow-inner {
+      display: inline-block;
+      min-width: max-content;
+      transform: translateX(0);
+      will-change: transform;
+    }
+
+    .metric-overflow.is-overflowing .metric-overflow-inner {
+      padding-right: 18px;
+      animation: marqueeSlide 8.4s linear infinite;
+    }
+
+    .benchmark-list {
+      display: grid;
+      gap: 6px;
+      align-content: start;
+      overflow: auto;
+      border-top: 0.5px solid var(--border-soft);
+      margin-top: 10px;
+      padding-top: 10px;
+      padding-right: 3px;
+    }
+
+    .benchmark-row {
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr) 58px;
+      gap: 8px;
+      align-items: center;
+      min-height: 42px;
+      padding: 7px 8px;
+      border: 0.5px solid rgba(255, 255, 255, 0.065);
+      border-radius: 10px;
+      font-size: 10px;
+      font-family: var(--mono);
+      color: var(--text-soft);
+      transition: background-color 0.16s ease, color 0.16s ease;
+    }
+
+    .proof-view.active .benchmark-row {
+      animation: rowCascade 1.26s cubic-bezier(.2, .72, .22, 1) both;
+      animation-delay: var(--row-delay);
+    }
+
+    .benchmark-row:hover {
+      background: rgba(255, 255, 255, 0.028);
+      color: var(--text);
+    }
+
+    .benchmark-row strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .benchmark-main {
+      min-width: 0;
+      display: grid;
+      gap: 2px;
+    }
+
+    .benchmark-taxonomy {
+      font-size: 9px;
+      color: var(--text-dim);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .benchmark-amount {
+      text-align: right;
+      color: var(--text);
+    }
+
+    .truncate {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sidebar-right .block {
+      display: grid;
+      gap: 10px;
+    }
+
+    .reasoning-box {
+      position: relative;
+      padding: 12px 13px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 0.5px solid rgba(var(--accent-rgb), 0.22);
+      border-radius: 11px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.84);
+      box-shadow: var(--inner-light), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 0 24px rgba(var(--accent-rgb), 0.022);
+    }
+
+    .session-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .session-card {
+      position: relative;
+      padding: 10px 11px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 0.5px solid var(--hairline);
+      border-radius: 11px;
+      box-shadow: var(--inner-light);
+      transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .session-card:hover {
+      border-color: rgba(var(--success-rgb), 0.20);
+      background: rgba(255, 255, 255, 0.047);
+      box-shadow: var(--inner-light), 0 0 0 3px rgba(var(--success-rgb), 0.030);
+    }
+
+    .session-card .label {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .session-card .value {
+      margin-top: 4px;
+      font-size: 16px;
+      line-height: 1;
+      font-family: var(--mono);
+    }
+
+    .flow-list,
+    .log-list {
+      display: grid;
+      gap: 8px;
+      min-height: 0;
+    }
+
+    .flow-list {
+      max-height: 150px;
+      overflow: auto;
+    }
+
+    .flow-row {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-soft);
+      font-family: var(--mono);
+    }
+
+    .mini-bar {
+      height: 3px;
+      background: rgba(255, 255, 255, 0.075);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .mini-bar-fill {
+      height: 100%;
+      background: var(--success);
+      box-shadow: 0 0 10px rgba(var(--success-rgb), 0.24);
+    }
+
+    .log-list {
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .log-row {
+      position: relative;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 0.5px solid var(--hairline);
+      border-radius: 11px;
+      box-shadow: var(--inner-light);
+      animation: fadein 0.44s cubic-bezier(.2, .75, .22, 1);
+      transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .log-row:hover {
+      transform: translateY(-1px);
+      border-color: rgba(var(--success-rgb), 0.22);
+      background: rgba(255, 255, 255, 0.048);
+      box-shadow: var(--inner-light), 0 0 0 3px rgba(var(--success-rgb), 0.035);
+    }
+
+    .log-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+      font-family: var(--mono);
+    }
+
+    .log-bottom {
+      margin-top: 6px;
+      display: grid;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--text-dim);
+      font-family: var(--mono);
+    }
+
+    .status-settled {
+      color: var(--success);
+    }
+
+    .empty-state {
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.028);
+      border: 0.5px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      font-size: 12px;
+      color: var(--text-dim);
+      font-family: var(--mono);
+    }
+
+    .score-good { color: var(--success); }
+    .score-strong { color: var(--accent-soft); }
+    .score-warn { color: var(--warning); }
+    .score-bad { color: var(--danger); }
+
+    .live-view.active .score-number {
+      animation: scoreRise 0.52s cubic-bezier(.2, .72, .22, 1) both;
+      animation-delay: calc(var(--item-index, 0) * 34ms);
+    }
+
+    .live-view.active .score-bar-fill {
+      animation: scoreBarGrow 0.72s cubic-bezier(.2, .72, .22, 1) both;
+      animation-delay: calc(40ms + (var(--item-index, 0) * 36ms));
+    }
+
+    .proof-view.active .ab-row,
+    .proof-view.active .metric-box,
+    .proof-view.active .proof-right .subpanel {
+      animation: moduleRise 0.82s cubic-bezier(.2, .72, .22, 1) both;
+      animation-delay: var(--module-delay, 0ms);
+    }
+
+    .proof-view.active .proof-right .subpanel:nth-child(1) {
+      --module-delay: 180ms;
+    }
+
+    .proof-view.active .proof-right .subpanel:nth-child(2) {
+      --module-delay: 320ms;
+    }
+
+    .sidebar-right .session-card,
+    .sidebar-right .flow-row {
+      animation: moduleRise 0.58s cubic-bezier(.2, .72, .22, 1) both;
+      animation-delay: var(--module-delay, 0ms);
+    }
+
+    .ab-score-count.is-counting {
+      animation: numberPop 0.72s cubic-bezier(.2, .72, .22, 1) both;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes modeEnter {
+      from {
+        opacity: 0;
+        filter: blur(8px);
+        transform: translateY(7px);
+      }
+      to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes buttonPulse {
+      0% {
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 0 0 0 rgba(var(--accent-rgb), 0.28);
+      }
+      100% {
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 0 0 9px rgba(var(--accent-rgb), 0);
+      }
+    }
+
+    @keyframes fadein {
+      from {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(-6px);
+      }
+      to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes moduleRise {
+      from {
+        opacity: 0;
+        filter: blur(4px);
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes auroraFlow {
+      0% {
+        transform: translateX(-34%) skewX(-14deg);
+      }
+      100% {
+        transform: translateX(34%) skewX(-14deg);
+      }
+    }
+
+    @keyframes auroraFlowSecondary {
+      0% {
+        transform: translateX(26%) skewX(-10deg);
+      }
+      100% {
+        transform: translateX(-26%) skewX(-10deg);
+      }
+    }
+
+    @keyframes numberPop {
+      0% {
+        opacity: 0.35;
+        filter: blur(4px);
+        transform: translateY(4px);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scoreRise {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scoreBarGrow {
+      from {
+        transform: scaleX(0);
+        opacity: 0.45;
+      }
+      to {
+        transform: scaleX(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes marqueeSlide {
+      0%, 14% {
+        transform: translateX(0);
+      }
+      42%, 58% {
+        transform: translateX(var(--marquee-distance, 0px));
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes rowCascade {
+      from {
+        opacity: 0;
+        filter: blur(4px);
+        transform: translateY(9px);
+      }
+      to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    @media (max-width: 1260px) {
+      body {
+        overflow: auto;
+      }
+
+      .shell {
+        height: auto;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar-left {
+        width: auto;
+      }
+
+      .sidebar,
+      .stage {
+        border-radius: 14px;
+      }
+
+      .stage,
+      .sidebar {
+        overflow: visible;
+      }
+
+      .proof-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .proof-left,
+      .proof-right {
+        grid-template-rows: auto;
+      }
+
+      .candidate-list {
+        grid-template-columns: 1fr;
+      }
+
+      #proof-metrics-left {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    /* ── Powered by Strip ── */
+    .powered-by-strip {
+      position: sticky; top:0; z-index:999;
+      display:flex; align-items:center; gap:10px;
+      height:32px; padding:0 16px;
+      background:rgba(15,17,21,0.85);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      font-size:12px; font-weight:500;
+      color:rgba(255,255,255,0.55);
+      backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    }
+    .pb-label { letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.35); }
+    .pb-logo { white-space:nowrap; }
+    .pb-logo.pb-arc { color:#5ac8a0; }
+    .pb-logo.pb-arc::before { content:"●"; margin-right:4px; font-size:9px; vertical-align:middle; }
+    .pb-logo.pb-circle { color:#3e7bfa; }
+    .pb-logo.pb-circle::before { content:"◆"; margin-right:4px; font-size:9px; vertical-align:middle; }
+    .pb-divider { color:rgba(255,255,255,0.18); }
+    .pb-chain { font-family:var(--mono); font-size:11px; color:rgba(255,255,255,0.28); }
+
+    /* ── Dual Hero Badges ── */
+    .hero-badge { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:100px; font-family:var(--mono); font-size:11px; font-weight:500; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.04); }
+    .hero-badge-arc { color:#5ac8a0; background:rgba(90,200,160,0.08); border-color:rgba(90,200,160,0.15); }
+    .hero-badge-circle { color:#3e7bfa; background:rgba(62,123,250,0.08); border-color:rgba(62,123,250,0.15); }
+    .dot-arc { width:6px; height:6px; border-radius:50%; background:#5ac8a0; box-shadow:0 0 5px rgba(90,200,160,0.6); flex-shrink:0; }
+    .dot-circle { width:6px; height:6px; border-radius:50%; background:#3e7bfa; box-shadow:0 0 5px rgba(62,123,250,0.6); flex-shrink:0; }
+
+    /* ── Arc Explorer Link ── */
+    .tx-explorer-link {
+      font-family:var(--mono); font-size:10px; color:rgba(119,168,255,0.75);
+      text-decoration:none; white-space:nowrap; transition:color 0.15s;
+      cursor:pointer;
+    }
+    .tx-explorer-link:hover { color:rgba(119,168,255,1); text-decoration:underline; }
+    .tx-explorer-link.tx-mock { color:rgba(255,255,255,0.22); pointer-events:none; cursor:default; }
+  </style>
+</head>
+<body>
+  <!-- Powered by Strip -->
+  <div class="powered-by-strip">
+    <span class="pb-label">Powered by</span>
+    <span class="pb-logo pb-arc">Arc Testnet</span>
+    <span class="pb-divider">&times;</span>
+    <span class="pb-logo pb-circle">Circle x402</span>
+    <span class="pb-chain">eip155:5042002 &middot; USDC settlement</span>
+  </div>
+
+  <div class="app">
+    <div class="shell">
+      <header class="topbar panel">
+        <div class="brandline">
+          <div class="brand">
+            <strong>ASM</strong>
+            <span>registry</span>
+          </div>
+          <nav class="tabs" aria-label="Dashboard modes">
+            <button class="tab active" data-mode="live" type="button">Live</button>
+            <button class="tab" data-mode="analysis" type="button">Analysis</button>
+            <button class="tab" data-mode="proof" type="button">Proof</button>
+          </nav>
+        </div>
+        <div class="status-pills">
+          <a
+            class="page-jump"
+            data-server-href="/benchmark"
+            data-local-href="./benchmark.html"
+            href="./benchmark.html"
+            aria-label="Open benchmark page"
+          ><span class="page-jump-mark" aria-hidden="true"></span><span class="page-jump-text">Benchmark</span></a>
+          <div class="pill">70 services</div>
+          <div class="pill">47 categories</div>
+          <div class="pill">schema v0.3</div>
+          <span class="hero-badge hero-badge-arc"><span class="dot dot-arc"></span> Live on Arc Testnet</span>
+          <span class="hero-badge hero-badge-circle"><span class="dot dot-circle"></span> Circle x402 Payments</span>
+        </div>
+      </header>
+
+      <main class="layout">
+        <aside class="sidebar sidebar-left panel">
+          <div class="section-head">
+            <h2 class="section-title">Controls</h2>
+            <span class="tiny-note mono">w = 1.00</span>
+          </div>
+
+          <div class="control-block">
+            <label>
+              <div class="control-label">Taxonomy</div>
+              <select id="taxonomy-select" class="select"></select>
+            </label>
+
+            <div>
+              <div class="control-label">Preference Weights</div>
+              <div class="slider-row">
+                <div class="slider-head"><span>Cost</span><span id="weight-cost-value">0.00</span></div>
+                <input id="weight-cost" type="range" min="1" max="100" value="72">
+              </div>
+              <div class="slider-row">
+                <div class="slider-head"><span>Quality</span><span id="weight-quality-value">0.00</span></div>
+                <input id="weight-quality" type="range" min="1" max="100" value="18">
+              </div>
+              <div class="slider-row">
+                <div class="slider-head"><span>Speed</span><span id="weight-speed-value">0.00</span></div>
+                <input id="weight-speed" type="range" min="1" max="100" value="7">
+              </div>
+              <div class="slider-row">
+                <div class="slider-head"><span>Reliability</span><span id="weight-reliability-value">0.00</span></div>
+                <input id="weight-reliability" type="range" min="1" max="100" value="3">
+              </div>
+            </div>
+
+            <div>
+              <div class="control-label">Scoring Method</div>
+              <div class="method-toggle">
+                <button id="method-topsis" class="method-button active" data-method="topsis" type="button">TOPSIS</button>
+                <button id="method-weighted" class="method-button" data-method="weighted" type="button">Weighted</button>
+              </div>
+            </div>
+
+            <button id="run-button" class="run-button" type="button">Run Selection</button>
+
+            <div class="control-strip">
+              <div class="strip-metric">
+                <div class="label">Mode</div>
+                <div class="value" id="control-mode">LIVE</div>
+              </div>
+              <div class="strip-metric">
+                <div class="label">Candidates</div>
+                <div class="value" id="control-candidate-count">0</div>
+              </div>
+            </div>
+
+            <p class="tiny-note control-note">
+              Pools: <span class="mono">manifests/</span> + pinned
+              <span class="mono">sample-for-frontend.json</span>. Chat keeps 2 demo rows so
+              cost-heavy and quality-heavy runs diverge clearly on stage.
+            </p>
+          </div>
+        </aside>
+
+        <section class="stage panel">
+          <div id="view-live" class="mode-view live-view active">
+            <div class="section-head">
+              <h2 class="section-title">Ranked Candidates</h2>
+              <span id="live-meta" class="tiny-note mono">Current pool</span>
+            </div>
+            <div id="live-candidate-list" class="candidate-list"></div>
+          </div>
+
+          <div id="view-analysis" class="mode-view analysis-view">
+            <div class="analysis-grid">
+              <section class="subpanel">
+                <div class="subpanel-titlebar">
+                  <h3 class="subpanel-title">Radar Comparison</h3>
+                  <div id="analysis-legend-note" class="subpanel-kicker mono">Top 3 candidates</div>
+                </div>
+                <div class="canvas-wrap">
+                  <canvas id="radar-chart" role="img" aria-label="Radar chart comparing cost, quality, speed, and reliability for the top three candidates"></canvas>
+                </div>
+                <div id="radar-legend" class="chart-legend"></div>
+              </section>
+
+              <section class="subpanel">
+                <div class="subpanel-titlebar">
+                  <h3 class="subpanel-title">Trust Delta</h3>
+                  <div class="subpanel-kicker mono">|declared - actual| / declared</div>
+                </div>
+                <div class="canvas-wrap">
+                  <canvas id="trust-chart" role="img" aria-label="Line chart showing trust delta over ten evaluation rounds for the top candidates"></canvas>
+                </div>
+              </section>
+
+              <section class="subpanel">
+                <div class="subpanel-titlebar">
+                  <h3 class="subpanel-title">Decision Strip</h3>
+                  <div class="subpanel-kicker mono">current ordering</div>
+                </div>
+                <div id="analysis-thumbs" class="thumb-row"></div>
+              </section>
+            </div>
+          </div>
+
+          <div id="view-proof" class="mode-view proof-view">
+            <div class="proof-grid">
+              <div class="proof-left">
+                <section class="subpanel">
+                  <div class="subpanel-titlebar">
+                    <h3 class="subpanel-title">git checkout main && git merge dev && git push</h3>
+                    <div class="subpanel-kicker mono">avg TOPSIS over 50 tasks</div>
+                  </div>
+                  <div class="ab-rows" id="ab-rows"></div>
+                  <div class="metric-grid" id="proof-metrics-left"></div>
+                </section>
+
+                <section class="subpanel">
+                  <div class="subpanel-titlebar">
+                    <h3 class="subpanel-title">50-tx benchmark</h3>
+                    <div class="subpanel-kicker mono">sample-for-frontend.json</div>
+                  </div>
+                  <div id="benchmark-list" class="benchmark-list"></div>
+                </section>
+              </div>
+
+              <div class="proof-right">
+                <section class="subpanel">
+                  <div class="subpanel-titlebar">
+                    <h3 class="subpanel-title">Fund Flow</h3>
+                    <div class="subpanel-kicker mono">$0.25 settled</div>
+                  </div>
+                  <div class="canvas-wrap">
+                    <canvas id="fund-chart" role="img" aria-label="Horizontal bar chart showing benchmark fund flow in USDC across recipients"></canvas>
+                  </div>
+                </section>
+
+                <section class="subpanel">
+                  <div class="metric-grid" id="proof-metrics-right"></div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="sidebar sidebar-right panel">
+          <div class="block">
+            <div class="section-head">
+              <h2 class="section-title">Reasoning</h2>
+              <span class="tiny-note mono" id="reasoning-method">TOPSIS</span>
+            </div>
+            <div id="reasoning-box" class="reasoning-box"></div>
+          </div>
+
+          <div class="block">
+            <div class="section-head">
+              <h2 class="section-title">Session</h2>
+              <span class="tiny-note mono">x402 + Arc</span>
+            </div>
+            <div id="session-grid" class="session-grid"></div>
+          </div>
+
+          <div class="block">
+            <div class="section-head">
+              <h2 class="section-title">Flow</h2>
+              <span class="tiny-note mono">current session</span>
+            </div>
+            <div id="mini-flow-list" class="flow-list"></div>
+          </div>
+
+          <div class="block" style="min-height:0;flex:1;">
+            <div class="section-head">
+              <h2 class="section-title">Payment Log</h2>
+              <span class="tiny-note mono">latest 5</span>
+            </div>
+            <div id="payment-log" class="log-list"></div>
+          </div>
+        </aside>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const COLORS = {
+        accent: "#58b68f",
+        accentSoft: "#8bd4b4",
+        secondary: "#7c6fcd",
+        secondarySoft: "#a394e8",
+        success: "#3ecf8e",
+        warning: "#f5a623",
+        danger: "#e05252",
+        info: "#4a9eda",
+        white7: "rgba(255,255,255,0.07)",
+        white12: "rgba(255,255,255,0.12)",
+        white18: "rgba(255,255,255,0.18)",
+        white44: "rgba(255,255,255,0.44)"
+      };
+
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const WORKBENCH_DATA = {
+        taxonomyPools: {
+          "ai.llm.chat": [
+            { name: "Claude Sonnet 4", serviceId: "anthropic/claude-sonnet-4@4.0", priceLabel: "$3/$15 per 1M", latencyMs: 800, uptime: 0.999, selfReported: false, address: "0xbA5Ae65c6fC3928075Bf3a47F450cA6b2da26c82", dimensions: { cost: 0.72, quality: 0.91, speed: 0.78, reliability: 0.99 } },
+            { name: "GPT-4o", serviceId: "openai/gpt-4o@2024-11-20", priceLabel: "$2.5/$10 per 1M", latencyMs: 600, uptime: 0.999, selfReported: false, address: "0xfd8A69A33Cd564B13E7f7195fE98d8Af6063dcFc", dimensions: { cost: 0.75, quality: 0.94, speed: 0.85, reliability: 0.99 } },
+            { name: "Gemini 2.5 Pro", serviceId: "google/gemini-2.5-pro@2.5", priceLabel: "$1.25/$10 per 1M", latencyMs: 700, uptime: 0.997, selfReported: false, address: "0xe0b9Bf2350Af7BC5e6F8d3eAd3Cf33515cb9F025", dimensions: { cost: 0.78, quality: 0.89, speed: 0.82, reliability: 0.997 } }
+          ],
+          "ai.vision.image_generation": [
+            { name: "FLUX 1.1 Pro", serviceId: "black-forest-labs/flux-1.1-pro@1.1", priceLabel: "$0.04 / image", latencyMs: 8000, uptime: 0.995, selfReported: true, address: "0x746b0F52b979b18225CC31FC7EB1dd89a67100a9", dimensions: { cost: 0.85, quality: 0.90, speed: 0.35, reliability: 0.995 } },
+            { name: "Imagen 3", serviceId: "google/imagen-3@3.0", priceLabel: "$0.04 / image", latencyMs: 10000, uptime: 0.999, selfReported: true, address: "0x444155D692b646f872a6501eEbD9F8ceff1F1DD9", dimensions: { cost: 0.85, quality: 0.72, speed: 0.28, reliability: 0.999 } },
+            { name: "DALL-E 3", serviceId: "openai/dall-e-3@3.0", priceLabel: "$0.04 / image", latencyMs: 12000, uptime: 0.999, selfReported: false, address: "0xcDa5313778bf7E0220521aA80208D2C5619abaD0", dimensions: { cost: 0.85, quality: 0.67, speed: 0.20, reliability: 0.999 } }
+          ],
+          "ai.audio.tts": [
+            { name: "OpenAI TTS", serviceId: "openai/tts-1@1.0", priceLabel: "$15 / 1M chars", latencyMs: 500, uptime: 0.999, selfReported: true, address: "0x2b0a2e691866F6B6D50A3B10c5ADD78fa7124CF7", dimensions: { cost: 0.55, quality: 0.75, speed: 0.88, reliability: 0.999 } },
+            { name: "ElevenLabs TTS v2", serviceId: "elevenlabs/tts-v2@2.0", priceLabel: "$180 / 1M chars", latencyMs: 400, uptime: 0.999, selfReported: true, address: "0x3c985A6578134cbB485f97EB8526D2bd6247a1CA", dimensions: { cost: 0.20, quality: 0.90, speed: 0.92, reliability: 0.999 } }
+          ],
+          "ai.video.generation": [
+            { name: "Kling 3.0", serviceId: "kuaishou/kling-3.0@3.0", priceLabel: "$0.029 / second", latencyMs: 60000, uptime: 0.996, selfReported: true, address: "0x45A190637BFF49449131A54054b2fb0DB4B13d30", dimensions: { cost: 0.90, quality: 0.84, speed: 0.12, reliability: 0.996 } },
+            { name: "Veo 3.1", serviceId: "google/veo-3.1@3.1", priceLabel: "$0.20 / second", latencyMs: 45000, uptime: 0.997, selfReported: true, address: "0xa7cDe0B6F843AcBFA7552d72B8899Ae1937da2d9", dimensions: { cost: 0.60, quality: 0.85, speed: 0.18, reliability: 0.997 } }
+          ],
+          "ai.llm.embedding": [
+            { name: "text-embedding-3-large", serviceId: "openai/text-embedding-3-large@3.0", priceLabel: "$0.13 / 1M tokens", latencyMs: 100, uptime: 0.999, selfReported: false, address: "0x5e7d5fc2A62623a72322cC4C1C9Eda4d08F3a353", dimensions: { cost: 0.88, quality: 0.65, speed: 0.98, reliability: 0.999 } },
+            { name: "Voyage 3 Large", serviceId: "voyageai/voyage-3-large@3.0", priceLabel: "$0.18 / 1M tokens", latencyMs: 150, uptime: 0.998, selfReported: false, address: "0x14D9a01533cecB6FaB0b74C363727f702C259a61", dimensions: { cost: 0.83, quality: 0.66, speed: 0.96, reliability: 0.998 } }
+          ],
+          "ai.audio.stt": [
+            { name: "Deepgram Nova-2", serviceId: "deepgram/nova@v2", priceLabel: "$0.0043 / min", latencyMs: 200, uptime: 0.999, selfReported: false, address: "0x71710D38155B3A09936147f67DBB18b5F3818e43", dimensions: { cost: 0.88, quality: 0.85, speed: 0.92, reliability: 0.999 } },
+            { name: "OpenAI Whisper", serviceId: "openai/whisper@v1", priceLabel: "$0.006 / min", latencyMs: 3000, uptime: 0.999, selfReported: false, address: "0x9CbFa1086aAd16E50Be4E654E88C59d08D6b01ae", dimensions: { cost: 0.82, quality: 0.80, speed: 0.45, reliability: 0.999 } }
+          ],
+          "ai.code.completion": [
+            { name: "Cursor", serviceId: "cursor/editor@v1", priceLabel: "Free tier", latencyMs: 200, uptime: 0.998, selfReported: true, address: "0x58C2ac638A77CfCd22Af2750b453C0DAe32400E0", dimensions: { cost: 1.0, quality: 0.82, speed: 0.92, reliability: 0.998 } },
+            { name: "GitHub Copilot", serviceId: "github/copilot@v1", priceLabel: "$10 / month", latencyMs: 150, uptime: 0.999, selfReported: false, address: "0xb76797Ad243fAD4643D419D52ed4bA44C301Dd5c", dimensions: { cost: 0.65, quality: 0.88, speed: 0.95, reliability: 0.999 } }
+          ],
+          "ai.nlp.translation": [
+            { name: "DeepL Translate", serviceId: "deepl/translate@v2", priceLabel: "$0.00002 / char", latencyMs: 200, uptime: 0.999, selfReported: false, address: "0x3B720a048CF91d011B696040a952e0754f921af4", dimensions: { cost: 0.90, quality: 0.92, speed: 0.92, reliability: 0.999 } },
+            { name: "Google Cloud Translation", serviceId: "google/translate@v3", priceLabel: "$0.00002 / char", latencyMs: 150, uptime: 0.999, selfReported: false, address: "0x6abA07310EcFD9ce836C920295293fDc43329EC5", dimensions: { cost: 0.90, quality: 0.85, speed: 0.95, reliability: 0.999 } }
+          ],
+          "ai.vision.ocr": [
+            { name: "Google Cloud Vision OCR", serviceId: "google/vision-ocr@v1", priceLabel: "$0.0015 / image", latencyMs: 500, uptime: 0.999, selfReported: false, address: "0xfb4e92F27B942876Be20771dB965E543AaC70A94", dimensions: { cost: 0.90, quality: 0.88, speed: 0.75, reliability: 0.999 } }
+          ],
+          "tool.data.search": [
+            { name: "Tavily Search", serviceId: "tavily/search-api@v1", priceLabel: "$0.001 / query", latencyMs: 800, uptime: 0.998, selfReported: true, address: "0xF7cDd620b3C9e20203bf12440973989743Baf92F", dimensions: { cost: 0.88, quality: 0.92, speed: 0.78, reliability: 0.998 } },
+            { name: "Exa Search", serviceId: "exa/search-api@v1", priceLabel: "$0.003 / query", latencyMs: 600, uptime: 0.997, selfReported: true, address: "0x553984Bb7100978F763f67Ed2fC5B5AA4778E1e1", dimensions: { cost: 0.82, quality: 0.95, speed: 0.85, reliability: 0.997 } }
+          ],
+          "tool.data.scraping": [
+            { name: "Jina Reader", serviceId: "jina/reader@v1", priceLabel: "Free", latencyMs: 2000, uptime: 0.996, selfReported: false, address: "0x2142D2a1BBD5C4a6277D121B1DCc1B09176c390b", dimensions: { cost: 1.0, quality: 0.65, speed: 0.50, reliability: 0.996 } },
+            { name: "Firecrawl", serviceId: "firecrawl/scrape@v1", priceLabel: "$0.001 / page", latencyMs: 3000, uptime: 0.997, selfReported: false, address: "0xF2BF8B0dEfd8dD49DC02F99518e81B132e96Bbd8", dimensions: { cost: 0.88, quality: 0.78, speed: 0.38, reliability: 0.997 } }
+          ],
+          "tool.automation.browser": [
+            { name: "Browserbase", serviceId: "browserbase/api@v1", priceLabel: "$0.01 / min", latencyMs: 2000, uptime: 0.998, selfReported: false, address: "0x52CBd6295A7813e50aa8FA3A3E2b8148A01bD6a1", dimensions: { cost: 0.75, quality: 0.82, speed: 0.50, reliability: 0.998 } },
+            { name: "Steel Browser", serviceId: "steel/browser@v1", priceLabel: "$0.005 / min", latencyMs: 1500, uptime: 0.995, selfReported: false, address: "0x82c0538b1eD43E8eA88158D988D24c7647735e04", dimensions: { cost: 0.85, quality: 0.86, speed: 0.58, reliability: 0.995 } }
+          ],
+          "tool.productivity.spreadsheet": [
+            { name: "Airtable", serviceId: "airtable/api@v1", priceLabel: "Free tier", latencyMs: 120, uptime: 0.999, selfReported: false, address: "0x53d11edF5B0B7a447431FAF42260f22BEA9FFB66", dimensions: { cost: 0.95, quality: 0.84, speed: 0.93, reliability: 0.999 } },
+            { name: "Google Sheets", serviceId: "google/sheets-api@v4", priceLabel: "Free", latencyMs: 100, uptime: 0.9995, selfReported: false, address: "0x71C4eDf7182028794Ab4dC85C9a372394D5439A4", dimensions: { cost: 1.0, quality: 0.88, speed: 0.95, reliability: 0.9995 } }
+          ],
+          "tool.devops.logging": [
+            { name: "Better Stack", serviceId: "betterstack/logs@v2", priceLabel: "Free tier", latencyMs: 30, uptime: 0.999, selfReported: false, address: "0xe201e55c505b2e487A2b337F6b7f70F3fDb110B2", dimensions: { cost: 0.95, quality: 0.82, speed: 1.0, reliability: 0.999 } }
+          ],
+          "tool.productivity.scheduling": [
+            { name: "Cal.com", serviceId: "cal/scheduling@v2", priceLabel: "Free tier", latencyMs: 100, uptime: 0.998, selfReported: false, address: "0x5f295F0799f67359ddF7A7E9e55257a0811c0b5d", dimensions: { cost: 0.95, quality: 0.80, speed: 0.95, reliability: 0.998 } }
+          ],
+          "tool.devops.ci": [
+            { name: "CircleCI", serviceId: "circleci/cloud@v2", priceLabel: "$0.0006 / credit", latencyMs: 10000, uptime: 0.999, selfReported: false, address: "0x389d4faa7894422B1D9b682b958537E8DDd51426", dimensions: { cost: 0.88, quality: 0.80, speed: 0.28, reliability: 0.999 } },
+            { name: "GitHub Actions", serviceId: "github/actions@v2", priceLabel: "$0.008 / min", latencyMs: 15000, uptime: 0.998, selfReported: false, address: "0x34106Ef224F7FeC935f43340593AF1e314204745", dimensions: { cost: 0.78, quality: 0.85, speed: 0.20, reliability: 0.998 } }
+          ],
+          "infra.auth.identity": [
+            { name: "Clerk", serviceId: "clerk/auth@v5", priceLabel: "Free tier", latencyMs: 60, uptime: 0.999, selfReported: false, address: "0x202911c1708d9226b8f9a8D6dA942953424d6A10", dimensions: { cost: 0.92, quality: 0.88, speed: 0.98, reliability: 0.999 } }
+          ],
+          "tool.data.conversion": [
+            { name: "CloudConvert", serviceId: "cloudconvert/api@v2", priceLabel: "$0.001 / conversion", latencyMs: 2000, uptime: 0.998, selfReported: false, address: "0xbcC6cBBC866442e652dc2068b23221A4c4351179", dimensions: { cost: 0.88, quality: 0.82, speed: 0.50, reliability: 0.998 } }
+          ],
+          "infra.network.dns": [
+            { name: "Cloudflare DNS", serviceId: "cloudflare/dns@v4", priceLabel: "Free", latencyMs: 5, uptime: 0.99999, selfReported: false, address: "0xa2B7a46C8eD8A8365DcCeB0AC8ad8f083Ecbd50E", dimensions: { cost: 1.0, quality: 0.92, speed: 1.0, reliability: 1.0 } }
+          ],
+          "infra.storage.object": [
+            { name: "Cloudflare R2", serviceId: "cloudflare/r2@v1", priceLabel: "Free tier", latencyMs: 30, uptime: 0.99999, selfReported: false, address: "0xFeA4EFe8FF2b4C3a05e2Ff4DdD12C5b18A8e9e34", dimensions: { cost: 0.95, quality: 0.88, speed: 0.98, reliability: 0.9999 } }
+          ],
+          "infra.compute.sandbox": [
+            { name: "E2B Code Sandbox", serviceId: "e2b/sandbox@v1", priceLabel: "$0.0001 / sec", latencyMs: 800, uptime: 0.998, selfReported: false, address: "0xd67f2408C1Df1bCEbC88d7c22398a0f27EC65402", dimensions: { cost: 0.88, quality: 0.82, speed: 0.78, reliability: 0.998 } }
+          ],
+          "infra.compute.serverless": [
+            { name: "Modal", serviceId: "modal/serverless@v1", priceLabel: "$0.000016 / cpu-s", latencyMs: 500, uptime: 0.998, selfReported: false, address: "0x89183d97554291924DB3aeC2703D048d5E4e7db0", dimensions: { cost: 0.92, quality: 0.84, speed: 0.88, reliability: 0.998 } }
+          ],
+          "tool.productivity.calendar": [
+            { name: "Google Calendar", serviceId: "google/calendar-api@v3", priceLabel: "Free", latencyMs: 80, uptime: 0.9995, selfReported: false, address: "0xFE4b6B5d420B62e997383B44052Fe2aC389f588E", dimensions: { cost: 1.0, quality: 0.90, speed: 0.96, reliability: 0.9995 } }
+          ],
+          "tool.productivity.document": [
+            { name: "Google Docs", serviceId: "google/docs-api@v1", priceLabel: "Free", latencyMs: 120, uptime: 0.9995, selfReported: false, address: "0xD44d5b8Bd4034D92ca03A032aeD3c29a51D410cC", dimensions: { cost: 1.0, quality: 0.88, speed: 0.93, reliability: 0.9995 } }
+          ],
+          "tool.data.geolocation": [
+            { name: "Google Maps Platform", serviceId: "google/maps-platform@v1", priceLabel: "$0.005 / req", latencyMs: 100, uptime: 0.9999, selfReported: false, address: "0x8eB681fe4fbEecA210669bb0eA7EF5C05Ab2eE28", dimensions: { cost: 0.85, quality: 0.95, speed: 0.95, reliability: 0.9999 } }
+          ],
+          "tool.productivity.todo": [
+            { name: "Google Tasks", serviceId: "google/tasks-api@v1", priceLabel: "Free", latencyMs: 200, uptime: 0.9995, selfReported: false, address: "0x82C23955a94bA6BCe870e67aC47d080be3b50299", dimensions: { cost: 1.0, quality: 0.78, speed: 0.90, reliability: 0.9995 } },
+            { name: "TickTick", serviceId: "ticktick/api@v2", priceLabel: "Free tier", latencyMs: 150, uptime: 0.998, selfReported: false, address: "0xB81Af5546eEe9FD9cc60320116dEce3858F042A8", dimensions: { cost: 0.95, quality: 0.84, speed: 0.93, reliability: 0.998 } },
+            { name: "Todoist", serviceId: "todoist/api@v2", priceLabel: "Free tier", latencyMs: 120, uptime: 0.999, selfReported: false, address: "0x29e22B366fBbcE9bdc12De5FD992D1925174F9C1", dimensions: { cost: 0.95, quality: 0.82, speed: 0.94, reliability: 0.999 } }
+          ],
+          "tool.business.crm": [
+            { name: "HubSpot CRM", serviceId: "hubspot/crm@v3", priceLabel: "Free tier", latencyMs: 200, uptime: 0.999, selfReported: false, address: "0x3de20Bf87EB178F20f015189d0a9a01d537f549C", dimensions: { cost: 0.95, quality: 0.82, speed: 0.90, reliability: 0.999 } }
+          ],
+          "infra.security.secrets": [
+            { name: "Infisical", serviceId: "infisical/secrets@v1", priceLabel: "Free tier", latencyMs: 30, uptime: 0.999, selfReported: false, address: "0xA305F0AAc13c663C9cded280Cc9174F66bcD30Fd", dimensions: { cost: 0.95, quality: 0.86, speed: 1.0, reliability: 0.999 } }
+          ],
+          "tool.productivity.knowledge": [
+            { name: "Notion", serviceId: "notion/api@v1", priceLabel: "Free tier", latencyMs: 250, uptime: 0.999, selfReported: false, address: "0xd78E2a015e7ebA0e5e1D469af32cA23000D01B77", dimensions: { cost: 0.92, quality: 0.88, speed: 0.87, reliability: 0.999 } }
+          ],
+          "tool.data.pdf": [
+            { name: "PDF.co", serviceId: "pdfco/api@v1", priceLabel: "$0.005 / page", latencyMs: 1000, uptime: 0.997, selfReported: false, address: "0x0Ec016d126F32B7b18279029a5A6848Be3106632", dimensions: { cost: 0.88, quality: 0.78, speed: 0.62, reliability: 0.997 } }
+          ],
+          "tool.data.analytics": [
+            { name: "PostHog", serviceId: "posthog/analytics@v1", priceLabel: "Free tier", latencyMs: 50, uptime: 0.999, selfReported: false, address: "0x1C2564e45213ce5b643b38Dc2B18A6510D253F66", dimensions: { cost: 0.95, quality: 0.84, speed: 1.0, reliability: 0.999 } }
+          ],
+          "tool.data.visualization": [
+            { name: "QuickChart", serviceId: "quickchart/api@v1", priceLabel: "Free tier", latencyMs: 200, uptime: 0.998, selfReported: false, address: "0x08840F0d3acDD60d8fabf39CbB7D681cB5B00C9d", dimensions: { cost: 0.96, quality: 0.76, speed: 0.90, reliability: 0.998 } }
+          ],
+          "infra.compute.gpu": [
+            { name: "Replicate Serverless GPU", serviceId: "replicate/gpu-serverless@1.0", priceLabel: "$0.000225 / gpu-s", latencyMs: 5000, uptime: 0.995, selfReported: false, address: "0xB4EE680a3C5c53995565f07917A9c5fAfa249590", dimensions: { cost: 0.82, quality: 0.82, speed: 0.38, reliability: 0.995 } },
+            { name: "RunPod Serverless GPU", serviceId: "runpod/gpu-serverless@1.0", priceLabel: "$0.00019 / gpu-s", latencyMs: 3000, uptime: 0.998, selfReported: false, address: "0x5131DD84651fd0285700A6f0BEdC6f2A9648005d", dimensions: { cost: 0.85, quality: 0.82, speed: 0.52, reliability: 0.998 } }
+          ],
+          "tool.communication.email": [
+            { name: "Resend", serviceId: "resend/email-api@v1", priceLabel: "$0.00028 / email", latencyMs: 300, uptime: 0.999, selfReported: true, address: "0x72fC9e616984801E002151f4C040A444B67A624f", dimensions: { cost: 0.90, quality: 0.88, speed: 0.88, reliability: 0.999 } },
+            { name: "SendGrid", serviceId: "twilio/sendgrid@v3", priceLabel: "$0.00035 / email", latencyMs: 400, uptime: 0.999, selfReported: false, address: "0x04E242C36b6a91a33f9Af6dcEc46958F9F6B641c", dimensions: { cost: 0.88, quality: 0.80, speed: 0.85, reliability: 0.999 } }
+          ],
+          "tool.data.screenshot": [
+            { name: "ScreenshotOne", serviceId: "screenshotone/api@v1", priceLabel: "$0.001 / shot", latencyMs: 3000, uptime: 0.998, selfReported: false, address: "0xF3905FBA470320034f71C7e8f8A6e4Fa1828ebc4", dimensions: { cost: 0.88, quality: 0.78, speed: 0.50, reliability: 0.998 } }
+          ],
+          "tool.devops.monitoring": [
+            { name: "Sentry", serviceId: "sentry/error-tracking@v1", priceLabel: "Free tier", latencyMs: 50, uptime: 0.999, selfReported: false, address: "0xf70C1176AA1dd83fEbD130475c49F59f09b85b3E", dimensions: { cost: 0.95, quality: 0.90, speed: 1.0, reliability: 0.999 } }
+          ],
+          "tool.payment.processing": [
+            { name: "Stripe", serviceId: "stripe/payments@v1", priceLabel: "2.9% + $0.30 / tx", latencyMs: 300, uptime: 0.9999, selfReported: false, address: "0xDe89c88C74dc4CA5d630860Ee1365a868D337780", dimensions: { cost: 0.60, quality: 0.95, speed: 0.88, reliability: 0.9999 } }
+          ],
+          "infra.database.postgres": [
+            { name: "Neon Serverless Postgres", serviceId: "neon/serverless-postgres@v1", priceLabel: "Free tier", latencyMs: 8, uptime: 0.999, selfReported: false, address: "0x0C3eEB38519A5e39702f9D5C04084f2ca19C05E7", dimensions: { cost: 0.95, quality: 0.86, speed: 1.0, reliability: 0.999 } },
+            { name: "Supabase", serviceId: "supabase/database@v2", priceLabel: "Free tier", latencyMs: 15, uptime: 0.999, selfReported: false, address: "0x8955Cd6ee061aA0a15d21e08Ce9631A5774D6F2c", dimensions: { cost: 0.95, quality: 0.88, speed: 0.99, reliability: 0.999 } }
+          ],
+          "infra.database.vector": [
+            { name: "Pinecone", serviceId: "pinecone/index@v3", priceLabel: "Free tier", latencyMs: 20, uptime: 0.999, selfReported: false, address: "0xC7aB1B2720e8f5e421ac32Fe1A04Ecf5b566bA50", dimensions: { cost: 0.95, quality: 0.86, speed: 0.98, reliability: 0.999 } },
+            { name: "Qdrant", serviceId: "qdrant/cloud@v1", priceLabel: "Free tier", latencyMs: 10, uptime: 0.998, selfReported: false, address: "0xe4c629864b739ff9aaA6aAD5251e02DD887B2126", dimensions: { cost: 0.95, quality: 0.84, speed: 1.0, reliability: 0.998 } }
+          ],
+          "tool.communication.sms": [
+            { name: "Twilio SMS", serviceId: "twilio/sms@v1", priceLabel: "$0.0079 / msg", latencyMs: 200, uptime: 0.999, selfReported: false, address: "0xaB71d286DAFeD9177096B70D24344ed93997f514", dimensions: { cost: 0.78, quality: 0.90, speed: 0.92, reliability: 0.999 } }
+          ],
+          "tool.productivity.forms": [
+            { name: "Typeform", serviceId: "typeform/api@v1", priceLabel: "Free tier", latencyMs: 150, uptime: 0.998, selfReported: false, address: "0x991901D6d8fEA662dA606E12916cC4cb89264467", dimensions: { cost: 0.95, quality: 0.80, speed: 0.93, reliability: 0.998 } }
+          ],
+          "infra.messaging.queue": [
+            { name: "Upstash QStash", serviceId: "upstash/qstash@v2", priceLabel: "$0.000001 / msg", latencyMs: 50, uptime: 0.999, selfReported: false, address: "0xF165c1DbCbc201523b643Ba6112797412Db5B5F7", dimensions: { cost: 0.96, quality: 0.82, speed: 1.0, reliability: 0.999 } }
+          ],
+          "infra.database.kv": [
+            { name: "Upstash Redis", serviceId: "upstash/redis@v2", priceLabel: "$0.000002 / req", latencyMs: 2, uptime: 0.999, selfReported: false, address: "0x2A42e2Dc591C79e9524b81Ed47a8725fA15F9fbd", dimensions: { cost: 0.95, quality: 0.86, speed: 1.0, reliability: 0.999 } }
+          ],
+          "tool.devops.deployment": [
+            { name: "Vercel", serviceId: "vercel/platform@v1", priceLabel: "Free tier", latencyMs: 1000, uptime: 0.999, selfReported: false, address: "0xf321B3EA2469266CA49b571c416B157b76eda49d", dimensions: { cost: 0.95, quality: 0.88, speed: 0.62, reliability: 0.999 } },
+            { name: "Fly.io", serviceId: "fly/machines@v1", priceLabel: "$0.0031 / cpu-h", latencyMs: 2000, uptime: 0.998, selfReported: false, address: "0xeac1843e2eAD31237CA8fC46d22bC77fc025D2F4", dimensions: { cost: 0.88, quality: 0.82, speed: 0.50, reliability: 0.998 } }
+          ],
+          "tool.productivity.project": [
+            { name: "Linear", serviceId: "linear/api@v2", priceLabel: "Free tier", latencyMs: 80, uptime: 0.999, selfReported: false, address: "0x316A2A9D2a1be20604e2f6687431cA31Ab3eB20B", dimensions: { cost: 0.92, quality: 0.88, speed: 0.96, reliability: 0.999 } }
+          ],
+          "tool.communication.chat": [
+            { name: "Discord", serviceId: "discord/api@v10", priceLabel: "Free", latencyMs: 80, uptime: 0.998, selfReported: false, address: "0x8D5008676A8A113764B867F2672b748B4C676BA4", dimensions: { cost: 1.0, quality: 0.80, speed: 0.96, reliability: 0.998 } },
+            { name: "Slack", serviceId: "slack/web-api@v2", priceLabel: "Free tier", latencyMs: 100, uptime: 0.999, selfReported: false, address: "0xb8d7707f051dFa10260f28aB02ddA50EeA27C99B", dimensions: { cost: 0.95, quality: 0.84, speed: 0.95, reliability: 0.999 } }
+          ],
+          "tool.data.weather": [
+            { name: "OpenWeatherMap", serviceId: "openweathermap/api@v3", priceLabel: "Free tier", latencyMs: 200, uptime: 0.998, selfReported: false, address: "0xB2a89543e9E0c03f5684445787e956fF8a39EFA2", dimensions: { cost: 0.96, quality: 0.76, speed: 0.90, reliability: 0.998 } }
+          ]
+        },
+        proof: {
+          abTest: {
+            bars: [
+              { label: "TOPSIS", score: 0.8679, color: "#58b68f" },
+              { label: "Random", score: 0.4571, color: "#707070" },
+              { label: "Expensive", score: 0.3990, color: "#e05252" }
+            ],
+            metricsLeft: [
+              { label: "winner avg", value: "0.8679", sub: "algorithm pick", tone: "success", decimals: 4 },
+              { label: "random avg", value: "0.4571", sub: "uniform expectation", tone: "dim", decimals: 4 },
+              { label: "expensive avg", value: "0.3990", sub: "most expensive only", tone: "dim", decimals: 4 },
+              { label: "winner edge", value: "0.4108", prefix: "+", sub: "vs random", tone: "success", decimals: 4 }
+            ]
+          },
+          benchmarkSummary: {
+            totalAmount: 0.25,
+            uniqueRecipients: 15,
+            totalTx: 50,
+            network: "Arc testnet"
+          },
+          benchmarkList: [
+            { id: 1, service: "FLUX 1.1 Pro", taxonomy: "ai.vision.image_generation", amount: 0.005 },
+            { id: 2, service: "GPT-4o", taxonomy: "ai.llm.chat", amount: 0.005 },
+            { id: 3, service: "Google Cloud Translation", taxonomy: "ai.nlp.translation", amount: 0.005 },
+            { id: 4, service: "OpenAI TTS", taxonomy: "ai.audio.tts", amount: 0.005 },
+            { id: 5, service: "Kling 3.0", taxonomy: "ai.video.generation", amount: 0.005 },
+            { id: 6, service: "text-embedding-3-large", taxonomy: "ai.llm.embedding", amount: 0.005 },
+            { id: 7, service: "Jina Reader", taxonomy: "tool.data.scraping", amount: 0.005 },
+            { id: 8, service: "Steel Browser", taxonomy: "tool.automation.browser", amount: 0.005 },
+            { id: 9, service: "GitHub Copilot", taxonomy: "ai.code.completion", amount: 0.005 },
+            { id: 10, service: "Google Sheets", taxonomy: "tool.productivity.spreadsheet", amount: 0.005 },
+            { id: 11, service: "Deepgram Nova-2", taxonomy: "ai.audio.stt", amount: 0.005 },
+            { id: 12, service: "Tavily Search", taxonomy: "tool.data.search", amount: 0.005 },
+            { id: 13, service: "Todoist", taxonomy: "tool.productivity.todo", amount: 0.005 },
+            { id: 14, service: "Neon Serverless Postgres", taxonomy: "infra.database.postgres", amount: 0.005 },
+            { id: 15, service: "Vercel", taxonomy: "tool.devops.deployment", amount: 0.005 },
+            { id: 16, service: "FLUX 1.1 Pro", taxonomy: "ai.vision.image_generation", amount: 0.005 },
+            { id: 17, service: "GPT-4o", taxonomy: "ai.llm.chat", amount: 0.005 },
+            { id: 18, service: "Google Cloud Translation", taxonomy: "ai.nlp.translation", amount: 0.005 },
+            { id: 19, service: "OpenAI TTS", taxonomy: "ai.audio.tts", amount: 0.005 },
+            { id: 20, service: "Kling 3.0", taxonomy: "ai.video.generation", amount: 0.005 },
+            { id: 21, service: "text-embedding-3-large", taxonomy: "ai.llm.embedding", amount: 0.005 },
+            { id: 22, service: "Jina Reader", taxonomy: "tool.data.scraping", amount: 0.005 },
+            { id: 23, service: "Steel Browser", taxonomy: "tool.automation.browser", amount: 0.005 },
+            { id: 24, service: "GitHub Copilot", taxonomy: "ai.code.completion", amount: 0.005 },
+            { id: 25, service: "Google Sheets", taxonomy: "tool.productivity.spreadsheet", amount: 0.005 },
+            { id: 26, service: "Deepgram Nova-2", taxonomy: "ai.audio.stt", amount: 0.005 },
+            { id: 27, service: "Tavily Search", taxonomy: "tool.data.search", amount: 0.005 },
+            { id: 28, service: "FLUX 1.1 Pro", taxonomy: "ai.vision.image_generation", amount: 0.005 },
+            { id: 29, service: "GPT-4o", taxonomy: "ai.llm.chat", amount: 0.005 },
+            { id: 30, service: "Google Cloud Translation", taxonomy: "ai.nlp.translation", amount: 0.005 },
+            { id: 31, service: "OpenAI TTS", taxonomy: "ai.audio.tts", amount: 0.005 },
+            { id: 32, service: "Kling 3.0", taxonomy: "ai.video.generation", amount: 0.005 },
+            { id: 33, service: "text-embedding-3-large", taxonomy: "ai.llm.embedding", amount: 0.005 },
+            { id: 34, service: "Jina Reader", taxonomy: "tool.data.scraping", amount: 0.005 },
+            { id: 35, service: "GitHub Copilot", taxonomy: "ai.code.completion", amount: 0.005 },
+            { id: 36, service: "Google Sheets", taxonomy: "tool.productivity.spreadsheet", amount: 0.005 },
+            { id: 37, service: "Deepgram Nova-2", taxonomy: "ai.audio.stt", amount: 0.005 },
+            { id: 38, service: "Tavily Search", taxonomy: "tool.data.search", amount: 0.005 },
+            { id: 39, service: "FLUX 1.1 Pro", taxonomy: "ai.vision.image_generation", amount: 0.005 },
+            { id: 40, service: "GPT-4o", taxonomy: "ai.llm.chat", amount: 0.005 },
+            { id: 41, service: "Google Cloud Translation", taxonomy: "ai.nlp.translation", amount: 0.005 },
+            { id: 42, service: "text-embedding-3-large", taxonomy: "ai.llm.embedding", amount: 0.005 },
+            { id: 43, service: "Jina Reader", taxonomy: "tool.data.scraping", amount: 0.005 },
+            { id: 44, service: "GitHub Copilot", taxonomy: "ai.code.completion", amount: 0.005 },
+            { id: 45, service: "GPT-4o", taxonomy: "ai.llm.chat", amount: 0.005 },
+            { id: 46, service: "Google Cloud Translation", taxonomy: "ai.nlp.translation", amount: 0.005 },
+            { id: 47, service: "text-embedding-3-large", taxonomy: "ai.llm.embedding", amount: 0.005 },
+            { id: 48, service: "Jina Reader", taxonomy: "tool.data.scraping", amount: 0.005 },
+            { id: 49, service: "GPT-4o", taxonomy: "ai.llm.chat", amount: 0.005 },
+            { id: 50, service: "Google Cloud Translation", taxonomy: "ai.nlp.translation", amount: 0.005 }
+          ],
+          fundsFlow: [
+            { address: "0xfd8A69A33Cd564B13E7f7195fE98d8Af6063dcFc", serviceId: "openai/gpt-4o@2024-11-20", displayName: "GPT-4o", txCount: 6, totalValueUsd: 0.03 },
+            { address: "0x6abA07310EcFD9ce836C920295293fDc43329EC5", serviceId: "google/translate@v3", displayName: "Google Cloud Translation", txCount: 6, totalValueUsd: 0.03 },
+            { address: "0x5e7d5fc2A62623a72322cC4C1C9Eda4d08F3a353", serviceId: "openai/text-embedding-3-large@3.0", displayName: "text-embedding-3-large", txCount: 5, totalValueUsd: 0.025 },
+            { address: "0x2142D2a1BBD5C4a6277D121B1DCc1B09176c390b", serviceId: "jina/reader@v1", displayName: "Jina Reader", txCount: 5, totalValueUsd: 0.025 },
+            { address: "0x746b0F52b979b18225CC31FC7EB1dd89a67100a9", serviceId: "black-forest-labs/flux-1.1-pro@1.1", displayName: "FLUX 1.1 Pro", txCount: 4, totalValueUsd: 0.02 },
+            { address: "0xb76797Ad243fAD4643D419D52ed4bA44C301Dd5c", serviceId: "github/copilot@v1", displayName: "GitHub Copilot", txCount: 4, totalValueUsd: 0.02 },
+            { address: "0x2b0a2e691866F6B6D50A3B10c5ADD78fa7124CF7", serviceId: "openai/tts-1@1.0", displayName: "OpenAI TTS", txCount: 3, totalValueUsd: 0.015 },
+            { address: "0x45A190637BFF49449131A54054b2fb0DB4B13d30", serviceId: "kuaishou/kling-3.0@3.0", displayName: "Kling 3.0", txCount: 3, totalValueUsd: 0.015 },
+            { address: "0x71C4eDf7182028794Ab4dC85C9a372394D5439A4", serviceId: "google/sheets-api@v4", displayName: "Google Sheets", txCount: 3, totalValueUsd: 0.015 },
+            { address: "0x71710D38155B3A09936147f67DBB18b5F3818e43", serviceId: "deepgram/nova@v2", displayName: "Deepgram Nova-2", txCount: 3, totalValueUsd: 0.015 },
+            { address: "0xF7cDd620b3C9e20203bf12440973989743Baf92F", serviceId: "tavily/search-api@v1", displayName: "Tavily Search", txCount: 3, totalValueUsd: 0.015 },
+            { address: "0x82c0538b1eD43E8eA88158D988D24c7647735e04", serviceId: "steel/browser@v1", displayName: "Steel Browser", txCount: 2, totalValueUsd: 0.01 },
+            { address: "0x29e22B366fBbcE9bdc12De5FD992D1925174F9C1", serviceId: "todoist/api@v2", displayName: "Todoist", txCount: 1, totalValueUsd: 0.005 },
+            { address: "0x0C3eEB38519A5e39702f9D5C04084f2ca19C05E7", serviceId: "neon/serverless-postgres@v1", displayName: "Neon Serverless Postgres", txCount: 1, totalValueUsd: 0.005 },
+            { address: "0xf321B3EA2469266CA49b571c416B157b76eda49d", serviceId: "vercel/platform@v1", displayName: "Vercel", txCount: 1, totalValueUsd: 0.005 }
+          ]
+        }
+      };
+      const DEFAULT_PROOF_DATA = JSON.parse(JSON.stringify(WORKBENCH_DATA.proof));
+
+      const TAXONOMIES = [
+        "ai.llm.chat","ai.vision.image_generation","ai.audio.tts","ai.video.generation","ai.llm.embedding","ai.audio.stt","ai.code.completion","ai.nlp.translation","ai.vision.ocr",
+        "tool.data.search","tool.data.scraping","tool.automation.browser","tool.productivity.spreadsheet","tool.devops.logging","tool.productivity.scheduling","tool.devops.ci","tool.data.conversion","tool.productivity.calendar","tool.productivity.document","tool.data.geolocation","tool.productivity.todo","tool.business.crm","tool.productivity.knowledge","tool.data.pdf","tool.data.analytics","tool.data.visualization","tool.communication.email","tool.data.screenshot","tool.devops.monitoring","tool.payment.processing","tool.communication.sms","tool.productivity.forms","tool.devops.deployment","tool.productivity.project","tool.communication.chat","tool.data.weather",
+        "infra.auth.identity","infra.network.dns","infra.storage.object","infra.compute.sandbox","infra.compute.serverless","infra.compute.gpu","infra.database.postgres","infra.database.vector","infra.security.secrets","infra.messaging.queue","infra.database.kv"
+      ];
+
+      const state = {
+        mode: "live",
+        method: "topsis",
+        taxonomy: "ai.llm.chat",
+        rawWeights: { cost: 72, quality: 18, speed: 7, reliability: 3 },
+        txCount: 0,
+        totalVol: 0,
+        recipients: new Set(),
+        categories: new Set(),
+        flowData: {},
+        logs: [],
+        proofData: null,
+        proofAnimated: false,
+        chartMotion: {
+          radar: 1,
+          trust: 1,
+          fund: 1
+        },
+        motionFrame: {
+          radar: null,
+          trust: null,
+          fund: null
+        },
+        railSignatures: {
+          reasoning: "",
+          session: "",
+          flow: "",
+          logs: ""
+        },
+        pendingRenderFrame: null,
+        pendingRenderInteractive: false,
+        proofStaticRendered: false,
+        chartDisplay: {
+          analysis: null,
+          fund: null
+        },
+        chartTweenFrame: {
+          analysis: null,
+          fund: null
+        }
+      };
+
+      const refs = {
+        tabs: [...document.querySelectorAll(".tab")],
+        methodButtons: [...document.querySelectorAll(".method-button")],
+        taxonomySelect: document.getElementById("taxonomy-select"),
+        sliders: {
+          cost: document.getElementById("weight-cost"),
+          quality: document.getElementById("weight-quality"),
+          speed: document.getElementById("weight-speed"),
+          reliability: document.getElementById("weight-reliability")
+        },
+        sliderValues: {
+          cost: document.getElementById("weight-cost-value"),
+          quality: document.getElementById("weight-quality-value"),
+          speed: document.getElementById("weight-speed-value"),
+          reliability: document.getElementById("weight-reliability-value")
+        },
+        runButton: document.getElementById("run-button"),
+        controlMode: document.getElementById("control-mode"),
+        controlCandidateCount: document.getElementById("control-candidate-count"),
+        views: {
+          live: document.getElementById("view-live"),
+          analysis: document.getElementById("view-analysis"),
+          proof: document.getElementById("view-proof")
+        },
+        liveMeta: document.getElementById("live-meta"),
+        liveCandidateList: document.getElementById("live-candidate-list"),
+        reasoningMethod: document.getElementById("reasoning-method"),
+        reasoningBox: document.getElementById("reasoning-box"),
+        sessionGrid: document.getElementById("session-grid"),
+        miniFlowList: document.getElementById("mini-flow-list"),
+        paymentLog: document.getElementById("payment-log"),
+        analysisLegendNote: document.getElementById("analysis-legend-note"),
+        radarLegend: document.getElementById("radar-legend"),
+        analysisThumbs: document.getElementById("analysis-thumbs"),
+        proofView: document.getElementById("view-proof"),
+        abRows: document.getElementById("ab-rows"),
+        proofMetricsLeft: document.getElementById("proof-metrics-left"),
+        proofMetricsRight: document.getElementById("proof-metrics-right"),
+        benchmarkList: document.getElementById("benchmark-list")
+      };
+
+      function init() {
+        initStaticLinks();
+        state.proofData = JSON.parse(JSON.stringify(WORKBENCH_DATA.proof));
+        applyInitialMode();
+        populateTaxonomies();
+        bindEvents();
+        renderWeightValues();
+        renderBenchmarkList();
+        commitRun(true);
+        loadProofSnapshot();
+        triggerViewMotion(state.mode);
+        if (state.mode === "proof") {
+          state.proofAnimated = true;
+          window.setTimeout(() => refs.proofView.classList.add("is-armed"), 100);
+          restartBenchmarkCascade();
+        }
+      }
+
+      function initStaticLinks() {
+        const isFile = window.location.protocol === "file:";
+        document.querySelectorAll("[data-server-href][data-local-href]").forEach((node) => {
+          const href = isFile ? node.getAttribute("data-local-href") : node.getAttribute("data-server-href");
+          if (href) node.setAttribute("href", href);
+        });
+      }
+
+      function applyInitialMode() {
+        const hashMode = window.location.hash.replace("#", "");
+        if (!["live", "analysis", "proof"].includes(hashMode)) return;
+        state.mode = hashMode;
+        refs.tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.mode === hashMode));
+        Object.entries(refs.views).forEach(([viewMode, node]) => {
+          node.classList.toggle("active", viewMode === hashMode);
+        });
+        refs.controlMode.textContent = hashMode.toUpperCase();
+      }
+
+      function populateTaxonomies() {
+        TAXONOMIES.forEach((taxonomy) => {
+          const option = document.createElement("option");
+          option.value = taxonomy;
+          option.textContent = taxonomy;
+          refs.taxonomySelect.appendChild(option);
+        });
+        refs.taxonomySelect.value = state.taxonomy;
+      }
+
+      function bindEvents() {
+        refs.tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            setMode(tab.dataset.mode);
+          });
+        });
+
+        refs.methodButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            setMethod(button.dataset.method);
+          });
+        });
+
+        Object.entries(refs.sliders).forEach(([key, slider]) => {
+          slider.addEventListener("input", () => {
+            state.rawWeights[key] = Number(slider.value);
+            renderWeightValues();
+            scheduleRender({ interactive: true });
+          });
+
+          slider.addEventListener("change", () => {
+            state.rawWeights[key] = Number(slider.value);
+            renderWeightValues();
+            render();
+          });
+        });
+
+        refs.taxonomySelect.addEventListener("change", () => {
+          state.taxonomy = refs.taxonomySelect.value;
+          render();
+        });
+
+        refs.runButton.addEventListener("click", () => {
+          void commitRun(false);
+        });
+        window.addEventListener("resize", () => render());
+      }
+
+      function setMode(mode) {
+        if (state.mode === mode) return;
+        state.mode = mode;
+        window.history.replaceState(null, "", `#${mode}`);
+        refs.tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.mode === mode));
+        Object.entries(refs.views).forEach(([viewMode, node]) => {
+          node.classList.toggle("active", viewMode === mode);
+        });
+        animateLabelText(refs.controlMode, mode.toUpperCase());
+        triggerViewMotion(mode);
+        render();
+        if (mode === "proof" && !state.proofAnimated) {
+          state.proofAnimated = true;
+          window.setTimeout(() => refs.proofView.classList.add("is-armed"), 100);
+        }
+        if (mode === "proof") {
+          restartBenchmarkCascade();
+        }
+      }
+
+      function animateLabelText(node, nextText) {
+        if (!node || node.textContent === nextText) return;
+        if (prefersReducedMotion) {
+          node.textContent = nextText;
+          return;
+        }
+        node.classList.add("is-changing");
+        window.setTimeout(() => {
+          node.textContent = nextText;
+          node.classList.remove("is-changing");
+        }, 130);
+      }
+
+      function triggerViewMotion(mode) {
+        if (mode === "analysis") {
+          animateChart("radar", 1620);
+          animateChart("trust", 1880);
+        }
+        if (mode === "proof") {
+          animateChart("fund", 2140);
+        }
+      }
+
+      function animateChart(type, duration) {
+        if (prefersReducedMotion) {
+          state.chartMotion[type] = 1;
+          renderAnimatedCharts();
+          return;
+        }
+
+        if (state.motionFrame[type]) {
+          window.cancelAnimationFrame(state.motionFrame[type]);
+        }
+
+        const start = performance.now();
+        state.chartMotion[type] = 0;
+
+        const tick = (now) => {
+          const elapsed = now - start;
+          const linear = clamp(elapsed / duration, 0, 1);
+          state.chartMotion[type] = easeOutCubic(linear);
+          renderAnimatedCharts();
+          if (linear < 1) {
+            state.motionFrame[type] = window.requestAnimationFrame(tick);
+          } else {
+            state.motionFrame[type] = null;
+          }
+        };
+
+        state.motionFrame[type] = window.requestAnimationFrame(tick);
+      }
+
+      function easeOutCubic(value) {
+        return 1 - ((1 - value) ** 3);
+      }
+
+      function setMethod(method) {
+        state.method = method;
+        refs.methodButtons.forEach((button) => button.classList.toggle("active", button.dataset.method === method));
+        render();
+      }
+
+      function getWeights() {
+        const total = state.rawWeights.cost + state.rawWeights.quality + state.rawWeights.speed + state.rawWeights.reliability;
+        return {
+          cost: state.rawWeights.cost / total,
+          quality: state.rawWeights.quality / total,
+          speed: state.rawWeights.speed / total,
+          reliability: state.rawWeights.reliability / total
+        };
+      }
+
+      function renderWeightValues() {
+        const weights = getWeights();
+        refs.sliderValues.cost.textContent = weights.cost.toFixed(2);
+        refs.sliderValues.quality.textContent = weights.quality.toFixed(2);
+        refs.sliderValues.speed.textContent = weights.speed.toFixed(2);
+        refs.sliderValues.reliability.textContent = weights.reliability.toFixed(2);
+        Object.values(refs.sliders).forEach(updateSliderFill);
+      }
+
+      function updateSliderFill(slider) {
+        const min = Number(slider.min || 0);
+        const max = Number(slider.max || 100);
+        const value = Number(slider.value || 0);
+        const pct = ((value - min) / (max - min || 1)) * 100;
+        slider.style.setProperty("--slider-fill", `${clamp(pct, 0, 100).toFixed(2)}%`);
+        const ratio = clamp((value - min) / (max - min || 1), 0, 1);
+        const red = [198, 86, 86];
+        const white = [236, 236, 236];
+        const green = [92, 184, 134];
+        const isCost = slider.id === "weight-cost";
+        const start = isCost ? green : red;
+        const mid = white;
+        const end = isCost ? red : green;
+        let color = mid;
+        if (ratio <= 0.5) {
+          const local = ratio / 0.5;
+          color = start.map((channel, index) => Math.round(channel + ((mid[index] - channel) * local)));
+        } else {
+          const local = (ratio - 0.5) / 0.5;
+          color = mid.map((channel, index) => Math.round(channel + ((end[index] - channel) * local)));
+        }
+        slider.style.setProperty("--slider-start-rgb", start.join(", "));
+        slider.style.setProperty("--slider-end-rgb", color.join(", "));
+        slider.style.setProperty("--slider-rgb", color.join(", "));
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function getProofData() {
+        return state.proofData || DEFAULT_PROOF_DATA;
+      }
+
+      async function loadProofSnapshot() {
+        try {
+          const snapshotUrl = new URL("../benchmark-results/sample-for-frontend.json", window.location.href);
+          const response = await fetch(snapshotUrl.href, { cache: "no-store" });
+          if (!response.ok) throw new Error(`snapshot fetch failed: ${response.status}`);
+          const payload = await response.json();
+          const derived = deriveProofDataFromSnapshot(payload);
+          if (!derived) return;
+          state.proofData = derived;
+          state.proofStaticRendered = false;
+          renderBenchmarkList();
+          if (state.mode === "proof") render(undefined, { interactive: false });
+        } catch (_error) {
+          state.proofData = JSON.parse(JSON.stringify(WORKBENCH_DATA.proof));
+        }
+      }
+
+      function deriveProofDataFromSnapshot(snapshot) {
+        const tasks = Array.isArray(snapshot?.tasks) ? snapshot.tasks : [];
+        const fundsFlow = Array.isArray(snapshot?.arcResults?.fundsFlow) ? snapshot.arcResults.fundsFlow : [];
+        if (!tasks.length) return null;
+
+        const aggregates = tasks.reduce((acc, task) => {
+          const candidates = Array.isArray(task.candidates) ? task.candidates : [];
+          if (!candidates.length) return acc;
+
+          const winner = candidates.find((candidate) => candidate.picked)
+            || [...candidates].sort((a, b) => (Number(a.rank || 999) - Number(b.rank || 999)))[0]
+            || candidates[0];
+          const randomExpected = candidates.reduce((sum, candidate) => sum + Number(candidate.score || 0), 0) / candidates.length;
+          const expensive = [...candidates].sort((a, b) => (
+            Number(b.price_usd || 0) - Number(a.price_usd || 0)
+          ) || (
+            Number(a.rank || 999) - Number(b.rank || 999)
+          ))[0];
+
+          acc.winner += Number(winner?.score || 0);
+          acc.random += randomExpected;
+          acc.expensive += Number(expensive?.score || 0);
+          return acc;
+        }, { winner: 0, random: 0, expensive: 0 });
+
+        const total = tasks.length || 1;
+        const winnerAvg = aggregates.winner / total;
+        const randomAvg = aggregates.random / total;
+        const expensiveAvg = aggregates.expensive / total;
+
+        return {
+          abTest: {
+            bars: [
+              { label: "TOPSIS", score: winnerAvg, color: COLORS.secondary },
+              { label: "Random", score: randomAvg, color: COLORS.info },
+              { label: "Expensive", score: expensiveAvg, color: COLORS.danger }
+            ],
+            metricsLeft: [
+              { label: "winner avg", value: winnerAvg.toFixed(4), sub: "algorithm pick", tone: "success", decimals: 4 },
+              { label: "random avg", value: randomAvg.toFixed(4), sub: "uniform expectation", tone: "dim", decimals: 4 },
+              { label: "expensive avg", value: expensiveAvg.toFixed(4), sub: "most expensive only", tone: "dim", decimals: 4 },
+              { label: "winner edge", value: (winnerAvg - randomAvg).toFixed(4), prefix: "+", sub: "vs random", tone: "success", decimals: 4 }
+            ]
+          },
+          benchmarkSummary: {
+            totalAmount: Number(snapshot?.arcResults?.totalValueTransferredUsd || 0),
+            uniqueRecipients: Number(snapshot?.arcResults?.uniqueRecipientCount || 0),
+            totalTx: Number(snapshot?.arcResults?.totalTxs || tasks.length),
+            network: "Arc testnet"
+          },
+          benchmarkList: tasks.map((task) => ({
+            id: task.id,
+            service: task.candidates?.find((candidate) => candidate.picked)?.display_name || task.pickedService || "Unknown service",
+            taxonomy: task.taxonomy || task.category || "unknown",
+            amount: Number(task.actualPriceUsd || 0)
+          })),
+          fundsFlow
+        };
+      }
+
+      function animateCountValue(node, target, options = {}) {
+        if (!node) return;
+        const textNode = node.querySelector?.(".metric-overflow-inner") || node;
+        const {
+          prefix = "",
+          suffix = "",
+          decimals = 0,
+          duration = 860
+        } = options;
+
+        const finalText = `${prefix}${Number(target).toFixed(decimals)}${suffix}`;
+        if (prefersReducedMotion) {
+          textNode.textContent = finalText;
+          return;
+        }
+
+        const previous = Number(node.dataset.currentValue || 0);
+        const numericTarget = Number(target || 0);
+        if (Math.abs(previous - numericTarget) < (10 ** (-decimals))) {
+          textNode.textContent = finalText;
+          node.dataset.currentValue = String(numericTarget);
+          return;
+        }
+
+        const start = performance.now();
+        node.dataset.currentValue = String(numericTarget);
+
+        const tick = (now) => {
+          const progress = easeOutCubic(clamp((now - start) / duration, 0, 1));
+          const current = previous + ((numericTarget - previous) * progress);
+          textNode.textContent = `${prefix}${current.toFixed(decimals)}${suffix}`;
+          if (progress < 1) {
+            window.requestAnimationFrame(tick);
+          } else {
+            textNode.textContent = finalText;
+          }
+        };
+
+        window.requestAnimationFrame(tick);
+      }
+
+      function scheduleRender(options = {}) {
+        state.pendingRenderInteractive = state.pendingRenderInteractive || Boolean(options.interactive);
+        if (state.pendingRenderFrame) return;
+        state.pendingRenderFrame = window.requestAnimationFrame(() => {
+          const interactive = state.pendingRenderInteractive;
+          state.pendingRenderFrame = null;
+          state.pendingRenderInteractive = false;
+          render(undefined, { interactive });
+        });
+      }
+
+      function animateCountersWithin(scope) {
+        if (!scope) return;
+        scope.querySelectorAll("[data-count-target]").forEach((node) => {
+          animateCountValue(node, Number(node.dataset.countTarget || 0), {
+            prefix: node.dataset.prefix || "",
+            suffix: node.dataset.suffix || "",
+            decimals: Number(node.dataset.decimals || 0),
+            duration: Number(node.dataset.duration || 860)
+          });
+        });
+      }
+
+      function normalizeBenefit(values, current) {
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        if (max === min) return 1;
+        return (current - min) / (max - min);
+      }
+
+      function normalizeCost(values, current) {
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        if (max === min) return 1;
+        return 1 - ((current - min) / (max - min));
+      }
+
+      function deriveCandidateDimensions(candidates) {
+        const hasPreset = candidates.every((candidate) => candidate.dimensions);
+        if (hasPreset) {
+          return candidates.map((candidate) => ({
+            ...candidate.dimensions
+          }));
+        }
+
+        const prices = candidates.map((candidate) => candidate.priceUsd ?? 0);
+        const qualities = candidates.map((candidate) => candidate.qualityMetric ?? 0.5);
+        const latencies = candidates.map((candidate) => candidate.latencyMs ?? 1000);
+        const reliabilities = candidates.map((candidate) => candidate.uptime ?? 0.99);
+
+        return candidates.map((candidate) => ({
+          cost: normalizeCost(prices, candidate.priceUsd ?? 0),
+          quality: normalizeBenefit(qualities, candidate.qualityMetric ?? 0.5),
+          speed: normalizeCost(latencies, candidate.latencyMs ?? 1000),
+          reliability: normalizeBenefit(reliabilities, candidate.uptime ?? 0.99)
+        }));
+      }
+
+      function computeDecision() {
+        const pool = WORKBENCH_DATA.taxonomyPools[state.taxonomy].map((candidate) => ({ ...candidate }));
+        const derivedDimensions = deriveCandidateDimensions(pool);
+        const weights = getWeights();
+
+        const weightVector = [weights.cost, weights.quality, weights.speed, weights.reliability];
+        const dimensionKeys = ["cost", "quality", "speed", "reliability"];
+
+        const weightedScores = pool.map((candidate, index) => {
+          const dims = derivedDimensions[index];
+          const weightedAverage =
+            (dims.cost * weights.cost) +
+            (dims.quality * weights.quality) +
+            (dims.speed * weights.speed) +
+            (dims.reliability * weights.reliability);
+          return { candidate, dims, weightedAverage };
+        });
+
+        const topsisPrepared = (() => {
+          const denominators = {
+            cost: Math.sqrt(derivedDimensions.reduce((sum, dims) => sum + (dims.cost ** 2), 0)) || 1,
+            quality: Math.sqrt(derivedDimensions.reduce((sum, dims) => sum + (dims.quality ** 2), 0)) || 1,
+            speed: Math.sqrt(derivedDimensions.reduce((sum, dims) => sum + (dims.speed ** 2), 0)) || 1,
+            reliability: Math.sqrt(derivedDimensions.reduce((sum, dims) => sum + (dims.reliability ** 2), 0)) || 1
+          };
+
+          const weightedMatrix = derivedDimensions.map((dims) => ({
+            cost: (dims.cost / denominators.cost) * weightVector[0],
+            quality: (dims.quality / denominators.quality) * weightVector[1],
+            speed: (dims.speed / denominators.speed) * weightVector[2],
+            reliability: (dims.reliability / denominators.reliability) * weightVector[3]
+          }));
+
+          const ideal = {};
+          const anti = {};
+          dimensionKeys.forEach((key) => {
+            ideal[key] = Math.max(...weightedMatrix.map((item) => item[key]));
+            anti[key] = Math.min(...weightedMatrix.map((item) => item[key]));
+          });
+
+          return weightedMatrix.map((row) => {
+            const distToIdeal = Math.sqrt(dimensionKeys.reduce((sum, key) => sum + ((row[key] - ideal[key]) ** 2), 0));
+            const distToAnti = Math.sqrt(dimensionKeys.reduce((sum, key) => sum + ((row[key] - anti[key]) ** 2), 0));
+            return distToAnti / (distToIdeal + distToAnti || 1);
+          });
+        })();
+
+        const ranking = weightedScores.map((item, index) => {
+          const trustPenalty = item.candidate.selfReported ? 0.92 : 1;
+          const score = state.method === "topsis" ? topsisPrepared[index] * trustPenalty : item.weightedAverage * trustPenalty;
+          return {
+            ...item.candidate,
+            dims: item.dims,
+            trustPenalty,
+            score: clamp(score, 0, 1)
+          };
+        }).sort((a, b) => b.score - a.score);
+
+        const winner = ranking[0];
+        const trustNote = winner.selfReported
+          ? "self-reported metrics down-weighted by trust penalty"
+          : "third-party benchmark signal preferred";
+
+        const reasoning =
+          `${winner.name} scores ${winner.score.toFixed(3)} under ${state.method === "topsis" ? "TOPSIS" : "Weighted Average"} ` +
+          `(cost=${weights.cost.toFixed(2)}, quality=${weights.quality.toFixed(2)}, speed=${weights.speed.toFixed(2)}, rel=${weights.reliability.toFixed(2)}). ` +
+          `self_reported=${winner.selfReported} → ${trustNote}. Trust delta within bounds. x402 payTo resolved → Arc testnet.`;
+
+        return { weights, pool, ranking, winner, reasoning };
+      }
+
+      function scoreTone(score) {
+        if (score >= 0.85) return { className: "score-good", color: COLORS.success };
+        if (score >= 0.70) return { className: "score-strong", color: COLORS.accentSoft };
+        if (score >= 0.55) return { className: "score-warn", color: COLORS.warning };
+        return { className: "score-bad", color: COLORS.danger };
+      }
+
+      function formatLatency(ms) {
+        if (ms >= 1000) return `${(ms / 1000).toFixed(ms % 1000 === 0 ? 0 : 1)}s`;
+        return `${Math.round(ms)}ms`;
+      }
+
+      function formatUptime(uptime) {
+        return `${(uptime * 100).toFixed(1)}%`;
+      }
+
+      function formatUsd(value) {
+        return `$${value.toFixed(3)}`;
+      }
+
+      function truncateAddress(address) {
+        if (!address) return "unknown";
+        return `${address.slice(0, 8)}…${address.slice(-6)}`;
+      }
+
+      function createTxHash() {
+        return `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join("")}`;
+      }
+
+      function formatPriceLabel(priceUsd) {
+        if (!Number.isFinite(Number(priceUsd))) return "n/a";
+        const amount = Number(priceUsd);
+        if (amount === 0) return "$0 / call";
+        if (amount < 0.001) return `$${amount.toFixed(6)} / call`;
+        if (amount < 0.01) return `$${amount.toFixed(4)} / call`;
+        return `$${amount.toFixed(3)} / call`;
+      }
+
+      function getLocalCandidateDefaultsByServiceId() {
+        return Object.values(WORKBENCH_DATA.taxonomyPools)
+          .flat()
+          .reduce((map, candidate) => {
+            map.set(candidate.serviceId, candidate);
+            return map;
+          }, new Map());
+      }
+
+      function adaptRegistryPickToDecision(payload) {
+        if (!payload?.pick?.candidates?.length) return null;
+        const weights = payload.weights || getWeights();
+        const localDefaults = getLocalCandidateDefaultsByServiceId();
+        const ranking = payload.pick.candidates.map((candidate) => {
+          const fallback = localDefaults.get(candidate.service_id);
+          const dims = candidate.breakdown || fallback?.dimensions || {
+            cost: 0.5,
+            quality: 0.5,
+            speed: 0.5,
+            reliability: 0.5
+          };
+          return {
+            name: candidate.display_name || fallback?.name || candidate.service_id,
+            serviceId: candidate.service_id,
+            priceLabel: formatPriceLabel(candidate.price_usd),
+            priceUsd: Number(candidate.price_usd || fallback?.priceUsd || 0),
+            latencyMs: Number(candidate.latency_p50_ms || fallback?.latencyMs || 0),
+            uptime: Number(candidate.uptime || fallback?.uptime || 0.99),
+            selfReported: Boolean(fallback?.selfReported),
+            address: candidate.onchain_address || fallback?.address || "",
+            qualityMetric: Number(candidate.quality || fallback?.qualityMetric || 0.5),
+            dims,
+            trustPenalty: 1,
+            score: clamp(Number(candidate.score || 0), 0, 1)
+          };
+        }).sort((a, b) => b.score - a.score);
+
+        if (!ranking.length) return null;
+        return {
+          weights,
+          pool: ranking.map((candidate) => ({ ...candidate })),
+          ranking,
+          winner: ranking[0],
+          reasoning: payload.pick.reasoning || `${ranking[0].name} returned by live /api/score.`
+        };
+      }
+
+      // ── API Base URL Resolution ───────────────────────────────
+      // Priority: 1) URL ?api_base=  2) localStorage  3) same-origin  4) localhost
+      function resolveApiBase() {
+        const params = new URLSearchParams(window.location.search);
+        const fromUrl = params.get("api_base");
+        if (fromUrl) {
+          try { localStorage.setItem("ASM_API_BASE", fromUrl); } catch (_e) {}
+          return fromUrl.replace(/\/$/, "");
+        }
+        try {
+          const fromStorage = localStorage.getItem("ASM_API_BASE");
+          if (fromStorage) return fromStorage.replace(/\/$/, "");
+        } catch (_e) {}
+        const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+        if (isLocal) return "http://localhost:4402";
+        // Same-origin deployment: use relative path (works when frontend & backend share domain)
+        return "";
+      }
+      const REGISTRY_API_BASE = resolveApiBase();
+
+      async function requestRegistryDecision() {
+        const weights = getWeights();
+        const response = await fetch(`${REGISTRY_API_BASE}/api/score`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          signal: AbortSignal.timeout(10000),
+          body: JSON.stringify({
+            taxonomy: state.taxonomy,
+            method: state.method,
+            w_cost: weights.cost,
+            w_quality: weights.quality,
+            w_speed: weights.speed,
+            w_reliability: weights.reliability,
+            io_ratio: 0.3
+          })
+        });
+        if (!response.ok) {
+          throw new Error(`registry score failed: ${response.status}`);
+        }
+        const payload = await response.json();
+        return adaptRegistryPickToDecision(payload);
+      }
+
+      async function commitRun(isInitial) {
+        let decision = computeDecision();
+        let usedLiveScore = false;
+        const showButtonState = !isInitial;
+        if (showButtonState) {
+          refs.runButton.disabled = true;
+          refs.runButton.dataset.label = refs.runButton.textContent;
+          refs.runButton.textContent = "Querying Registry...";
+        }
+        try {
+          const liveDecision = await requestRegistryDecision();
+          if (liveDecision) {
+            decision = liveDecision;
+            usedLiveScore = true;
+          }
+        } catch (_error) {
+          decision = computeDecision();
+        } finally {
+          if (showButtonState) refs.runButton.disabled = false;
+        }
+
+        const log = {
+          id: `${Date.now()}-${Math.random().toString(16).slice(2, 8)}`,
+          service: decision.winner.name,
+          address: decision.winner.address,
+          amount: 0.005,
+          taxonomy: state.taxonomy,
+          status: "SETTLED",
+          txHash: createTxHash(),
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+        };
+
+        state.logs.unshift(log);
+        state.txCount += 1;
+        state.totalVol += log.amount;
+        state.recipients.add(log.address);
+        state.categories.add(log.taxonomy);
+        state.flowData[log.service] = (state.flowData[log.service] || 0) + log.amount;
+
+        if (isInitial) {
+          refs.runButton.textContent = "Run Selection";
+        } else {
+          refs.runButton.textContent = "Run Selection";
+          refs.runButton.classList.remove("is-pulsing");
+          void refs.runButton.offsetWidth;
+          refs.runButton.classList.add("is-pulsing");
+          window.setTimeout(() => refs.runButton.classList.remove("is-pulsing"), 430);
+        }
+
+        render(decision);
+      }
+
+      function render(decision = computeDecision(), options = {}) {
+        const interactive = Boolean(options.interactive);
+        if (refs.controlMode.textContent !== state.mode.toUpperCase() && !refs.controlMode.classList.contains("is-changing")) {
+          refs.controlMode.textContent = state.mode.toUpperCase();
+        }
+        if (interactive) {
+          refs.controlCandidateCount.textContent = String(decision.pool.length);
+          refs.controlCandidateCount.dataset.currentValue = String(decision.pool.length);
+        } else {
+          animateCountValue(refs.controlCandidateCount, decision.pool.length, { decimals: 0, duration: 720 });
+        }
+        refs.reasoningMethod.textContent = state.method === "topsis" ? "TOPSIS" : "WEIGHTED";
+        refs.liveMeta.textContent = `${state.taxonomy} · ${decision.pool.length} candidates · ${state.method}`;
+        renderLive(decision, { interactive });
+        renderRightRail(decision);
+        if (state.mode === "analysis") renderAnalysis(decision, { interactive });
+        if (state.mode === "proof") renderProof(decision, { interactive });
+      }
+
+      function renderAnimatedCharts(decision = computeDecision()) {
+        if (state.mode === "analysis") {
+          const topThree = decision.ranking.slice(0, 3);
+          const radarColors = [COLORS.secondary, COLORS.accent, COLORS.danger];
+          drawAnalysisCharts(topThree, radarColors);
+        }
+        if (state.mode === "proof") {
+          drawProofFundChart();
+        }
+      }
+
+      function renderLive(decision, options = {}) {
+        const interactive = Boolean(options.interactive);
+        const previousRects = new Map();
+        const previousOrder = new Map();
+        refs.liveCandidateList.querySelectorAll(".service-card[data-service-id]").forEach((card) => {
+          previousRects.set(card.dataset.serviceId, card.getBoundingClientRect());
+          previousOrder.set(card.dataset.serviceId, Number(card.dataset.rankIndex || 0));
+        });
+
+        refs.liveCandidateList.innerHTML = "";
+
+        decision.ranking.forEach((candidate, index) => {
+          const tone = scoreTone(candidate.score);
+          const card = document.createElement("article");
+          card.className = `service-card${index === 0 ? " winner" : ""}`;
+          card.dataset.serviceId = candidate.serviceId;
+          card.dataset.rankIndex = String(index);
+          card.style.setProperty("--item-index", index);
+
+          card.innerHTML = `
+            ${index === 0 ? '<div class="winner-badge">WINNER</div>' : ""}
+            <div>
+              <h3 class="service-name">${candidate.name}</h3>
+              <div class="service-id">${candidate.serviceId}</div>
+              <div class="tag-row">
+                <span class="tag cost">${candidate.priceLabel}</span>
+                <span class="tag latency">${formatLatency(candidate.latencyMs)}</span>
+                <span class="tag uptime">${formatUptime(candidate.uptime)}</span>
+                ${candidate.selfReported ? '<span class="tag meta">self_reported</span>' : ""}
+              </div>
+            </div>
+            <div class="score-stack">
+              <div class="score-label">${state.method === "topsis" ? "TOPSIS" : "WAVG"}</div>
+              <div class="score-number ${tone.className}">${candidate.score.toFixed(3)}</div>
+              <div class="score-bar">
+                <div class="score-bar-fill" style="width:${(candidate.score * 100).toFixed(1)}%;background:${tone.color};"></div>
+              </div>
+            </div>
+          `;
+          refs.liveCandidateList.appendChild(card);
+        });
+
+        if (!prefersReducedMotion) {
+          animateCandidateReorder(previousRects, previousOrder, { interactive });
+        }
+      }
+
+      function animateCandidateReorder(previousRects, previousOrder = new Map(), options = {}) {
+        const interactive = Boolean(options.interactive);
+        refs.liveCandidateList.querySelectorAll(".service-card[data-service-id]").forEach((card, index) => {
+          const previous = previousRects.get(card.dataset.serviceId);
+          const prevIndex = previousOrder.get(card.dataset.serviceId);
+          const parityLift = (index % 2 === 0 ? -8 : 8) * (interactive ? 0.6 : 1);
+          const paritySway = (index % 2 === 0 ? -10 : 10) * (interactive ? 0.6 : 1);
+          if (!previous) {
+            card.style.opacity = "0";
+            card.style.transform = `translate(${paritySway * 0.45}px, ${parityLift * 0.5}px)`;
+            window.requestAnimationFrame(() => {
+              card.style.opacity = "";
+              card.style.transform = "";
+            });
+            return;
+          }
+
+          const next = card.getBoundingClientRect();
+          const dx = previous.left - next.left;
+          const dy = previous.top - next.top;
+          if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+
+          card.style.transition = "none";
+          const alternatingX = prevIndex === undefined ? 0 : (prevIndex > index ? paritySway : -paritySway);
+          const alternatingY = prevIndex === undefined ? 0 : (prevIndex > index ? parityLift : -parityLift);
+          card.style.transform = `translate(${dx + alternatingX}px, ${dy + alternatingY}px)`;
+          card.style.zIndex = String(20 - index);
+
+          window.requestAnimationFrame(() => {
+            card.style.transition = interactive
+              ? "transform 0.2s cubic-bezier(.2, .72, .22, 1)"
+              : "";
+            card.style.transform = "";
+            window.setTimeout(() => {
+              card.style.transition = "";
+              card.style.zIndex = "";
+            }, 460);
+          });
+        });
+      }
+
+      function renderRightRail(decision) {
+        if (state.railSignatures.reasoning !== decision.reasoning) {
+          refs.reasoningBox.textContent = decision.reasoning;
+          state.railSignatures.reasoning = decision.reasoning;
+        }
+
+        const sessionStats = [
+          { label: "tx count", value: state.txCount.toString() },
+          { label: "total volume", value: formatUsd(state.totalVol) },
+          { label: "recipients", value: state.recipients.size.toString() },
+          { label: "categories", value: state.categories.size.toString() }
+        ];
+        const sessionSignature = JSON.stringify(sessionStats);
+        if (state.railSignatures.session !== sessionSignature) {
+          refs.sessionGrid.innerHTML = sessionStats.map((item, index) => `
+            <div class="session-card" style="--module-delay:${index * 44}ms">
+              <div class="label">${item.label}</div>
+              <div class="value">${item.value}</div>
+            </div>
+          `).join("");
+          state.railSignatures.session = sessionSignature;
+        }
+
+        const flowEntries = Object.entries(state.flowData).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        const flowMax = Math.max(...flowEntries.map((entry) => entry[1]), 0.005);
+        const flowSignature = JSON.stringify(flowEntries);
+        if (state.railSignatures.flow !== flowSignature) {
+          refs.miniFlowList.innerHTML = flowEntries.length
+            ? flowEntries.map(([name, amount], index) => `
+                <div class="flow-row" style="--module-delay:${index * 42}ms">
+                  <div class="truncate">${name}</div>
+                  <div class="mini-bar"><div class="mini-bar-fill" style="width:${(amount / flowMax) * 100}%"></div></div>
+                  <div>${formatUsd(amount)}</div>
+                </div>
+              `).join("")
+            : '<div class="empty-state">No session flow yet.</div>';
+          state.railSignatures.flow = flowSignature;
+        }
+
+        const visibleLogs = state.logs.slice(0, 5);
+        const logSignature = JSON.stringify(visibleLogs.map((log) => log.id));
+        if (state.railSignatures.logs !== logSignature) {
+          refs.paymentLog.innerHTML = visibleLogs.map((log, index) => `
+            <div class="log-row" style="--module-delay:${index * 48}ms">
+              <div class="log-top">
+                <span>${log.service}</span>
+                <span class="status-settled">${log.status}</span>
+              </div>
+              <div class="log-bottom">
+                <div>${truncateAddress(log.address)} · ${formatUsd(log.amount)}</div>
+                <div>${log.taxonomy}</div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span>${log.timestamp} · ${log.txHash.slice(0, 10)}…</span>
+                  ${log.txHash && log.txHash.startsWith("0xmock_")
+                    ? `<span class="tx-explorer-link tx-mock">Mock tx (demo mode)</span>`
+                    : `<a href="https://explorer.arc.network/tx/${log.txHash}" target="_blank" rel="noopener" class="tx-explorer-link">View on Arc Explorer ↗</a>`
+                  }
+                </div>
+              </div>
+            </div>
+          `).join("");
+          state.railSignatures.logs = logSignature;
+        }
+      }
+
+      function renderAnalysis(decision, options = {}) {
+        const interactive = Boolean(options.interactive);
+        const topThree = decision.ranking.slice(0, 3);
+        refs.analysisLegendNote.textContent = `${state.taxonomy} · ${topThree.length} overlays`;
+
+        const radarColors = [COLORS.secondary, COLORS.accent, COLORS.danger];
+        const analysisModel = buildAnalysisChartModel(topThree, radarColors);
+        if (interactive && !prefersReducedMotion) {
+          animateAnalysisChartsTo(analysisModel, 180);
+        } else {
+          state.chartDisplay.analysis = analysisModel;
+          drawAnalysisChartModel(analysisModel);
+        }
+
+        refs.radarLegend.innerHTML = topThree.map((candidate, index) => `
+          <div class="legend-item">
+            <span class="legend-swatch" style="background:${radarColors[index]}"></span>
+            <span>${candidate.name} ${candidate.score.toFixed(3)}</span>
+          </div>
+        `).join("");
+
+        refs.analysisThumbs.innerHTML = decision.ranking.slice(0, 4).map((candidate, index) => `
+          <div class="thumb-card">
+            <div class="thumb-rank mono">#${index + 1}</div>
+            <p class="name">${candidate.name}</p>
+            <div class="meta">
+              <span class="service"><span class="service-marquee">${candidate.serviceId}</span></span>
+              <span class="score">${candidate.score.toFixed(3)}</span>
+            </div>
+          </div>
+        `).join("");
+
+        window.requestAnimationFrame(applyDecisionStripOverflowMotion);
+      }
+
+      function applyDecisionStripOverflowMotion() {
+        refs.analysisThumbs.querySelectorAll(".service").forEach((serviceNode) => {
+          const marquee = serviceNode.querySelector(".service-marquee");
+          if (!marquee) return;
+          serviceNode.classList.remove("is-overflowing");
+          marquee.style.removeProperty("--marquee-distance");
+          if (marquee.scrollWidth <= serviceNode.clientWidth + 2) return;
+          const distance = Math.min(0, serviceNode.clientWidth - marquee.scrollWidth - 12);
+          serviceNode.classList.add("is-overflowing");
+          marquee.style.setProperty("--marquee-distance", `${distance}px`);
+        });
+      }
+
+      function buildAnalysisChartModel(topThree, radarColors) {
+        const trustRounds = Array.from({ length: 10 }, (_, i) => `r${i + 1}`);
+        return {
+          radarLabels: ["Cost", "Quality", "Speed", "Reliability", "Trust", "Settle"],
+          trustLabels: trustRounds,
+          radar: topThree.map((candidate, index) => ({
+            label: candidate.name,
+            color: radarColors[index],
+            values: [
+              candidate.dims.cost,
+              candidate.dims.quality,
+              candidate.dims.speed,
+              candidate.dims.reliability,
+              candidate.trustPenalty,
+              clamp((candidate.dims.cost * 0.58) + (candidate.dims.reliability * 0.42), 0, 1)
+            ]
+          })),
+          trust: topThree.map((candidate, index) => ({
+            label: candidate.name,
+            color: radarColors[index],
+            values: buildTrustSeries(candidate)
+          }))
+        };
+      }
+
+      function drawAnalysisChartModel(model) {
+        if (!model) return;
+        drawRadarChart(
+          document.getElementById("radar-chart"),
+          model.radarLabels,
+          model.radar,
+          state.chartMotion.radar
+        );
+
+        drawLineChart(
+          document.getElementById("trust-chart"),
+          model.trustLabels,
+          model.trust,
+          { maxY: 0.22, progress: state.chartMotion.trust }
+        );
+      }
+
+      function interpolateDatasets(fromSets, toSets, t) {
+        return toSets.map((targetSet, index) => {
+          const sourceSet = fromSets?.[index] || targetSet;
+          return {
+            label: targetSet.label,
+            color: targetSet.color,
+            values: targetSet.values.map((targetValue, valueIndex) => {
+              const sourceValue = sourceSet.values?.[valueIndex] ?? targetValue;
+              return sourceValue + ((targetValue - sourceValue) * t);
+            })
+          };
+        });
+      }
+
+      function animateAnalysisChartsTo(targetModel, duration = 180) {
+        if (state.chartTweenFrame.analysis) {
+          window.cancelAnimationFrame(state.chartTweenFrame.analysis);
+        }
+        const sourceModel = state.chartDisplay.analysis || targetModel;
+        const start = performance.now();
+
+        const tick = (now) => {
+          const t = easeOutCubic(clamp((now - start) / duration, 0, 1));
+          const frameModel = {
+            radarLabels: targetModel.radarLabels,
+            trustLabels: targetModel.trustLabels,
+            radar: interpolateDatasets(sourceModel.radar, targetModel.radar, t),
+            trust: interpolateDatasets(sourceModel.trust, targetModel.trust, t)
+          };
+          state.chartDisplay.analysis = frameModel;
+          drawAnalysisChartModel(frameModel);
+          if (t < 1) {
+            state.chartTweenFrame.analysis = window.requestAnimationFrame(tick);
+          } else {
+            state.chartDisplay.analysis = targetModel;
+            state.chartTweenFrame.analysis = null;
+          }
+        };
+
+        state.chartTweenFrame.analysis = window.requestAnimationFrame(tick);
+      }
+
+      function drawAnalysisCharts(topThree, radarColors) {
+        const model = buildAnalysisChartModel(topThree, radarColors);
+        state.chartDisplay.analysis = model;
+        drawAnalysisChartModel(model);
+      }
+
+      function renderProof(decision, options = {}) {
+        const interactive = Boolean(options.interactive);
+        const proofData = getProofData();
+        if (!state.proofStaticRendered) {
+          refs.abRows.innerHTML = proofData.abTest.bars.map((row, index) => `
+          <div class="ab-row" style="--module-delay:${index * 96}ms">
+            <div class="ab-head">
+              <span>${row.label}</span>
+              <span class="ab-score-count" data-score="${row.score}">0.0000</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="color:${row.color};background:${row.color};--target-width:${(row.score * 100).toFixed(1)}%"></div>
+            </div>
+          </div>
+          `).join("");
+
+          refs.proofMetricsLeft.innerHTML = proofData.abTest.metricsLeft.map((metric, index) => `
+          <div class="metric-box" style="--module-delay:${260 + index * 72}ms">
+            <div class="label">${metric.label}</div>
+            <div
+              class="value"
+              data-count-target="${Number.parseFloat(metric.value)}"
+              data-prefix="${metric.prefix || (metric.value.includes("$") ? "$" : "")}"
+              data-suffix="${metric.value.includes("%") ? "%" : ""}"
+              data-decimals="${metric.decimals ?? (metric.value.includes("%") ? 0 : 2)}"
+              data-duration="1180"
+              style="color:${metric.tone === "success" ? COLORS.success : "#d0d0d0"}"
+            >${metric.value}</div>
+            <div class="sub">${metric.sub}</div>
+          </div>
+          `).join("");
+
+          refs.proofMetricsRight.innerHTML = [
+          {
+            label: "total amount",
+            value: `$${proofData.benchmarkSummary.totalAmount.toFixed(2)}`,
+            sub: "benchmark",
+            count: proofData.benchmarkSummary.totalAmount,
+            prefix: "$",
+            decimals: 2
+          },
+          {
+            label: "recipients",
+            value: String(proofData.benchmarkSummary.uniqueRecipients),
+            sub: "unique set",
+            count: proofData.benchmarkSummary.uniqueRecipients,
+            decimals: 0
+          },
+          {
+            label: "total tx",
+            value: String(proofData.benchmarkSummary.totalTx),
+            sub: "campaign run",
+            count: proofData.benchmarkSummary.totalTx,
+            decimals: 0
+          },
+          { label: "network", value: "Arc", sub: "testnet" }
+        ].map((metric, index) => `
+          <div class="metric-box" style="--module-delay:${360 + index * 70}ms">
+            <div class="label">${metric.label}</div>
+            <div
+              class="value metric-overflow"
+              ${typeof metric.count === "number"
+                ? `data-count-target="${metric.count}" data-prefix="${metric.prefix || ""}" data-decimals="${metric.decimals || 0}" data-duration="1120"`
+                : ""}
+            ><span class="metric-overflow-inner">${metric.value}</span></div>
+            <div class="sub metric-overflow"><span class="metric-overflow-inner">${metric.sub}</span></div>
+          </div>
+          `).join("");
+
+          animateAbScores();
+          animateCountersWithin(refs.proofMetricsLeft);
+          animateCountersWithin(refs.proofMetricsRight);
+          window.requestAnimationFrame(applyProofMetricOverflowMotion);
+          state.proofStaticRendered = true;
+        }
+
+        const fundBars = buildProofFundBars();
+        if (interactive && !prefersReducedMotion) {
+          animateFundChartTo(fundBars, 180);
+        } else {
+          state.chartDisplay.fund = fundBars;
+          drawFundChartBars(fundBars);
+        }
+        if (!interactive) {
+          refs.proofView.classList.add("is-armed");
+        }
+        window.requestAnimationFrame(applyProofMetricOverflowMotion);
+      }
+
+      function animateAbScores() {
+        const nodes = refs.abRows.querySelectorAll(".ab-score-count");
+        if (prefersReducedMotion) {
+          nodes.forEach((node) => {
+            node.textContent = Number(node.dataset.score).toFixed(4);
+          });
+          return;
+        }
+        const duration = 1820;
+        const start = performance.now();
+
+        const tick = (now) => {
+          const progress = easeOutCubic(clamp((now - start) / duration, 0, 1));
+          nodes.forEach((node) => {
+            const target = Number(node.dataset.score || 0);
+            node.textContent = (target * progress).toFixed(4);
+            node.classList.toggle("is-counting", progress < 1);
+          });
+          if (progress < 1) {
+            window.requestAnimationFrame(tick);
+          }
+        };
+
+        window.requestAnimationFrame(tick);
+      }
+
+      function buildProofFundBars() {
+        const fundPalette = [
+          COLORS.accent,
+          "rgba(224,82,82,0.78)",
+          "rgba(74,158,218,0.74)",
+          "rgba(245,166,35,0.58)",
+          "rgba(255,255,255,0.46)"
+        ];
+        return getProofData().fundsFlow.map((entry, index) => ({
+          label: entry.displayName,
+          value: entry.totalValueUsd,
+          color: fundPalette[Math.min(index, fundPalette.length - 1)]
+        }));
+      }
+
+      function drawFundChartBars(bars) {
+        drawFundFlowChart(
+          document.getElementById("fund-chart"),
+          bars,
+          state.chartMotion.fund
+        );
+      }
+
+      function animateFundChartTo(targetBars, duration = 180) {
+        if (state.chartTweenFrame.fund) {
+          window.cancelAnimationFrame(state.chartTweenFrame.fund);
+        }
+        const sourceBars = state.chartDisplay.fund || targetBars;
+        const start = performance.now();
+
+        const tick = (now) => {
+          const t = easeOutCubic(clamp((now - start) / duration, 0, 1));
+          const frameBars = targetBars.map((bar, index) => {
+            const sourceBar = sourceBars[index] || bar;
+            return {
+              ...bar,
+              value: sourceBar.value + ((bar.value - sourceBar.value) * t)
+            };
+          });
+          state.chartDisplay.fund = frameBars;
+          drawFundChartBars(frameBars);
+          if (t < 1) {
+            state.chartTweenFrame.fund = window.requestAnimationFrame(tick);
+          } else {
+            state.chartDisplay.fund = targetBars;
+            state.chartTweenFrame.fund = null;
+          }
+        };
+
+        state.chartTweenFrame.fund = window.requestAnimationFrame(tick);
+      }
+
+      function drawProofFundChart() {
+        const bars = buildProofFundBars();
+        state.chartDisplay.fund = bars;
+        drawFundChartBars(bars);
+      }
+
+      function renderBenchmarkList() {
+        refs.benchmarkList.innerHTML = getProofData().benchmarkList.map((row, index) => `
+          <div class="benchmark-row" title="${row.taxonomy}" style="--row-delay:${Math.min(index * 72, 3200)}ms">
+            <div>${String(row.id).padStart(2, "0")}</div>
+            <div class="benchmark-main">
+              <strong class="truncate">${row.service}</strong>
+              <div class="benchmark-taxonomy">${row.taxonomy}</div>
+            </div>
+            <div class="benchmark-amount">${formatUsd(row.amount)}</div>
+          </div>
+        `).join("");
+      }
+
+      function restartBenchmarkCascade() {
+        refs.benchmarkList.querySelectorAll(".benchmark-row").forEach((row) => {
+          row.style.animation = "none";
+        });
+        void refs.benchmarkList.offsetWidth;
+        refs.benchmarkList.querySelectorAll(".benchmark-row").forEach((row) => {
+          row.style.animation = "";
+        });
+      }
+
+      function applyProofMetricOverflowMotion() {
+        refs.proofMetricsRight.querySelectorAll(".metric-overflow").forEach((node) => {
+          const inner = node.querySelector(".metric-overflow-inner");
+          if (!inner) return;
+          node.classList.remove("is-overflowing");
+          inner.style.removeProperty("--marquee-distance");
+          if (inner.scrollWidth <= node.clientWidth + 2) return;
+          const distance = Math.min(0, node.clientWidth - inner.scrollWidth - 12);
+          node.classList.add("is-overflowing");
+          inner.style.setProperty("--marquee-distance", `${distance}px`);
+        });
+      }
+
+      function buildTrustSeries(candidate) {
+        const seed = hashString(candidate.serviceId);
+        const base = candidate.selfReported ? 0.072 : 0.036;
+        const volatility = candidate.selfReported ? 0.028 : 0.014;
+        const reliabilityDrag = (1 - candidate.dims.reliability) * 0.12;
+        return Array.from({ length: 10 }, (_, index) => {
+          const wave = Math.sin((seed % 17) + index * 0.82) * volatility;
+          const ripple = Math.cos((seed % 11) + index * 0.47) * (volatility * 0.38);
+          return Number(clamp(base + wave + ripple + reliabilityDrag + (index * 0.002), 0.012, 0.22).toFixed(3));
+        });
+      }
+
+      function hashString(input) {
+        let hash = 0;
+        for (let i = 0; i < input.length; i += 1) {
+          hash = ((hash << 5) - hash) + input.charCodeAt(i);
+          hash |= 0;
+        }
+        return Math.abs(hash);
+      }
+
+      function prepareCanvas(canvas) {
+        if (!canvas) return null;
+        const rect = canvas.getBoundingClientRect();
+        const width = Math.max(1, Math.floor(rect.width || canvas.parentElement?.clientWidth || 300));
+        const height = Math.max(1, Math.floor(rect.height || canvas.parentElement?.clientHeight || 180));
+        const ratio = window.devicePixelRatio || 1;
+        canvas.width = Math.floor(width * ratio);
+        canvas.height = Math.floor(height * ratio);
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return null;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(ratio, ratio);
+        ctx.clearRect(0, 0, width, height);
+        return { ctx, width, height };
+      }
+
+      function drawText(ctx, text, x, y, color, size = 10, align = "left") {
+        ctx.fillStyle = color;
+        ctx.font = `${size}px "SF Mono", "Fira Mono", monospace`;
+        ctx.textAlign = align;
+        ctx.textBaseline = "middle";
+        ctx.fillText(text, x, y);
+      }
+
+      function drawRadarChart(canvas, labels, datasets, progress = 1) {
+        const prepared = prepareCanvas(canvas);
+        if (!prepared) return;
+        const { ctx, width, height } = prepared;
+        const cx = width / 2;
+        const cy = height / 2 + 6;
+        const motion = clamp(progress, 0, 1);
+        const radius = Math.min(width, height) * 0.255 * (0.18 + (motion * 0.82));
+        const levels = [0.25, 0.5, 0.75, 1];
+        const angles = labels.map((_, index) => (-Math.PI / 2) + ((Math.PI * 2 * index) / labels.length));
+
+        ctx.save();
+        ctx.globalAlpha = 0.35 + (motion * 0.65);
+        ctx.strokeStyle = "rgba(255,255,255,0.07)";
+        ctx.lineWidth = 1;
+
+        levels.forEach((level) => {
+          ctx.beginPath();
+          angles.forEach((angle, index) => {
+            const x = cx + Math.cos(angle) * radius * level;
+            const y = cy + Math.sin(angle) * radius * level;
+            if (index === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          });
+          ctx.closePath();
+          ctx.stroke();
+        });
+
+        angles.forEach((angle, index) => {
+          const x = cx + Math.cos(angle) * radius;
+          const y = cy + Math.sin(angle) * radius;
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.lineTo(x, y);
+          ctx.stroke();
+
+          const labelX = cx + Math.cos(angle) * (radius + 18);
+          const labelY = cy + Math.sin(angle) * (radius + 18);
+          const align = Math.cos(angle) > 0.25 ? "left" : Math.cos(angle) < -0.25 ? "right" : "center";
+          drawText(ctx, labels[index], labelX, labelY, COLORS.white44, 10, align);
+        });
+
+        datasets.forEach((dataset) => {
+          ctx.beginPath();
+          dataset.values.forEach((value, index) => {
+            const x = cx + Math.cos(angles[index]) * radius * value * motion;
+            const y = cy + Math.sin(angles[index]) * radius * value * motion;
+            if (index === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          });
+          ctx.closePath();
+          ctx.fillStyle = `${dataset.color}20`;
+          ctx.fill();
+          ctx.save();
+          ctx.shadowColor = dataset.color;
+          ctx.shadowBlur = 8;
+          ctx.globalAlpha = 0.26 * motion;
+          ctx.strokeStyle = dataset.color;
+          ctx.lineWidth = 3.8;
+          ctx.stroke();
+          ctx.restore();
+          ctx.strokeStyle = dataset.color;
+          ctx.lineWidth = 1.7;
+          ctx.stroke();
+
+          if (motion < 0.34) return;
+          dataset.values.forEach((value, index) => {
+            const x = cx + Math.cos(angles[index]) * radius * value * motion;
+            const y = cy + Math.sin(angles[index]) * radius * value * motion;
+            ctx.beginPath();
+            ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = dataset.color;
+            ctx.fill();
+          });
+        });
+        ctx.restore();
+      }
+
+      function drawLineChart(canvas, labels, datasets, options = {}) {
+        const prepared = prepareCanvas(canvas);
+        if (!prepared) return;
+        const { ctx, width, height } = prepared;
+        const progress = clamp(options.progress ?? 1, 0, 1);
+        const margin = { top: 18, right: 46, bottom: 36, left: 46 };
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+        const maxY = options.maxY ?? Math.max(...datasets.flatMap((dataset) => dataset.values), 0.2);
+        const minY = 0;
+
+        ctx.strokeStyle = "rgba(255,255,255,0.07)";
+        ctx.lineWidth = 1;
+
+        const horizontalSteps = 4;
+        for (let step = 0; step <= horizontalSteps; step += 1) {
+          const y = margin.top + (innerHeight * step / horizontalSteps);
+          ctx.beginPath();
+          ctx.moveTo(margin.left, y);
+          ctx.lineTo(width - margin.right, y);
+          ctx.stroke();
+          const value = (maxY - ((maxY - minY) * step / horizontalSteps)).toFixed(2);
+          drawText(ctx, value, margin.left - 8, y, COLORS.white44, 10, "right");
+        }
+
+        labels.forEach((label, index) => {
+          const x = margin.left + (innerWidth * index / Math.max(1, labels.length - 1));
+          ctx.beginPath();
+          ctx.moveTo(x, margin.top);
+          ctx.lineTo(x, height - margin.bottom);
+          ctx.strokeStyle = "rgba(255,255,255,0.04)";
+          ctx.stroke();
+          drawText(ctx, label, x, height - 12, COLORS.white44, 10, "center");
+        });
+
+        datasets.forEach((dataset) => {
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(margin.left - 1, margin.top - 2, (innerWidth + 2) * progress, innerHeight + 4);
+          ctx.clip();
+          ctx.beginPath();
+          dataset.values.forEach((value, index) => {
+            const x = margin.left + (innerWidth * index / Math.max(1, dataset.values.length - 1));
+            const normalized = (value - minY) / (maxY - minY || 1);
+            const y = margin.top + innerHeight - (normalized * innerHeight);
+            if (index === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          });
+          ctx.save();
+          ctx.shadowColor = dataset.color;
+          ctx.shadowBlur = 9;
+          ctx.globalAlpha = 0.24;
+          ctx.strokeStyle = dataset.color;
+          ctx.lineWidth = 3.8;
+          ctx.stroke();
+          ctx.restore();
+          ctx.strokeStyle = dataset.color;
+          ctx.lineWidth = 1.8;
+          ctx.stroke();
+          ctx.restore();
+
+          dataset.values.forEach((value, index) => {
+            const x = margin.left + (innerWidth * index / Math.max(1, dataset.values.length - 1));
+            const visibleLimit = margin.left + (innerWidth * progress);
+            if (x > visibleLimit + 0.5) return;
+            const normalized = (value - minY) / (maxY - minY || 1);
+            const y = margin.top + innerHeight - (normalized * innerHeight);
+            ctx.beginPath();
+            ctx.arc(x, y, 2, 0, Math.PI * 2);
+            ctx.fillStyle = dataset.color;
+            ctx.fill();
+          });
+        });
+      }
+
+      function drawFundFlowChart(canvas, bars, progress = 1) {
+        const prepared = prepareCanvas(canvas);
+        if (!prepared) return;
+        const { ctx, width, height } = prepared;
+        const motion = clamp(progress, 0, 1);
+        const margin = { top: 10, right: 68, bottom: 10, left: 132 };
+        const visibleBars = bars.slice(0, 10);
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+        const rowHeight = innerHeight / Math.max(1, visibleBars.length);
+        const maxValue = Math.max(...visibleBars.map((bar) => bar.value), 0.01);
+
+        visibleBars.forEach((bar, index) => {
+          const y = margin.top + (rowHeight * index) + (rowHeight * 0.2);
+          const h = Math.max(8, rowHeight * 0.42);
+          const w = innerWidth * (bar.value / maxValue) * motion;
+          const label = bar.label.length > 16 ? `${bar.label.slice(0, 16)}…` : bar.label;
+
+          drawText(ctx, label, margin.left - 10, y + h / 2, COLORS.white44, 10, "right");
+
+          ctx.fillStyle = "rgba(255,255,255,0.08)";
+          drawRoundedRect(ctx, margin.left, y, innerWidth, h, h / 2);
+          ctx.fillStyle = bar.color;
+          drawRoundedRect(ctx, margin.left, y, w, h, h / 2);
+
+          drawText(ctx, `$${bar.value.toFixed(3)}`, width - 8, y + h / 2, COLORS.white44, 10, "right");
+        });
+      }
+
+      function drawRoundedRect(ctx, x, y, width, height, radius) {
+        const safeRadius = Math.min(radius, width / 2, height / 2);
+        ctx.beginPath();
+        ctx.moveTo(x + safeRadius, y);
+        ctx.lineTo(x + width - safeRadius, y);
+        ctx.quadraticCurveTo(x + width, y, x + width, y + safeRadius);
+        ctx.lineTo(x + width, y + height - safeRadius);
+        ctx.quadraticCurveTo(x + width, y + height, x + width - safeRadius, y + height);
+        ctx.lineTo(x + safeRadius, y + height);
+        ctx.quadraticCurveTo(x, y + height, x, y + height - safeRadius);
+        ctx.lineTo(x, y + safeRadius);
+        ctx.quadraticCurveTo(x, y, x + safeRadius, y);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>

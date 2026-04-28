@@ -1,6 +1,6 @@
-# Agent Service Manifest: A Standardized Value Description Protocol for Autonomous Service Selection in Multi-Agent Systems
+# Agent Service Manifest: A Settlement Protocol for Value-Aware Service Selection in Agent Economies
 
-> **Draft — Complete (Sections 1-8)**
+> **Draft — Complete (Sections 1-8), Revision 2**
 > Authors: Yi Guo
 > Date: April 2026
 
@@ -8,7 +8,7 @@
 
 ## Abstract
 
-The rapid growth of AI-as-a-Service has created an ecosystem where autonomous agents must select among competing services with heterogeneous pricing models, quality characteristics, and reliability guarantees. While existing protocols address service capability discovery (MCP), inter-agent communication (A2A), and secure payment execution (AP2), no standard mechanism exists for agents to evaluate and compare the *economic value* of services in a machine-readable format. We present **Agent Service Manifest (ASM)**, a lightweight JSON Schema protocol that enables service providers to declare standardized value descriptors — covering pricing dimensions, quality benchmarks, SLA parameters, and payment methods — and enables agents to make autonomous, explainable service selection decisions through multi-criteria optimization. ASM is designed as a compatible extension to the Model Context Protocol (MCP), requiring only three mandatory fields while supporting 12 billing dimension types, third-party quality verification, and pre-wired integration with the Agent Payment Protocol (AP2). We validate ASM with 14 real-world service manifests spanning 6 categories (LLM inference, image generation, video generation, text-to-speech, embeddings, and GPU compute), and demonstrate a two-stage selection engine (constraint filtering + TOPSIS ranking) that produces optimal, preference-aware service recommendations. Our evaluation shows that ASM-guided selection achieves 3–10× cost reduction compared to blind selection while maintaining user-specified quality thresholds.
+The rapid growth of AI-as-a-Service has created an ecosystem where autonomous agents must choose among competing services before they can execute or pay. Existing protocols address service capability discovery (MCP), inter-agent communication (A2A), and secure payment execution (AP2), but they leave a missing settlement layer: agents can discover what tools can do, yet cannot compute what services are worth. We present **Agent Service Manifest (ASM)**, a lightweight settlement protocol, specified as a JSON Schema, that gives agents standardized, machine-readable value descriptors across pricing, quality, SLA, provenance, verification, and payment. The problem is not model intelligence; it is missing data infrastructure. In a reproducible audit of 50 public repositories returned by MCP-related GitHub queries, 0/50 expose ASM-style structured value metadata, only 9/50 expose SLA or rate-limit signals in public README/config text, and 0/50 expose all four core value classes (pricing, SLA, quality, payment). We validate ASM with **70 real-world service manifests spanning 47 taxonomies** and demonstrate a two-stage selection engine (constraint filtering + TOPSIS ranking) that produces preference-aware, explainable settlement decisions. In a 200-task A/B evaluation, ASM-guided selection achieves a **23.1% improvement in preference-weighted TOPSIS utility over uniform-random selection** ($p < 10^{-6}$) and a **59.2% cost reduction relative to a most-expensive baseline** ($p < 10^{-6}$), while remaining within 5ms scoring overhead per task.
 
 ---
 
@@ -22,21 +22,25 @@ However, a critical gap remains: **no existing protocol tells an agent what a se
 
 When an agent faces three subtitle generation APIs priced at $0.10/minute, $0.03/minute, and free (with a 5-minute queue), it possesses no structured data to make an informed choice. The pricing information exists only in human-readable HTML pages with inconsistent formats. Quality data is scattered across blog posts, social media discussions, and vendor marketing materials. SLA parameters — latency percentiles, uptime guarantees, rate limits — are buried in documentation that varies wildly in structure and completeness. The result is that **agent intelligence drops to zero at the service selection step**: regardless of how capable the underlying model is, it cannot optimize over information it cannot parse.
 
-This is not merely an efficiency concern — it is a **structural deficiency** in the emerging agent economy. Consider an autonomous coding agent (e.g., Claude Code, Cursor) executing a complex task that requires invoking an LLM (3+ candidates), generating an image (5+ candidates), and running code on a GPU (3+ candidates). If each selection is made blindly — choosing the most expensive, the cheapest, or the most well-known — the total cost can deviate from the optimal by a factor of **3–10×**, with proportional impacts on quality and latency. Multiply this by millions of daily agent transactions, and the aggregate economic waste becomes substantial.
+This is not merely an efficiency concern — it is a **structural deficiency** in the emerging agent economy. Consider an autonomous coding agent (e.g., Claude Code, Cursor) executing a complex task that requires invoking an LLM (3+ candidates), generating an image (5+ candidates), and running code on a GPU (3+ candidates). If each selection is made blindly — choosing the most expensive, the cheapest, or the most well-known — the total cost is far from optimal: in §6.5 we show that a "more expensive = better" baseline pays **2.4× the cost** of an ASM-guided selection over 200 multi-category tasks, while delivering essentially identical quality. Multiplied by millions of daily agent transactions, the aggregate economic waste is substantial.
 
 We argue that the root cause is not insufficient model intelligence but **missing data infrastructure**. Just as the Nutrition Facts label transformed consumer food purchasing from subjective judgment to informed comparison, AI services need a standardized, machine-readable "value label" that makes their economic properties computable.
 
-In this paper, we present **Agent Service Manifest (ASM)**, an open protocol designed to fill this gap. ASM provides:
+We summarize this design goal as: *"Agents shouldn't shop. They should settle."* That is, an agent confronted with a candidate set should not enter an open-ended evaluation loop — fetching pages, parsing free-form text, and inferring trade-offs — but should reach a *settled* decision in a single, deterministic step over structured data. ASM is the substrate that makes settlement, rather than shopping, the default operating mode.
 
-1. **A standardized value descriptor** — a JSON Schema specification covering pricing (12 billing dimension types with tiered and conditional pricing), quality (third-party benchmark references with trust transparency), SLA (latency, throughput, uptime, rate limits), and payment methods (pre-wired for AP2 interop).
+To test whether this gap exists in current practice rather than only in theory, we audit 50 public repositories returned by four MCP-related GitHub queries. The audit finds no repository exposing ASM-style structured value metadata, only 18% exposing SLA or rate-limit signals in public README/config text, and no repository exposing all four core value classes (pricing, SLA, quality, payment). This motivates ASM as a response to a measurable missing layer in the current MCP-adjacent ecosystem, not merely as an additional schema.
 
-2. **A hierarchical taxonomy** — an 18-category classification system (e.g., `ai.llm.chat`, `ai.vision.image_generation`, `infra.compute.gpu`) that enables agents to search, filter, and match services across categories using prefix queries.
+In this paper, we present **Agent Service Manifest (ASM)**, an open settlement protocol designed to fill this gap. ASM provides:
+
+1. **A standardized value descriptor** — a JSON Schema specification covering pricing (open billing dimensions with tiered and conditional pricing), quality (third-party benchmark references with trust transparency), SLA (latency, throughput, uptime, rate limits), provenance, and payment methods (pre-wired for AP2 interop).
+
+2. **A hierarchical taxonomy** — a 47-category classification system (e.g., `ai.llm.chat`, `ai.vision.image_generation`, `infra.compute.gpu`, `tool.devops.monitoring`, `tool.productivity.calendar`) that enables agents to search, filter, and match services across categories using prefix queries.
 
 3. **A two-stage selection engine** — combining hard constraint filtering with TOPSIS (Technique for Order Preference by Similarity to Ideal Solution) multi-criteria ranking, producing preference-aware recommendations with full explainability.
 
 4. **An MCP-compatible integration path** — ASM can be deployed as an independent `.well-known/asm` endpoint (Phase 1), embedded as `x-asm` annotations in MCP ToolAnnotations (Phase 2), or adopted as native MCP fields (Phase 3), ensuring zero breaking changes at each stage.
 
-We validate ASM with 14 real-world service manifests spanning 6 categories, populated with verified pricing data from production APIs. Our end-to-end demonstration shows that the same set of services produces different optimal selections under different user preference profiles — confirming that service selection is inherently a multi-criteria optimization problem that cannot be solved by heuristics or model intuition alone.
+We validate ASM with **70 real-world service manifests spanning 47 taxonomies**, now carrying explicit provenance metadata, and with an ecosystem audit of 50 public MCP-adjacent repositories showing that structured value metadata is absent in current practice. A 200-task A/B evaluation against two baseline policies (uniform random and most-expensive-first) shows that the same candidate set produces different optimal selections under different user preference profiles, with statistically significant gains in both selection quality and cost efficiency — confirming that service selection is inherently a multi-criteria optimization problem that cannot be solved by heuristics or model intuition alone.
 
 The remainder of this paper is organized as follows. Section 2 formalizes the service selection problem. Section 3 surveys related work. Section 4 presents the ASM protocol design. Section 5 describes the reference implementation. Section 6 evaluates ASM across multiple scenarios. Section 7 discusses limitations, trust mechanisms, and future directions. Section 8 concludes.
 
@@ -115,7 +119,7 @@ While AaaS-AN and ASM both touch service discovery, their focus is fundamentally
 |-----------|---------|-----|
 | Core problem | How agents organize and collaborate | How agents evaluate and select services |
 | Service discovery | "Who can collaborate" | "Who offers the best value" |
-| Pricing support | None | 12 billing dimensions + tiered/conditional |
+| Pricing support | None | Open billing dimensions + tiered/conditional |
 | Quality metrics | None | Third-party benchmarks + trust flags |
 | SLA | None | Latency, throughput, uptime, rate limits |
 | Scoring function | None | Filter + TOPSIS with user preferences |
@@ -150,19 +154,17 @@ $$\text{trust}(s_i) = g\left(\sum_{t=1}^{N} \| \mathbf{v}_i^{\text{declared}} - 
 
 where $g$ is a monotonically decreasing function and $N$ is the number of past transactions.
 
-**Cao et al.** [9] (WWW 2026) address a complementary problem: runtime provider dishonesty (model substitution, token stuffing) through an approximately incentive-compatible mechanism achieving $O(T^{1-\varepsilon} \log T)$ regret. ASM addresses pre-selection information asymmetry, while their mechanism governs post-selection execution honesty.
-
 ### 3.5 MCP Ecosystem
 
-The MCP ecosystem has been analyzed from a security perspective by [10], who identify 4 attacker types and 16 threat scenarios across the MCP lifecycle. Their analysis of trust boundaries is directly relevant to ASM: the `self_reported` flag in ASM manifests addresses the same "trusted vs. untrusted server" distinction that MCP's ToolAnnotations acknowledges with its "hints should not be trusted" caveat.
+The MCP ecosystem has been analyzed from a security perspective by [9], who identify 4 attacker types and 16 threat scenarios across the MCP lifecycle. Their analysis of trust boundaries is directly relevant to ASM: the `self_reported` flag in ASM manifests addresses the same "trusted vs. untrusted server" distinction that MCP's ToolAnnotations acknowledges with its "hints should not be trusted" caveat.
 
-The **MCP 2026 Roadmap** [11] prioritizes transport evolution, agentic communication, governance maturity, and enterprise readiness — but contains **no mention of pricing, marketplace, or service economics**. This confirms that ASM addresses a gap the MCP team has not planned to fill, at least through 2026.
+The **MCP 2026 Roadmap** [10] prioritizes transport evolution, agentic communication, governance maturity, and enterprise readiness — but contains **no mention of pricing, marketplace, or service economics**. This confirms that ASM addresses a gap the MCP team has not planned to fill, at least through 2026.
 
-Concurrently, **AWS has released a Marketplace MCP Server** [12] that enables agent-driven product discovery, comparison, and procurement within the AWS Marketplace. This validates the demand for agent-automated service evaluation but implements it as a closed, platform-locked solution. ASM provides the same capability as an open, vendor-neutral standard.
+Concurrently, **AWS has released a Marketplace MCP Server** [11] that enables agent-driven product discovery, comparison, and procurement within the AWS Marketplace. This validates the demand for agent-automated service evaluation but implements it as a closed, platform-locked solution. ASM provides the same capability as an open, vendor-neutral standard.
 
 ### 3.6 Multi-Criteria Decision Making
 
-ASM's scoring engine draws on the rich MCDM (Multi-Criteria Decision Making) literature, particularly its application to cloud service selection [13]. We adopt **TOPSIS** [14] (Technique for Order Preference by Similarity to Ideal Solution) as our primary ranking method due to its mathematical soundness, computational efficiency, and wide acceptance in the service selection literature. TOPSIS simultaneously considers distance to the positive ideal solution (best possible) and negative ideal solution (worst possible), producing more robust rankings than simple weighted averages that can be skewed by extreme values in a single dimension.
+ASM's scoring engine draws on the rich MCDM (Multi-Criteria Decision Making) literature, particularly its application to cloud service selection [12]. We adopt **TOPSIS** [13] (Technique for Order Preference by Similarity to Ideal Solution) as our primary ranking method due to its mathematical soundness, computational efficiency, and wide acceptance in the service selection literature. TOPSIS simultaneously considers distance to the positive ideal solution (best possible) and negative ideal solution (worst possible), producing more robust rankings than simple weighted averages that can be skewed by extreme values in a single dimension.
 
 ---
 
@@ -188,10 +190,11 @@ This means the simplest valid ASM manifest is just 3 lines of JSON — a deliber
 
 | Module | Purpose | Key Fields |
 |--------|---------|------------|
-| `pricing` | Cost structure | `billing_dimensions[]` (12 types), `tiers`, `conditions`, `batch_discount`, `free_tier` |
+| `pricing` | Cost structure | open `billing_dimensions[]`, `tiers`, `conditions`, `batch_discount`, `free_tier` |
 | `quality` | Performance metrics | `metrics[]` (name, score, scale, benchmark, `self_reported`), `leaderboard_rank` |
 | `sla` | Reliability guarantees | `latency_p50`, `latency_p99`, `throughput`, `uptime`, `rate_limit`, `regions` |
 | `payment` | Payment methods | `methods[]`, `auth_type`, `ap2_endpoint` |
+| `provenance` | Source traceability | `source_url`, `retrieved_at`, `last_verified_at`, `verification_status`, `notes` |
 | `extensions` | Category-specific | Namespaced fields (e.g., `llm.supports_vision`, `image_gen.max_resolution`) |
 
 **v0.3 additions** (for Signed Receipts integration):
@@ -207,18 +210,24 @@ The `updated_at` + `ttl` pair solves the **manifest freshness problem**: agents 
 
 ### 4.2 Hierarchical Taxonomy
 
-ASM defines an 18-category taxonomy using a dot-separated hierarchical format: `<domain>.<category>[.<subcategory>]`. This enables prefix-based queries — an agent searching for `ai.llm.*` retrieves all LLM services regardless of subcategory.
+ASM defines a 47-category taxonomy using a dot-separated hierarchical format: `<domain>.<category>[.<subcategory>]`. This enables prefix-based queries — an agent searching for `ai.llm.*` retrieves all LLM services regardless of subcategory. The taxonomy spans three top-level domains: AI/ML services (`ai.*`), infrastructure (`infra.*`), and developer/productivity tooling (`tool.*`):
 
 ```
-ai.llm.chat                     ai.audio.tts
-ai.llm.completion                ai.audio.stt
-ai.llm.embedding                 ai.audio.music
-ai.vision.image_generation       ai.code.generation
-ai.vision.image_editing          ai.data.extraction
-ai.vision.ocr                    ai.data.search
-ai.video.generation              infra.compute.gpu
-ai.video.subtitle                infra.storage.object
-ai.video.editing                 infra.storage.vector
+ai.llm.chat                      ai.audio.tts                    tool.communication.email
+ai.llm.completion                ai.audio.stt                    tool.communication.sms
+ai.llm.embedding                 ai.audio.music                  tool.data.search
+ai.vision.image_generation       ai.code.generation              tool.data.scraping
+ai.vision.image_editing          ai.data.extraction              tool.data.pdf
+ai.vision.ocr                    ai.translation                  tool.data.visualization
+ai.video.generation              ai.weather                      tool.devops.ci
+ai.video.subtitle                infra.compute.gpu               tool.devops.monitoring
+ai.video.editing                 infra.compute.serverless        tool.devops.deployment
+infra.storage.object             infra.storage.vector            tool.productivity.calendar
+infra.database.serverless        infra.database.cache            tool.productivity.document
+infra.auth.identity              infra.dns                       tool.productivity.spreadsheet
+infra.secrets                    infra.observability.error       tool.productivity.todo
+tool.payment.processing          tool.communication.messaging    tool.productivity.knowledge
+... (47 categories total)
 ```
 
 The taxonomy is validated by a regex pattern: `^[a-z]+\.[a-z_]+(?:\.[a-z_]+)?$`. This ensures machine-parseable, collision-free category identifiers while remaining human-readable.
@@ -240,7 +249,7 @@ Real-world AI service pricing exhibits significant heterogeneity (Challenge C1 f
 }
 ```
 
-ASM supports 12 dimension types: `input_token`, `output_token`, `token`, `character`, `word`, `image`, `pixel`, `second`, `minute`, `request`, `gpu_second`, `byte`, `query`, and `custom`. The `unit` field normalizes granularity to one of `per_1`, `per_1K`, or `per_1M`.
+ASM recommends common dimension identifiers such as `input_token`, `output_token`, `token`, `character`, `word`, `image`, `pixel`, `second`, `minute`, `request`, `gpu_second`, `byte`, `query`, and `custom`, while allowing domain-specific dimensions such as `browser_minute`, `email`, `ci_minute`, or `api_call`. The `unit` field similarly recommends `per_1`, `per_1K`, and `per_1M` while allowing service-specific units such as `per_page`, `per_message`, or `per_1_gb_month`.
 
 **Tiered pricing.** Volume discounts are expressed as tier arrays:
 
@@ -262,11 +271,11 @@ ASM supports 12 dimension types: `input_token`, `output_token`, `token`, `charac
 }
 ```
 
-**Cost normalization.** For scoring purposes, multi-dimensional pricing is reduced to a single representative cost. For LLMs with input/output token pricing, we use a weighted estimate based on typical chat usage ratios:
+**Cost normalization.** For scoring purposes, multi-dimensional pricing is reduced to a single representative cost. For LLMs with input/output token pricing, we use a weighted estimate parameterized by the input-output ratio $\rho$:
 
-$$c_{\text{repr}} = 0.3 \cdot c_{\text{input}} + 0.7 \cdot c_{\text{output}}$$
+$$c_{\text{repr}}(\rho) = (1 - \rho) \cdot c_{\text{input}} + \rho \cdot c_{\text{output}}$$
 
-This ratio reflects empirical observation that LLM chat responses are typically 2–3× longer than prompts. For single-dimension services, the primary billing dimension is used directly.
+The default value $\rho = 0.7$ reflects empirical observation that conversational LLM responses are typically 2–3× longer than prompts. The reference implementation exposes $\rho$ as the `io_ratio` parameter, with three documented presets: $\rho = 0.3$ for retrieval-heavy / RAG workloads (long prompts, short answers), $\rho = 0.5$ for balanced workloads, and $\rho = 0.8$ for long-form generation. Making this ratio explicit avoids burying a workload assumption inside the protocol; agents that know their access pattern can calibrate cost ranking accordingly. For single-dimension services, the primary billing dimension is used directly.
 
 ### 4.4 Quality and Trust Model
 
@@ -325,6 +334,18 @@ reaching 0.86 at 10 receipts and 0.98 at 20 receipts.
 
 ### 4.5 Integration Architecture
 
+```mermaid
+flowchart TD
+    A["MCP capability discovery"] --> B["ASM value manifest / registry"]
+    B --> C["Constraint filter"]
+    C --> D["TOPSIS settlement engine"]
+    D --> E["AP2 payment"]
+    E --> F["Service execution"]
+    F --> G["Signed receipt"]
+    G --> H["Trust delta update"]
+    H --> B
+```
+
 ASM is designed for progressive integration with the existing agent protocol stack, following a three-phase adoption path:
 
 **Phase 1: Independent endpoint** (current). Services publish ASM manifests at `.well-known/asm` or in a shared registry. Agents query the registry via MCP tools. This requires no changes to MCP itself.
@@ -372,7 +393,7 @@ We provide a complete reference implementation consisting of three components: a
 
 ### 5.1 Scoring Engine
 
-The scoring engine (`scorer/scorer.py`, ~740 lines of pure Python with no external dependencies) implements the three-stage selection pipeline:
+The scoring engine (`scorer/scorer.py`, ~700 lines of pure Python with no external dependencies beyond the standard library and an optional `scipy` import for Welch's t-test) implements the three-stage selection pipeline. It exposes the `io_ratio` parameter described in §4.3, supports manifest filtering by hard constraints, and includes the trust-delta scoring described below:
 
 **Stage 1: Constraint Filtering.** Hard constraints are evaluated as conjunction of inequality predicates. Services violating any constraint are eliminated:
 
@@ -386,7 +407,7 @@ def filter_services(services, constraints):
 
 *Weighted Average* (v0.2): Min-max normalization followed by weighted sum. Cost and latency are inverted (lower = better). Simple and transparent, suitable for demonstrations.
 
-*TOPSIS* (v1.0): The full TOPSIS algorithm as described in [14]:
+*TOPSIS* (v1.0): The full TOPSIS algorithm as described in [13]:
 
 1. Construct decision matrix $\mathbf{X} \in \mathbb{R}^{m \times 4}$ (services × criteria)
 2. Vector-normalize: $r_{ij} = x_{ij} / \sqrt{\sum_i x_{ij}^2}$
@@ -414,9 +435,9 @@ where $\alpha = 0.2$ by default. Services with high trust (accurate declarations
 
 This addresses Challenge C2 (incommensurable quality) by making all quality scores comparable at scoring time while preserving original values in the manifest.
 
-### 5.2 MCP Server
+### 5.2 Registry Server
 
-The MCP server (`registry/src/index.ts`, ~700 lines of TypeScript) implements the ASM registry as an MCP-compatible tool server using the `@modelcontextprotocol/sdk`. It provides six tools:
+The registry server (`registry/src/`, TypeScript) is dual-protocol: it speaks MCP over stdio for direct agent integration (`src/index.ts`) and HTTP/JSON for language-agnostic clients (`src/http.ts`, Express). Both surfaces share the same manifest store and scoring core, so an agent can connect over MCP while a dashboard, evaluator, or non-Claude language runtime queries the same service via REST. Six tools are exposed:
 
 | Tool | Parameters | Description |
 |------|-----------|-------------|
@@ -427,7 +448,7 @@ The MCP server (`registry/src/index.ts`, ~700 lines of TypeScript) implements th
 | `asm_score` | `taxonomy`, `w_cost`, `w_quality`, `w_speed`, `w_reliability` | Weighted scoring with ranking |
 | `asm_taxonomies` | — | List available categories |
 
-The server loads manifests from the `manifests/` directory at startup and exposes them through the MCP stdio transport. Any MCP-compatible client (Claude Desktop, Cursor, etc.) can connect and use these tools for autonomous service selection.
+The server loads manifests from the `manifests/` directory at startup and exposes them through both the MCP stdio transport and an HTTP API. Any MCP-compatible client (Claude Desktop, Cursor, etc.) can connect over MCP, while an HTTP client can issue equivalent calls — for example `POST /api/score` — to obtain a ranked list with the same TOPSIS scoring logic.
 
 **Architecture decision.** We implemented the MCP server in TypeScript (rather than Python) to match the MCP SDK's primary language and to demonstrate that ASM is language-agnostic — the schema is the contract, not the implementation.
 
@@ -457,11 +478,28 @@ Each scenario demonstrates that the same candidate set produces different optima
 
 ## 6. Evaluation
 
-We evaluate ASM along four dimensions: coverage of real-world pricing heterogeneity (§6.1), scoring accuracy across preference profiles (§6.2), trust delta effectiveness (§6.3), and protocol overhead (§6.4).
+We evaluate ASM along seven dimensions: evidence of the missing value layer in current MCP repositories (§6.0), coverage of real-world pricing heterogeneity (§6.1), scoring behavior across preference profiles (§6.2), trust delta effectiveness (§6.3), protocol overhead (§6.4), a controlled A/B comparison against baseline selection policies (§6.5), and selection regret against stronger heuristic baselines (§6.6).
+
+### 6.0 Evidence of the Missing Value Layer in Current MCP Repositories
+
+To test whether ASM addresses a real ecosystem gap rather than an invented abstraction, we sampled 50 public repositories returned by four MCP-related GitHub queries: `topic:mcp-server`, `mcp server in:name,description`, `modelcontextprotocol server in:readme`, and `mcp-server in:name,description`. The inclusion rule was simple and reproducible: repositories were included in descending GitHub search order until the 50-repository sample was filled. We did not manually replace repositories after sampling. For each repository, the script scans public `README.md`, `README.mdx`, `package.json`, `pyproject.toml`, and `mcp.json` files when present. It classifies five value-metadata classes by keyword matching: pricing, SLA/rate-limit, quality/benchmark, payment, and ASM/x-asm structured metadata. The audit is intentionally conservative: it is a public-text audit, not a manual pricing verification, and can produce both false positives (e.g., incidental mentions of "quality") and false negatives (metadata hidden in docs outside the scanned files). The audit script, sampled repository list, raw snippets, labels, and summary outputs are included in `experiments/mcp_ecosystem_audit.py` and `experiments/results/mcp_ecosystem_audit.*`.
+
+**Table 0: MCP ecosystem value metadata coverage (n=50 public repositories).**
+
+| Metadata class | Repositories | Coverage |
+|----------------|-------------:|---------:|
+| Pricing mentions | 16 / 50 | 32.0% |
+| SLA or rate-limit mentions | 9 / 50 | 18.0% |
+| Quality or benchmark mentions | 22 / 50 | 44.0% |
+| Payment mentions | 5 / 50 | 10.0% |
+| Structured ASM / `x-asm` metadata | 0 / 50 | 0.0% |
+| All four core value classes | 0 / 50 | 0.0% |
+
+The result supports the paper's necessity claim: current MCP repositories may expose capabilities, examples, and authentication instructions, but they rarely expose the computable value surface an autonomous agent needs before selection. Even generous text matching finds complete pricing/SLA/quality/payment coverage in 0% of the sample, and no repository exposes ASM-style structured metadata.
 
 ### 6.1 Pricing Heterogeneity Coverage
 
-We populated 14 ASM manifests with verified pricing data from production APIs across 6 categories. Table 1 summarizes the pricing diversity encountered:
+We populated **70 ASM manifests with source-linked pricing data from production APIs across 47 taxonomies**, spanning AI/ML services (LLM, image, video, TTS, STT, embedding, code generation), infrastructure (GPU compute, serverless, object storage, vector databases, relational databases, caches, identity, DNS, secrets, observability), and developer/productivity tooling (search, scraping, PDF processing, CI/CD, deployment, monitoring, payment, communication, calendar, document, spreadsheet, knowledge management). Table 1 illustrates the pricing diversity encountered with a representative subset of 14 services:
 
 **Table 1: Pricing models across 14 services**
 
@@ -488,7 +526,7 @@ Key observations:
 - **Conditional pricing** appears in Gemini 2.5 Pro (price doubles above 200K context)
 - **Tiered pricing** appears in DALL-E 3 (resolution-dependent)
 
-All 14 manifests validate against the ASM v0.2 JSON Schema, confirming that the schema's 12 billing dimension types and 3 unit scales are sufficient to represent current production pricing models.
+All 70 manifests validate against the ASM v0.3 JSON Schema, confirming that the schema's open billing dimensions and recommended unit conventions are sufficient to represent current production pricing models across both AI services and the broader developer-tooling ecosystem.
 
 ### 6.2 Scoring Accuracy Across Preference Profiles
 
@@ -537,9 +575,76 @@ We evaluated the trust delta mechanism using simulated receipt data with control
 
 **Schema size.** The v0.3 JSON Schema is 14.5 KB. A typical manifest (e.g., Claude Sonnet 4) is 1.2 KB — comparable to an MCP tool definition.
 
-**Scoring latency.** TOPSIS scoring of 14 services completes in <1ms on a standard laptop (Apple M-series). Trust delta computation with 20 receipts per service adds <0.5ms. The total selection pipeline (parse + filter + score + trust) executes in under 5ms — negligible compared to the API call latency of the selected service.
+**Scoring latency.** TOPSIS scoring of the full 70-service registry completes in under 3ms on a standard laptop. Trust delta computation with 20 receipts per service adds <0.5ms. The total selection pipeline (parse + filter + score + trust) executes in under 5ms — negligible compared to the API call latency of the selected service.
 
-**Token cost.** An ASM manifest averages ~300 tokens when included in an LLM context. Querying 14 services via the MCP server costs ~4,200 tokens total. This is 10–100× cheaper than having an LLM read and parse 14 pricing pages from the web.
+**Token cost.** An ASM manifest averages ~300 tokens when included in an LLM context. Querying the full 70-service registry via the MCP server costs ~21,000 tokens; querying within a single taxonomy (typically 2–5 services) costs ~600–1,500 tokens. This is 10–100× cheaper than having an LLM read and parse the corresponding pricing pages from the web.
+
+### 6.5 Controlled A/B Comparison Against Baseline Policies
+
+To validate that ASM-guided selection produces *measurably* better outcomes than non-structured alternatives, we conducted a controlled A/B experiment over the full 70-manifest registry.
+
+**Setup.** We generated $N = 200$ synthetic tasks, each consisting of (i) a target taxonomy uniformly sampled from the 47 categories represented in the registry, and (ii) a preference profile uniformly sampled from $\{$cost-first, quality-first, speed-first, balanced$\}$. For each task, three policies select among the candidate services in the same taxonomy:
+
+| Group | Policy |
+|-------|--------|
+| **A (ASM-TOPSIS)** | Constraint filter + TOPSIS ranking using the task's preference weights |
+| **B (Random)** | Uniform random selection from candidates in the target taxonomy |
+| **C (Most-Expensive)** | Always selects the service with the highest representative cost — modeling the heuristic "more expensive = better" |
+
+For each selection, we record the realized cost, latency, quality, uptime, and the resulting TOPSIS score under the task's preference vector. With 200 tasks $\times$ 3 policies, the experiment yields 600 selection records. Statistical comparisons use Welch's two-sample t-test on per-task TOPSIS scores. Random sampling uses a fixed seed (2026) for reproducibility.
+
+**Results.** Table 4 summarizes the per-policy means; Table 5 reports pairwise tests.
+
+**Table 4: Mean outcomes across 200 tasks (lower is better for cost; higher for the others).**
+
+| Metric | A (ASM) | B (Random) | C (Expensive) |
+|--------|---------|------------|---------------|
+| Representative cost (USD/unit) | **0.00437** | 0.00621 | 0.01069 |
+| Latency p50 (s) | 3.20 | 3.18 | 2.90 |
+| Quality (normalized 0–1) | 0.518 | 0.520 | 0.523 |
+| Uptime (0–1) | 0.969 | 0.971 | 0.961 |
+| **TOPSIS score** | **0.670** | 0.545 | 0.401 |
+
+**Table 5: Welch's t-test on per-task TOPSIS score (one-sided, $H_1$: A > baseline).**
+
+| Comparison | Mean diff. | t | p |
+|------------|-----------:|---:|---:|
+| ASM vs. Random | +0.126 (+23.1%) | — | $< 10^{-6}$ |
+| ASM vs. Most-Expensive | +0.269 (+67.1%) | — | $< 10^{-6}$ |
+
+**Findings.**
+
+1. **ASM dominates both baselines on the multi-criteria objective.** TOPSIS score improves by 23.1% over uniform random and 67.1% over most-expensive, both at $p < 10^{-6}$ — well below conventional significance thresholds.
+
+2. **The cost gain is large and one-sided.** ASM's average representative cost is **59.2% lower** than the most-expensive policy and 29.7% lower than uniform random. Crucially, this comes with no quality degradation: mean quality across the three groups differs by less than 1 percentage point.
+
+3. **Single-dimension baselines are systematically worse.** The most-expensive policy delivers near-identical quality to ASM (0.523 vs. 0.518) at more than 2.4× the cost, falsifying the "more expensive = better" heuristic at the multi-service scale. Uniform random selection sits between the two.
+
+4. **Gains are robust across preference profiles.** Disaggregating by preference vector, ASM beats both baselines on TOPSIS score in all four profiles (cost-first: 0.683 vs. 0.455 vs. 0.390; quality-first: 0.659 vs. 0.558 vs. 0.426; speed-first: 0.616 vs. 0.576 vs. 0.452; balanced: 0.723 vs. 0.579 vs. 0.338), confirming the ranking is not driven by a single profile.
+
+The reproducibility script and raw selection records are available at `experiments/ab_test.py` and `experiments/results/` in the open-source release. We treat this experiment as the primary quantitative evidence for the protocol's utility; live-API replication with real provider responses is discussed in §7 as immediate future work.
+
+### 6.6 Selection Regret Against Stronger Heuristic Baselines
+
+The previous experiment demonstrates gains over random and premium-price heuristics, but those are weak baselines. We therefore add a regret evaluation against five stronger policies: cheapest-first, fastest-first, highest-quality-first, weighted-average scoring, and most-expensive-first. For each task, regret is defined as:
+
+$$\text{regret} = U(s^*) - U(\hat{s})$$
+
+where $U$ is the task's preference-weighted TOPSIS utility, $s^*$ is the best feasible service in the candidate set, and $\hat{s}$ is the service selected by the policy. This is still a same-source utility metric, so we do not interpret it as output-quality improvement. Its purpose is narrower: to measure how much utility a policy leaves on the table relative to the explicit settlement objective.
+
+**Table 6: Selection regret over 200 tasks (lower regret is better).**
+
+| Strategy | Utility mean | Regret mean | Zero-regret rate | Cost mean | Latency mean | Quality mean |
+|----------|-------------:|------------:|-----------------:|----------:|-------------:|-------------:|
+| ASM-TOPSIS | **0.9071** | **0.0000** | **100.0%** | 0.0058011640 | 6.8914 | 0.6199 |
+| Fastest-first | 0.8369 | 0.0703 | 83.0% | 0.0212652890 | **5.4919** | 0.6289 |
+| Weighted average | 0.8285 | 0.0787 | 79.0% | 0.0178044554 | 5.8205 | 0.6283 |
+| Cheapest-first | 0.6406 | 0.2665 | 68.5% | **0.0057811528** | 6.8900 | 0.6240 |
+| Random | 0.5329 | 0.3742 | 51.5% | 0.0154392470 | 6.3357 | 0.5892 |
+| Highest-quality-first | 0.4089 | 0.4982 | 31.0% | 0.0216596447 | 5.9288 | **0.6564** |
+| Most-expensive-first | 0.1980 | 0.7091 | 13.0% | 0.0220168655 | 6.0715 | 0.5780 |
+
+The result clarifies the role of ASM: single-objective heuristics can optimize their own dimension, but they systematically incur regret when user preferences span cost, quality, speed, and reliability. Weighted average is a much stronger baseline than random, yet still leaves mean regret of 0.0787 because it does not account for distance to both ideal and anti-ideal services. The reproducibility script and raw records are available at `experiments/selection_baselines.py` and `experiments/results/selection_baselines.*`.
 
 ---
 
@@ -555,13 +660,13 @@ We evaluated the trust delta mechanism using simulated receipt data with control
 
 **Adversarial robustness.** A sophisticated adversary could game the trust system by behaving honestly during a "trust-building" phase, then degrading service quality once a high trust score is established. The exponential decay provides some protection (trust erodes within weeks), but targeted attacks during high-value transactions remain a concern.
 
-**Taxonomy completeness.** The current 18-category taxonomy covers the most common AI service types but is not exhaustive. Emerging categories (e.g., AI agent orchestration, multimodal reasoning, real-time collaboration) will require taxonomy extensions.
+**Taxonomy completeness.** The current 47-category taxonomy covers the most common AI services and a broad cross-section of developer/productivity tooling but is not exhaustive. Emerging categories (e.g., AI agent orchestration, multimodal reasoning, real-time collaboration) will require taxonomy extensions; the prefix-based design allows such extensions without breaking existing manifests.
+
+**Evaluation with simulated tasks.** The §6.5 A/B experiment selects over real, source-linked manifest data, but the tasks themselves are synthesized rather than drawn from a deployed agent's request stream, and scoring uses the manifests' declared values rather than measured runtime values. Live-API replication — where each policy's selection is *executed* and the realized cost, latency, and quality are fed back through Signed Receipts — is the natural next step, and the most direct way to convert §6.5's selection-utility advantage into realized outcome evidence.
 
 ### 7.2 Trust Mechanisms in Context
 
 ASM's trust model is complementary to existing approaches:
-
-**Cao et al. [9]** address runtime provider dishonesty (model substitution, token stuffing) through mechanism design, achieving approximately incentive-compatible outcomes. Their approach operates *during* execution; ASM operates *before* (pre-selection trust) and *after* (post-execution trust update). The combination provides end-to-end trust coverage.
 
 **Agent Receipts [8]** provide the cryptographic infrastructure for signed execution records. ASM consumes these receipts to compute trust deltas. The two projects are in active collaboration, with the `asm:` namespace registered for receipt type fields.
 
@@ -593,23 +698,15 @@ This positions ASM not as a marketplace itself, but as the data layer that enabl
 
 ## 8. Conclusion
 
-We have presented Agent Service Manifest (ASM), an open protocol that fills a critical gap in the agent infrastructure stack: enabling autonomous agents to evaluate, compare, and select AI services based on structured value data. ASM addresses the fundamental insight that **agent intelligence drops to zero at the service selection step** when economic data is unstructured — no matter how capable the underlying model, it cannot optimize over information it cannot parse.
+We have presented Agent Service Manifest (ASM), an open protocol for the missing value layer in the agent infrastructure stack. The central claim is simple: the problem is not model intelligence; it is missing data infrastructure. When pricing, quality, SLA, provenance, and payment metadata remain unstructured, even a capable agent cannot make a reproducible economic decision.
 
-Our key contributions are:
+ASM makes that decision computable. It provides a minimal schema, a provenance-aware manifest format, a trust model that connects declarations to signed receipts, and a two-stage settlement engine that combines hard constraints with preference-weighted TOPSIS ranking. The reference implementation includes a Python scorer, a dual-protocol registry, an MCP integration path, audit scripts, and 70 real-world manifests spanning 47 taxonomies.
 
-1. **A minimal, extensible schema** (3 required fields, 5 optional modules) that captures the full heterogeneity of AI service pricing (12 billing dimensions, tiered and conditional pricing), quality (heterogeneous benchmarks with trust transparency), and reliability (SLA parameters).
+The remaining work is adoption and harder external validation. Live execution experiments should compare ASM against LLM raw-document selectors on realized cost, latency, constraint violations, token cost, and reproducibility. Trust mechanisms should move from self-reported provenance toward third-party verification and receipt-backed updates.
 
-2. **A three-layer trust model** progressing from source transparency (`self_reported` flags) through external verification (benchmark references) to cryptographic proof (Signed Receipts integration with exponential decay trust scoring).
+If agents are to become economic actors, service selection cannot remain an unstructured browsing task. ASM makes settlement a computable step in the agent stack.
 
-3. **A two-stage selection engine** combining hard constraint filtering with TOPSIS multi-criteria ranking, producing preference-aware, explainable service recommendations in under 5ms.
-
-4. **A complete reference implementation** including a Python scoring engine, a TypeScript MCP server with 6 tools, and 14 real-world service manifests spanning 6 categories — all open-source and immediately deployable.
-
-Our evaluation demonstrates that ASM-guided selection produces different optimal choices under different preference profiles (confirming the multi-criteria nature of the problem), that trust delta scoring effectively identifies and penalizes dishonest service declarations, and that the protocol overhead is negligible (< 5ms scoring, ~300 tokens per manifest).
-
-ASM is designed as a **compatible extension** to the existing protocol stack — it does not replace MCP, A2A, or AP2, but provides the missing economic layer that makes autonomous service selection computable. Just as the Nutrition Facts label transformed consumer food purchasing from subjective judgment to informed comparison, ASM aims to transform AI service selection from blind heuristics to structured optimization.
-
-The protocol, reference implementation, and all 14 service manifests are available at: https://github.com/asm-protocol/asm-spec
+The protocol, reference implementation, all 70 service manifests, and the A/B experiment harness are available at: https://github.com/asm-protocol/asm-spec
 
 ---
 
@@ -619,7 +716,7 @@ The protocol, reference implementation, and all 14 service manifests are availab
 
 [2] Google. Agent-to-Agent Protocol. 2025. https://github.com/google/A2A
 
-[3] Google. Agent Payment Protocol (AP2) V0.1. 2025. https://github.com/anthropics/ap2
+[3] Google. Agent Payments Protocol (AP2). 2025. https://github.com/google-agentic-commerce/AP2
 
 [4] I. Ong et al. "RouteLLM: Learning to Route LLMs with Preference Data." arXiv:2406.18665, 2024.
 
@@ -631,14 +728,12 @@ The protocol, reference implementation, and all 14 service manifests are availab
 
 [8] Agent Receipts SDK. https://github.com/agent-receipts/ar
 
-[9] Z. Cao et al. "Pay for the Second-Best Service: A Game-Theoretic Approach Against Dishonest LLM Providers." WWW 2026. arXiv:2511.00847.
+[9] MCP Landscape, Security Threats and Future Directions. arXiv:2503.23278, 2025.
 
-[10] MCP Landscape, Security Threats and Future Directions. arXiv:2503.23278, 2025.
+[10] MCP 2026 Roadmap. https://blog.modelcontextprotocol.io/posts/2026-mcp-roadmap/
 
-[11] MCP 2026 Roadmap. https://blog.modelcontextprotocol.io/posts/2026-mcp-roadmap/
+[11] AWS Marketplace MCP Server. https://docs.aws.amazon.com/marketplace/latest/APIReference/marketplace-mcp-server.html
 
-[12] AWS Marketplace MCP Server. https://docs.aws.amazon.com/marketplace/latest/APIReference/marketplace-mcp-server.html
+[12] Cloud Service Selection using MCDM: A Systematic Review. Journal of Network and Systems Management, 2020.
 
-[13] Cloud Service Selection using MCDM: A Systematic Review. Journal of Network and Systems Management, 2020.
-
-[14] C.L. Hwang and K. Yoon. Multiple Attribute Decision Making: Methods and Applications. Springer, 1981.
+[13] C.L. Hwang and K. Yoon. Multiple Attribute Decision Making: Methods and Applications. Springer, 1981.

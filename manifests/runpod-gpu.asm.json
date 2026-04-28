@@ -3,6 +3,13 @@
   "service_id": "runpod/gpu-serverless@1.0",
   "taxonomy": "infra.compute.gpu",
   "display_name": "RunPod Serverless GPU",
+  "provenance": {
+    "source_url": "https://www.runpod.io",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
   "updated_at": "2026-04-10T00:00:00Z",
   "ttl": 300,
   "provider": {

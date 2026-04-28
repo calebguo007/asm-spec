@@ -25,6 +25,38 @@
       "type": "string",
       "description": "Human-readable service name"
     },
+    "provenance": {
+      "type": "object",
+      "description": "Source and verification metadata for the manifest claims. Agents and reviewers use this to decide whether pricing, quality, SLA, and payment fields are fresh and independently checkable.",
+      "required": ["source_url", "retrieved_at", "last_verified_at", "verification_status"],
+      "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Primary URL used to derive or verify this manifest."
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when the source was retrieved."
+        },
+        "last_verified_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when the manifest claims were last checked against the source."
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": ["manual_verified", "self_reported", "benchmark_verified"],
+          "description": "Verification level for the manifest claims."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Free-form reviewer notes, caveats, or verification context."
+        }
+      },
+      "additionalProperties": false
+    },
     "updated_at": {
       "type": "string",
       "format": "date-time",
@@ -69,7 +101,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["text", "image", "audio", "video", "file", "structured_data"]
+            "enum": ["text", "image", "audio", "video", "file", "binary", "structured_data"]
           },
           "description": "Supported input types"
         },
@@ -77,7 +109,7 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["text", "image", "audio", "video", "file", "structured_data"]
+            "enum": ["text", "image", "audio", "video", "file", "binary", "structured_data"]
           },
           "description": "Supported output types"
         },
@@ -115,23 +147,11 @@
             "properties": {
               "dimension": {
                 "type": "string",
-                "enum": [
-                  "input_token", "output_token", "token",
-                  "character", "word",
-                  "image", "pixel",
-                  "second", "minute",
-                  "request",
-                  "gpu_second",
-                  "byte",
-                  "query",
-                  "custom"
-                ],
-                "description": "Billing dimension identifier"
+                "description": "Billing dimension identifier. Recommended values include input_token, output_token, token, character, word, image, pixel, second, minute, request, gpu_second, byte, query, and custom; services may define domain-specific dimensions such as browser_minute, email, or ci_minute."
               },
               "unit": {
                 "type": "string",
-                "enum": ["per_1", "per_1K", "per_1M"],
-                "description": "Billing granularity"
+                "description": "Billing granularity. Recommended values include per_1, per_1K, and per_1M; services may define domain-specific units such as per_page, per_message, or per_1_gb_month."
               },
               "cost_per_unit": {
                 "type": "number",
@@ -198,6 +218,7 @@
               },
               "required": ["dimension", "limit", "period"]
             },
+            { "type": "string" },
             { "type": "null" }
           ],
           "description": "Free tier information, if available"
@@ -336,15 +357,13 @@
         "methods": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": ["api_key_prepaid", "stripe", "ap2", "crypto", "invoice"]
+            "type": "string"
           },
-          "description": "Supported payment methods"
+          "description": "Supported payment methods. Recommended values include api_key_prepaid, stripe, ap2, crypto, invoice, and free_tier; services may declare platform-specific methods."
         },
         "auth_type": {
           "type": "string",
-          "enum": ["api_key", "oauth2", "ap2_mandate", "none"],
-          "description": "Authentication mechanism required"
+          "description": "Authentication mechanism required. Recommended values include api_key, oauth2, ap2_mandate, and none; services may declare platform-specific mechanisms."
         },
         "ap2_endpoint": {
           "type": "string",

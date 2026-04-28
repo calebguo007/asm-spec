@@ -1,0 +1,33 @@
+{
+  "id": 15,
+  "category": "deploy",
+  "prompt": "Deploy landing page to production, return public URL",
+  "expected_taxonomy": "tool.devops.deployment",
+  "matched_taxonomy": "tool.devops.deployment",
+  "confidence": 0.3992,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.screenshot",
+      "score": 0.4059
+    },
+    {
+      "taxonomy": "infra.auth.identity",
+      "score": 0.4047
+    },
+    {
+      "taxonomy": "tool.devops.deployment",
+      "score": 0.3992
+    },
+    {
+      "taxonomy": "tool.data.visualization",
+      "score": 0.3584
+    },
+    {
+      "taxonomy": "tool.data.scraping",
+      "score": 0.3452
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.devops.deployment for \"Deploy landing page to production, return public URL\" (0.399). The user's action is 'deploy' (a landing page to production and return a public URL), which is a deployment operation. The taxonomy tool.devops.deployment directly matches this action, while other candidates relate to domains like data handling or authentication, not the core verb of deploying.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

@@ -3,6 +3,13 @@
   "service_id": "openai/gpt-4o@2024-11-20",
   "taxonomy": "ai.llm.chat",
   "display_name": "GPT-4o",
+  "provenance": {
+    "source_url": "https://openai.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
   "updated_at": "2026-04-10T00:00:00Z",
   "ttl": 3600,
   "provider": {
@@ -47,7 +54,7 @@
       {
         "dimension": "output_token",
         "unit": "per_1M",
-        "cost_per_unit": 10.0,
+        "cost_per_unit": 10,
         "currency": "USD"
       }
     ],

@@ -1,0 +1,1401 @@
+task_id,taxonomy,profile,strategy,service_id,display_name,utility,best_utility,regret,cost_per_unit,latency_seconds,quality_score,uptime
+1,tool.data.search,cost_first,asm_topsis,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+1,tool.data.search,cost_first,weighted_average,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+1,tool.data.search,cost_first,cheapest_first,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+1,tool.data.search,cost_first,fastest_first,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+1,tool.data.search,cost_first,highest_quality_first,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+1,tool.data.search,cost_first,most_expensive_first,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+1,tool.data.search,cost_first,random,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+2,tool.productivity.spreadsheet,quality_first,asm_topsis,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+2,tool.productivity.spreadsheet,quality_first,weighted_average,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+2,tool.productivity.spreadsheet,quality_first,cheapest_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+2,tool.productivity.spreadsheet,quality_first,fastest_first,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+2,tool.productivity.spreadsheet,quality_first,highest_quality_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+2,tool.productivity.spreadsheet,quality_first,most_expensive_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+2,tool.productivity.spreadsheet,quality_first,random,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+3,ai.video.generation,speed_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+3,ai.video.generation,speed_first,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+3,ai.video.generation,speed_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+3,ai.video.generation,speed_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+3,ai.video.generation,speed_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+3,ai.video.generation,speed_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+3,ai.video.generation,speed_first,random,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+4,infra.compute.gpu,cost_first,asm_topsis,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+4,infra.compute.gpu,cost_first,weighted_average,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+4,infra.compute.gpu,cost_first,cheapest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+4,infra.compute.gpu,cost_first,fastest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+4,infra.compute.gpu,cost_first,highest_quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+4,infra.compute.gpu,cost_first,most_expensive_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+4,infra.compute.gpu,cost_first,random,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+5,tool.data.search,quality_first,asm_topsis,tavily/search-api@v1,Tavily Search,0.6015,0.6015,0.0,0.001,0.8,0.92,0.998
+5,tool.data.search,quality_first,weighted_average,exa/search-api@v1,Exa Search,0.3985,0.6015,0.203,0.003,0.6,0.95,0.997
+5,tool.data.search,quality_first,cheapest_first,tavily/search-api@v1,Tavily Search,0.6015,0.6015,0.0,0.001,0.8,0.92,0.998
+5,tool.data.search,quality_first,fastest_first,exa/search-api@v1,Exa Search,0.3985,0.6015,0.203,0.003,0.6,0.95,0.997
+5,tool.data.search,quality_first,highest_quality_first,exa/search-api@v1,Exa Search,0.3985,0.6015,0.203,0.003,0.6,0.95,0.997
+5,tool.data.search,quality_first,most_expensive_first,exa/search-api@v1,Exa Search,0.3985,0.6015,0.203,0.003,0.6,0.95,0.997
+5,tool.data.search,quality_first,random,tavily/search-api@v1,Tavily Search,0.6015,0.6015,0.0,0.001,0.8,0.92,0.998
+6,tool.communication.email,cost_first,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+6,tool.communication.email,cost_first,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+6,tool.communication.email,cost_first,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+6,tool.communication.email,cost_first,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+6,tool.communication.email,cost_first,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+6,tool.communication.email,cost_first,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+6,tool.communication.email,cost_first,random,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+7,infra.database.postgres,quality_first,asm_topsis,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+7,infra.database.postgres,quality_first,weighted_average,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+7,infra.database.postgres,quality_first,cheapest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+7,infra.database.postgres,quality_first,fastest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+7,infra.database.postgres,quality_first,highest_quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+7,infra.database.postgres,quality_first,most_expensive_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+7,infra.database.postgres,quality_first,random,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+8,tool.devops.ci,balanced,asm_topsis,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+8,tool.devops.ci,balanced,weighted_average,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+8,tool.devops.ci,balanced,cheapest_first,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+8,tool.devops.ci,balanced,fastest_first,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+8,tool.devops.ci,balanced,highest_quality_first,github/actions@v2,GitHub Actions,0.4967,0.5033,0.0066,0.008,15.0,0.62,0.998
+8,tool.devops.ci,balanced,most_expensive_first,github/actions@v2,GitHub Actions,0.4967,0.5033,0.0066,0.008,15.0,0.62,0.998
+8,tool.devops.ci,balanced,random,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+9,ai.video.generation,speed_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+9,ai.video.generation,speed_first,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+9,ai.video.generation,speed_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+9,ai.video.generation,speed_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+9,ai.video.generation,speed_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+9,ai.video.generation,speed_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+9,ai.video.generation,speed_first,random,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+10,ai.llm.embedding,cost_first,asm_topsis,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+10,ai.llm.embedding,cost_first,weighted_average,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+10,ai.llm.embedding,cost_first,cheapest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+10,ai.llm.embedding,cost_first,fastest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+10,ai.llm.embedding,cost_first,highest_quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0329,0.9671,0.9342,1.8e-07,0.15,0.662,0.998
+10,ai.llm.embedding,cost_first,most_expensive_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0329,0.9671,0.9342,1.8e-07,0.15,0.662,0.998
+10,ai.llm.embedding,cost_first,random,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+11,tool.communication.email,balanced,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+11,tool.communication.email,balanced,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+11,tool.communication.email,balanced,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+11,tool.communication.email,balanced,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+11,tool.communication.email,balanced,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+11,tool.communication.email,balanced,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+11,tool.communication.email,balanced,random,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+12,tool.automation.browser,speed_first,asm_topsis,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+12,tool.automation.browser,speed_first,weighted_average,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+12,tool.automation.browser,speed_first,cheapest_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+12,tool.automation.browser,speed_first,fastest_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+12,tool.automation.browser,speed_first,highest_quality_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+12,tool.automation.browser,speed_first,most_expensive_first,browserbase/api@v1,Browserbase,0.0016,0.9984,0.9968,0.01,2.0,0.96,0.998
+12,tool.automation.browser,speed_first,random,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+13,tool.data.scraping,balanced,asm_topsis,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+13,tool.data.scraping,balanced,weighted_average,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+13,tool.data.scraping,balanced,cheapest_first,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+13,tool.data.scraping,balanced,fastest_first,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+13,tool.data.scraping,balanced,highest_quality_first,firecrawl/scrape@v1,Firecrawl,0.0005,0.9995,0.999,0.001,3.0,0.5,0.997
+13,tool.data.scraping,balanced,most_expensive_first,firecrawl/scrape@v1,Firecrawl,0.0005,0.9995,0.999,0.001,3.0,0.5,0.997
+13,tool.data.scraping,balanced,random,firecrawl/scrape@v1,Firecrawl,0.0005,0.9995,0.999,0.001,3.0,0.5,0.997
+14,ai.llm.embedding,quality_first,asm_topsis,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.8629,0.8629,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+14,ai.llm.embedding,quality_first,weighted_average,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.1371,0.8629,0.7258,1.8e-07,0.15,0.662,0.998
+14,ai.llm.embedding,quality_first,cheapest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.8629,0.8629,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+14,ai.llm.embedding,quality_first,fastest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.8629,0.8629,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+14,ai.llm.embedding,quality_first,highest_quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.1371,0.8629,0.7258,1.8e-07,0.15,0.662,0.998
+14,ai.llm.embedding,quality_first,most_expensive_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.1371,0.8629,0.7258,1.8e-07,0.15,0.662,0.998
+14,ai.llm.embedding,quality_first,random,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.8629,0.8629,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+15,tool.communication.chat,quality_first,asm_topsis,discord/api@v10,Discord,0.9966,0.9966,0.0,0,0.08,0.5,0.998
+15,tool.communication.chat,quality_first,weighted_average,discord/api@v10,Discord,0.9966,0.9966,0.0,0,0.08,0.5,0.998
+15,tool.communication.chat,quality_first,cheapest_first,discord/api@v10,Discord,0.9966,0.9966,0.0,0,0.08,0.5,0.998
+15,tool.communication.chat,quality_first,fastest_first,discord/api@v10,Discord,0.9966,0.9966,0.0,0,0.08,0.5,0.998
+15,tool.communication.chat,quality_first,highest_quality_first,discord/api@v10,Discord,0.9966,0.9966,0.0,0,0.08,0.5,0.998
+15,tool.communication.chat,quality_first,most_expensive_first,discord/api@v10,Discord,0.9966,0.9966,0.0,0,0.08,0.5,0.998
+15,tool.communication.chat,quality_first,random,slack/web-api@v2,Slack,0.0034,0.9966,0.9932,0,0.1,0.5,0.999
+16,tool.automation.browser,cost_first,asm_topsis,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+16,tool.automation.browser,cost_first,weighted_average,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+16,tool.automation.browser,cost_first,cheapest_first,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+16,tool.automation.browser,cost_first,fastest_first,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+16,tool.automation.browser,cost_first,highest_quality_first,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+16,tool.automation.browser,cost_first,most_expensive_first,browserbase/api@v1,Browserbase,0.0009,0.9991,0.9982,0.01,2.0,0.96,0.998
+16,tool.automation.browser,cost_first,random,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+17,infra.database.vector,speed_first,asm_topsis,qdrant/cloud@v1,Qdrant,0.9997,0.9997,0.0,0,0.01,0.5,0.998
+17,infra.database.vector,speed_first,weighted_average,qdrant/cloud@v1,Qdrant,0.9997,0.9997,0.0,0,0.01,0.5,0.998
+17,infra.database.vector,speed_first,cheapest_first,pinecone/index@v3,Pinecone,0.0003,0.9997,0.9994,0,0.02,0.5,0.999
+17,infra.database.vector,speed_first,fastest_first,qdrant/cloud@v1,Qdrant,0.9997,0.9997,0.0,0,0.01,0.5,0.998
+17,infra.database.vector,speed_first,highest_quality_first,pinecone/index@v3,Pinecone,0.0003,0.9997,0.9994,0,0.02,0.5,0.999
+17,infra.database.vector,speed_first,most_expensive_first,pinecone/index@v3,Pinecone,0.0003,0.9997,0.9994,0,0.02,0.5,0.999
+17,infra.database.vector,speed_first,random,pinecone/index@v3,Pinecone,0.0003,0.9997,0.9994,0,0.02,0.5,0.999
+18,tool.communication.email,quality_first,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+18,tool.communication.email,quality_first,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+18,tool.communication.email,quality_first,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+18,tool.communication.email,quality_first,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+18,tool.communication.email,quality_first,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+18,tool.communication.email,quality_first,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+18,tool.communication.email,quality_first,random,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+19,tool.productivity.spreadsheet,cost_first,asm_topsis,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+19,tool.productivity.spreadsheet,cost_first,weighted_average,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+19,tool.productivity.spreadsheet,cost_first,cheapest_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+19,tool.productivity.spreadsheet,cost_first,fastest_first,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+19,tool.productivity.spreadsheet,cost_first,highest_quality_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+19,tool.productivity.spreadsheet,cost_first,most_expensive_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+19,tool.productivity.spreadsheet,cost_first,random,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+20,tool.communication.email,cost_first,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+20,tool.communication.email,cost_first,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+20,tool.communication.email,cost_first,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+20,tool.communication.email,cost_first,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+20,tool.communication.email,cost_first,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+20,tool.communication.email,cost_first,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+20,tool.communication.email,cost_first,random,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+21,ai.video.generation,balanced,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.8635,0.8635,0.0,0.029,60.0,0.835,0.5
+21,ai.video.generation,balanced,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+21,ai.video.generation,balanced,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.8635,0.8635,0.0,0.029,60.0,0.835,0.5
+21,ai.video.generation,balanced,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+21,ai.video.generation,balanced,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+21,ai.video.generation,balanced,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+21,ai.video.generation,balanced,random,kuaishou/kling-3.0@3.0,Kling 3.0,0.8635,0.8635,0.0,0.029,60.0,0.835,0.5
+22,ai.vision.image_generation,balanced,asm_topsis,google/imagen-3@3.0,Imagen 3,0.6017,0.6017,0.0,0.04,10.0,0.72,0.999
+22,ai.vision.image_generation,balanced,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+22,ai.vision.image_generation,balanced,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+22,ai.vision.image_generation,balanced,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+22,ai.vision.image_generation,balanced,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+22,ai.vision.image_generation,balanced,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+22,ai.vision.image_generation,balanced,random,google/imagen-3@3.0,Imagen 3,0.6017,0.6017,0.0,0.04,10.0,0.72,0.999
+23,infra.compute.gpu,quality_first,asm_topsis,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+23,infra.compute.gpu,quality_first,weighted_average,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+23,infra.compute.gpu,quality_first,cheapest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+23,infra.compute.gpu,quality_first,fastest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+23,infra.compute.gpu,quality_first,highest_quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+23,infra.compute.gpu,quality_first,most_expensive_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+23,infra.compute.gpu,quality_first,random,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+24,tool.productivity.spreadsheet,speed_first,asm_topsis,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+24,tool.productivity.spreadsheet,speed_first,weighted_average,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+24,tool.productivity.spreadsheet,speed_first,cheapest_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+24,tool.productivity.spreadsheet,speed_first,fastest_first,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+24,tool.productivity.spreadsheet,speed_first,highest_quality_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+24,tool.productivity.spreadsheet,speed_first,most_expensive_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+24,tool.productivity.spreadsheet,speed_first,random,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+25,tool.productivity.todo,balanced,asm_topsis,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+25,tool.productivity.todo,balanced,weighted_average,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+25,tool.productivity.todo,balanced,cheapest_first,google/tasks-api@v1,Google Tasks,0.0029,0.9363,0.9334,0,0.2,0.042,0.9995
+25,tool.productivity.todo,balanced,fastest_first,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+25,tool.productivity.todo,balanced,highest_quality_first,ticktick/api@v2,TickTick,0.637,0.9363,0.2993,0,0.15,0.045,0.998
+25,tool.productivity.todo,balanced,most_expensive_first,google/tasks-api@v1,Google Tasks,0.0029,0.9363,0.9334,0,0.2,0.042,0.9995
+25,tool.productivity.todo,balanced,random,google/tasks-api@v1,Google Tasks,0.0029,0.9363,0.9334,0,0.2,0.042,0.9995
+26,infra.database.vector,cost_first,asm_topsis,qdrant/cloud@v1,Qdrant,0.9984,0.9984,0.0,0,0.01,0.5,0.998
+26,infra.database.vector,cost_first,weighted_average,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+26,infra.database.vector,cost_first,cheapest_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+26,infra.database.vector,cost_first,fastest_first,qdrant/cloud@v1,Qdrant,0.9984,0.9984,0.0,0,0.01,0.5,0.998
+26,infra.database.vector,cost_first,highest_quality_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+26,infra.database.vector,cost_first,most_expensive_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+26,infra.database.vector,cost_first,random,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+27,ai.vision.image_generation,speed_first,asm_topsis,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+27,ai.vision.image_generation,speed_first,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+27,ai.vision.image_generation,speed_first,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+27,ai.vision.image_generation,speed_first,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+27,ai.vision.image_generation,speed_first,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+27,ai.vision.image_generation,speed_first,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+27,ai.vision.image_generation,speed_first,random,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+28,tool.automation.browser,cost_first,asm_topsis,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+28,tool.automation.browser,cost_first,weighted_average,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+28,tool.automation.browser,cost_first,cheapest_first,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+28,tool.automation.browser,cost_first,fastest_first,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+28,tool.automation.browser,cost_first,highest_quality_first,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+28,tool.automation.browser,cost_first,most_expensive_first,browserbase/api@v1,Browserbase,0.0009,0.9991,0.9982,0.01,2.0,0.96,0.998
+28,tool.automation.browser,cost_first,random,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+29,ai.video.generation,quality_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.6769,0.6769,0.0,0.029,60.0,0.835,0.5
+29,ai.video.generation,quality_first,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.3231,0.6769,0.3538,0.2,45.0,0.847,0.5
+29,ai.video.generation,quality_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.6769,0.6769,0.0,0.029,60.0,0.835,0.5
+29,ai.video.generation,quality_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.3231,0.6769,0.3538,0.2,45.0,0.847,0.5
+29,ai.video.generation,quality_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.3231,0.6769,0.3538,0.2,45.0,0.847,0.5
+29,ai.video.generation,quality_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.3231,0.6769,0.3538,0.2,45.0,0.847,0.5
+29,ai.video.generation,quality_first,random,google/veo-3.1@3.1,Veo 3.1,0.3231,0.6769,0.3538,0.2,45.0,0.847,0.5
+30,tool.data.search,cost_first,asm_topsis,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+30,tool.data.search,cost_first,weighted_average,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+30,tool.data.search,cost_first,cheapest_first,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+30,tool.data.search,cost_first,fastest_first,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+30,tool.data.search,cost_first,highest_quality_first,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+30,tool.data.search,cost_first,most_expensive_first,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+30,tool.data.search,cost_first,random,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+31,infra.compute.gpu,speed_first,asm_topsis,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+31,infra.compute.gpu,speed_first,weighted_average,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+31,infra.compute.gpu,speed_first,cheapest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+31,infra.compute.gpu,speed_first,fastest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+31,infra.compute.gpu,speed_first,highest_quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+31,infra.compute.gpu,speed_first,most_expensive_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+31,infra.compute.gpu,speed_first,random,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+32,tool.productivity.todo,quality_first,asm_topsis,todoist/api@v2,Todoist,0.8911,0.8911,0.0,0,0.12,0.044000000000000004,0.999
+32,tool.productivity.todo,quality_first,weighted_average,ticktick/api@v2,TickTick,0.6608,0.8911,0.2303,0,0.15,0.045,0.998
+32,tool.productivity.todo,quality_first,cheapest_first,google/tasks-api@v1,Google Tasks,0.0021,0.8911,0.889,0,0.2,0.042,0.9995
+32,tool.productivity.todo,quality_first,fastest_first,todoist/api@v2,Todoist,0.8911,0.8911,0.0,0,0.12,0.044000000000000004,0.999
+32,tool.productivity.todo,quality_first,highest_quality_first,ticktick/api@v2,TickTick,0.6608,0.8911,0.2303,0,0.15,0.045,0.998
+32,tool.productivity.todo,quality_first,most_expensive_first,google/tasks-api@v1,Google Tasks,0.0021,0.8911,0.889,0,0.2,0.042,0.9995
+32,tool.productivity.todo,quality_first,random,ticktick/api@v2,TickTick,0.6608,0.8911,0.2303,0,0.15,0.045,0.998
+33,infra.database.vector,speed_first,asm_topsis,qdrant/cloud@v1,Qdrant,0.9997,0.9997,0.0,0,0.01,0.5,0.998
+33,infra.database.vector,speed_first,weighted_average,qdrant/cloud@v1,Qdrant,0.9997,0.9997,0.0,0,0.01,0.5,0.998
+33,infra.database.vector,speed_first,cheapest_first,pinecone/index@v3,Pinecone,0.0003,0.9997,0.9994,0,0.02,0.5,0.999
+33,infra.database.vector,speed_first,fastest_first,qdrant/cloud@v1,Qdrant,0.9997,0.9997,0.0,0,0.01,0.5,0.998
+33,infra.database.vector,speed_first,highest_quality_first,pinecone/index@v3,Pinecone,0.0003,0.9997,0.9994,0,0.02,0.5,0.999
+33,infra.database.vector,speed_first,most_expensive_first,pinecone/index@v3,Pinecone,0.0003,0.9997,0.9994,0,0.02,0.5,0.999
+33,infra.database.vector,speed_first,random,pinecone/index@v3,Pinecone,0.0003,0.9997,0.9994,0,0.02,0.5,0.999
+34,ai.nlp.translation,cost_first,asm_topsis,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+34,ai.nlp.translation,cost_first,weighted_average,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+34,ai.nlp.translation,cost_first,cheapest_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+34,ai.nlp.translation,cost_first,fastest_first,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+34,ai.nlp.translation,cost_first,highest_quality_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+34,ai.nlp.translation,cost_first,most_expensive_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+34,ai.nlp.translation,cost_first,random,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+35,infra.database.vector,cost_first,asm_topsis,qdrant/cloud@v1,Qdrant,0.9984,0.9984,0.0,0,0.01,0.5,0.998
+35,infra.database.vector,cost_first,weighted_average,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+35,infra.database.vector,cost_first,cheapest_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+35,infra.database.vector,cost_first,fastest_first,qdrant/cloud@v1,Qdrant,0.9984,0.9984,0.0,0,0.01,0.5,0.998
+35,infra.database.vector,cost_first,highest_quality_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+35,infra.database.vector,cost_first,most_expensive_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+35,infra.database.vector,cost_first,random,qdrant/cloud@v1,Qdrant,0.9984,0.9984,0.0,0,0.01,0.5,0.998
+36,tool.productivity.spreadsheet,balanced,asm_topsis,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+36,tool.productivity.spreadsheet,balanced,weighted_average,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+36,tool.productivity.spreadsheet,balanced,cheapest_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+36,tool.productivity.spreadsheet,balanced,fastest_first,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+36,tool.productivity.spreadsheet,balanced,highest_quality_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+36,tool.productivity.spreadsheet,balanced,most_expensive_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+36,tool.productivity.spreadsheet,balanced,random,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+37,ai.llm.chat,cost_first,asm_topsis,openai/gpt-4o@2024-11-20,GPT-4o,0.9083,0.9083,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+37,ai.llm.chat,cost_first,weighted_average,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.7394,0.9083,0.1689,7.375e-06,1.5,0.8333333333333334,0.999
+37,ai.llm.chat,cost_first,cheapest_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.7394,0.9083,0.1689,7.375e-06,1.5,0.8333333333333334,0.999
+37,ai.llm.chat,cost_first,fastest_first,openai/gpt-4o@2024-11-20,GPT-4o,0.9083,0.9083,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+37,ai.llm.chat,cost_first,highest_quality_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.7394,0.9083,0.1689,7.375e-06,1.5,0.8333333333333334,0.999
+37,ai.llm.chat,cost_first,most_expensive_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.2148,0.9083,0.6935,1.14e-05,0.8,0.8166666666666667,0.999
+37,ai.llm.chat,cost_first,random,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.7394,0.9083,0.1689,7.375e-06,1.5,0.8333333333333334,0.999
+38,ai.audio.stt,cost_first,asm_topsis,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+38,ai.audio.stt,cost_first,weighted_average,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+38,ai.audio.stt,cost_first,cheapest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+38,ai.audio.stt,cost_first,fastest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+38,ai.audio.stt,cost_first,highest_quality_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+38,ai.audio.stt,cost_first,most_expensive_first,openai/whisper@v1,OpenAI Whisper,0.0,1.0,1.0,0.006,3.0,0.5,0.999
+38,ai.audio.stt,cost_first,random,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+39,tool.data.scraping,cost_first,asm_topsis,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+39,tool.data.scraping,cost_first,weighted_average,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+39,tool.data.scraping,cost_first,cheapest_first,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+39,tool.data.scraping,cost_first,fastest_first,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+39,tool.data.scraping,cost_first,highest_quality_first,firecrawl/scrape@v1,Firecrawl,0.0001,0.9999,0.9998,0.001,3.0,0.5,0.997
+39,tool.data.scraping,cost_first,most_expensive_first,firecrawl/scrape@v1,Firecrawl,0.0001,0.9999,0.9998,0.001,3.0,0.5,0.997
+39,tool.data.scraping,cost_first,random,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+40,tool.automation.browser,cost_first,asm_topsis,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+40,tool.automation.browser,cost_first,weighted_average,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+40,tool.automation.browser,cost_first,cheapest_first,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+40,tool.automation.browser,cost_first,fastest_first,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+40,tool.automation.browser,cost_first,highest_quality_first,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+40,tool.automation.browser,cost_first,most_expensive_first,browserbase/api@v1,Browserbase,0.0009,0.9991,0.9982,0.01,2.0,0.96,0.998
+40,tool.automation.browser,cost_first,random,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+41,ai.code.completion,cost_first,asm_topsis,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+41,ai.code.completion,cost_first,weighted_average,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+41,ai.code.completion,cost_first,cheapest_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+41,ai.code.completion,cost_first,fastest_first,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+41,ai.code.completion,cost_first,highest_quality_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+41,ai.code.completion,cost_first,most_expensive_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+41,ai.code.completion,cost_first,random,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+42,infra.database.postgres,cost_first,asm_topsis,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+42,infra.database.postgres,cost_first,weighted_average,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+42,infra.database.postgres,cost_first,cheapest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+42,infra.database.postgres,cost_first,fastest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+42,infra.database.postgres,cost_first,highest_quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+42,infra.database.postgres,cost_first,most_expensive_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+42,infra.database.postgres,cost_first,random,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+43,tool.data.scraping,quality_first,asm_topsis,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+43,tool.data.scraping,quality_first,weighted_average,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+43,tool.data.scraping,quality_first,cheapest_first,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+43,tool.data.scraping,quality_first,fastest_first,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+43,tool.data.scraping,quality_first,highest_quality_first,firecrawl/scrape@v1,Firecrawl,0.0009,0.9991,0.9982,0.001,3.0,0.5,0.997
+43,tool.data.scraping,quality_first,most_expensive_first,firecrawl/scrape@v1,Firecrawl,0.0009,0.9991,0.9982,0.001,3.0,0.5,0.997
+43,tool.data.scraping,quality_first,random,firecrawl/scrape@v1,Firecrawl,0.0009,0.9991,0.9982,0.001,3.0,0.5,0.997
+44,tool.data.search,speed_first,asm_topsis,exa/search-api@v1,Exa Search,0.5371,0.5371,0.0,0.003,0.6,0.95,0.997
+44,tool.data.search,speed_first,weighted_average,exa/search-api@v1,Exa Search,0.5371,0.5371,0.0,0.003,0.6,0.95,0.997
+44,tool.data.search,speed_first,cheapest_first,tavily/search-api@v1,Tavily Search,0.4629,0.5371,0.0742,0.001,0.8,0.92,0.998
+44,tool.data.search,speed_first,fastest_first,exa/search-api@v1,Exa Search,0.5371,0.5371,0.0,0.003,0.6,0.95,0.997
+44,tool.data.search,speed_first,highest_quality_first,exa/search-api@v1,Exa Search,0.5371,0.5371,0.0,0.003,0.6,0.95,0.997
+44,tool.data.search,speed_first,most_expensive_first,exa/search-api@v1,Exa Search,0.5371,0.5371,0.0,0.003,0.6,0.95,0.997
+44,tool.data.search,speed_first,random,tavily/search-api@v1,Tavily Search,0.4629,0.5371,0.0742,0.001,0.8,0.92,0.998
+45,tool.communication.email,cost_first,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+45,tool.communication.email,cost_first,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+45,tool.communication.email,cost_first,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+45,tool.communication.email,cost_first,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+45,tool.communication.email,cost_first,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+45,tool.communication.email,cost_first,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+45,tool.communication.email,cost_first,random,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+46,ai.code.completion,quality_first,asm_topsis,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+46,ai.code.completion,quality_first,weighted_average,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+46,ai.code.completion,quality_first,cheapest_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+46,ai.code.completion,quality_first,fastest_first,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+46,ai.code.completion,quality_first,highest_quality_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+46,ai.code.completion,quality_first,most_expensive_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+46,ai.code.completion,quality_first,random,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+47,infra.database.postgres,quality_first,asm_topsis,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+47,infra.database.postgres,quality_first,weighted_average,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+47,infra.database.postgres,quality_first,cheapest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+47,infra.database.postgres,quality_first,fastest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+47,infra.database.postgres,quality_first,highest_quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+47,infra.database.postgres,quality_first,most_expensive_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+47,infra.database.postgres,quality_first,random,supabase/database@v2,Supabase,0.0,1.0,1.0,0,0.015,0.5,0.999
+48,ai.llm.embedding,quality_first,asm_topsis,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.8629,0.8629,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+48,ai.llm.embedding,quality_first,weighted_average,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.1371,0.8629,0.7258,1.8e-07,0.15,0.662,0.998
+48,ai.llm.embedding,quality_first,cheapest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.8629,0.8629,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+48,ai.llm.embedding,quality_first,fastest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.8629,0.8629,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+48,ai.llm.embedding,quality_first,highest_quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.1371,0.8629,0.7258,1.8e-07,0.15,0.662,0.998
+48,ai.llm.embedding,quality_first,most_expensive_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.1371,0.8629,0.7258,1.8e-07,0.15,0.662,0.998
+48,ai.llm.embedding,quality_first,random,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.1371,0.8629,0.7258,1.8e-07,0.15,0.662,0.998
+49,tool.devops.ci,balanced,asm_topsis,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+49,tool.devops.ci,balanced,weighted_average,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+49,tool.devops.ci,balanced,cheapest_first,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+49,tool.devops.ci,balanced,fastest_first,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+49,tool.devops.ci,balanced,highest_quality_first,github/actions@v2,GitHub Actions,0.4967,0.5033,0.0066,0.008,15.0,0.62,0.998
+49,tool.devops.ci,balanced,most_expensive_first,github/actions@v2,GitHub Actions,0.4967,0.5033,0.0066,0.008,15.0,0.62,0.998
+49,tool.devops.ci,balanced,random,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+50,tool.data.search,cost_first,asm_topsis,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+50,tool.data.search,cost_first,weighted_average,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+50,tool.data.search,cost_first,cheapest_first,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+50,tool.data.search,cost_first,fastest_first,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+50,tool.data.search,cost_first,highest_quality_first,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+50,tool.data.search,cost_first,most_expensive_first,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+50,tool.data.search,cost_first,random,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+51,ai.video.generation,speed_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+51,ai.video.generation,speed_first,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+51,ai.video.generation,speed_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+51,ai.video.generation,speed_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+51,ai.video.generation,speed_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+51,ai.video.generation,speed_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+51,ai.video.generation,speed_first,random,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+52,ai.nlp.translation,cost_first,asm_topsis,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+52,ai.nlp.translation,cost_first,weighted_average,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+52,ai.nlp.translation,cost_first,cheapest_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+52,ai.nlp.translation,cost_first,fastest_first,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+52,ai.nlp.translation,cost_first,highest_quality_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+52,ai.nlp.translation,cost_first,most_expensive_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+52,ai.nlp.translation,cost_first,random,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+53,infra.database.vector,quality_first,asm_topsis,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+53,infra.database.vector,quality_first,weighted_average,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+53,infra.database.vector,quality_first,cheapest_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+53,infra.database.vector,quality_first,fastest_first,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+53,infra.database.vector,quality_first,highest_quality_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+53,infra.database.vector,quality_first,most_expensive_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+53,infra.database.vector,quality_first,random,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+54,ai.audio.tts,speed_first,asm_topsis,openai/tts-1@1.0,OpenAI TTS,0.6073,0.6073,0.0,1.5e-05,0.5,0.75,0.999
+54,ai.audio.tts,speed_first,weighted_average,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+54,ai.audio.tts,speed_first,cheapest_first,openai/tts-1@1.0,OpenAI TTS,0.6073,0.6073,0.0,1.5e-05,0.5,0.75,0.999
+54,ai.audio.tts,speed_first,fastest_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+54,ai.audio.tts,speed_first,highest_quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+54,ai.audio.tts,speed_first,most_expensive_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+54,ai.audio.tts,speed_first,random,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+55,ai.code.completion,balanced,asm_topsis,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+55,ai.code.completion,balanced,weighted_average,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+55,ai.code.completion,balanced,cheapest_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+55,ai.code.completion,balanced,fastest_first,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+55,ai.code.completion,balanced,highest_quality_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+55,ai.code.completion,balanced,most_expensive_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+55,ai.code.completion,balanced,random,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+56,ai.vision.image_generation,balanced,asm_topsis,google/imagen-3@3.0,Imagen 3,0.6017,0.6017,0.0,0.04,10.0,0.72,0.999
+56,ai.vision.image_generation,balanced,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+56,ai.vision.image_generation,balanced,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+56,ai.vision.image_generation,balanced,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+56,ai.vision.image_generation,balanced,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+56,ai.vision.image_generation,balanced,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+56,ai.vision.image_generation,balanced,random,openai/dall-e-3@3.0,DALL-E 3,0.4891,0.6017,0.1126,0.04,12.0,0.67,0.999
+57,tool.devops.ci,cost_first,asm_topsis,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+57,tool.devops.ci,cost_first,weighted_average,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+57,tool.devops.ci,cost_first,cheapest_first,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+57,tool.devops.ci,cost_first,fastest_first,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+57,tool.devops.ci,cost_first,highest_quality_first,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+57,tool.devops.ci,cost_first,most_expensive_first,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+57,tool.devops.ci,cost_first,random,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+58,ai.video.generation,balanced,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.8635,0.8635,0.0,0.029,60.0,0.835,0.5
+58,ai.video.generation,balanced,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+58,ai.video.generation,balanced,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.8635,0.8635,0.0,0.029,60.0,0.835,0.5
+58,ai.video.generation,balanced,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+58,ai.video.generation,balanced,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+58,ai.video.generation,balanced,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+58,ai.video.generation,balanced,random,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+59,tool.devops.ci,cost_first,asm_topsis,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+59,tool.devops.ci,cost_first,weighted_average,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+59,tool.devops.ci,cost_first,cheapest_first,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+59,tool.devops.ci,cost_first,fastest_first,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+59,tool.devops.ci,cost_first,highest_quality_first,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+59,tool.devops.ci,cost_first,most_expensive_first,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+59,tool.devops.ci,cost_first,random,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+60,ai.vision.image_generation,speed_first,asm_topsis,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+60,ai.vision.image_generation,speed_first,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+60,ai.vision.image_generation,speed_first,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+60,ai.vision.image_generation,speed_first,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+60,ai.vision.image_generation,speed_first,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+60,ai.vision.image_generation,speed_first,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+60,ai.vision.image_generation,speed_first,random,google/imagen-3@3.0,Imagen 3,0.5104,0.7963,0.2859,0.04,10.0,0.72,0.999
+61,tool.productivity.spreadsheet,cost_first,asm_topsis,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+61,tool.productivity.spreadsheet,cost_first,weighted_average,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+61,tool.productivity.spreadsheet,cost_first,cheapest_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+61,tool.productivity.spreadsheet,cost_first,fastest_first,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+61,tool.productivity.spreadsheet,cost_first,highest_quality_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+61,tool.productivity.spreadsheet,cost_first,most_expensive_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+61,tool.productivity.spreadsheet,cost_first,random,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+62,ai.nlp.translation,balanced,asm_topsis,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+62,ai.nlp.translation,balanced,weighted_average,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+62,ai.nlp.translation,balanced,cheapest_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+62,ai.nlp.translation,balanced,fastest_first,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+62,ai.nlp.translation,balanced,highest_quality_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+62,ai.nlp.translation,balanced,most_expensive_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+62,ai.nlp.translation,balanced,random,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+63,ai.llm.embedding,balanced,asm_topsis,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.944,0.944,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+63,ai.llm.embedding,balanced,weighted_average,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.944,0.944,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+63,ai.llm.embedding,balanced,cheapest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.944,0.944,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+63,ai.llm.embedding,balanced,fastest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.944,0.944,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+63,ai.llm.embedding,balanced,highest_quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.056,0.944,0.888,1.8e-07,0.15,0.662,0.998
+63,ai.llm.embedding,balanced,most_expensive_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.056,0.944,0.888,1.8e-07,0.15,0.662,0.998
+63,ai.llm.embedding,balanced,random,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.056,0.944,0.888,1.8e-07,0.15,0.662,0.998
+64,tool.productivity.todo,balanced,asm_topsis,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+64,tool.productivity.todo,balanced,weighted_average,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+64,tool.productivity.todo,balanced,cheapest_first,google/tasks-api@v1,Google Tasks,0.0029,0.9363,0.9334,0,0.2,0.042,0.9995
+64,tool.productivity.todo,balanced,fastest_first,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+64,tool.productivity.todo,balanced,highest_quality_first,ticktick/api@v2,TickTick,0.637,0.9363,0.2993,0,0.15,0.045,0.998
+64,tool.productivity.todo,balanced,most_expensive_first,google/tasks-api@v1,Google Tasks,0.0029,0.9363,0.9334,0,0.2,0.042,0.9995
+64,tool.productivity.todo,balanced,random,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+65,tool.productivity.todo,balanced,asm_topsis,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+65,tool.productivity.todo,balanced,weighted_average,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+65,tool.productivity.todo,balanced,cheapest_first,google/tasks-api@v1,Google Tasks,0.0029,0.9363,0.9334,0,0.2,0.042,0.9995
+65,tool.productivity.todo,balanced,fastest_first,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+65,tool.productivity.todo,balanced,highest_quality_first,ticktick/api@v2,TickTick,0.637,0.9363,0.2993,0,0.15,0.045,0.998
+65,tool.productivity.todo,balanced,most_expensive_first,google/tasks-api@v1,Google Tasks,0.0029,0.9363,0.9334,0,0.2,0.042,0.9995
+65,tool.productivity.todo,balanced,random,ticktick/api@v2,TickTick,0.637,0.9363,0.2993,0,0.15,0.045,0.998
+66,tool.devops.deployment,cost_first,asm_topsis,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+66,tool.devops.deployment,cost_first,weighted_average,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+66,tool.devops.deployment,cost_first,cheapest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+66,tool.devops.deployment,cost_first,fastest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+66,tool.devops.deployment,cost_first,highest_quality_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+66,tool.devops.deployment,cost_first,most_expensive_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+66,tool.devops.deployment,cost_first,random,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+67,tool.devops.deployment,quality_first,asm_topsis,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+67,tool.devops.deployment,quality_first,weighted_average,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+67,tool.devops.deployment,quality_first,cheapest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+67,tool.devops.deployment,quality_first,fastest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+67,tool.devops.deployment,quality_first,highest_quality_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+67,tool.devops.deployment,quality_first,most_expensive_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+67,tool.devops.deployment,quality_first,random,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+68,ai.audio.stt,balanced,asm_topsis,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+68,ai.audio.stt,balanced,weighted_average,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+68,ai.audio.stt,balanced,cheapest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+68,ai.audio.stt,balanced,fastest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+68,ai.audio.stt,balanced,highest_quality_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+68,ai.audio.stt,balanced,most_expensive_first,openai/whisper@v1,OpenAI Whisper,0.0,1.0,1.0,0.006,3.0,0.5,0.999
+68,ai.audio.stt,balanced,random,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+69,infra.compute.gpu,balanced,asm_topsis,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+69,infra.compute.gpu,balanced,weighted_average,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+69,infra.compute.gpu,balanced,cheapest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+69,infra.compute.gpu,balanced,fastest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+69,infra.compute.gpu,balanced,highest_quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+69,infra.compute.gpu,balanced,most_expensive_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+69,infra.compute.gpu,balanced,random,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+70,ai.nlp.translation,balanced,asm_topsis,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+70,ai.nlp.translation,balanced,weighted_average,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+70,ai.nlp.translation,balanced,cheapest_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+70,ai.nlp.translation,balanced,fastest_first,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+70,ai.nlp.translation,balanced,highest_quality_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+70,ai.nlp.translation,balanced,most_expensive_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+70,ai.nlp.translation,balanced,random,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+71,ai.llm.chat,cost_first,asm_topsis,openai/gpt-4o@2024-11-20,GPT-4o,0.9083,0.9083,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+71,ai.llm.chat,cost_first,weighted_average,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.7394,0.9083,0.1689,7.375e-06,1.5,0.8333333333333334,0.999
+71,ai.llm.chat,cost_first,cheapest_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.7394,0.9083,0.1689,7.375e-06,1.5,0.8333333333333334,0.999
+71,ai.llm.chat,cost_first,fastest_first,openai/gpt-4o@2024-11-20,GPT-4o,0.9083,0.9083,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+71,ai.llm.chat,cost_first,highest_quality_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.7394,0.9083,0.1689,7.375e-06,1.5,0.8333333333333334,0.999
+71,ai.llm.chat,cost_first,most_expensive_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.2148,0.9083,0.6935,1.14e-05,0.8,0.8166666666666667,0.999
+71,ai.llm.chat,cost_first,random,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.2148,0.9083,0.6935,1.14e-05,0.8,0.8166666666666667,0.999
+72,tool.productivity.spreadsheet,cost_first,asm_topsis,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+72,tool.productivity.spreadsheet,cost_first,weighted_average,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+72,tool.productivity.spreadsheet,cost_first,cheapest_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+72,tool.productivity.spreadsheet,cost_first,fastest_first,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+72,tool.productivity.spreadsheet,cost_first,highest_quality_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+72,tool.productivity.spreadsheet,cost_first,most_expensive_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+72,tool.productivity.spreadsheet,cost_first,random,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+73,ai.video.generation,speed_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+73,ai.video.generation,speed_first,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+73,ai.video.generation,speed_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+73,ai.video.generation,speed_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+73,ai.video.generation,speed_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+73,ai.video.generation,speed_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+73,ai.video.generation,speed_first,random,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+74,ai.nlp.translation,speed_first,asm_topsis,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+74,ai.nlp.translation,speed_first,weighted_average,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+74,ai.nlp.translation,speed_first,cheapest_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+74,ai.nlp.translation,speed_first,fastest_first,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+74,ai.nlp.translation,speed_first,highest_quality_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+74,ai.nlp.translation,speed_first,most_expensive_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+74,ai.nlp.translation,speed_first,random,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+75,infra.database.vector,quality_first,asm_topsis,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+75,infra.database.vector,quality_first,weighted_average,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+75,infra.database.vector,quality_first,cheapest_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+75,infra.database.vector,quality_first,fastest_first,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+75,infra.database.vector,quality_first,highest_quality_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+75,infra.database.vector,quality_first,most_expensive_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+75,infra.database.vector,quality_first,random,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+76,tool.data.scraping,speed_first,asm_topsis,jina/reader@v1,Jina Reader,0.9997,0.9997,0.0,0,2.0,0.5,0.996
+76,tool.data.scraping,speed_first,weighted_average,jina/reader@v1,Jina Reader,0.9997,0.9997,0.0,0,2.0,0.5,0.996
+76,tool.data.scraping,speed_first,cheapest_first,jina/reader@v1,Jina Reader,0.9997,0.9997,0.0,0,2.0,0.5,0.996
+76,tool.data.scraping,speed_first,fastest_first,jina/reader@v1,Jina Reader,0.9997,0.9997,0.0,0,2.0,0.5,0.996
+76,tool.data.scraping,speed_first,highest_quality_first,firecrawl/scrape@v1,Firecrawl,0.0003,0.9997,0.9994,0.001,3.0,0.5,0.997
+76,tool.data.scraping,speed_first,most_expensive_first,firecrawl/scrape@v1,Firecrawl,0.0003,0.9997,0.9994,0.001,3.0,0.5,0.997
+76,tool.data.scraping,speed_first,random,jina/reader@v1,Jina Reader,0.9997,0.9997,0.0,0,2.0,0.5,0.996
+77,ai.video.generation,speed_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+77,ai.video.generation,speed_first,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+77,ai.video.generation,speed_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+77,ai.video.generation,speed_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+77,ai.video.generation,speed_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+77,ai.video.generation,speed_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+77,ai.video.generation,speed_first,random,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+78,tool.productivity.spreadsheet,speed_first,asm_topsis,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+78,tool.productivity.spreadsheet,speed_first,weighted_average,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+78,tool.productivity.spreadsheet,speed_first,cheapest_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+78,tool.productivity.spreadsheet,speed_first,fastest_first,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+78,tool.productivity.spreadsheet,speed_first,highest_quality_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+78,tool.productivity.spreadsheet,speed_first,most_expensive_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+78,tool.productivity.spreadsheet,speed_first,random,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+79,tool.communication.email,cost_first,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+79,tool.communication.email,cost_first,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+79,tool.communication.email,cost_first,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+79,tool.communication.email,cost_first,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+79,tool.communication.email,cost_first,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+79,tool.communication.email,cost_first,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+79,tool.communication.email,cost_first,random,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+80,ai.video.generation,cost_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+80,ai.video.generation,cost_first,weighted_average,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+80,ai.video.generation,cost_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+80,ai.video.generation,cost_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+80,ai.video.generation,cost_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+80,ai.video.generation,cost_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+80,ai.video.generation,cost_first,random,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+81,infra.database.postgres,speed_first,asm_topsis,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+81,infra.database.postgres,speed_first,weighted_average,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+81,infra.database.postgres,speed_first,cheapest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+81,infra.database.postgres,speed_first,fastest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+81,infra.database.postgres,speed_first,highest_quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+81,infra.database.postgres,speed_first,most_expensive_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+81,infra.database.postgres,speed_first,random,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+82,ai.video.generation,cost_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+82,ai.video.generation,cost_first,weighted_average,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+82,ai.video.generation,cost_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+82,ai.video.generation,cost_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+82,ai.video.generation,cost_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+82,ai.video.generation,cost_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+82,ai.video.generation,cost_first,random,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+83,tool.automation.browser,speed_first,asm_topsis,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+83,tool.automation.browser,speed_first,weighted_average,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+83,tool.automation.browser,speed_first,cheapest_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+83,tool.automation.browser,speed_first,fastest_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+83,tool.automation.browser,speed_first,highest_quality_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+83,tool.automation.browser,speed_first,most_expensive_first,browserbase/api@v1,Browserbase,0.0016,0.9984,0.9968,0.01,2.0,0.96,0.998
+83,tool.automation.browser,speed_first,random,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+84,ai.audio.stt,balanced,asm_topsis,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+84,ai.audio.stt,balanced,weighted_average,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+84,ai.audio.stt,balanced,cheapest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+84,ai.audio.stt,balanced,fastest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+84,ai.audio.stt,balanced,highest_quality_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+84,ai.audio.stt,balanced,most_expensive_first,openai/whisper@v1,OpenAI Whisper,0.0,1.0,1.0,0.006,3.0,0.5,0.999
+84,ai.audio.stt,balanced,random,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+85,infra.database.vector,balanced,asm_topsis,qdrant/cloud@v1,Qdrant,0.9984,0.9984,0.0,0,0.01,0.5,0.998
+85,infra.database.vector,balanced,weighted_average,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+85,infra.database.vector,balanced,cheapest_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+85,infra.database.vector,balanced,fastest_first,qdrant/cloud@v1,Qdrant,0.9984,0.9984,0.0,0,0.01,0.5,0.998
+85,infra.database.vector,balanced,highest_quality_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+85,infra.database.vector,balanced,most_expensive_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+85,infra.database.vector,balanced,random,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+86,ai.vision.image_generation,speed_first,asm_topsis,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+86,ai.vision.image_generation,speed_first,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+86,ai.vision.image_generation,speed_first,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+86,ai.vision.image_generation,speed_first,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+86,ai.vision.image_generation,speed_first,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+86,ai.vision.image_generation,speed_first,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+86,ai.vision.image_generation,speed_first,random,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+87,ai.audio.tts,cost_first,asm_topsis,openai/tts-1@1.0,OpenAI TTS,0.9414,0.9414,0.0,1.5e-05,0.5,0.75,0.999
+87,ai.audio.tts,cost_first,weighted_average,openai/tts-1@1.0,OpenAI TTS,0.9414,0.9414,0.0,1.5e-05,0.5,0.75,0.999
+87,ai.audio.tts,cost_first,cheapest_first,openai/tts-1@1.0,OpenAI TTS,0.9414,0.9414,0.0,1.5e-05,0.5,0.75,0.999
+87,ai.audio.tts,cost_first,fastest_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.0586,0.9414,0.8828,0.00018,0.4,0.875,0.999
+87,ai.audio.tts,cost_first,highest_quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.0586,0.9414,0.8828,0.00018,0.4,0.875,0.999
+87,ai.audio.tts,cost_first,most_expensive_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.0586,0.9414,0.8828,0.00018,0.4,0.875,0.999
+87,ai.audio.tts,cost_first,random,openai/tts-1@1.0,OpenAI TTS,0.9414,0.9414,0.0,1.5e-05,0.5,0.75,0.999
+88,tool.productivity.todo,speed_first,asm_topsis,todoist/api@v2,Todoist,0.9836,0.9836,0.0,0,0.12,0.044000000000000004,0.999
+88,tool.productivity.todo,speed_first,weighted_average,todoist/api@v2,Todoist,0.9836,0.9836,0.0,0,0.12,0.044000000000000004,0.999
+88,tool.productivity.todo,speed_first,cheapest_first,google/tasks-api@v1,Google Tasks,0.0005,0.9836,0.9831,0,0.2,0.042,0.9995
+88,tool.productivity.todo,speed_first,fastest_first,todoist/api@v2,Todoist,0.9836,0.9836,0.0,0,0.12,0.044000000000000004,0.999
+88,tool.productivity.todo,speed_first,highest_quality_first,ticktick/api@v2,TickTick,0.6257,0.9836,0.3579,0,0.15,0.045,0.998
+88,tool.productivity.todo,speed_first,most_expensive_first,google/tasks-api@v1,Google Tasks,0.0005,0.9836,0.9831,0,0.2,0.042,0.9995
+88,tool.productivity.todo,speed_first,random,ticktick/api@v2,TickTick,0.6257,0.9836,0.3579,0,0.15,0.045,0.998
+89,tool.devops.deployment,speed_first,asm_topsis,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+89,tool.devops.deployment,speed_first,weighted_average,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+89,tool.devops.deployment,speed_first,cheapest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+89,tool.devops.deployment,speed_first,fastest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+89,tool.devops.deployment,speed_first,highest_quality_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+89,tool.devops.deployment,speed_first,most_expensive_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+89,tool.devops.deployment,speed_first,random,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+90,tool.devops.deployment,balanced,asm_topsis,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+90,tool.devops.deployment,balanced,weighted_average,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+90,tool.devops.deployment,balanced,cheapest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+90,tool.devops.deployment,balanced,fastest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+90,tool.devops.deployment,balanced,highest_quality_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+90,tool.devops.deployment,balanced,most_expensive_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+90,tool.devops.deployment,balanced,random,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+91,tool.communication.email,quality_first,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+91,tool.communication.email,quality_first,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+91,tool.communication.email,quality_first,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+91,tool.communication.email,quality_first,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+91,tool.communication.email,quality_first,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+91,tool.communication.email,quality_first,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+91,tool.communication.email,quality_first,random,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+92,ai.audio.stt,quality_first,asm_topsis,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+92,ai.audio.stt,quality_first,weighted_average,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+92,ai.audio.stt,quality_first,cheapest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+92,ai.audio.stt,quality_first,fastest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+92,ai.audio.stt,quality_first,highest_quality_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+92,ai.audio.stt,quality_first,most_expensive_first,openai/whisper@v1,OpenAI Whisper,0.0,1.0,1.0,0.006,3.0,0.5,0.999
+92,ai.audio.stt,quality_first,random,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+93,tool.devops.deployment,quality_first,asm_topsis,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+93,tool.devops.deployment,quality_first,weighted_average,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+93,tool.devops.deployment,quality_first,cheapest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+93,tool.devops.deployment,quality_first,fastest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+93,tool.devops.deployment,quality_first,highest_quality_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+93,tool.devops.deployment,quality_first,most_expensive_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+93,tool.devops.deployment,quality_first,random,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+94,ai.nlp.translation,cost_first,asm_topsis,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+94,ai.nlp.translation,cost_first,weighted_average,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+94,ai.nlp.translation,cost_first,cheapest_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+94,ai.nlp.translation,cost_first,fastest_first,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+94,ai.nlp.translation,cost_first,highest_quality_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+94,ai.nlp.translation,cost_first,most_expensive_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+94,ai.nlp.translation,cost_first,random,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+95,tool.productivity.todo,balanced,asm_topsis,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+95,tool.productivity.todo,balanced,weighted_average,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+95,tool.productivity.todo,balanced,cheapest_first,google/tasks-api@v1,Google Tasks,0.0029,0.9363,0.9334,0,0.2,0.042,0.9995
+95,tool.productivity.todo,balanced,fastest_first,todoist/api@v2,Todoist,0.9363,0.9363,0.0,0,0.12,0.044000000000000004,0.999
+95,tool.productivity.todo,balanced,highest_quality_first,ticktick/api@v2,TickTick,0.637,0.9363,0.2993,0,0.15,0.045,0.998
+95,tool.productivity.todo,balanced,most_expensive_first,google/tasks-api@v1,Google Tasks,0.0029,0.9363,0.9334,0,0.2,0.042,0.9995
+95,tool.productivity.todo,balanced,random,google/tasks-api@v1,Google Tasks,0.0029,0.9363,0.9334,0,0.2,0.042,0.9995
+96,tool.communication.email,balanced,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+96,tool.communication.email,balanced,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+96,tool.communication.email,balanced,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+96,tool.communication.email,balanced,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+96,tool.communication.email,balanced,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+96,tool.communication.email,balanced,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+96,tool.communication.email,balanced,random,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+97,ai.llm.embedding,cost_first,asm_topsis,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+97,ai.llm.embedding,cost_first,weighted_average,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+97,ai.llm.embedding,cost_first,cheapest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+97,ai.llm.embedding,cost_first,fastest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+97,ai.llm.embedding,cost_first,highest_quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0329,0.9671,0.9342,1.8e-07,0.15,0.662,0.998
+97,ai.llm.embedding,cost_first,most_expensive_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0329,0.9671,0.9342,1.8e-07,0.15,0.662,0.998
+97,ai.llm.embedding,cost_first,random,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0329,0.9671,0.9342,1.8e-07,0.15,0.662,0.998
+98,ai.audio.stt,quality_first,asm_topsis,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+98,ai.audio.stt,quality_first,weighted_average,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+98,ai.audio.stt,quality_first,cheapest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+98,ai.audio.stt,quality_first,fastest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+98,ai.audio.stt,quality_first,highest_quality_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+98,ai.audio.stt,quality_first,most_expensive_first,openai/whisper@v1,OpenAI Whisper,0.0,1.0,1.0,0.006,3.0,0.5,0.999
+98,ai.audio.stt,quality_first,random,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+99,infra.database.postgres,quality_first,asm_topsis,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+99,infra.database.postgres,quality_first,weighted_average,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+99,infra.database.postgres,quality_first,cheapest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+99,infra.database.postgres,quality_first,fastest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+99,infra.database.postgres,quality_first,highest_quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+99,infra.database.postgres,quality_first,most_expensive_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+99,infra.database.postgres,quality_first,random,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+100,tool.data.search,cost_first,asm_topsis,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+100,tool.data.search,cost_first,weighted_average,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+100,tool.data.search,cost_first,cheapest_first,tavily/search-api@v1,Tavily Search,0.9436,0.9436,0.0,0.001,0.8,0.92,0.998
+100,tool.data.search,cost_first,fastest_first,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+100,tool.data.search,cost_first,highest_quality_first,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+100,tool.data.search,cost_first,most_expensive_first,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+100,tool.data.search,cost_first,random,exa/search-api@v1,Exa Search,0.0564,0.9436,0.8872,0.003,0.6,0.95,0.997
+101,tool.automation.browser,speed_first,asm_topsis,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+101,tool.automation.browser,speed_first,weighted_average,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+101,tool.automation.browser,speed_first,cheapest_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+101,tool.automation.browser,speed_first,fastest_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+101,tool.automation.browser,speed_first,highest_quality_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+101,tool.automation.browser,speed_first,most_expensive_first,browserbase/api@v1,Browserbase,0.0016,0.9984,0.9968,0.01,2.0,0.96,0.998
+101,tool.automation.browser,speed_first,random,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+102,tool.communication.email,speed_first,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+102,tool.communication.email,speed_first,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+102,tool.communication.email,speed_first,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+102,tool.communication.email,speed_first,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+102,tool.communication.email,speed_first,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+102,tool.communication.email,speed_first,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+102,tool.communication.email,speed_first,random,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+103,tool.productivity.todo,quality_first,asm_topsis,todoist/api@v2,Todoist,0.8911,0.8911,0.0,0,0.12,0.044000000000000004,0.999
+103,tool.productivity.todo,quality_first,weighted_average,ticktick/api@v2,TickTick,0.6608,0.8911,0.2303,0,0.15,0.045,0.998
+103,tool.productivity.todo,quality_first,cheapest_first,google/tasks-api@v1,Google Tasks,0.0021,0.8911,0.889,0,0.2,0.042,0.9995
+103,tool.productivity.todo,quality_first,fastest_first,todoist/api@v2,Todoist,0.8911,0.8911,0.0,0,0.12,0.044000000000000004,0.999
+103,tool.productivity.todo,quality_first,highest_quality_first,ticktick/api@v2,TickTick,0.6608,0.8911,0.2303,0,0.15,0.045,0.998
+103,tool.productivity.todo,quality_first,most_expensive_first,google/tasks-api@v1,Google Tasks,0.0021,0.8911,0.889,0,0.2,0.042,0.9995
+103,tool.productivity.todo,quality_first,random,todoist/api@v2,Todoist,0.8911,0.8911,0.0,0,0.12,0.044000000000000004,0.999
+104,ai.nlp.translation,balanced,asm_topsis,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+104,ai.nlp.translation,balanced,weighted_average,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+104,ai.nlp.translation,balanced,cheapest_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+104,ai.nlp.translation,balanced,fastest_first,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+104,ai.nlp.translation,balanced,highest_quality_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+104,ai.nlp.translation,balanced,most_expensive_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+104,ai.nlp.translation,balanced,random,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+105,ai.llm.chat,balanced,asm_topsis,openai/gpt-4o@2024-11-20,GPT-4o,0.9318,0.9318,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+105,ai.llm.chat,balanced,weighted_average,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.4367,0.9318,0.4951,7.375e-06,1.5,0.8333333333333334,0.999
+105,ai.llm.chat,balanced,cheapest_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.4367,0.9318,0.4951,7.375e-06,1.5,0.8333333333333334,0.999
+105,ai.llm.chat,balanced,fastest_first,openai/gpt-4o@2024-11-20,GPT-4o,0.9318,0.9318,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+105,ai.llm.chat,balanced,highest_quality_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.4367,0.9318,0.4951,7.375e-06,1.5,0.8333333333333334,0.999
+105,ai.llm.chat,balanced,most_expensive_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.4913,0.9318,0.4405,1.14e-05,0.8,0.8166666666666667,0.999
+105,ai.llm.chat,balanced,random,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.4367,0.9318,0.4951,7.375e-06,1.5,0.8333333333333334,0.999
+106,tool.automation.browser,speed_first,asm_topsis,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+106,tool.automation.browser,speed_first,weighted_average,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+106,tool.automation.browser,speed_first,cheapest_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+106,tool.automation.browser,speed_first,fastest_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+106,tool.automation.browser,speed_first,highest_quality_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+106,tool.automation.browser,speed_first,most_expensive_first,browserbase/api@v1,Browserbase,0.0016,0.9984,0.9968,0.01,2.0,0.96,0.998
+106,tool.automation.browser,speed_first,random,browserbase/api@v1,Browserbase,0.0016,0.9984,0.9968,0.01,2.0,0.96,0.998
+107,ai.nlp.translation,balanced,asm_topsis,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+107,ai.nlp.translation,balanced,weighted_average,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+107,ai.nlp.translation,balanced,cheapest_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+107,ai.nlp.translation,balanced,fastest_first,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+107,ai.nlp.translation,balanced,highest_quality_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+107,ai.nlp.translation,balanced,most_expensive_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+107,ai.nlp.translation,balanced,random,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+108,ai.audio.tts,speed_first,asm_topsis,openai/tts-1@1.0,OpenAI TTS,0.6073,0.6073,0.0,1.5e-05,0.5,0.75,0.999
+108,ai.audio.tts,speed_first,weighted_average,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+108,ai.audio.tts,speed_first,cheapest_first,openai/tts-1@1.0,OpenAI TTS,0.6073,0.6073,0.0,1.5e-05,0.5,0.75,0.999
+108,ai.audio.tts,speed_first,fastest_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+108,ai.audio.tts,speed_first,highest_quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+108,ai.audio.tts,speed_first,most_expensive_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+108,ai.audio.tts,speed_first,random,openai/tts-1@1.0,OpenAI TTS,0.6073,0.6073,0.0,1.5e-05,0.5,0.75,0.999
+109,ai.audio.stt,quality_first,asm_topsis,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+109,ai.audio.stt,quality_first,weighted_average,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+109,ai.audio.stt,quality_first,cheapest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+109,ai.audio.stt,quality_first,fastest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+109,ai.audio.stt,quality_first,highest_quality_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+109,ai.audio.stt,quality_first,most_expensive_first,openai/whisper@v1,OpenAI Whisper,0.0,1.0,1.0,0.006,3.0,0.5,0.999
+109,ai.audio.stt,quality_first,random,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+110,ai.vision.image_generation,balanced,asm_topsis,google/imagen-3@3.0,Imagen 3,0.6017,0.6017,0.0,0.04,10.0,0.72,0.999
+110,ai.vision.image_generation,balanced,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+110,ai.vision.image_generation,balanced,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+110,ai.vision.image_generation,balanced,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+110,ai.vision.image_generation,balanced,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+110,ai.vision.image_generation,balanced,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+110,ai.vision.image_generation,balanced,random,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+111,infra.database.vector,cost_first,asm_topsis,qdrant/cloud@v1,Qdrant,0.9984,0.9984,0.0,0,0.01,0.5,0.998
+111,infra.database.vector,cost_first,weighted_average,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+111,infra.database.vector,cost_first,cheapest_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+111,infra.database.vector,cost_first,fastest_first,qdrant/cloud@v1,Qdrant,0.9984,0.9984,0.0,0,0.01,0.5,0.998
+111,infra.database.vector,cost_first,highest_quality_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+111,infra.database.vector,cost_first,most_expensive_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+111,infra.database.vector,cost_first,random,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+112,ai.video.generation,balanced,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.8635,0.8635,0.0,0.029,60.0,0.835,0.5
+112,ai.video.generation,balanced,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+112,ai.video.generation,balanced,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.8635,0.8635,0.0,0.029,60.0,0.835,0.5
+112,ai.video.generation,balanced,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+112,ai.video.generation,balanced,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+112,ai.video.generation,balanced,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+112,ai.video.generation,balanced,random,kuaishou/kling-3.0@3.0,Kling 3.0,0.8635,0.8635,0.0,0.029,60.0,0.835,0.5
+113,tool.communication.email,balanced,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+113,tool.communication.email,balanced,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+113,tool.communication.email,balanced,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+113,tool.communication.email,balanced,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+113,tool.communication.email,balanced,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+113,tool.communication.email,balanced,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+113,tool.communication.email,balanced,random,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+114,tool.productivity.todo,quality_first,asm_topsis,todoist/api@v2,Todoist,0.8911,0.8911,0.0,0,0.12,0.044000000000000004,0.999
+114,tool.productivity.todo,quality_first,weighted_average,ticktick/api@v2,TickTick,0.6608,0.8911,0.2303,0,0.15,0.045,0.998
+114,tool.productivity.todo,quality_first,cheapest_first,google/tasks-api@v1,Google Tasks,0.0021,0.8911,0.889,0,0.2,0.042,0.9995
+114,tool.productivity.todo,quality_first,fastest_first,todoist/api@v2,Todoist,0.8911,0.8911,0.0,0,0.12,0.044000000000000004,0.999
+114,tool.productivity.todo,quality_first,highest_quality_first,ticktick/api@v2,TickTick,0.6608,0.8911,0.2303,0,0.15,0.045,0.998
+114,tool.productivity.todo,quality_first,most_expensive_first,google/tasks-api@v1,Google Tasks,0.0021,0.8911,0.889,0,0.2,0.042,0.9995
+114,tool.productivity.todo,quality_first,random,todoist/api@v2,Todoist,0.8911,0.8911,0.0,0,0.12,0.044000000000000004,0.999
+115,tool.communication.email,cost_first,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+115,tool.communication.email,cost_first,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+115,tool.communication.email,cost_first,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+115,tool.communication.email,cost_first,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+115,tool.communication.email,cost_first,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+115,tool.communication.email,cost_first,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+115,tool.communication.email,cost_first,random,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+116,ai.vision.image_generation,balanced,asm_topsis,google/imagen-3@3.0,Imagen 3,0.6017,0.6017,0.0,0.04,10.0,0.72,0.999
+116,ai.vision.image_generation,balanced,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+116,ai.vision.image_generation,balanced,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+116,ai.vision.image_generation,balanced,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+116,ai.vision.image_generation,balanced,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+116,ai.vision.image_generation,balanced,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5109,0.6017,0.0908,0.04,8.0,0.904,0.5
+116,ai.vision.image_generation,balanced,random,google/imagen-3@3.0,Imagen 3,0.6017,0.6017,0.0,0.04,10.0,0.72,0.999
+117,tool.devops.ci,balanced,asm_topsis,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+117,tool.devops.ci,balanced,weighted_average,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+117,tool.devops.ci,balanced,cheapest_first,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+117,tool.devops.ci,balanced,fastest_first,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+117,tool.devops.ci,balanced,highest_quality_first,github/actions@v2,GitHub Actions,0.4967,0.5033,0.0066,0.008,15.0,0.62,0.998
+117,tool.devops.ci,balanced,most_expensive_first,github/actions@v2,GitHub Actions,0.4967,0.5033,0.0066,0.008,15.0,0.62,0.998
+117,tool.devops.ci,balanced,random,circleci/cloud@v2,CircleCI,0.5033,0.5033,0.0,0.0006,10.0,0.043,0.999
+118,ai.video.generation,speed_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+118,ai.video.generation,speed_first,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+118,ai.video.generation,speed_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+118,ai.video.generation,speed_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+118,ai.video.generation,speed_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+118,ai.video.generation,speed_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+118,ai.video.generation,speed_first,random,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+119,tool.devops.deployment,speed_first,asm_topsis,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+119,tool.devops.deployment,speed_first,weighted_average,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+119,tool.devops.deployment,speed_first,cheapest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+119,tool.devops.deployment,speed_first,fastest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+119,tool.devops.deployment,speed_first,highest_quality_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+119,tool.devops.deployment,speed_first,most_expensive_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+119,tool.devops.deployment,speed_first,random,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+120,tool.data.scraping,cost_first,asm_topsis,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+120,tool.data.scraping,cost_first,weighted_average,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+120,tool.data.scraping,cost_first,cheapest_first,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+120,tool.data.scraping,cost_first,fastest_first,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+120,tool.data.scraping,cost_first,highest_quality_first,firecrawl/scrape@v1,Firecrawl,0.0001,0.9999,0.9998,0.001,3.0,0.5,0.997
+120,tool.data.scraping,cost_first,most_expensive_first,firecrawl/scrape@v1,Firecrawl,0.0001,0.9999,0.9998,0.001,3.0,0.5,0.997
+120,tool.data.scraping,cost_first,random,firecrawl/scrape@v1,Firecrawl,0.0001,0.9999,0.9998,0.001,3.0,0.5,0.997
+121,ai.vision.image_generation,quality_first,asm_topsis,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+121,ai.vision.image_generation,quality_first,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+121,ai.vision.image_generation,quality_first,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+121,ai.vision.image_generation,quality_first,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+121,ai.vision.image_generation,quality_first,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+121,ai.vision.image_generation,quality_first,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+121,ai.vision.image_generation,quality_first,random,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+122,infra.compute.gpu,quality_first,asm_topsis,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+122,infra.compute.gpu,quality_first,weighted_average,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+122,infra.compute.gpu,quality_first,cheapest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+122,infra.compute.gpu,quality_first,fastest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+122,infra.compute.gpu,quality_first,highest_quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+122,infra.compute.gpu,quality_first,most_expensive_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+122,infra.compute.gpu,quality_first,random,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+123,tool.data.scraping,balanced,asm_topsis,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+123,tool.data.scraping,balanced,weighted_average,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+123,tool.data.scraping,balanced,cheapest_first,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+123,tool.data.scraping,balanced,fastest_first,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+123,tool.data.scraping,balanced,highest_quality_first,firecrawl/scrape@v1,Firecrawl,0.0005,0.9995,0.999,0.001,3.0,0.5,0.997
+123,tool.data.scraping,balanced,most_expensive_first,firecrawl/scrape@v1,Firecrawl,0.0005,0.9995,0.999,0.001,3.0,0.5,0.997
+123,tool.data.scraping,balanced,random,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+124,tool.communication.chat,speed_first,asm_topsis,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+124,tool.communication.chat,speed_first,weighted_average,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+124,tool.communication.chat,speed_first,cheapest_first,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+124,tool.communication.chat,speed_first,fastest_first,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+124,tool.communication.chat,speed_first,highest_quality_first,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+124,tool.communication.chat,speed_first,most_expensive_first,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+124,tool.communication.chat,speed_first,random,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+125,infra.database.postgres,quality_first,asm_topsis,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+125,infra.database.postgres,quality_first,weighted_average,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+125,infra.database.postgres,quality_first,cheapest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+125,infra.database.postgres,quality_first,fastest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+125,infra.database.postgres,quality_first,highest_quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+125,infra.database.postgres,quality_first,most_expensive_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+125,infra.database.postgres,quality_first,random,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+126,tool.devops.ci,cost_first,asm_topsis,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+126,tool.devops.ci,cost_first,weighted_average,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+126,tool.devops.ci,cost_first,cheapest_first,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+126,tool.devops.ci,cost_first,fastest_first,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+126,tool.devops.ci,cost_first,highest_quality_first,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+126,tool.devops.ci,cost_first,most_expensive_first,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+126,tool.devops.ci,cost_first,random,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+127,ai.vision.image_generation,quality_first,asm_topsis,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+127,ai.vision.image_generation,quality_first,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+127,ai.vision.image_generation,quality_first,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+127,ai.vision.image_generation,quality_first,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+127,ai.vision.image_generation,quality_first,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+127,ai.vision.image_generation,quality_first,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+127,ai.vision.image_generation,quality_first,random,google/imagen-3@3.0,Imagen 3,0.4257,0.6809,0.2552,0.04,10.0,0.72,0.999
+128,ai.vision.image_generation,speed_first,asm_topsis,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+128,ai.vision.image_generation,speed_first,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+128,ai.vision.image_generation,speed_first,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+128,ai.vision.image_generation,speed_first,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+128,ai.vision.image_generation,speed_first,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+128,ai.vision.image_generation,speed_first,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.7963,0.7963,0.0,0.04,8.0,0.904,0.5
+128,ai.vision.image_generation,speed_first,random,google/imagen-3@3.0,Imagen 3,0.5104,0.7963,0.2859,0.04,10.0,0.72,0.999
+129,tool.data.scraping,quality_first,asm_topsis,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+129,tool.data.scraping,quality_first,weighted_average,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+129,tool.data.scraping,quality_first,cheapest_first,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+129,tool.data.scraping,quality_first,fastest_first,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+129,tool.data.scraping,quality_first,highest_quality_first,firecrawl/scrape@v1,Firecrawl,0.0009,0.9991,0.9982,0.001,3.0,0.5,0.997
+129,tool.data.scraping,quality_first,most_expensive_first,firecrawl/scrape@v1,Firecrawl,0.0009,0.9991,0.9982,0.001,3.0,0.5,0.997
+129,tool.data.scraping,quality_first,random,firecrawl/scrape@v1,Firecrawl,0.0009,0.9991,0.9982,0.001,3.0,0.5,0.997
+130,infra.database.postgres,cost_first,asm_topsis,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+130,infra.database.postgres,cost_first,weighted_average,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+130,infra.database.postgres,cost_first,cheapest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+130,infra.database.postgres,cost_first,fastest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+130,infra.database.postgres,cost_first,highest_quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+130,infra.database.postgres,cost_first,most_expensive_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+130,infra.database.postgres,cost_first,random,supabase/database@v2,Supabase,0.0,1.0,1.0,0,0.015,0.5,0.999
+131,tool.data.scraping,balanced,asm_topsis,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+131,tool.data.scraping,balanced,weighted_average,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+131,tool.data.scraping,balanced,cheapest_first,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+131,tool.data.scraping,balanced,fastest_first,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+131,tool.data.scraping,balanced,highest_quality_first,firecrawl/scrape@v1,Firecrawl,0.0005,0.9995,0.999,0.001,3.0,0.5,0.997
+131,tool.data.scraping,balanced,most_expensive_first,firecrawl/scrape@v1,Firecrawl,0.0005,0.9995,0.999,0.001,3.0,0.5,0.997
+131,tool.data.scraping,balanced,random,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+132,infra.compute.gpu,speed_first,asm_topsis,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+132,infra.compute.gpu,speed_first,weighted_average,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+132,infra.compute.gpu,speed_first,cheapest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+132,infra.compute.gpu,speed_first,fastest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+132,infra.compute.gpu,speed_first,highest_quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+132,infra.compute.gpu,speed_first,most_expensive_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+132,infra.compute.gpu,speed_first,random,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+133,ai.video.generation,quality_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.6769,0.6769,0.0,0.029,60.0,0.835,0.5
+133,ai.video.generation,quality_first,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.3231,0.6769,0.3538,0.2,45.0,0.847,0.5
+133,ai.video.generation,quality_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.6769,0.6769,0.0,0.029,60.0,0.835,0.5
+133,ai.video.generation,quality_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.3231,0.6769,0.3538,0.2,45.0,0.847,0.5
+133,ai.video.generation,quality_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.3231,0.6769,0.3538,0.2,45.0,0.847,0.5
+133,ai.video.generation,quality_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.3231,0.6769,0.3538,0.2,45.0,0.847,0.5
+133,ai.video.generation,quality_first,random,google/veo-3.1@3.1,Veo 3.1,0.3231,0.6769,0.3538,0.2,45.0,0.847,0.5
+134,tool.communication.email,cost_first,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+134,tool.communication.email,cost_first,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+134,tool.communication.email,cost_first,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+134,tool.communication.email,cost_first,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+134,tool.communication.email,cost_first,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+134,tool.communication.email,cost_first,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+134,tool.communication.email,cost_first,random,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+135,infra.database.vector,quality_first,asm_topsis,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+135,infra.database.vector,quality_first,weighted_average,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+135,infra.database.vector,quality_first,cheapest_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+135,infra.database.vector,quality_first,fastest_first,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+135,infra.database.vector,quality_first,highest_quality_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+135,infra.database.vector,quality_first,most_expensive_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+135,infra.database.vector,quality_first,random,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+136,tool.devops.deployment,cost_first,asm_topsis,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+136,tool.devops.deployment,cost_first,weighted_average,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+136,tool.devops.deployment,cost_first,cheapest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+136,tool.devops.deployment,cost_first,fastest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+136,tool.devops.deployment,cost_first,highest_quality_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+136,tool.devops.deployment,cost_first,most_expensive_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+136,tool.devops.deployment,cost_first,random,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+137,ai.code.completion,cost_first,asm_topsis,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+137,ai.code.completion,cost_first,weighted_average,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+137,ai.code.completion,cost_first,cheapest_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+137,ai.code.completion,cost_first,fastest_first,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+137,ai.code.completion,cost_first,highest_quality_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+137,ai.code.completion,cost_first,most_expensive_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+137,ai.code.completion,cost_first,random,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+138,tool.data.scraping,quality_first,asm_topsis,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+138,tool.data.scraping,quality_first,weighted_average,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+138,tool.data.scraping,quality_first,cheapest_first,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+138,tool.data.scraping,quality_first,fastest_first,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+138,tool.data.scraping,quality_first,highest_quality_first,firecrawl/scrape@v1,Firecrawl,0.0009,0.9991,0.9982,0.001,3.0,0.5,0.997
+138,tool.data.scraping,quality_first,most_expensive_first,firecrawl/scrape@v1,Firecrawl,0.0009,0.9991,0.9982,0.001,3.0,0.5,0.997
+138,tool.data.scraping,quality_first,random,jina/reader@v1,Jina Reader,0.9991,0.9991,0.0,0,2.0,0.5,0.996
+139,infra.database.postgres,cost_first,asm_topsis,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+139,infra.database.postgres,cost_first,weighted_average,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+139,infra.database.postgres,cost_first,cheapest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+139,infra.database.postgres,cost_first,fastest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+139,infra.database.postgres,cost_first,highest_quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+139,infra.database.postgres,cost_first,most_expensive_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+139,infra.database.postgres,cost_first,random,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+140,tool.devops.ci,speed_first,asm_topsis,circleci/cloud@v2,CircleCI,0.5259,0.5259,0.0,0.0006,10.0,0.043,0.999
+140,tool.devops.ci,speed_first,weighted_average,circleci/cloud@v2,CircleCI,0.5259,0.5259,0.0,0.0006,10.0,0.043,0.999
+140,tool.devops.ci,speed_first,cheapest_first,circleci/cloud@v2,CircleCI,0.5259,0.5259,0.0,0.0006,10.0,0.043,0.999
+140,tool.devops.ci,speed_first,fastest_first,circleci/cloud@v2,CircleCI,0.5259,0.5259,0.0,0.0006,10.0,0.043,0.999
+140,tool.devops.ci,speed_first,highest_quality_first,github/actions@v2,GitHub Actions,0.4741,0.5259,0.0518,0.008,15.0,0.62,0.998
+140,tool.devops.ci,speed_first,most_expensive_first,github/actions@v2,GitHub Actions,0.4741,0.5259,0.0518,0.008,15.0,0.62,0.998
+140,tool.devops.ci,speed_first,random,circleci/cloud@v2,CircleCI,0.5259,0.5259,0.0,0.0006,10.0,0.043,0.999
+141,infra.database.postgres,cost_first,asm_topsis,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+141,infra.database.postgres,cost_first,weighted_average,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+141,infra.database.postgres,cost_first,cheapest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+141,infra.database.postgres,cost_first,fastest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+141,infra.database.postgres,cost_first,highest_quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+141,infra.database.postgres,cost_first,most_expensive_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+141,infra.database.postgres,cost_first,random,supabase/database@v2,Supabase,0.0,1.0,1.0,0,0.015,0.5,0.999
+142,tool.data.search,quality_first,asm_topsis,tavily/search-api@v1,Tavily Search,0.6015,0.6015,0.0,0.001,0.8,0.92,0.998
+142,tool.data.search,quality_first,weighted_average,exa/search-api@v1,Exa Search,0.3985,0.6015,0.203,0.003,0.6,0.95,0.997
+142,tool.data.search,quality_first,cheapest_first,tavily/search-api@v1,Tavily Search,0.6015,0.6015,0.0,0.001,0.8,0.92,0.998
+142,tool.data.search,quality_first,fastest_first,exa/search-api@v1,Exa Search,0.3985,0.6015,0.203,0.003,0.6,0.95,0.997
+142,tool.data.search,quality_first,highest_quality_first,exa/search-api@v1,Exa Search,0.3985,0.6015,0.203,0.003,0.6,0.95,0.997
+142,tool.data.search,quality_first,most_expensive_first,exa/search-api@v1,Exa Search,0.3985,0.6015,0.203,0.003,0.6,0.95,0.997
+142,tool.data.search,quality_first,random,tavily/search-api@v1,Tavily Search,0.6015,0.6015,0.0,0.001,0.8,0.92,0.998
+143,ai.audio.stt,speed_first,asm_topsis,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+143,ai.audio.stt,speed_first,weighted_average,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+143,ai.audio.stt,speed_first,cheapest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+143,ai.audio.stt,speed_first,fastest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+143,ai.audio.stt,speed_first,highest_quality_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+143,ai.audio.stt,speed_first,most_expensive_first,openai/whisper@v1,OpenAI Whisper,0.0,1.0,1.0,0.006,3.0,0.5,0.999
+143,ai.audio.stt,speed_first,random,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+144,ai.code.completion,cost_first,asm_topsis,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+144,ai.code.completion,cost_first,weighted_average,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+144,ai.code.completion,cost_first,cheapest_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+144,ai.code.completion,cost_first,fastest_first,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+144,ai.code.completion,cost_first,highest_quality_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+144,ai.code.completion,cost_first,most_expensive_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+144,ai.code.completion,cost_first,random,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+145,ai.llm.chat,speed_first,asm_topsis,openai/gpt-4o@2024-11-20,GPT-4o,0.9821,0.9821,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+145,ai.llm.chat,speed_first,weighted_average,openai/gpt-4o@2024-11-20,GPT-4o,0.9821,0.9821,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+145,ai.llm.chat,speed_first,cheapest_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.1238,0.9821,0.8583,7.375e-06,1.5,0.8333333333333334,0.999
+145,ai.llm.chat,speed_first,fastest_first,openai/gpt-4o@2024-11-20,GPT-4o,0.9821,0.9821,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+145,ai.llm.chat,speed_first,highest_quality_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.1238,0.9821,0.8583,7.375e-06,1.5,0.8333333333333334,0.999
+145,ai.llm.chat,speed_first,most_expensive_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.7472,0.9821,0.2349,1.14e-05,0.8,0.8166666666666667,0.999
+145,ai.llm.chat,speed_first,random,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.1238,0.9821,0.8583,7.375e-06,1.5,0.8333333333333334,0.999
+146,tool.productivity.todo,quality_first,asm_topsis,todoist/api@v2,Todoist,0.8911,0.8911,0.0,0,0.12,0.044000000000000004,0.999
+146,tool.productivity.todo,quality_first,weighted_average,ticktick/api@v2,TickTick,0.6608,0.8911,0.2303,0,0.15,0.045,0.998
+146,tool.productivity.todo,quality_first,cheapest_first,google/tasks-api@v1,Google Tasks,0.0021,0.8911,0.889,0,0.2,0.042,0.9995
+146,tool.productivity.todo,quality_first,fastest_first,todoist/api@v2,Todoist,0.8911,0.8911,0.0,0,0.12,0.044000000000000004,0.999
+146,tool.productivity.todo,quality_first,highest_quality_first,ticktick/api@v2,TickTick,0.6608,0.8911,0.2303,0,0.15,0.045,0.998
+146,tool.productivity.todo,quality_first,most_expensive_first,google/tasks-api@v1,Google Tasks,0.0021,0.8911,0.889,0,0.2,0.042,0.9995
+146,tool.productivity.todo,quality_first,random,todoist/api@v2,Todoist,0.8911,0.8911,0.0,0,0.12,0.044000000000000004,0.999
+147,ai.video.generation,balanced,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.8635,0.8635,0.0,0.029,60.0,0.835,0.5
+147,ai.video.generation,balanced,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+147,ai.video.generation,balanced,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.8635,0.8635,0.0,0.029,60.0,0.835,0.5
+147,ai.video.generation,balanced,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+147,ai.video.generation,balanced,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+147,ai.video.generation,balanced,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+147,ai.video.generation,balanced,random,google/veo-3.1@3.1,Veo 3.1,0.1365,0.8635,0.727,0.2,45.0,0.847,0.5
+148,tool.productivity.spreadsheet,quality_first,asm_topsis,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+148,tool.productivity.spreadsheet,quality_first,weighted_average,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+148,tool.productivity.spreadsheet,quality_first,cheapest_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+148,tool.productivity.spreadsheet,quality_first,fastest_first,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+148,tool.productivity.spreadsheet,quality_first,highest_quality_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+148,tool.productivity.spreadsheet,quality_first,most_expensive_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+148,tool.productivity.spreadsheet,quality_first,random,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+149,ai.audio.tts,quality_first,asm_topsis,openai/tts-1@1.0,OpenAI TTS,0.5757,0.5757,0.0,1.5e-05,0.5,0.75,0.999
+149,ai.audio.tts,quality_first,weighted_average,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.4243,0.5757,0.1514,0.00018,0.4,0.875,0.999
+149,ai.audio.tts,quality_first,cheapest_first,openai/tts-1@1.0,OpenAI TTS,0.5757,0.5757,0.0,1.5e-05,0.5,0.75,0.999
+149,ai.audio.tts,quality_first,fastest_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.4243,0.5757,0.1514,0.00018,0.4,0.875,0.999
+149,ai.audio.tts,quality_first,highest_quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.4243,0.5757,0.1514,0.00018,0.4,0.875,0.999
+149,ai.audio.tts,quality_first,most_expensive_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.4243,0.5757,0.1514,0.00018,0.4,0.875,0.999
+149,ai.audio.tts,quality_first,random,openai/tts-1@1.0,OpenAI TTS,0.5757,0.5757,0.0,1.5e-05,0.5,0.75,0.999
+150,tool.devops.ci,cost_first,asm_topsis,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+150,tool.devops.ci,cost_first,weighted_average,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+150,tool.devops.ci,cost_first,cheapest_first,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+150,tool.devops.ci,cost_first,fastest_first,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+150,tool.devops.ci,cost_first,highest_quality_first,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+150,tool.devops.ci,cost_first,most_expensive_first,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+150,tool.devops.ci,cost_first,random,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+151,tool.communication.email,cost_first,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+151,tool.communication.email,cost_first,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+151,tool.communication.email,cost_first,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+151,tool.communication.email,cost_first,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+151,tool.communication.email,cost_first,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+151,tool.communication.email,cost_first,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+151,tool.communication.email,cost_first,random,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+152,ai.video.generation,speed_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+152,ai.video.generation,speed_first,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+152,ai.video.generation,speed_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+152,ai.video.generation,speed_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+152,ai.video.generation,speed_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+152,ai.video.generation,speed_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+152,ai.video.generation,speed_first,random,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+153,infra.compute.gpu,balanced,asm_topsis,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+153,infra.compute.gpu,balanced,weighted_average,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+153,infra.compute.gpu,balanced,cheapest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+153,infra.compute.gpu,balanced,fastest_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+153,infra.compute.gpu,balanced,highest_quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+153,infra.compute.gpu,balanced,most_expensive_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.0,1.0,1.0,0.000225,5.0,0.5,0.995
+153,infra.compute.gpu,balanced,random,runpod/gpu-serverless@1.0,RunPod Serverless GPU,1.0,1.0,0.0,0.00019,3.0,0.5,0.998
+154,tool.data.scraping,balanced,asm_topsis,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+154,tool.data.scraping,balanced,weighted_average,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+154,tool.data.scraping,balanced,cheapest_first,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+154,tool.data.scraping,balanced,fastest_first,jina/reader@v1,Jina Reader,0.9995,0.9995,0.0,0,2.0,0.5,0.996
+154,tool.data.scraping,balanced,highest_quality_first,firecrawl/scrape@v1,Firecrawl,0.0005,0.9995,0.999,0.001,3.0,0.5,0.997
+154,tool.data.scraping,balanced,most_expensive_first,firecrawl/scrape@v1,Firecrawl,0.0005,0.9995,0.999,0.001,3.0,0.5,0.997
+154,tool.data.scraping,balanced,random,firecrawl/scrape@v1,Firecrawl,0.0005,0.9995,0.999,0.001,3.0,0.5,0.997
+155,ai.llm.chat,quality_first,asm_topsis,openai/gpt-4o@2024-11-20,GPT-4o,0.9113,0.9113,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+155,ai.llm.chat,quality_first,weighted_average,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.216,0.9113,0.6953,7.375e-06,1.5,0.8333333333333334,0.999
+155,ai.llm.chat,quality_first,cheapest_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.216,0.9113,0.6953,7.375e-06,1.5,0.8333333333333334,0.999
+155,ai.llm.chat,quality_first,fastest_first,openai/gpt-4o@2024-11-20,GPT-4o,0.9113,0.9113,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+155,ai.llm.chat,quality_first,highest_quality_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.216,0.9113,0.6953,7.375e-06,1.5,0.8333333333333334,0.999
+155,ai.llm.chat,quality_first,most_expensive_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.692,0.9113,0.2193,1.14e-05,0.8,0.8166666666666667,0.999
+155,ai.llm.chat,quality_first,random,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.216,0.9113,0.6953,7.375e-06,1.5,0.8333333333333334,0.999
+156,ai.llm.embedding,speed_first,asm_topsis,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9783,0.9783,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+156,ai.llm.embedding,speed_first,weighted_average,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9783,0.9783,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+156,ai.llm.embedding,speed_first,cheapest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9783,0.9783,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+156,ai.llm.embedding,speed_first,fastest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9783,0.9783,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+156,ai.llm.embedding,speed_first,highest_quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0217,0.9783,0.9566,1.8e-07,0.15,0.662,0.998
+156,ai.llm.embedding,speed_first,most_expensive_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0217,0.9783,0.9566,1.8e-07,0.15,0.662,0.998
+156,ai.llm.embedding,speed_first,random,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9783,0.9783,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+157,tool.productivity.spreadsheet,balanced,asm_topsis,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+157,tool.productivity.spreadsheet,balanced,weighted_average,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+157,tool.productivity.spreadsheet,balanced,cheapest_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+157,tool.productivity.spreadsheet,balanced,fastest_first,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+157,tool.productivity.spreadsheet,balanced,highest_quality_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+157,tool.productivity.spreadsheet,balanced,most_expensive_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+157,tool.productivity.spreadsheet,balanced,random,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+158,ai.vision.image_generation,cost_first,asm_topsis,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5972,0.5972,0.0,0.04,8.0,0.904,0.5
+158,ai.vision.image_generation,cost_first,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5972,0.5972,0.0,0.04,8.0,0.904,0.5
+158,ai.vision.image_generation,cost_first,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5972,0.5972,0.0,0.04,8.0,0.904,0.5
+158,ai.vision.image_generation,cost_first,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5972,0.5972,0.0,0.04,8.0,0.904,0.5
+158,ai.vision.image_generation,cost_first,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5972,0.5972,0.0,0.04,8.0,0.904,0.5
+158,ai.vision.image_generation,cost_first,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5972,0.5972,0.0,0.04,8.0,0.904,0.5
+158,ai.vision.image_generation,cost_first,random,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.5972,0.5972,0.0,0.04,8.0,0.904,0.5
+159,ai.nlp.translation,quality_first,asm_topsis,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+159,ai.nlp.translation,quality_first,weighted_average,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+159,ai.nlp.translation,quality_first,cheapest_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+159,ai.nlp.translation,quality_first,fastest_first,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+159,ai.nlp.translation,quality_first,highest_quality_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+159,ai.nlp.translation,quality_first,most_expensive_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+159,ai.nlp.translation,quality_first,random,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+160,ai.llm.embedding,speed_first,asm_topsis,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9783,0.9783,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+160,ai.llm.embedding,speed_first,weighted_average,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9783,0.9783,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+160,ai.llm.embedding,speed_first,cheapest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9783,0.9783,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+160,ai.llm.embedding,speed_first,fastest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9783,0.9783,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+160,ai.llm.embedding,speed_first,highest_quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0217,0.9783,0.9566,1.8e-07,0.15,0.662,0.998
+160,ai.llm.embedding,speed_first,most_expensive_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0217,0.9783,0.9566,1.8e-07,0.15,0.662,0.998
+160,ai.llm.embedding,speed_first,random,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0217,0.9783,0.9566,1.8e-07,0.15,0.662,0.998
+161,ai.llm.chat,cost_first,asm_topsis,openai/gpt-4o@2024-11-20,GPT-4o,0.9083,0.9083,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+161,ai.llm.chat,cost_first,weighted_average,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.7394,0.9083,0.1689,7.375e-06,1.5,0.8333333333333334,0.999
+161,ai.llm.chat,cost_first,cheapest_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.7394,0.9083,0.1689,7.375e-06,1.5,0.8333333333333334,0.999
+161,ai.llm.chat,cost_first,fastest_first,openai/gpt-4o@2024-11-20,GPT-4o,0.9083,0.9083,0.0,7.75e-06,0.6,0.8083333333333333,0.999
+161,ai.llm.chat,cost_first,highest_quality_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.7394,0.9083,0.1689,7.375e-06,1.5,0.8333333333333334,0.999
+161,ai.llm.chat,cost_first,most_expensive_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.2148,0.9083,0.6935,1.14e-05,0.8,0.8166666666666667,0.999
+161,ai.llm.chat,cost_first,random,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.2148,0.9083,0.6935,1.14e-05,0.8,0.8166666666666667,0.999
+162,infra.database.vector,speed_first,asm_topsis,qdrant/cloud@v1,Qdrant,0.9997,0.9997,0.0,0,0.01,0.5,0.998
+162,infra.database.vector,speed_first,weighted_average,qdrant/cloud@v1,Qdrant,0.9997,0.9997,0.0,0,0.01,0.5,0.998
+162,infra.database.vector,speed_first,cheapest_first,pinecone/index@v3,Pinecone,0.0003,0.9997,0.9994,0,0.02,0.5,0.999
+162,infra.database.vector,speed_first,fastest_first,qdrant/cloud@v1,Qdrant,0.9997,0.9997,0.0,0,0.01,0.5,0.998
+162,infra.database.vector,speed_first,highest_quality_first,pinecone/index@v3,Pinecone,0.0003,0.9997,0.9994,0,0.02,0.5,0.999
+162,infra.database.vector,speed_first,most_expensive_first,pinecone/index@v3,Pinecone,0.0003,0.9997,0.9994,0,0.02,0.5,0.999
+162,infra.database.vector,speed_first,random,pinecone/index@v3,Pinecone,0.0003,0.9997,0.9994,0,0.02,0.5,0.999
+163,infra.database.vector,quality_first,asm_topsis,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+163,infra.database.vector,quality_first,weighted_average,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+163,infra.database.vector,quality_first,cheapest_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+163,infra.database.vector,quality_first,fastest_first,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+163,infra.database.vector,quality_first,highest_quality_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+163,infra.database.vector,quality_first,most_expensive_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+163,infra.database.vector,quality_first,random,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+164,tool.devops.deployment,cost_first,asm_topsis,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+164,tool.devops.deployment,cost_first,weighted_average,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+164,tool.devops.deployment,cost_first,cheapest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+164,tool.devops.deployment,cost_first,fastest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+164,tool.devops.deployment,cost_first,highest_quality_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+164,tool.devops.deployment,cost_first,most_expensive_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+164,tool.devops.deployment,cost_first,random,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+165,ai.audio.stt,quality_first,asm_topsis,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+165,ai.audio.stt,quality_first,weighted_average,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+165,ai.audio.stt,quality_first,cheapest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+165,ai.audio.stt,quality_first,fastest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+165,ai.audio.stt,quality_first,highest_quality_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+165,ai.audio.stt,quality_first,most_expensive_first,openai/whisper@v1,OpenAI Whisper,0.0,1.0,1.0,0.006,3.0,0.5,0.999
+165,ai.audio.stt,quality_first,random,openai/whisper@v1,OpenAI Whisper,0.0,1.0,1.0,0.006,3.0,0.5,0.999
+166,tool.communication.chat,cost_first,asm_topsis,discord/api@v10,Discord,0.9955,0.9955,0.0,0,0.08,0.5,0.998
+166,tool.communication.chat,cost_first,weighted_average,discord/api@v10,Discord,0.9955,0.9955,0.0,0,0.08,0.5,0.998
+166,tool.communication.chat,cost_first,cheapest_first,discord/api@v10,Discord,0.9955,0.9955,0.0,0,0.08,0.5,0.998
+166,tool.communication.chat,cost_first,fastest_first,discord/api@v10,Discord,0.9955,0.9955,0.0,0,0.08,0.5,0.998
+166,tool.communication.chat,cost_first,highest_quality_first,discord/api@v10,Discord,0.9955,0.9955,0.0,0,0.08,0.5,0.998
+166,tool.communication.chat,cost_first,most_expensive_first,discord/api@v10,Discord,0.9955,0.9955,0.0,0,0.08,0.5,0.998
+166,tool.communication.chat,cost_first,random,discord/api@v10,Discord,0.9955,0.9955,0.0,0,0.08,0.5,0.998
+167,tool.productivity.spreadsheet,quality_first,asm_topsis,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+167,tool.productivity.spreadsheet,quality_first,weighted_average,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+167,tool.productivity.spreadsheet,quality_first,cheapest_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+167,tool.productivity.spreadsheet,quality_first,fastest_first,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+167,tool.productivity.spreadsheet,quality_first,highest_quality_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+167,tool.productivity.spreadsheet,quality_first,most_expensive_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+167,tool.productivity.spreadsheet,quality_first,random,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+168,ai.nlp.translation,quality_first,asm_topsis,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+168,ai.nlp.translation,quality_first,weighted_average,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+168,ai.nlp.translation,quality_first,cheapest_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+168,ai.nlp.translation,quality_first,fastest_first,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+168,ai.nlp.translation,quality_first,highest_quality_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+168,ai.nlp.translation,quality_first,most_expensive_first,deepl/translate@v2,DeepL Translate,0.0,1.0,1.0,2e-05,0.2,0.5,0.999
+168,ai.nlp.translation,quality_first,random,google/translate@v3,Google Cloud Translation,1.0,1.0,0.0,2e-05,0.15,0.5,0.999
+169,ai.video.generation,cost_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+169,ai.video.generation,cost_first,weighted_average,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+169,ai.video.generation,cost_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+169,ai.video.generation,cost_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+169,ai.video.generation,cost_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+169,ai.video.generation,cost_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+169,ai.video.generation,cost_first,random,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+170,tool.communication.email,cost_first,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+170,tool.communication.email,cost_first,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+170,tool.communication.email,cost_first,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+170,tool.communication.email,cost_first,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+170,tool.communication.email,cost_first,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+170,tool.communication.email,cost_first,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+170,tool.communication.email,cost_first,random,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+171,ai.llm.embedding,cost_first,asm_topsis,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+171,ai.llm.embedding,cost_first,weighted_average,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+171,ai.llm.embedding,cost_first,cheapest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+171,ai.llm.embedding,cost_first,fastest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.9671,0.9671,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+171,ai.llm.embedding,cost_first,highest_quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0329,0.9671,0.9342,1.8e-07,0.15,0.662,0.998
+171,ai.llm.embedding,cost_first,most_expensive_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0329,0.9671,0.9342,1.8e-07,0.15,0.662,0.998
+171,ai.llm.embedding,cost_first,random,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.0329,0.9671,0.9342,1.8e-07,0.15,0.662,0.998
+172,ai.vision.image_generation,quality_first,asm_topsis,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+172,ai.vision.image_generation,quality_first,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+172,ai.vision.image_generation,quality_first,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+172,ai.vision.image_generation,quality_first,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+172,ai.vision.image_generation,quality_first,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+172,ai.vision.image_generation,quality_first,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+172,ai.vision.image_generation,quality_first,random,google/imagen-3@3.0,Imagen 3,0.4257,0.6809,0.2552,0.04,10.0,0.72,0.999
+173,ai.audio.stt,balanced,asm_topsis,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+173,ai.audio.stt,balanced,weighted_average,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+173,ai.audio.stt,balanced,cheapest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+173,ai.audio.stt,balanced,fastest_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+173,ai.audio.stt,balanced,highest_quality_first,deepgram/nova@v2,Deepgram Nova-2,1.0,1.0,0.0,0.0043,0.2,0.5,0.999
+173,ai.audio.stt,balanced,most_expensive_first,openai/whisper@v1,OpenAI Whisper,0.0,1.0,1.0,0.006,3.0,0.5,0.999
+173,ai.audio.stt,balanced,random,openai/whisper@v1,OpenAI Whisper,0.0,1.0,1.0,0.006,3.0,0.5,0.999
+174,tool.communication.email,speed_first,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+174,tool.communication.email,speed_first,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+174,tool.communication.email,speed_first,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+174,tool.communication.email,speed_first,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+174,tool.communication.email,speed_first,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+174,tool.communication.email,speed_first,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+174,tool.communication.email,speed_first,random,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+175,ai.audio.tts,speed_first,asm_topsis,openai/tts-1@1.0,OpenAI TTS,0.6073,0.6073,0.0,1.5e-05,0.5,0.75,0.999
+175,ai.audio.tts,speed_first,weighted_average,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+175,ai.audio.tts,speed_first,cheapest_first,openai/tts-1@1.0,OpenAI TTS,0.6073,0.6073,0.0,1.5e-05,0.5,0.75,0.999
+175,ai.audio.tts,speed_first,fastest_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+175,ai.audio.tts,speed_first,highest_quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+175,ai.audio.tts,speed_first,most_expensive_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+175,ai.audio.tts,speed_first,random,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.3927,0.6073,0.2146,0.00018,0.4,0.875,0.999
+176,ai.llm.embedding,quality_first,asm_topsis,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.8629,0.8629,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+176,ai.llm.embedding,quality_first,weighted_average,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.1371,0.8629,0.7258,1.8e-07,0.15,0.662,0.998
+176,ai.llm.embedding,quality_first,cheapest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.8629,0.8629,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+176,ai.llm.embedding,quality_first,fastest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.8629,0.8629,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+176,ai.llm.embedding,quality_first,highest_quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.1371,0.8629,0.7258,1.8e-07,0.15,0.662,0.998
+176,ai.llm.embedding,quality_first,most_expensive_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.1371,0.8629,0.7258,1.8e-07,0.15,0.662,0.998
+176,ai.llm.embedding,quality_first,random,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.8629,0.8629,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+177,tool.automation.browser,speed_first,asm_topsis,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+177,tool.automation.browser,speed_first,weighted_average,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+177,tool.automation.browser,speed_first,cheapest_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+177,tool.automation.browser,speed_first,fastest_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+177,tool.automation.browser,speed_first,highest_quality_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+177,tool.automation.browser,speed_first,most_expensive_first,browserbase/api@v1,Browserbase,0.0016,0.9984,0.9968,0.01,2.0,0.96,0.998
+177,tool.automation.browser,speed_first,random,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+178,tool.automation.browser,quality_first,asm_topsis,steel/browser@v1,Steel Browser,0.9949,0.9949,0.0,0.005,1.5,1,0.995
+178,tool.automation.browser,quality_first,weighted_average,steel/browser@v1,Steel Browser,0.9949,0.9949,0.0,0.005,1.5,1,0.995
+178,tool.automation.browser,quality_first,cheapest_first,steel/browser@v1,Steel Browser,0.9949,0.9949,0.0,0.005,1.5,1,0.995
+178,tool.automation.browser,quality_first,fastest_first,steel/browser@v1,Steel Browser,0.9949,0.9949,0.0,0.005,1.5,1,0.995
+178,tool.automation.browser,quality_first,highest_quality_first,steel/browser@v1,Steel Browser,0.9949,0.9949,0.0,0.005,1.5,1,0.995
+178,tool.automation.browser,quality_first,most_expensive_first,browserbase/api@v1,Browserbase,0.0051,0.9949,0.9898,0.01,2.0,0.96,0.998
+178,tool.automation.browser,quality_first,random,browserbase/api@v1,Browserbase,0.0051,0.9949,0.9898,0.01,2.0,0.96,0.998
+179,tool.data.search,speed_first,asm_topsis,exa/search-api@v1,Exa Search,0.5371,0.5371,0.0,0.003,0.6,0.95,0.997
+179,tool.data.search,speed_first,weighted_average,exa/search-api@v1,Exa Search,0.5371,0.5371,0.0,0.003,0.6,0.95,0.997
+179,tool.data.search,speed_first,cheapest_first,tavily/search-api@v1,Tavily Search,0.4629,0.5371,0.0742,0.001,0.8,0.92,0.998
+179,tool.data.search,speed_first,fastest_first,exa/search-api@v1,Exa Search,0.5371,0.5371,0.0,0.003,0.6,0.95,0.997
+179,tool.data.search,speed_first,highest_quality_first,exa/search-api@v1,Exa Search,0.5371,0.5371,0.0,0.003,0.6,0.95,0.997
+179,tool.data.search,speed_first,most_expensive_first,exa/search-api@v1,Exa Search,0.5371,0.5371,0.0,0.003,0.6,0.95,0.997
+179,tool.data.search,speed_first,random,tavily/search-api@v1,Tavily Search,0.4629,0.5371,0.0742,0.001,0.8,0.92,0.998
+180,tool.devops.deployment,balanced,asm_topsis,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+180,tool.devops.deployment,balanced,weighted_average,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+180,tool.devops.deployment,balanced,cheapest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+180,tool.devops.deployment,balanced,fastest_first,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+180,tool.devops.deployment,balanced,highest_quality_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+180,tool.devops.deployment,balanced,most_expensive_first,fly/machines@v1,Fly.io,0.0,1.0,1.0,3.1e-06,2.0,0.5,0.998
+180,tool.devops.deployment,balanced,random,vercel/platform@v1,Vercel,1.0,1.0,0.0,0,1.0,0.5,0.999
+181,infra.database.postgres,cost_first,asm_topsis,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+181,infra.database.postgres,cost_first,weighted_average,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+181,infra.database.postgres,cost_first,cheapest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+181,infra.database.postgres,cost_first,fastest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+181,infra.database.postgres,cost_first,highest_quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+181,infra.database.postgres,cost_first,most_expensive_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+181,infra.database.postgres,cost_first,random,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+182,tool.communication.chat,speed_first,asm_topsis,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+182,tool.communication.chat,speed_first,weighted_average,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+182,tool.communication.chat,speed_first,cheapest_first,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+182,tool.communication.chat,speed_first,fastest_first,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+182,tool.communication.chat,speed_first,highest_quality_first,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+182,tool.communication.chat,speed_first,most_expensive_first,discord/api@v10,Discord,0.9992,0.9992,0.0,0,0.08,0.5,0.998
+182,tool.communication.chat,speed_first,random,slack/web-api@v2,Slack,0.0008,0.9992,0.9984,0,0.1,0.5,0.999
+183,tool.automation.browser,speed_first,asm_topsis,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+183,tool.automation.browser,speed_first,weighted_average,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+183,tool.automation.browser,speed_first,cheapest_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+183,tool.automation.browser,speed_first,fastest_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+183,tool.automation.browser,speed_first,highest_quality_first,steel/browser@v1,Steel Browser,0.9984,0.9984,0.0,0.005,1.5,1,0.995
+183,tool.automation.browser,speed_first,most_expensive_first,browserbase/api@v1,Browserbase,0.0016,0.9984,0.9968,0.01,2.0,0.96,0.998
+183,tool.automation.browser,speed_first,random,browserbase/api@v1,Browserbase,0.0016,0.9984,0.9968,0.01,2.0,0.96,0.998
+184,tool.automation.browser,cost_first,asm_topsis,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+184,tool.automation.browser,cost_first,weighted_average,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+184,tool.automation.browser,cost_first,cheapest_first,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+184,tool.automation.browser,cost_first,fastest_first,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+184,tool.automation.browser,cost_first,highest_quality_first,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+184,tool.automation.browser,cost_first,most_expensive_first,browserbase/api@v1,Browserbase,0.0009,0.9991,0.9982,0.01,2.0,0.96,0.998
+184,tool.automation.browser,cost_first,random,steel/browser@v1,Steel Browser,0.9991,0.9991,0.0,0.005,1.5,1,0.995
+185,ai.code.completion,quality_first,asm_topsis,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+185,ai.code.completion,quality_first,weighted_average,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+185,ai.code.completion,quality_first,cheapest_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+185,ai.code.completion,quality_first,fastest_first,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+185,ai.code.completion,quality_first,highest_quality_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+185,ai.code.completion,quality_first,most_expensive_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+185,ai.code.completion,quality_first,random,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+186,ai.video.generation,cost_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+186,ai.video.generation,cost_first,weighted_average,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+186,ai.video.generation,cost_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.9585,0.9585,0.0,0.029,60.0,0.835,0.5
+186,ai.video.generation,cost_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+186,ai.video.generation,cost_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+186,ai.video.generation,cost_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+186,ai.video.generation,cost_first,random,google/veo-3.1@3.1,Veo 3.1,0.0415,0.9585,0.917,0.2,45.0,0.847,0.5
+187,tool.data.scraping,speed_first,asm_topsis,jina/reader@v1,Jina Reader,0.9997,0.9997,0.0,0,2.0,0.5,0.996
+187,tool.data.scraping,speed_first,weighted_average,jina/reader@v1,Jina Reader,0.9997,0.9997,0.0,0,2.0,0.5,0.996
+187,tool.data.scraping,speed_first,cheapest_first,jina/reader@v1,Jina Reader,0.9997,0.9997,0.0,0,2.0,0.5,0.996
+187,tool.data.scraping,speed_first,fastest_first,jina/reader@v1,Jina Reader,0.9997,0.9997,0.0,0,2.0,0.5,0.996
+187,tool.data.scraping,speed_first,highest_quality_first,firecrawl/scrape@v1,Firecrawl,0.0003,0.9997,0.9994,0.001,3.0,0.5,0.997
+187,tool.data.scraping,speed_first,most_expensive_first,firecrawl/scrape@v1,Firecrawl,0.0003,0.9997,0.9994,0.001,3.0,0.5,0.997
+187,tool.data.scraping,speed_first,random,jina/reader@v1,Jina Reader,0.9997,0.9997,0.0,0,2.0,0.5,0.996
+188,infra.database.vector,balanced,asm_topsis,qdrant/cloud@v1,Qdrant,0.9984,0.9984,0.0,0,0.01,0.5,0.998
+188,infra.database.vector,balanced,weighted_average,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+188,infra.database.vector,balanced,cheapest_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+188,infra.database.vector,balanced,fastest_first,qdrant/cloud@v1,Qdrant,0.9984,0.9984,0.0,0,0.01,0.5,0.998
+188,infra.database.vector,balanced,highest_quality_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+188,infra.database.vector,balanced,most_expensive_first,pinecone/index@v3,Pinecone,0.0016,0.9984,0.9968,0,0.02,0.5,0.999
+188,infra.database.vector,balanced,random,qdrant/cloud@v1,Qdrant,0.9984,0.9984,0.0,0,0.01,0.5,0.998
+189,ai.llm.embedding,balanced,asm_topsis,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.944,0.944,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+189,ai.llm.embedding,balanced,weighted_average,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.944,0.944,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+189,ai.llm.embedding,balanced,cheapest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.944,0.944,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+189,ai.llm.embedding,balanced,fastest_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.944,0.944,0.0,1.3e-07,0.1,0.6459999999999999,0.999
+189,ai.llm.embedding,balanced,highest_quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.056,0.944,0.888,1.8e-07,0.15,0.662,0.998
+189,ai.llm.embedding,balanced,most_expensive_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.056,0.944,0.888,1.8e-07,0.15,0.662,0.998
+189,ai.llm.embedding,balanced,random,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.056,0.944,0.888,1.8e-07,0.15,0.662,0.998
+190,tool.communication.email,balanced,asm_topsis,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+190,tool.communication.email,balanced,weighted_average,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+190,tool.communication.email,balanced,cheapest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+190,tool.communication.email,balanced,fastest_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+190,tool.communication.email,balanced,highest_quality_first,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+190,tool.communication.email,balanced,most_expensive_first,twilio/sendgrid@v3,SendGrid,0.0,1.0,1.0,0.00035,0.4,0.04,0.999
+190,tool.communication.email,balanced,random,resend/email-api@v1,Resend,1.0,1.0,0.0,0.00028,0.3,0.985,0.999
+191,infra.database.postgres,balanced,asm_topsis,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+191,infra.database.postgres,balanced,weighted_average,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+191,infra.database.postgres,balanced,cheapest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+191,infra.database.postgres,balanced,fastest_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+191,infra.database.postgres,balanced,highest_quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+191,infra.database.postgres,balanced,most_expensive_first,neon/serverless-postgres@v1,Neon Serverless Postgres,1.0,1.0,0.0,0,0.008,0.5,0.999
+191,infra.database.postgres,balanced,random,supabase/database@v2,Supabase,0.0,1.0,1.0,0,0.015,0.5,0.999
+192,ai.code.completion,speed_first,asm_topsis,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+192,ai.code.completion,speed_first,weighted_average,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+192,ai.code.completion,speed_first,cheapest_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+192,ai.code.completion,speed_first,fastest_first,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+192,ai.code.completion,speed_first,highest_quality_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+192,ai.code.completion,speed_first,most_expensive_first,cursor/editor@v1,Cursor,0.0,1.0,1.0,0,0.2,0.5,0.998
+192,ai.code.completion,speed_first,random,github/copilot@v1,GitHub Copilot,1.0,1.0,0.0,0,0.15,0.5,0.999
+193,tool.data.scraping,cost_first,asm_topsis,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+193,tool.data.scraping,cost_first,weighted_average,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+193,tool.data.scraping,cost_first,cheapest_first,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+193,tool.data.scraping,cost_first,fastest_first,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+193,tool.data.scraping,cost_first,highest_quality_first,firecrawl/scrape@v1,Firecrawl,0.0001,0.9999,0.9998,0.001,3.0,0.5,0.997
+193,tool.data.scraping,cost_first,most_expensive_first,firecrawl/scrape@v1,Firecrawl,0.0001,0.9999,0.9998,0.001,3.0,0.5,0.997
+193,tool.data.scraping,cost_first,random,jina/reader@v1,Jina Reader,0.9999,0.9999,0.0,0,2.0,0.5,0.996
+194,tool.devops.ci,cost_first,asm_topsis,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+194,tool.devops.ci,cost_first,weighted_average,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+194,tool.devops.ci,cost_first,cheapest_first,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+194,tool.devops.ci,cost_first,fastest_first,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+194,tool.devops.ci,cost_first,highest_quality_first,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+194,tool.devops.ci,cost_first,most_expensive_first,github/actions@v2,GitHub Actions,0.3136,0.6864,0.3728,0.008,15.0,0.62,0.998
+194,tool.devops.ci,cost_first,random,circleci/cloud@v2,CircleCI,0.6864,0.6864,0.0,0.0006,10.0,0.043,0.999
+195,infra.database.vector,quality_first,asm_topsis,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+195,infra.database.vector,quality_first,weighted_average,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+195,infra.database.vector,quality_first,cheapest_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+195,infra.database.vector,quality_first,fastest_first,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+195,infra.database.vector,quality_first,highest_quality_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+195,infra.database.vector,quality_first,most_expensive_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+195,infra.database.vector,quality_first,random,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+196,tool.data.search,quality_first,asm_topsis,tavily/search-api@v1,Tavily Search,0.6015,0.6015,0.0,0.001,0.8,0.92,0.998
+196,tool.data.search,quality_first,weighted_average,exa/search-api@v1,Exa Search,0.3985,0.6015,0.203,0.003,0.6,0.95,0.997
+196,tool.data.search,quality_first,cheapest_first,tavily/search-api@v1,Tavily Search,0.6015,0.6015,0.0,0.001,0.8,0.92,0.998
+196,tool.data.search,quality_first,fastest_first,exa/search-api@v1,Exa Search,0.3985,0.6015,0.203,0.003,0.6,0.95,0.997
+196,tool.data.search,quality_first,highest_quality_first,exa/search-api@v1,Exa Search,0.3985,0.6015,0.203,0.003,0.6,0.95,0.997
+196,tool.data.search,quality_first,most_expensive_first,exa/search-api@v1,Exa Search,0.3985,0.6015,0.203,0.003,0.6,0.95,0.997
+196,tool.data.search,quality_first,random,tavily/search-api@v1,Tavily Search,0.6015,0.6015,0.0,0.001,0.8,0.92,0.998
+197,tool.productivity.spreadsheet,balanced,asm_topsis,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+197,tool.productivity.spreadsheet,balanced,weighted_average,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+197,tool.productivity.spreadsheet,balanced,cheapest_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+197,tool.productivity.spreadsheet,balanced,fastest_first,google/sheets-api@v4,Google Sheets,1.0,1.0,0.0,0,0.1,0.5,0.9995
+197,tool.productivity.spreadsheet,balanced,highest_quality_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+197,tool.productivity.spreadsheet,balanced,most_expensive_first,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+197,tool.productivity.spreadsheet,balanced,random,airtable/api@v1,Airtable,0.0,1.0,1.0,0,0.12,0.5,0.999
+198,ai.video.generation,speed_first,asm_topsis,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+198,ai.video.generation,speed_first,weighted_average,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+198,ai.video.generation,speed_first,cheapest_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+198,ai.video.generation,speed_first,fastest_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+198,ai.video.generation,speed_first,highest_quality_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+198,ai.video.generation,speed_first,most_expensive_first,google/veo-3.1@3.1,Veo 3.1,0.4643,0.5357,0.0714,0.2,45.0,0.847,0.5
+198,ai.video.generation,speed_first,random,kuaishou/kling-3.0@3.0,Kling 3.0,0.5357,0.5357,0.0,0.029,60.0,0.835,0.5
+199,ai.vision.image_generation,quality_first,asm_topsis,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+199,ai.vision.image_generation,quality_first,weighted_average,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+199,ai.vision.image_generation,quality_first,cheapest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+199,ai.vision.image_generation,quality_first,fastest_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+199,ai.vision.image_generation,quality_first,highest_quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+199,ai.vision.image_generation,quality_first,most_expensive_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.6809,0.6809,0.0,0.04,8.0,0.904,0.5
+199,ai.vision.image_generation,quality_first,random,google/imagen-3@3.0,Imagen 3,0.4257,0.6809,0.2552,0.04,10.0,0.72,0.999
+200,infra.database.vector,quality_first,asm_topsis,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+200,infra.database.vector,quality_first,weighted_average,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+200,infra.database.vector,quality_first,cheapest_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+200,infra.database.vector,quality_first,fastest_first,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998
+200,infra.database.vector,quality_first,highest_quality_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+200,infra.database.vector,quality_first,most_expensive_first,pinecone/index@v3,Pinecone,0.0012,0.9988,0.9976,0,0.02,0.5,0.999
+200,infra.database.vector,quality_first,random,qdrant/cloud@v1,Qdrant,0.9988,0.9988,0.0,0,0.01,0.5,0.998

@@ -1,301 +1,601 @@
 task_id,group,taxonomy,preference_profile,service_id,display_name,cost_per_unit,latency_seconds,quality_score,uptime,topsis_score
-1,A_ASM,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
-1,B_Random,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
-1,C_Expensive,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
-2,A_ASM,infra.compute.gpu,speed_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-2,B_Random,infra.compute.gpu,speed_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-2,C_Expensive,infra.compute.gpu,speed_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-3,A_ASM,ai.llm.chat,balanced,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9318
-3,B_Random,ai.llm.chat,balanced,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.4913
-3,C_Expensive,ai.llm.chat,balanced,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.4913
-4,A_ASM,infra.compute.gpu,speed_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-4,B_Random,infra.compute.gpu,speed_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-4,C_Expensive,infra.compute.gpu,speed_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-5,A_ASM,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-5,B_Random,ai.vision.image_generation,quality_first,openai/dall-e-3@3.0,DALL-E 3,0.04000000,12.0000,0.6700,0.9990,0.3191
-5,C_Expensive,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-6,A_ASM,infra.compute.gpu,balanced,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-6,B_Random,infra.compute.gpu,balanced,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-6,C_Expensive,infra.compute.gpu,balanced,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-7,A_ASM,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-7,B_Random,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-7,C_Expensive,ai.llm.embedding,balanced,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0560
-8,A_ASM,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-8,B_Random,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-8,C_Expensive,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-9,A_ASM,ai.llm.embedding,speed_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9783
-9,B_Random,ai.llm.embedding,speed_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9783
-9,C_Expensive,ai.llm.embedding,speed_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0217
-10,A_ASM,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-10,B_Random,ai.vision.image_generation,cost_first,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.5010
-10,C_Expensive,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-11,A_ASM,infra.compute.gpu,quality_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-11,B_Random,infra.compute.gpu,quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-11,C_Expensive,infra.compute.gpu,quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-12,A_ASM,infra.compute.gpu,balanced,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-12,B_Random,infra.compute.gpu,balanced,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-12,C_Expensive,infra.compute.gpu,balanced,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-13,A_ASM,infra.compute.gpu,quality_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-13,B_Random,infra.compute.gpu,quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-13,C_Expensive,infra.compute.gpu,quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-14,A_ASM,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-14,B_Random,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-14,C_Expensive,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-15,A_ASM,ai.video.generation,cost_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.9585
-15,B_Random,ai.video.generation,cost_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.9585
-15,C_Expensive,ai.video.generation,cost_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.0415
-16,A_ASM,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-16,B_Random,ai.llm.embedding,balanced,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0560
-16,C_Expensive,ai.llm.embedding,balanced,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0560
-17,A_ASM,ai.video.generation,cost_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.9585
-17,B_Random,ai.video.generation,cost_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.9585
-17,C_Expensive,ai.video.generation,cost_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.0415
-18,A_ASM,infra.compute.gpu,quality_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-18,B_Random,infra.compute.gpu,quality_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-18,C_Expensive,infra.compute.gpu,quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-19,A_ASM,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-19,B_Random,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-19,C_Expensive,ai.llm.embedding,balanced,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0560
-20,A_ASM,ai.llm.embedding,speed_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9783
-20,B_Random,ai.llm.embedding,speed_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0217
-20,C_Expensive,ai.llm.embedding,speed_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0217
-21,A_ASM,ai.llm.chat,speed_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9821
-21,B_Random,ai.llm.chat,speed_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.00000737,1.5000,0.8333,0.9990,0.1238
-21,C_Expensive,ai.llm.chat,speed_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.7472
-22,A_ASM,ai.video.generation,balanced,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.8635
-22,B_Random,ai.video.generation,balanced,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.8635
-22,C_Expensive,ai.video.generation,balanced,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.1365
-23,A_ASM,ai.llm.embedding,quality_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.8629
-23,B_Random,ai.llm.embedding,quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.1371
-23,C_Expensive,ai.llm.embedding,quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.1371
-24,A_ASM,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
-24,B_Random,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
-24,C_Expensive,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
-25,A_ASM,ai.llm.chat,cost_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9083
-25,B_Random,ai.llm.chat,cost_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.2148
-25,C_Expensive,ai.llm.chat,cost_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.2148
-26,A_ASM,infra.compute.gpu,quality_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-26,B_Random,infra.compute.gpu,quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-26,C_Expensive,infra.compute.gpu,quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-27,A_ASM,ai.audio.tts,speed_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.6073
-27,B_Random,ai.audio.tts,speed_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.3927
-27,C_Expensive,ai.audio.tts,speed_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.3927
-28,A_ASM,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
-28,B_Random,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
-28,C_Expensive,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
-29,A_ASM,ai.vision.image_generation,balanced,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.6017
-29,B_Random,ai.vision.image_generation,balanced,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.6017
-29,C_Expensive,ai.vision.image_generation,balanced,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5109
-30,A_ASM,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-30,B_Random,ai.vision.image_generation,cost_first,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.5010
-30,C_Expensive,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-31,A_ASM,ai.llm.embedding,quality_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.8629
-31,B_Random,ai.llm.embedding,quality_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.8629
-31,C_Expensive,ai.llm.embedding,quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.1371
-32,A_ASM,ai.llm.chat,balanced,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9318
-32,B_Random,ai.llm.chat,balanced,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9318
-32,C_Expensive,ai.llm.chat,balanced,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.4913
-33,A_ASM,ai.llm.embedding,quality_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.8629
-33,B_Random,ai.llm.embedding,quality_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.8629
-33,C_Expensive,ai.llm.embedding,quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.1371
-34,A_ASM,ai.llm.chat,speed_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9821
-34,B_Random,ai.llm.chat,speed_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.7472
-34,C_Expensive,ai.llm.chat,speed_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.7472
-35,A_ASM,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
-35,B_Random,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
-35,C_Expensive,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
-36,A_ASM,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-36,B_Random,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-36,C_Expensive,ai.llm.embedding,balanced,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0560
-37,A_ASM,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
-37,B_Random,ai.vision.image_generation,speed_first,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.5104
-37,C_Expensive,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
-38,A_ASM,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-38,B_Random,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-38,C_Expensive,ai.llm.embedding,balanced,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0560
-39,A_ASM,ai.llm.chat,quality_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9113
-39,B_Random,ai.llm.chat,quality_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.6920
-39,C_Expensive,ai.llm.chat,quality_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.6920
-40,A_ASM,ai.llm.embedding,quality_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.8629
-40,B_Random,ai.llm.embedding,quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.1371
-40,C_Expensive,ai.llm.embedding,quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.1371
-41,A_ASM,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-41,B_Random,ai.vision.image_generation,cost_first,openai/dall-e-3@3.0,DALL-E 3,0.04000000,12.0000,0.6700,0.9990,0.4028
-41,C_Expensive,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-42,A_ASM,ai.audio.tts,quality_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.5757
-42,B_Random,ai.audio.tts,quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.4243
-42,C_Expensive,ai.audio.tts,quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.4243
-43,A_ASM,ai.audio.tts,quality_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.5757
-43,B_Random,ai.audio.tts,quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.4243
-43,C_Expensive,ai.audio.tts,quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.4243
-44,A_ASM,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
-44,B_Random,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
-44,C_Expensive,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
-45,A_ASM,ai.llm.embedding,quality_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.8629
-45,B_Random,ai.llm.embedding,quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.1371
-45,C_Expensive,ai.llm.embedding,quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.1371
-46,A_ASM,ai.audio.tts,quality_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.5757
-46,B_Random,ai.audio.tts,quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.4243
-46,C_Expensive,ai.audio.tts,quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.4243
-47,A_ASM,ai.llm.embedding,quality_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.8629
-47,B_Random,ai.llm.embedding,quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.1371
-47,C_Expensive,ai.llm.embedding,quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.1371
-48,A_ASM,infra.compute.gpu,balanced,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-48,B_Random,infra.compute.gpu,balanced,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-48,C_Expensive,infra.compute.gpu,balanced,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-49,A_ASM,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
-49,B_Random,ai.vision.image_generation,speed_first,openai/dall-e-3@3.0,DALL-E 3,0.04000000,12.0000,0.6700,0.9990,0.2037
-49,C_Expensive,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
-50,A_ASM,ai.video.generation,balanced,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.8635
-50,B_Random,ai.video.generation,balanced,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.1365
-50,C_Expensive,ai.video.generation,balanced,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.1365
-51,A_ASM,infra.compute.gpu,balanced,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-51,B_Random,infra.compute.gpu,balanced,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-51,C_Expensive,infra.compute.gpu,balanced,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-52,A_ASM,ai.llm.chat,cost_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9083
-52,B_Random,ai.llm.chat,cost_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.2148
-52,C_Expensive,ai.llm.chat,cost_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.2148
-53,A_ASM,ai.llm.embedding,speed_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9783
-53,B_Random,ai.llm.embedding,speed_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9783
-53,C_Expensive,ai.llm.embedding,speed_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0217
-54,A_ASM,ai.llm.embedding,quality_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.8629
-54,B_Random,ai.llm.embedding,quality_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.8629
-54,C_Expensive,ai.llm.embedding,quality_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.1371
-55,A_ASM,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
-55,B_Random,ai.vision.image_generation,speed_first,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.5104
-55,C_Expensive,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
-56,A_ASM,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-56,B_Random,ai.vision.image_generation,cost_first,openai/dall-e-3@3.0,DALL-E 3,0.04000000,12.0000,0.6700,0.9990,0.4028
-56,C_Expensive,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-57,A_ASM,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
-57,B_Random,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
-57,C_Expensive,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
-58,A_ASM,ai.llm.chat,balanced,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9318
-58,B_Random,ai.llm.chat,balanced,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.00000737,1.5000,0.8333,0.9990,0.4367
-58,C_Expensive,ai.llm.chat,balanced,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.4913
-59,A_ASM,ai.llm.chat,quality_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9113
-59,B_Random,ai.llm.chat,quality_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9113
-59,C_Expensive,ai.llm.chat,quality_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.6920
-60,A_ASM,ai.llm.embedding,speed_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9783
-60,B_Random,ai.llm.embedding,speed_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9783
-60,C_Expensive,ai.llm.embedding,speed_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0217
-61,A_ASM,infra.compute.gpu,cost_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-61,B_Random,infra.compute.gpu,cost_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-61,C_Expensive,infra.compute.gpu,cost_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-62,A_ASM,ai.vision.image_generation,balanced,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.6017
-62,B_Random,ai.vision.image_generation,balanced,openai/dall-e-3@3.0,DALL-E 3,0.04000000,12.0000,0.6700,0.9990,0.4891
-62,C_Expensive,ai.vision.image_generation,balanced,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5109
-63,A_ASM,infra.compute.gpu,cost_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-63,B_Random,infra.compute.gpu,cost_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-63,C_Expensive,infra.compute.gpu,cost_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-64,A_ASM,ai.audio.tts,quality_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.5757
-64,B_Random,ai.audio.tts,quality_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.5757
-64,C_Expensive,ai.audio.tts,quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.4243
-65,A_ASM,ai.audio.tts,quality_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.5757
-65,B_Random,ai.audio.tts,quality_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.5757
-65,C_Expensive,ai.audio.tts,quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.4243
-66,A_ASM,ai.llm.chat,cost_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9083
-66,B_Random,ai.llm.chat,cost_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.00000737,1.5000,0.8333,0.9990,0.7394
-66,C_Expensive,ai.llm.chat,cost_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.2148
-67,A_ASM,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-67,B_Random,ai.vision.image_generation,quality_first,openai/dall-e-3@3.0,DALL-E 3,0.04000000,12.0000,0.6700,0.9990,0.3191
-67,C_Expensive,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-68,A_ASM,ai.llm.chat,balanced,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9318
-68,B_Random,ai.llm.chat,balanced,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.4913
-68,C_Expensive,ai.llm.chat,balanced,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.4913
-69,A_ASM,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-69,B_Random,ai.vision.image_generation,quality_first,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.4257
-69,C_Expensive,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-70,A_ASM,ai.llm.chat,cost_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9083
-70,B_Random,ai.llm.chat,cost_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.00000737,1.5000,0.8333,0.9990,0.7394
-70,C_Expensive,ai.llm.chat,cost_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.2148
-71,A_ASM,ai.llm.chat,cost_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9083
-71,B_Random,ai.llm.chat,cost_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.00000737,1.5000,0.8333,0.9990,0.7394
-71,C_Expensive,ai.llm.chat,cost_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.2148
-72,A_ASM,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-72,B_Random,ai.vision.image_generation,cost_first,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.5010
-72,C_Expensive,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-73,A_ASM,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-73,B_Random,ai.vision.image_generation,cost_first,openai/dall-e-3@3.0,DALL-E 3,0.04000000,12.0000,0.6700,0.9990,0.4028
-73,C_Expensive,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-74,A_ASM,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-74,B_Random,ai.vision.image_generation,quality_first,openai/dall-e-3@3.0,DALL-E 3,0.04000000,12.0000,0.6700,0.9990,0.3191
-74,C_Expensive,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-75,A_ASM,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
-75,B_Random,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
-75,C_Expensive,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
-76,A_ASM,ai.audio.tts,cost_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.9414
-76,B_Random,ai.audio.tts,cost_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.0586
-76,C_Expensive,ai.audio.tts,cost_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.0586
-77,A_ASM,ai.llm.embedding,cost_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9671
-77,B_Random,ai.llm.embedding,cost_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0329
-77,C_Expensive,ai.llm.embedding,cost_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0329
-78,A_ASM,ai.llm.chat,cost_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9083
-78,B_Random,ai.llm.chat,cost_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.2148
-78,C_Expensive,ai.llm.chat,cost_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.2148
-79,A_ASM,ai.audio.tts,quality_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.5757
-79,B_Random,ai.audio.tts,quality_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.5757
-79,C_Expensive,ai.audio.tts,quality_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.4243
-80,A_ASM,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-80,B_Random,ai.vision.image_generation,quality_first,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.4257
-80,C_Expensive,ai.vision.image_generation,quality_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.6809
-81,A_ASM,infra.compute.gpu,quality_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-81,B_Random,infra.compute.gpu,quality_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-81,C_Expensive,infra.compute.gpu,quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-82,A_ASM,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
-82,B_Random,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
-82,C_Expensive,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
-83,A_ASM,ai.video.generation,speed_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.5357
-83,B_Random,ai.video.generation,speed_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.4643
-83,C_Expensive,ai.video.generation,speed_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.4643
-84,A_ASM,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-84,B_Random,ai.llm.embedding,balanced,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0560
-84,C_Expensive,ai.llm.embedding,balanced,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0560
-85,A_ASM,infra.compute.gpu,balanced,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-85,B_Random,infra.compute.gpu,balanced,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-85,C_Expensive,infra.compute.gpu,balanced,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-86,A_ASM,infra.compute.gpu,quality_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-86,B_Random,infra.compute.gpu,quality_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-86,C_Expensive,infra.compute.gpu,quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-87,A_ASM,ai.video.generation,balanced,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.8635
-87,B_Random,ai.video.generation,balanced,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.8635
-87,C_Expensive,ai.video.generation,balanced,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.1365
-88,A_ASM,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
-88,B_Random,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
-88,C_Expensive,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
-89,A_ASM,ai.llm.chat,quality_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9113
-89,B_Random,ai.llm.chat,quality_first,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.00000737,1.5000,0.8333,0.9990,0.2160
-89,C_Expensive,ai.llm.chat,quality_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.6920
-90,A_ASM,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-90,B_Random,ai.llm.embedding,balanced,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0560
-90,C_Expensive,ai.llm.embedding,balanced,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0560
-91,A_ASM,ai.llm.chat,quality_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9113
-91,B_Random,ai.llm.chat,quality_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9113
-91,C_Expensive,ai.llm.chat,quality_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.6920
-92,A_ASM,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-92,B_Random,ai.llm.embedding,balanced,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9440
-92,C_Expensive,ai.llm.embedding,balanced,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0560
-93,A_ASM,infra.compute.gpu,cost_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-93,B_Random,infra.compute.gpu,cost_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-93,C_Expensive,infra.compute.gpu,cost_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-94,A_ASM,ai.audio.tts,speed_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.6073
-94,B_Random,ai.audio.tts,speed_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.6073
-94,C_Expensive,ai.audio.tts,speed_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.3927
-95,A_ASM,infra.compute.gpu,cost_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-95,B_Random,infra.compute.gpu,cost_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-95,C_Expensive,infra.compute.gpu,cost_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-96,A_ASM,ai.llm.chat,balanced,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9318
-96,B_Random,ai.llm.chat,balanced,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.4913
-96,C_Expensive,ai.llm.chat,balanced,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.4913
-97,A_ASM,infra.compute.gpu,cost_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
-97,B_Random,infra.compute.gpu,cost_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-97,C_Expensive,infra.compute.gpu,cost_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
-98,A_ASM,ai.llm.chat,balanced,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9318
-98,B_Random,ai.llm.chat,balanced,google/gemini-2.5-pro@2.5,Gemini 2.5 Pro,0.00000737,1.5000,0.8333,0.9990,0.4367
-98,C_Expensive,ai.llm.chat,balanced,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.4913
-99,A_ASM,ai.vision.image_generation,balanced,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.6017
-99,B_Random,ai.vision.image_generation,balanced,openai/dall-e-3@3.0,DALL-E 3,0.04000000,12.0000,0.6700,0.9990,0.4891
-99,C_Expensive,ai.vision.image_generation,balanced,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5109
-100,A_ASM,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
-100,B_Random,ai.vision.image_generation,cost_first,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.5010
-100,C_Expensive,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
+1,A_ASM,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
+1,B_Random,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
+1,C_Expensive,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
+2,A_ASM,tool.data.visualization,cost_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+2,B_Random,tool.data.visualization,cost_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+2,C_Expensive,tool.data.visualization,cost_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+3,A_ASM,infra.database.postgres,balanced,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+3,B_Random,infra.database.postgres,balanced,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+3,C_Expensive,infra.database.postgres,balanced,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+4,A_ASM,tool.devops.logging,balanced,betterstack/logs@v2,Better Stack,0.00000000,0.0300,0.5000,0.9990,0.5000
+4,B_Random,tool.devops.logging,balanced,betterstack/logs@v2,Better Stack,0.00000000,0.0300,0.5000,0.9990,0.5000
+4,C_Expensive,tool.devops.logging,balanced,betterstack/logs@v2,Better Stack,0.00000000,0.0300,0.5000,0.9990,0.5000
+5,A_ASM,tool.devops.monitoring,balanced,sentry/error-tracking@v1,Sentry,0.00000000,0.0500,0.5000,0.9990,0.5000
+5,B_Random,tool.devops.monitoring,balanced,sentry/error-tracking@v1,Sentry,0.00000000,0.0500,0.5000,0.9990,0.5000
+5,C_Expensive,tool.devops.monitoring,balanced,sentry/error-tracking@v1,Sentry,0.00000000,0.0500,0.5000,0.9990,0.5000
+6,A_ASM,infra.database.vector,cost_first,qdrant/cloud@v1,Qdrant,0.00000000,0.0100,0.5000,0.9980,0.9984
+6,B_Random,infra.database.vector,cost_first,pinecone/index@v3,Pinecone,0.00000000,0.0200,0.5000,0.9990,0.0016
+6,C_Expensive,infra.database.vector,cost_first,pinecone/index@v3,Pinecone,0.00000000,0.0200,0.5000,0.9990,0.0016
+7,A_ASM,tool.productivity.calendar,cost_first,google/calendar-api@v3,Google Calendar,0.00000000,0.0800,0.5000,0.9995,0.5000
+7,B_Random,tool.productivity.calendar,cost_first,google/calendar-api@v3,Google Calendar,0.00000000,0.0800,0.5000,0.9995,0.5000
+7,C_Expensive,tool.productivity.calendar,cost_first,google/calendar-api@v3,Google Calendar,0.00000000,0.0800,0.5000,0.9995,0.5000
+8,A_ASM,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
+8,B_Random,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
+8,C_Expensive,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
+9,A_ASM,ai.video.generation,balanced,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.8635
+9,B_Random,ai.video.generation,balanced,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.8635
+9,C_Expensive,ai.video.generation,balanced,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.1365
+10,A_ASM,ai.audio.stt,balanced,deepgram/nova@v2,Deepgram Nova-2,0.00430000,0.2000,0.5000,0.9990,1.0000
+10,B_Random,ai.audio.stt,balanced,openai/whisper@v1,OpenAI Whisper,0.00600000,3.0000,0.5000,0.9990,0.0000
+10,C_Expensive,ai.audio.stt,balanced,openai/whisper@v1,OpenAI Whisper,0.00600000,3.0000,0.5000,0.9990,0.0000
+11,A_ASM,tool.productivity.project,speed_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+11,B_Random,tool.productivity.project,speed_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+11,C_Expensive,tool.productivity.project,speed_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+12,A_ASM,infra.database.kv,balanced,upstash/redis@v2,Upstash Redis,0.00000200,0.0020,0.5000,0.9990,0.5000
+12,B_Random,infra.database.kv,balanced,upstash/redis@v2,Upstash Redis,0.00000200,0.0020,0.5000,0.9990,0.5000
+12,C_Expensive,infra.database.kv,balanced,upstash/redis@v2,Upstash Redis,0.00000200,0.0020,0.5000,0.9990,0.5000
+13,A_ASM,infra.messaging.queue,speed_first,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+13,B_Random,infra.messaging.queue,speed_first,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+13,C_Expensive,infra.messaging.queue,speed_first,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+14,A_ASM,tool.communication.chat,balanced,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9955
+14,B_Random,tool.communication.chat,balanced,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9955
+14,C_Expensive,tool.communication.chat,balanced,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9955
+15,A_ASM,tool.data.visualization,cost_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+15,B_Random,tool.data.visualization,cost_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+15,C_Expensive,tool.data.visualization,cost_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+16,A_ASM,tool.productivity.todo,speed_first,todoist/api@v2,Todoist,0.00000000,0.1200,0.0440,0.9990,0.9836
+16,B_Random,tool.productivity.todo,speed_first,todoist/api@v2,Todoist,0.00000000,0.1200,0.0440,0.9990,0.9836
+16,C_Expensive,tool.productivity.todo,speed_first,google/tasks-api@v1,Google Tasks,0.00000000,0.2000,0.0420,0.9995,0.0005
+17,A_ASM,ai.nlp.translation,speed_first,google/translate@v3,Google Cloud Translation,0.00002000,0.1500,0.5000,0.9990,1.0000
+17,B_Random,ai.nlp.translation,speed_first,google/translate@v3,Google Cloud Translation,0.00002000,0.1500,0.5000,0.9990,1.0000
+17,C_Expensive,ai.nlp.translation,speed_first,deepl/translate@v2,DeepL Translate,0.00002000,0.2000,0.5000,0.9990,0.0000
+18,A_ASM,infra.security.secrets,balanced,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+18,B_Random,infra.security.secrets,balanced,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+18,C_Expensive,infra.security.secrets,balanced,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+19,A_ASM,infra.auth.identity,speed_first,clerk/auth@v5,Clerk,0.00000000,0.0600,0.5000,0.9990,0.5000
+19,B_Random,infra.auth.identity,speed_first,clerk/auth@v5,Clerk,0.00000000,0.0600,0.5000,0.9990,0.5000
+19,C_Expensive,infra.auth.identity,speed_first,clerk/auth@v5,Clerk,0.00000000,0.0600,0.5000,0.9990,0.5000
+20,A_ASM,ai.audio.tts,speed_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.6073
+20,B_Random,ai.audio.tts,speed_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.6073
+20,C_Expensive,ai.audio.tts,speed_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.3927
+21,A_ASM,tool.communication.email,balanced,resend/email-api@v1,Resend,0.00028000,0.3000,0.9850,0.9990,1.0000
+21,B_Random,tool.communication.email,balanced,resend/email-api@v1,Resend,0.00028000,0.3000,0.9850,0.9990,1.0000
+21,C_Expensive,tool.communication.email,balanced,twilio/sendgrid@v3,SendGrid,0.00035000,0.4000,0.0400,0.9990,0.0000
+22,A_ASM,tool.data.geolocation,cost_first,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+22,B_Random,tool.data.geolocation,cost_first,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+22,C_Expensive,tool.data.geolocation,cost_first,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+23,A_ASM,tool.data.analytics,balanced,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+23,B_Random,tool.data.analytics,balanced,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+23,C_Expensive,tool.data.analytics,balanced,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+24,A_ASM,ai.vision.image_generation,balanced,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.6017
+24,B_Random,ai.vision.image_generation,balanced,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5109
+24,C_Expensive,ai.vision.image_generation,balanced,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5109
+25,A_ASM,tool.data.visualization,balanced,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+25,B_Random,tool.data.visualization,balanced,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+25,C_Expensive,tool.data.visualization,balanced,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+26,A_ASM,tool.data.analytics,speed_first,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+26,B_Random,tool.data.analytics,speed_first,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+26,C_Expensive,tool.data.analytics,speed_first,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+27,A_ASM,tool.data.conversion,balanced,cloudconvert/api@v2,CloudConvert,0.00100000,2.0000,0.5000,0.9980,0.5000
+27,B_Random,tool.data.conversion,balanced,cloudconvert/api@v2,CloudConvert,0.00100000,2.0000,0.5000,0.9980,0.5000
+27,C_Expensive,tool.data.conversion,balanced,cloudconvert/api@v2,CloudConvert,0.00100000,2.0000,0.5000,0.9980,0.5000
+28,A_ASM,tool.data.visualization,cost_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+28,B_Random,tool.data.visualization,cost_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+28,C_Expensive,tool.data.visualization,cost_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+29,A_ASM,tool.devops.logging,quality_first,betterstack/logs@v2,Better Stack,0.00000000,0.0300,0.5000,0.9990,0.5000
+29,B_Random,tool.devops.logging,quality_first,betterstack/logs@v2,Better Stack,0.00000000,0.0300,0.5000,0.9990,0.5000
+29,C_Expensive,tool.devops.logging,quality_first,betterstack/logs@v2,Better Stack,0.00000000,0.0300,0.5000,0.9990,0.5000
+30,A_ASM,ai.vision.ocr,cost_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+30,B_Random,ai.vision.ocr,cost_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+30,C_Expensive,ai.vision.ocr,cost_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+31,A_ASM,tool.productivity.spreadsheet,cost_first,google/sheets-api@v4,Google Sheets,0.00000000,0.1000,0.5000,0.9995,1.0000
+31,B_Random,tool.productivity.spreadsheet,cost_first,airtable/api@v1,Airtable,0.00000000,0.1200,0.5000,0.9990,0.0000
+31,C_Expensive,tool.productivity.spreadsheet,cost_first,airtable/api@v1,Airtable,0.00000000,0.1200,0.5000,0.9990,0.0000
+32,A_ASM,tool.productivity.spreadsheet,balanced,google/sheets-api@v4,Google Sheets,0.00000000,0.1000,0.5000,0.9995,1.0000
+32,B_Random,tool.productivity.spreadsheet,balanced,google/sheets-api@v4,Google Sheets,0.00000000,0.1000,0.5000,0.9995,1.0000
+32,C_Expensive,tool.productivity.spreadsheet,balanced,airtable/api@v1,Airtable,0.00000000,0.1200,0.5000,0.9990,0.0000
+33,A_ASM,tool.data.screenshot,quality_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+33,B_Random,tool.data.screenshot,quality_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+33,C_Expensive,tool.data.screenshot,quality_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+34,A_ASM,tool.data.screenshot,quality_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+34,B_Random,tool.data.screenshot,quality_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+34,C_Expensive,tool.data.screenshot,quality_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+35,A_ASM,ai.vision.image_generation,balanced,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.6017
+35,B_Random,ai.vision.image_generation,balanced,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.6017
+35,C_Expensive,ai.vision.image_generation,balanced,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5109
+36,A_ASM,tool.productivity.project,balanced,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+36,B_Random,tool.productivity.project,balanced,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+36,C_Expensive,tool.productivity.project,balanced,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+37,A_ASM,tool.productivity.spreadsheet,speed_first,google/sheets-api@v4,Google Sheets,0.00000000,0.1000,0.5000,0.9995,1.0000
+37,B_Random,tool.productivity.spreadsheet,speed_first,google/sheets-api@v4,Google Sheets,0.00000000,0.1000,0.5000,0.9995,1.0000
+37,C_Expensive,tool.productivity.spreadsheet,speed_first,airtable/api@v1,Airtable,0.00000000,0.1200,0.5000,0.9990,0.0000
+38,A_ASM,tool.devops.deployment,balanced,vercel/platform@v1,Vercel,0.00000000,1.0000,0.5000,0.9990,1.0000
+38,B_Random,tool.devops.deployment,balanced,fly/machines@v1,Fly.io,0.00000310,2.0000,0.5000,0.9980,0.0000
+38,C_Expensive,tool.devops.deployment,balanced,fly/machines@v1,Fly.io,0.00000310,2.0000,0.5000,0.9980,0.0000
+39,A_ASM,tool.productivity.knowledge,speed_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+39,B_Random,tool.productivity.knowledge,speed_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+39,C_Expensive,tool.productivity.knowledge,speed_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+40,A_ASM,tool.devops.deployment,balanced,vercel/platform@v1,Vercel,0.00000000,1.0000,0.5000,0.9990,1.0000
+40,B_Random,tool.devops.deployment,balanced,vercel/platform@v1,Vercel,0.00000000,1.0000,0.5000,0.9990,1.0000
+40,C_Expensive,tool.devops.deployment,balanced,fly/machines@v1,Fly.io,0.00000310,2.0000,0.5000,0.9980,0.0000
+41,A_ASM,tool.data.analytics,balanced,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+41,B_Random,tool.data.analytics,balanced,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+41,C_Expensive,tool.data.analytics,balanced,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+42,A_ASM,infra.compute.serverless,speed_first,modal/serverless@v1,Modal,0.00001600,0.5000,0.5000,0.9980,0.5000
+42,B_Random,infra.compute.serverless,speed_first,modal/serverless@v1,Modal,0.00001600,0.5000,0.5000,0.9980,0.5000
+42,C_Expensive,infra.compute.serverless,speed_first,modal/serverless@v1,Modal,0.00001600,0.5000,0.5000,0.9980,0.5000
+43,A_ASM,infra.network.dns,cost_first,cloudflare/dns@v4,Cloudflare DNS,0.00000000,0.0050,0.5000,1.0000,0.5000
+43,B_Random,infra.network.dns,cost_first,cloudflare/dns@v4,Cloudflare DNS,0.00000000,0.0050,0.5000,1.0000,0.5000
+43,C_Expensive,infra.network.dns,cost_first,cloudflare/dns@v4,Cloudflare DNS,0.00000000,0.0050,0.5000,1.0000,0.5000
+44,A_ASM,ai.code.completion,quality_first,github/copilot@v1,GitHub Copilot,0.00000000,0.1500,0.5000,0.9990,1.0000
+44,B_Random,ai.code.completion,quality_first,cursor/editor@v1,Cursor,0.00000000,0.2000,0.5000,0.9980,0.0000
+44,C_Expensive,ai.code.completion,quality_first,cursor/editor@v1,Cursor,0.00000000,0.2000,0.5000,0.9980,0.0000
+45,A_ASM,tool.productivity.forms,balanced,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+45,B_Random,tool.productivity.forms,balanced,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+45,C_Expensive,tool.productivity.forms,balanced,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+46,A_ASM,tool.data.weather,balanced,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+46,B_Random,tool.data.weather,balanced,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+46,C_Expensive,tool.data.weather,balanced,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+47,A_ASM,tool.communication.email,quality_first,resend/email-api@v1,Resend,0.00028000,0.3000,0.9850,0.9990,1.0000
+47,B_Random,tool.communication.email,quality_first,resend/email-api@v1,Resend,0.00028000,0.3000,0.9850,0.9990,1.0000
+47,C_Expensive,tool.communication.email,quality_first,twilio/sendgrid@v3,SendGrid,0.00035000,0.4000,0.0400,0.9990,0.0000
+48,A_ASM,infra.messaging.queue,balanced,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+48,B_Random,infra.messaging.queue,balanced,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+48,C_Expensive,infra.messaging.queue,balanced,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+49,A_ASM,tool.data.scraping,balanced,jina/reader@v1,Jina Reader,0.00000000,2.0000,0.5000,0.9960,0.9995
+49,B_Random,tool.data.scraping,balanced,firecrawl/scrape@v1,Firecrawl,0.00100000,3.0000,0.5000,0.9970,0.0005
+49,C_Expensive,tool.data.scraping,balanced,firecrawl/scrape@v1,Firecrawl,0.00100000,3.0000,0.5000,0.9970,0.0005
+50,A_ASM,tool.data.geolocation,cost_first,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+50,B_Random,tool.data.geolocation,cost_first,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+50,C_Expensive,tool.data.geolocation,cost_first,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+51,A_ASM,infra.security.secrets,speed_first,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+51,B_Random,infra.security.secrets,speed_first,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+51,C_Expensive,infra.security.secrets,speed_first,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+52,A_ASM,tool.data.scraping,cost_first,jina/reader@v1,Jina Reader,0.00000000,2.0000,0.5000,0.9960,0.9999
+52,B_Random,tool.data.scraping,cost_first,jina/reader@v1,Jina Reader,0.00000000,2.0000,0.5000,0.9960,0.9999
+52,C_Expensive,tool.data.scraping,cost_first,firecrawl/scrape@v1,Firecrawl,0.00100000,3.0000,0.5000,0.9970,0.0001
+53,A_ASM,tool.data.pdf,speed_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+53,B_Random,tool.data.pdf,speed_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+53,C_Expensive,tool.data.pdf,speed_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+54,A_ASM,tool.data.pdf,quality_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+54,B_Random,tool.data.pdf,quality_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+54,C_Expensive,tool.data.pdf,quality_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+55,A_ASM,tool.data.geolocation,balanced,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+55,B_Random,tool.data.geolocation,balanced,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+55,C_Expensive,tool.data.geolocation,balanced,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+56,A_ASM,ai.llm.embedding,speed_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9783
+56,B_Random,ai.llm.embedding,speed_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9783
+56,C_Expensive,ai.llm.embedding,speed_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0217
+57,A_ASM,tool.data.search,speed_first,exa/search-api@v1,Exa Search,0.00300000,0.6000,0.9500,0.9970,0.5371
+57,B_Random,tool.data.search,speed_first,exa/search-api@v1,Exa Search,0.00300000,0.6000,0.9500,0.9970,0.5371
+57,C_Expensive,tool.data.search,speed_first,exa/search-api@v1,Exa Search,0.00300000,0.6000,0.9500,0.9970,0.5371
+58,A_ASM,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
+58,B_Random,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
+58,C_Expensive,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
+59,A_ASM,tool.data.conversion,quality_first,cloudconvert/api@v2,CloudConvert,0.00100000,2.0000,0.5000,0.9980,0.5000
+59,B_Random,tool.data.conversion,quality_first,cloudconvert/api@v2,CloudConvert,0.00100000,2.0000,0.5000,0.9980,0.5000
+59,C_Expensive,tool.data.conversion,quality_first,cloudconvert/api@v2,CloudConvert,0.00100000,2.0000,0.5000,0.9980,0.5000
+60,A_ASM,tool.data.pdf,cost_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+60,B_Random,tool.data.pdf,cost_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+60,C_Expensive,tool.data.pdf,cost_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+61,A_ASM,ai.nlp.translation,cost_first,google/translate@v3,Google Cloud Translation,0.00002000,0.1500,0.5000,0.9990,1.0000
+61,B_Random,ai.nlp.translation,cost_first,google/translate@v3,Google Cloud Translation,0.00002000,0.1500,0.5000,0.9990,1.0000
+61,C_Expensive,ai.nlp.translation,cost_first,deepl/translate@v2,DeepL Translate,0.00002000,0.2000,0.5000,0.9990,0.0000
+62,A_ASM,tool.data.pdf,cost_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+62,B_Random,tool.data.pdf,cost_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+62,C_Expensive,tool.data.pdf,cost_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+63,A_ASM,tool.productivity.calendar,quality_first,google/calendar-api@v3,Google Calendar,0.00000000,0.0800,0.5000,0.9995,0.5000
+63,B_Random,tool.productivity.calendar,quality_first,google/calendar-api@v3,Google Calendar,0.00000000,0.0800,0.5000,0.9995,0.5000
+63,C_Expensive,tool.productivity.calendar,quality_first,google/calendar-api@v3,Google Calendar,0.00000000,0.0800,0.5000,0.9995,0.5000
+64,A_ASM,infra.database.vector,cost_first,qdrant/cloud@v1,Qdrant,0.00000000,0.0100,0.5000,0.9980,0.9984
+64,B_Random,infra.database.vector,cost_first,pinecone/index@v3,Pinecone,0.00000000,0.0200,0.5000,0.9990,0.0016
+64,C_Expensive,infra.database.vector,cost_first,pinecone/index@v3,Pinecone,0.00000000,0.0200,0.5000,0.9990,0.0016
+65,A_ASM,tool.productivity.calendar,cost_first,google/calendar-api@v3,Google Calendar,0.00000000,0.0800,0.5000,0.9995,0.5000
+65,B_Random,tool.productivity.calendar,cost_first,google/calendar-api@v3,Google Calendar,0.00000000,0.0800,0.5000,0.9995,0.5000
+65,C_Expensive,tool.productivity.calendar,cost_first,google/calendar-api@v3,Google Calendar,0.00000000,0.0800,0.5000,0.9995,0.5000
+66,A_ASM,tool.devops.ci,speed_first,circleci/cloud@v2,CircleCI,0.00060000,10.0000,0.0430,0.9990,0.5259
+66,B_Random,tool.devops.ci,speed_first,github/actions@v2,GitHub Actions,0.00800000,15.0000,0.6200,0.9980,0.4741
+66,C_Expensive,tool.devops.ci,speed_first,github/actions@v2,GitHub Actions,0.00800000,15.0000,0.6200,0.9980,0.4741
+67,A_ASM,tool.productivity.knowledge,speed_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+67,B_Random,tool.productivity.knowledge,speed_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+67,C_Expensive,tool.productivity.knowledge,speed_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+68,A_ASM,infra.auth.identity,cost_first,clerk/auth@v5,Clerk,0.00000000,0.0600,0.5000,0.9990,0.5000
+68,B_Random,infra.auth.identity,cost_first,clerk/auth@v5,Clerk,0.00000000,0.0600,0.5000,0.9990,0.5000
+68,C_Expensive,infra.auth.identity,cost_first,clerk/auth@v5,Clerk,0.00000000,0.0600,0.5000,0.9990,0.5000
+69,A_ASM,tool.automation.browser,balanced,steel/browser@v1,Steel Browser,0.00500000,1.5000,1.0000,0.9950,0.9970
+69,B_Random,tool.automation.browser,balanced,steel/browser@v1,Steel Browser,0.00500000,1.5000,1.0000,0.9950,0.9970
+69,C_Expensive,tool.automation.browser,balanced,browserbase/api@v1,Browserbase,0.01000000,2.0000,0.9600,0.9980,0.0030
+70,A_ASM,tool.productivity.scheduling,quality_first,cal/scheduling@v2,Cal.com,0.00000000,0.1000,0.5000,0.9980,0.5000
+70,B_Random,tool.productivity.scheduling,quality_first,cal/scheduling@v2,Cal.com,0.00000000,0.1000,0.5000,0.9980,0.5000
+70,C_Expensive,tool.productivity.scheduling,quality_first,cal/scheduling@v2,Cal.com,0.00000000,0.1000,0.5000,0.9980,0.5000
+71,A_ASM,tool.devops.ci,quality_first,github/actions@v2,GitHub Actions,0.00800000,15.0000,0.6200,0.9980,0.8259
+71,B_Random,tool.devops.ci,quality_first,github/actions@v2,GitHub Actions,0.00800000,15.0000,0.6200,0.9980,0.8259
+71,C_Expensive,tool.devops.ci,quality_first,github/actions@v2,GitHub Actions,0.00800000,15.0000,0.6200,0.9980,0.8259
+72,A_ASM,tool.data.screenshot,quality_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+72,B_Random,tool.data.screenshot,quality_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+72,C_Expensive,tool.data.screenshot,quality_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+73,A_ASM,tool.payment.processing,speed_first,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+73,B_Random,tool.payment.processing,speed_first,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+73,C_Expensive,tool.payment.processing,speed_first,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+74,A_ASM,ai.nlp.translation,balanced,google/translate@v3,Google Cloud Translation,0.00002000,0.1500,0.5000,0.9990,1.0000
+74,B_Random,ai.nlp.translation,balanced,google/translate@v3,Google Cloud Translation,0.00002000,0.1500,0.5000,0.9990,1.0000
+74,C_Expensive,ai.nlp.translation,balanced,deepl/translate@v2,DeepL Translate,0.00002000,0.2000,0.5000,0.9990,0.0000
+75,A_ASM,tool.productivity.knowledge,quality_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+75,B_Random,tool.productivity.knowledge,quality_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+75,C_Expensive,tool.productivity.knowledge,quality_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+76,A_ASM,ai.vision.ocr,speed_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+76,B_Random,ai.vision.ocr,speed_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+76,C_Expensive,ai.vision.ocr,speed_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+77,A_ASM,tool.data.visualization,balanced,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+77,B_Random,tool.data.visualization,balanced,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+77,C_Expensive,tool.data.visualization,balanced,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+78,A_ASM,tool.communication.sms,quality_first,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+78,B_Random,tool.communication.sms,quality_first,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+78,C_Expensive,tool.communication.sms,quality_first,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+79,A_ASM,tool.data.weather,quality_first,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+79,B_Random,tool.data.weather,quality_first,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+79,C_Expensive,tool.data.weather,quality_first,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+80,A_ASM,tool.communication.sms,cost_first,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+80,B_Random,tool.communication.sms,cost_first,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+80,C_Expensive,tool.communication.sms,cost_first,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+81,A_ASM,ai.video.generation,balanced,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.8635
+81,B_Random,ai.video.generation,balanced,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.8635
+81,C_Expensive,ai.video.generation,balanced,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.1365
+82,A_ASM,ai.llm.embedding,cost_first,openai/text-embedding-3-large@3.0,text-embedding-3-large,0.00000013,0.1000,0.6460,0.9990,0.9671
+82,B_Random,ai.llm.embedding,cost_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0329
+82,C_Expensive,ai.llm.embedding,cost_first,voyageai/voyage-3-large@3.0,Voyage 3 Large,0.00000018,0.1500,0.6620,0.9980,0.0329
+83,A_ASM,tool.communication.chat,speed_first,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9992
+83,B_Random,tool.communication.chat,speed_first,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9992
+83,C_Expensive,tool.communication.chat,speed_first,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9992
+84,A_ASM,ai.audio.tts,cost_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.9414
+84,B_Random,ai.audio.tts,cost_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.0586
+84,C_Expensive,ai.audio.tts,cost_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.0586
+85,A_ASM,tool.data.visualization,balanced,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+85,B_Random,tool.data.visualization,balanced,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+85,C_Expensive,tool.data.visualization,balanced,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+86,A_ASM,tool.automation.browser,speed_first,steel/browser@v1,Steel Browser,0.00500000,1.5000,1.0000,0.9950,0.9984
+86,B_Random,tool.automation.browser,speed_first,steel/browser@v1,Steel Browser,0.00500000,1.5000,1.0000,0.9950,0.9984
+86,C_Expensive,tool.automation.browser,speed_first,browserbase/api@v1,Browserbase,0.01000000,2.0000,0.9600,0.9980,0.0016
+87,A_ASM,tool.data.pdf,speed_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+87,B_Random,tool.data.pdf,speed_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+87,C_Expensive,tool.data.pdf,speed_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+88,A_ASM,ai.vision.image_generation,balanced,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.6017
+88,B_Random,ai.vision.image_generation,balanced,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.6017
+88,C_Expensive,ai.vision.image_generation,balanced,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5109
+89,A_ASM,tool.data.scraping,quality_first,jina/reader@v1,Jina Reader,0.00000000,2.0000,0.5000,0.9960,0.9991
+89,B_Random,tool.data.scraping,quality_first,jina/reader@v1,Jina Reader,0.00000000,2.0000,0.5000,0.9960,0.9991
+89,C_Expensive,tool.data.scraping,quality_first,firecrawl/scrape@v1,Firecrawl,0.00100000,3.0000,0.5000,0.9970,0.0009
+90,A_ASM,infra.auth.identity,quality_first,clerk/auth@v5,Clerk,0.00000000,0.0600,0.5000,0.9990,0.5000
+90,B_Random,infra.auth.identity,quality_first,clerk/auth@v5,Clerk,0.00000000,0.0600,0.5000,0.9990,0.5000
+90,C_Expensive,infra.auth.identity,quality_first,clerk/auth@v5,Clerk,0.00000000,0.0600,0.5000,0.9990,0.5000
+91,A_ASM,tool.data.geolocation,speed_first,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+91,B_Random,tool.data.geolocation,speed_first,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+91,C_Expensive,tool.data.geolocation,speed_first,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+92,A_ASM,tool.data.scraping,quality_first,jina/reader@v1,Jina Reader,0.00000000,2.0000,0.5000,0.9960,0.9991
+92,B_Random,tool.data.scraping,quality_first,firecrawl/scrape@v1,Firecrawl,0.00100000,3.0000,0.5000,0.9970,0.0009
+92,C_Expensive,tool.data.scraping,quality_first,firecrawl/scrape@v1,Firecrawl,0.00100000,3.0000,0.5000,0.9970,0.0009
+93,A_ASM,tool.productivity.project,cost_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+93,B_Random,tool.productivity.project,cost_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+93,C_Expensive,tool.productivity.project,cost_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+94,A_ASM,tool.devops.deployment,balanced,vercel/platform@v1,Vercel,0.00000000,1.0000,0.5000,0.9990,1.0000
+94,B_Random,tool.devops.deployment,balanced,vercel/platform@v1,Vercel,0.00000000,1.0000,0.5000,0.9990,1.0000
+94,C_Expensive,tool.devops.deployment,balanced,fly/machines@v1,Fly.io,0.00000310,2.0000,0.5000,0.9980,0.0000
+95,A_ASM,ai.code.completion,quality_first,github/copilot@v1,GitHub Copilot,0.00000000,0.1500,0.5000,0.9990,1.0000
+95,B_Random,ai.code.completion,quality_first,cursor/editor@v1,Cursor,0.00000000,0.2000,0.5000,0.9980,0.0000
+95,C_Expensive,ai.code.completion,quality_first,cursor/editor@v1,Cursor,0.00000000,0.2000,0.5000,0.9980,0.0000
+96,A_ASM,tool.productivity.forms,quality_first,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+96,B_Random,tool.productivity.forms,quality_first,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+96,C_Expensive,tool.productivity.forms,quality_first,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+97,A_ASM,ai.code.completion,cost_first,github/copilot@v1,GitHub Copilot,0.00000000,0.1500,0.5000,0.9990,1.0000
+97,B_Random,ai.code.completion,cost_first,github/copilot@v1,GitHub Copilot,0.00000000,0.1500,0.5000,0.9990,1.0000
+97,C_Expensive,ai.code.completion,cost_first,cursor/editor@v1,Cursor,0.00000000,0.2000,0.5000,0.9980,0.0000
+98,A_ASM,tool.data.pdf,quality_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+98,B_Random,tool.data.pdf,quality_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+98,C_Expensive,tool.data.pdf,quality_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+99,A_ASM,tool.data.screenshot,cost_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+99,B_Random,tool.data.screenshot,cost_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+99,C_Expensive,tool.data.screenshot,cost_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+100,A_ASM,ai.vision.ocr,quality_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+100,B_Random,ai.vision.ocr,quality_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+100,C_Expensive,ai.vision.ocr,quality_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+101,A_ASM,tool.data.weather,quality_first,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+101,B_Random,tool.data.weather,quality_first,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+101,C_Expensive,tool.data.weather,quality_first,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+102,A_ASM,infra.compute.gpu,quality_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
+102,B_Random,infra.compute.gpu,quality_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
+102,C_Expensive,infra.compute.gpu,quality_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
+103,A_ASM,tool.communication.sms,speed_first,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+103,B_Random,tool.communication.sms,speed_first,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+103,C_Expensive,tool.communication.sms,speed_first,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+104,A_ASM,tool.data.geolocation,balanced,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+104,B_Random,tool.data.geolocation,balanced,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+104,C_Expensive,tool.data.geolocation,balanced,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+105,A_ASM,ai.nlp.translation,balanced,google/translate@v3,Google Cloud Translation,0.00002000,0.1500,0.5000,0.9990,1.0000
+105,B_Random,ai.nlp.translation,balanced,google/translate@v3,Google Cloud Translation,0.00002000,0.1500,0.5000,0.9990,1.0000
+105,C_Expensive,ai.nlp.translation,balanced,deepl/translate@v2,DeepL Translate,0.00002000,0.2000,0.5000,0.9990,0.0000
+106,A_ASM,infra.storage.object,quality_first,cloudflare/r2@v1,Cloudflare R2,0.01500000,0.0300,0.5000,0.9990,0.5000
+106,B_Random,infra.storage.object,quality_first,cloudflare/r2@v1,Cloudflare R2,0.01500000,0.0300,0.5000,0.9990,0.5000
+106,C_Expensive,infra.storage.object,quality_first,cloudflare/r2@v1,Cloudflare R2,0.01500000,0.0300,0.5000,0.9990,0.5000
+107,A_ASM,tool.communication.chat,quality_first,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9966
+107,B_Random,tool.communication.chat,quality_first,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9966
+107,C_Expensive,tool.communication.chat,quality_first,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9966
+108,A_ASM,infra.messaging.queue,balanced,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+108,B_Random,infra.messaging.queue,balanced,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+108,C_Expensive,infra.messaging.queue,balanced,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+109,A_ASM,tool.data.search,balanced,tavily/search-api@v1,Tavily Search,0.00100000,0.8000,0.9200,0.9980,0.8238
+109,B_Random,tool.data.search,balanced,tavily/search-api@v1,Tavily Search,0.00100000,0.8000,0.9200,0.9980,0.8238
+109,C_Expensive,tool.data.search,balanced,exa/search-api@v1,Exa Search,0.00300000,0.6000,0.9500,0.9970,0.1762
+110,A_ASM,infra.security.secrets,balanced,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+110,B_Random,infra.security.secrets,balanced,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+110,C_Expensive,infra.security.secrets,balanced,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+111,A_ASM,infra.compute.sandbox,speed_first,e2b/sandbox@v1,E2B Code Sandbox,0.00010000,0.8000,0.5000,0.9980,0.5000
+111,B_Random,infra.compute.sandbox,speed_first,e2b/sandbox@v1,E2B Code Sandbox,0.00010000,0.8000,0.5000,0.9980,0.5000
+111,C_Expensive,infra.compute.sandbox,speed_first,e2b/sandbox@v1,E2B Code Sandbox,0.00010000,0.8000,0.5000,0.9980,0.5000
+112,A_ASM,tool.data.weather,balanced,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+112,B_Random,tool.data.weather,balanced,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+112,C_Expensive,tool.data.weather,balanced,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+113,A_ASM,tool.data.pdf,cost_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+113,B_Random,tool.data.pdf,cost_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+113,C_Expensive,tool.data.pdf,cost_first,pdfco/api@v1,PDF.co,0.00500000,1.0000,0.5000,0.9970,0.5000
+114,A_ASM,tool.data.weather,speed_first,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+114,B_Random,tool.data.weather,speed_first,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+114,C_Expensive,tool.data.weather,speed_first,openweathermap/api@v3,OpenWeatherMap,0.00000000,0.2000,0.5000,0.9980,0.5000
+115,A_ASM,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
+115,B_Random,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
+115,C_Expensive,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
+116,A_ASM,infra.database.postgres,cost_first,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+116,B_Random,infra.database.postgres,cost_first,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+116,C_Expensive,infra.database.postgres,cost_first,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+117,A_ASM,ai.nlp.translation,balanced,google/translate@v3,Google Cloud Translation,0.00002000,0.1500,0.5000,0.9990,1.0000
+117,B_Random,ai.nlp.translation,balanced,deepl/translate@v2,DeepL Translate,0.00002000,0.2000,0.5000,0.9990,0.0000
+117,C_Expensive,ai.nlp.translation,balanced,deepl/translate@v2,DeepL Translate,0.00002000,0.2000,0.5000,0.9990,0.0000
+118,A_ASM,tool.productivity.forms,speed_first,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+118,B_Random,tool.productivity.forms,speed_first,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+118,C_Expensive,tool.productivity.forms,speed_first,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+119,A_ASM,tool.data.conversion,quality_first,cloudconvert/api@v2,CloudConvert,0.00100000,2.0000,0.5000,0.9980,0.5000
+119,B_Random,tool.data.conversion,quality_first,cloudconvert/api@v2,CloudConvert,0.00100000,2.0000,0.5000,0.9980,0.5000
+119,C_Expensive,tool.data.conversion,quality_first,cloudconvert/api@v2,CloudConvert,0.00100000,2.0000,0.5000,0.9980,0.5000
+120,A_ASM,ai.audio.tts,speed_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.6073
+120,B_Random,ai.audio.tts,speed_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.6073
+120,C_Expensive,ai.audio.tts,speed_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.3927
+121,A_ASM,infra.compute.gpu,speed_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
+121,B_Random,infra.compute.gpu,speed_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
+121,C_Expensive,infra.compute.gpu,speed_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
+122,A_ASM,tool.devops.deployment,quality_first,vercel/platform@v1,Vercel,0.00000000,1.0000,0.5000,0.9990,1.0000
+122,B_Random,tool.devops.deployment,quality_first,vercel/platform@v1,Vercel,0.00000000,1.0000,0.5000,0.9990,1.0000
+122,C_Expensive,tool.devops.deployment,quality_first,fly/machines@v1,Fly.io,0.00000310,2.0000,0.5000,0.9980,0.0000
+123,A_ASM,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
+123,B_Random,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
+123,C_Expensive,ai.vision.image_generation,speed_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.7963
+124,A_ASM,tool.devops.deployment,quality_first,vercel/platform@v1,Vercel,0.00000000,1.0000,0.5000,0.9990,1.0000
+124,B_Random,tool.devops.deployment,quality_first,vercel/platform@v1,Vercel,0.00000000,1.0000,0.5000,0.9990,1.0000
+124,C_Expensive,tool.devops.deployment,quality_first,fly/machines@v1,Fly.io,0.00000310,2.0000,0.5000,0.9980,0.0000
+125,A_ASM,tool.devops.logging,speed_first,betterstack/logs@v2,Better Stack,0.00000000,0.0300,0.5000,0.9990,0.5000
+125,B_Random,tool.devops.logging,speed_first,betterstack/logs@v2,Better Stack,0.00000000,0.0300,0.5000,0.9990,0.5000
+125,C_Expensive,tool.devops.logging,speed_first,betterstack/logs@v2,Better Stack,0.00000000,0.0300,0.5000,0.9990,0.5000
+126,A_ASM,tool.devops.logging,speed_first,betterstack/logs@v2,Better Stack,0.00000000,0.0300,0.5000,0.9990,0.5000
+126,B_Random,tool.devops.logging,speed_first,betterstack/logs@v2,Better Stack,0.00000000,0.0300,0.5000,0.9990,0.5000
+126,C_Expensive,tool.devops.logging,speed_first,betterstack/logs@v2,Better Stack,0.00000000,0.0300,0.5000,0.9990,0.5000
+127,A_ASM,tool.productivity.knowledge,quality_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+127,B_Random,tool.productivity.knowledge,quality_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+127,C_Expensive,tool.productivity.knowledge,quality_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+128,A_ASM,ai.video.generation,speed_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.5357
+128,B_Random,ai.video.generation,speed_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.5357
+128,C_Expensive,ai.video.generation,speed_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.4643
+129,A_ASM,ai.video.generation,balanced,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.8635
+129,B_Random,ai.video.generation,balanced,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.1365
+129,C_Expensive,ai.video.generation,balanced,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.1365
+130,A_ASM,infra.compute.gpu,cost_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
+130,B_Random,infra.compute.gpu,cost_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
+130,C_Expensive,infra.compute.gpu,cost_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
+131,A_ASM,tool.productivity.project,cost_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+131,B_Random,tool.productivity.project,cost_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+131,C_Expensive,tool.productivity.project,cost_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+132,A_ASM,tool.communication.chat,quality_first,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9966
+132,B_Random,tool.communication.chat,quality_first,slack/web-api@v2,Slack,0.00000000,0.1000,0.5000,0.9990,0.0034
+132,C_Expensive,tool.communication.chat,quality_first,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9966
+133,A_ASM,tool.productivity.forms,cost_first,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+133,B_Random,tool.productivity.forms,cost_first,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+133,C_Expensive,tool.productivity.forms,cost_first,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+134,A_ASM,tool.data.visualization,speed_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+134,B_Random,tool.data.visualization,speed_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+134,C_Expensive,tool.data.visualization,speed_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+135,A_ASM,infra.network.dns,cost_first,cloudflare/dns@v4,Cloudflare DNS,0.00000000,0.0050,0.5000,1.0000,0.5000
+135,B_Random,infra.network.dns,cost_first,cloudflare/dns@v4,Cloudflare DNS,0.00000000,0.0050,0.5000,1.0000,0.5000
+135,C_Expensive,infra.network.dns,cost_first,cloudflare/dns@v4,Cloudflare DNS,0.00000000,0.0050,0.5000,1.0000,0.5000
+136,A_ASM,infra.security.secrets,speed_first,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+136,B_Random,infra.security.secrets,speed_first,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+136,C_Expensive,infra.security.secrets,speed_first,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+137,A_ASM,infra.compute.gpu,speed_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
+137,B_Random,infra.compute.gpu,speed_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
+137,C_Expensive,infra.compute.gpu,speed_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
+138,A_ASM,infra.messaging.queue,cost_first,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+138,B_Random,infra.messaging.queue,cost_first,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+138,C_Expensive,infra.messaging.queue,cost_first,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+139,A_ASM,ai.audio.stt,balanced,deepgram/nova@v2,Deepgram Nova-2,0.00430000,0.2000,0.5000,0.9990,1.0000
+139,B_Random,ai.audio.stt,balanced,deepgram/nova@v2,Deepgram Nova-2,0.00430000,0.2000,0.5000,0.9990,1.0000
+139,C_Expensive,ai.audio.stt,balanced,openai/whisper@v1,OpenAI Whisper,0.00600000,3.0000,0.5000,0.9990,0.0000
+140,A_ASM,infra.messaging.queue,balanced,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+140,B_Random,infra.messaging.queue,balanced,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+140,C_Expensive,infra.messaging.queue,balanced,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+141,A_ASM,ai.audio.stt,cost_first,deepgram/nova@v2,Deepgram Nova-2,0.00430000,0.2000,0.5000,0.9990,1.0000
+141,B_Random,ai.audio.stt,cost_first,openai/whisper@v1,OpenAI Whisper,0.00600000,3.0000,0.5000,0.9990,0.0000
+141,C_Expensive,ai.audio.stt,cost_first,openai/whisper@v1,OpenAI Whisper,0.00600000,3.0000,0.5000,0.9990,0.0000
+142,A_ASM,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
+142,B_Random,ai.video.generation,quality_first,kuaishou/kling-3.0@3.0,Kling 3.0,0.02900000,60.0000,0.8350,0.5000,0.6769
+142,C_Expensive,ai.video.generation,quality_first,google/veo-3.1@3.1,Veo 3.1,0.20000000,45.0000,0.8470,0.5000,0.3231
+143,A_ASM,ai.audio.tts,speed_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.6073
+143,B_Random,ai.audio.tts,speed_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.6073
+143,C_Expensive,ai.audio.tts,speed_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.3927
+144,A_ASM,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
+144,B_Random,ai.vision.image_generation,cost_first,google/imagen-3@3.0,Imagen 3,0.04000000,10.0000,0.7200,0.9990,0.5010
+144,C_Expensive,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
+145,A_ASM,tool.productivity.project,speed_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+145,B_Random,tool.productivity.project,speed_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+145,C_Expensive,tool.productivity.project,speed_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+146,A_ASM,tool.automation.browser,balanced,steel/browser@v1,Steel Browser,0.00500000,1.5000,1.0000,0.9950,0.9970
+146,B_Random,tool.automation.browser,balanced,browserbase/api@v1,Browserbase,0.01000000,2.0000,0.9600,0.9980,0.0030
+146,C_Expensive,tool.automation.browser,balanced,browserbase/api@v1,Browserbase,0.01000000,2.0000,0.9600,0.9980,0.0030
+147,A_ASM,tool.payment.processing,cost_first,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+147,B_Random,tool.payment.processing,cost_first,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+147,C_Expensive,tool.payment.processing,cost_first,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+148,A_ASM,tool.data.analytics,speed_first,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+148,B_Random,tool.data.analytics,speed_first,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+148,C_Expensive,tool.data.analytics,speed_first,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+149,A_ASM,tool.payment.processing,quality_first,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+149,B_Random,tool.payment.processing,quality_first,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+149,C_Expensive,tool.payment.processing,quality_first,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+150,A_ASM,tool.payment.processing,balanced,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+150,B_Random,tool.payment.processing,balanced,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+150,C_Expensive,tool.payment.processing,balanced,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+151,A_ASM,tool.data.geolocation,cost_first,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+151,B_Random,tool.data.geolocation,cost_first,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+151,C_Expensive,tool.data.geolocation,cost_first,google/maps-platform@v1,Google Maps Platform,0.00500000,0.1000,0.5000,0.9999,0.5000
+152,A_ASM,tool.productivity.project,speed_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+152,B_Random,tool.productivity.project,speed_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+152,C_Expensive,tool.productivity.project,speed_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+153,A_ASM,tool.data.visualization,speed_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+153,B_Random,tool.data.visualization,speed_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+153,C_Expensive,tool.data.visualization,speed_first,quickchart/api@v1,QuickChart,0.00000000,0.2000,0.5000,0.9980,0.5000
+154,A_ASM,tool.communication.sms,speed_first,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+154,B_Random,tool.communication.sms,speed_first,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+154,C_Expensive,tool.communication.sms,speed_first,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+155,A_ASM,tool.communication.chat,cost_first,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9955
+155,B_Random,tool.communication.chat,cost_first,slack/web-api@v2,Slack,0.00000000,0.1000,0.5000,0.9990,0.0045
+155,C_Expensive,tool.communication.chat,cost_first,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9955
+156,A_ASM,tool.productivity.spreadsheet,balanced,google/sheets-api@v4,Google Sheets,0.00000000,0.1000,0.5000,0.9995,1.0000
+156,B_Random,tool.productivity.spreadsheet,balanced,airtable/api@v1,Airtable,0.00000000,0.1200,0.5000,0.9990,0.0000
+156,C_Expensive,tool.productivity.spreadsheet,balanced,airtable/api@v1,Airtable,0.00000000,0.1200,0.5000,0.9990,0.0000
+157,A_ASM,ai.audio.tts,speed_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.6073
+157,B_Random,ai.audio.tts,speed_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.3927
+157,C_Expensive,ai.audio.tts,speed_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.3927
+158,A_ASM,tool.productivity.scheduling,speed_first,cal/scheduling@v2,Cal.com,0.00000000,0.1000,0.5000,0.9980,0.5000
+158,B_Random,tool.productivity.scheduling,speed_first,cal/scheduling@v2,Cal.com,0.00000000,0.1000,0.5000,0.9980,0.5000
+158,C_Expensive,tool.productivity.scheduling,speed_first,cal/scheduling@v2,Cal.com,0.00000000,0.1000,0.5000,0.9980,0.5000
+159,A_ASM,infra.security.secrets,cost_first,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+159,B_Random,infra.security.secrets,cost_first,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+159,C_Expensive,infra.security.secrets,cost_first,infisical/secrets@v1,Infisical,0.00000000,0.0300,0.5000,0.9990,0.5000
+160,A_ASM,infra.storage.object,balanced,cloudflare/r2@v1,Cloudflare R2,0.01500000,0.0300,0.5000,0.9990,0.5000
+160,B_Random,infra.storage.object,balanced,cloudflare/r2@v1,Cloudflare R2,0.01500000,0.0300,0.5000,0.9990,0.5000
+160,C_Expensive,infra.storage.object,balanced,cloudflare/r2@v1,Cloudflare R2,0.01500000,0.0300,0.5000,0.9990,0.5000
+161,A_ASM,tool.automation.browser,cost_first,steel/browser@v1,Steel Browser,0.00500000,1.5000,1.0000,0.9950,0.9991
+161,B_Random,tool.automation.browser,cost_first,steel/browser@v1,Steel Browser,0.00500000,1.5000,1.0000,0.9950,0.9991
+161,C_Expensive,tool.automation.browser,cost_first,browserbase/api@v1,Browserbase,0.01000000,2.0000,0.9600,0.9980,0.0009
+162,A_ASM,tool.devops.ci,speed_first,circleci/cloud@v2,CircleCI,0.00060000,10.0000,0.0430,0.9990,0.5259
+162,B_Random,tool.devops.ci,speed_first,circleci/cloud@v2,CircleCI,0.00060000,10.0000,0.0430,0.9990,0.5259
+162,C_Expensive,tool.devops.ci,speed_first,github/actions@v2,GitHub Actions,0.00800000,15.0000,0.6200,0.9980,0.4741
+163,A_ASM,infra.compute.serverless,cost_first,modal/serverless@v1,Modal,0.00001600,0.5000,0.5000,0.9980,0.5000
+163,B_Random,infra.compute.serverless,cost_first,modal/serverless@v1,Modal,0.00001600,0.5000,0.5000,0.9980,0.5000
+163,C_Expensive,infra.compute.serverless,cost_first,modal/serverless@v1,Modal,0.00001600,0.5000,0.5000,0.9980,0.5000
+164,A_ASM,tool.productivity.todo,cost_first,todoist/api@v2,Todoist,0.00000000,0.1200,0.0440,0.9990,0.8996
+164,B_Random,tool.productivity.todo,cost_first,google/tasks-api@v1,Google Tasks,0.00000000,0.2000,0.0420,0.9995,0.0028
+164,C_Expensive,tool.productivity.todo,cost_first,google/tasks-api@v1,Google Tasks,0.00000000,0.2000,0.0420,0.9995,0.0028
+165,A_ASM,infra.compute.gpu,cost_first,runpod/gpu-serverless@1.0,RunPod Serverless GPU,0.00019000,3.0000,0.5000,0.9980,1.0000
+165,B_Random,infra.compute.gpu,cost_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
+165,C_Expensive,infra.compute.gpu,cost_first,replicate/gpu-serverless@1.0,Replicate Serverless GPU,0.00022500,5.0000,0.5000,0.9950,0.0000
+166,A_ASM,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
+166,B_Random,ai.vision.image_generation,cost_first,openai/dall-e-3@3.0,DALL-E 3,0.04000000,12.0000,0.6700,0.9990,0.4028
+166,C_Expensive,ai.vision.image_generation,cost_first,black-forest-labs/flux-1.1-pro@1.1,FLUX 1.1 Pro,0.04000000,8.0000,0.9040,0.5000,0.5972
+167,A_ASM,ai.vision.ocr,speed_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+167,B_Random,ai.vision.ocr,speed_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+167,C_Expensive,ai.vision.ocr,speed_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+168,A_ASM,tool.payment.processing,speed_first,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+168,B_Random,tool.payment.processing,speed_first,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+168,C_Expensive,tool.payment.processing,speed_first,stripe/payments@v1,Stripe,0.02900000,0.3000,0.5000,0.9999,0.5000
+169,A_ASM,ai.audio.tts,balanced,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.8587
+169,B_Random,ai.audio.tts,balanced,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.8587
+169,C_Expensive,ai.audio.tts,balanced,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.1413
+170,A_ASM,tool.devops.monitoring,quality_first,sentry/error-tracking@v1,Sentry,0.00000000,0.0500,0.5000,0.9990,0.5000
+170,B_Random,tool.devops.monitoring,quality_first,sentry/error-tracking@v1,Sentry,0.00000000,0.0500,0.5000,0.9990,0.5000
+170,C_Expensive,tool.devops.monitoring,quality_first,sentry/error-tracking@v1,Sentry,0.00000000,0.0500,0.5000,0.9990,0.5000
+171,A_ASM,tool.communication.chat,balanced,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9955
+171,B_Random,tool.communication.chat,balanced,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9955
+171,C_Expensive,tool.communication.chat,balanced,discord/api@v10,Discord,0.00000000,0.0800,0.5000,0.9980,0.9955
+172,A_ASM,tool.communication.sms,balanced,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+172,B_Random,tool.communication.sms,balanced,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+172,C_Expensive,tool.communication.sms,balanced,twilio/sms@v1,Twilio SMS,0.00790000,0.2000,0.5000,0.9990,0.5000
+173,A_ASM,infra.database.vector,balanced,qdrant/cloud@v1,Qdrant,0.00000000,0.0100,0.5000,0.9980,0.9984
+173,B_Random,infra.database.vector,balanced,qdrant/cloud@v1,Qdrant,0.00000000,0.0100,0.5000,0.9980,0.9984
+173,C_Expensive,infra.database.vector,balanced,pinecone/index@v3,Pinecone,0.00000000,0.0200,0.5000,0.9990,0.0016
+174,A_ASM,tool.productivity.knowledge,quality_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+174,B_Random,tool.productivity.knowledge,quality_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+174,C_Expensive,tool.productivity.knowledge,quality_first,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+175,A_ASM,ai.vision.ocr,quality_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+175,B_Random,ai.vision.ocr,quality_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+175,C_Expensive,ai.vision.ocr,quality_first,google/vision-ocr@v1,Google Cloud Vision OCR,0.00150000,0.5000,0.5000,0.9990,0.5000
+176,A_ASM,tool.devops.ci,cost_first,circleci/cloud@v2,CircleCI,0.00060000,10.0000,0.0430,0.9990,0.6864
+176,B_Random,tool.devops.ci,cost_first,circleci/cloud@v2,CircleCI,0.00060000,10.0000,0.0430,0.9990,0.6864
+176,C_Expensive,tool.devops.ci,cost_first,github/actions@v2,GitHub Actions,0.00800000,15.0000,0.6200,0.9980,0.3136
+177,A_ASM,tool.productivity.knowledge,balanced,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+177,B_Random,tool.productivity.knowledge,balanced,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+177,C_Expensive,tool.productivity.knowledge,balanced,notion/api@v1,Notion,0.00000000,0.2500,0.0470,0.9990,0.5000
+178,A_ASM,infra.messaging.queue,quality_first,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+178,B_Random,infra.messaging.queue,quality_first,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+178,C_Expensive,infra.messaging.queue,quality_first,upstash/qstash@v2,Upstash QStash,0.00000100,0.0500,0.5000,0.9990,0.5000
+179,A_ASM,infra.database.postgres,cost_first,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+179,B_Random,infra.database.postgres,cost_first,supabase/database@v2,Supabase,0.00000000,0.0150,0.5000,0.9990,0.0000
+179,C_Expensive,infra.database.postgres,cost_first,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+180,A_ASM,ai.audio.tts,speed_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.6073
+180,B_Random,ai.audio.tts,speed_first,openai/tts-1@1.0,OpenAI TTS,0.00001500,0.5000,0.7500,0.9990,0.6073
+180,C_Expensive,ai.audio.tts,speed_first,elevenlabs/tts-v2@2.0,ElevenLabs TTS v2,0.00018000,0.4000,0.8750,0.9990,0.3927
+181,A_ASM,tool.devops.ci,balanced,circleci/cloud@v2,CircleCI,0.00060000,10.0000,0.0430,0.9990,0.5033
+181,B_Random,tool.devops.ci,balanced,github/actions@v2,GitHub Actions,0.00800000,15.0000,0.6200,0.9980,0.4967
+181,C_Expensive,tool.devops.ci,balanced,github/actions@v2,GitHub Actions,0.00800000,15.0000,0.6200,0.9980,0.4967
+182,A_ASM,tool.data.conversion,speed_first,cloudconvert/api@v2,CloudConvert,0.00100000,2.0000,0.5000,0.9980,0.5000
+182,B_Random,tool.data.conversion,speed_first,cloudconvert/api@v2,CloudConvert,0.00100000,2.0000,0.5000,0.9980,0.5000
+182,C_Expensive,tool.data.conversion,speed_first,cloudconvert/api@v2,CloudConvert,0.00100000,2.0000,0.5000,0.9980,0.5000
+183,A_ASM,tool.automation.browser,quality_first,steel/browser@v1,Steel Browser,0.00500000,1.5000,1.0000,0.9950,0.9949
+183,B_Random,tool.automation.browser,quality_first,steel/browser@v1,Steel Browser,0.00500000,1.5000,1.0000,0.9950,0.9949
+183,C_Expensive,tool.automation.browser,quality_first,browserbase/api@v1,Browserbase,0.01000000,2.0000,0.9600,0.9980,0.0051
+184,A_ASM,tool.productivity.document,cost_first,google/docs-api@v1,Google Docs,0.00000000,0.1200,0.5000,0.9995,0.5000
+184,B_Random,tool.productivity.document,cost_first,google/docs-api@v1,Google Docs,0.00000000,0.1200,0.5000,0.9995,0.5000
+184,C_Expensive,tool.productivity.document,cost_first,google/docs-api@v1,Google Docs,0.00000000,0.1200,0.5000,0.9995,0.5000
+185,A_ASM,infra.compute.sandbox,cost_first,e2b/sandbox@v1,E2B Code Sandbox,0.00010000,0.8000,0.5000,0.9980,0.5000
+185,B_Random,infra.compute.sandbox,cost_first,e2b/sandbox@v1,E2B Code Sandbox,0.00010000,0.8000,0.5000,0.9980,0.5000
+185,C_Expensive,infra.compute.sandbox,cost_first,e2b/sandbox@v1,E2B Code Sandbox,0.00010000,0.8000,0.5000,0.9980,0.5000
+186,A_ASM,tool.productivity.forms,speed_first,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+186,B_Random,tool.productivity.forms,speed_first,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+186,C_Expensive,tool.productivity.forms,speed_first,typeform/api@v1,Typeform,0.00000000,0.1500,0.5000,0.9980,0.5000
+187,A_ASM,tool.business.crm,speed_first,hubspot/crm@v3,HubSpot CRM,0.00000000,0.2000,0.5000,0.9990,0.5000
+187,B_Random,tool.business.crm,speed_first,hubspot/crm@v3,HubSpot CRM,0.00000000,0.2000,0.5000,0.9990,0.5000
+187,C_Expensive,tool.business.crm,speed_first,hubspot/crm@v3,HubSpot CRM,0.00000000,0.2000,0.5000,0.9990,0.5000
+188,A_ASM,ai.llm.chat,cost_first,openai/gpt-4o@2024-11-20,GPT-4o,0.00000775,0.6000,0.8083,0.9990,0.9083
+188,B_Random,ai.llm.chat,cost_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.2148
+188,C_Expensive,ai.llm.chat,cost_first,anthropic/claude-sonnet-4@4.0,Claude Sonnet 4,0.00001140,0.8000,0.8167,0.9990,0.2148
+189,A_ASM,tool.productivity.document,quality_first,google/docs-api@v1,Google Docs,0.00000000,0.1200,0.5000,0.9995,0.5000
+189,B_Random,tool.productivity.document,quality_first,google/docs-api@v1,Google Docs,0.00000000,0.1200,0.5000,0.9995,0.5000
+189,C_Expensive,tool.productivity.document,quality_first,google/docs-api@v1,Google Docs,0.00000000,0.1200,0.5000,0.9995,0.5000
+190,A_ASM,tool.data.screenshot,cost_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+190,B_Random,tool.data.screenshot,cost_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+190,C_Expensive,tool.data.screenshot,cost_first,screenshotone/api@v1,ScreenshotOne,0.00100000,3.0000,0.5000,0.9980,0.5000
+191,A_ASM,infra.database.postgres,quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+191,B_Random,infra.database.postgres,quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+191,C_Expensive,infra.database.postgres,quality_first,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+192,A_ASM,tool.data.analytics,speed_first,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+192,B_Random,tool.data.analytics,speed_first,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+192,C_Expensive,tool.data.analytics,speed_first,posthog/analytics@v1,PostHog,0.00000000,0.0500,0.5000,0.9990,0.5000
+193,A_ASM,infra.database.postgres,speed_first,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+193,B_Random,infra.database.postgres,speed_first,supabase/database@v2,Supabase,0.00000000,0.0150,0.5000,0.9990,0.0000
+193,C_Expensive,infra.database.postgres,speed_first,neon/serverless-postgres@v1,Neon Serverless Postgres,0.00000000,0.0080,0.5000,0.9990,1.0000
+194,A_ASM,tool.business.crm,quality_first,hubspot/crm@v3,HubSpot CRM,0.00000000,0.2000,0.5000,0.9990,0.5000
+194,B_Random,tool.business.crm,quality_first,hubspot/crm@v3,HubSpot CRM,0.00000000,0.2000,0.5000,0.9990,0.5000
+194,C_Expensive,tool.business.crm,quality_first,hubspot/crm@v3,HubSpot CRM,0.00000000,0.2000,0.5000,0.9990,0.5000
+195,A_ASM,tool.communication.email,speed_first,resend/email-api@v1,Resend,0.00028000,0.3000,0.9850,0.9990,1.0000
+195,B_Random,tool.communication.email,speed_first,twilio/sendgrid@v3,SendGrid,0.00035000,0.4000,0.0400,0.9990,0.0000
+195,C_Expensive,tool.communication.email,speed_first,twilio/sendgrid@v3,SendGrid,0.00035000,0.4000,0.0400,0.9990,0.0000
+196,A_ASM,tool.data.scraping,balanced,jina/reader@v1,Jina Reader,0.00000000,2.0000,0.5000,0.9960,0.9995
+196,B_Random,tool.data.scraping,balanced,firecrawl/scrape@v1,Firecrawl,0.00100000,3.0000,0.5000,0.9970,0.0005
+196,C_Expensive,tool.data.scraping,balanced,firecrawl/scrape@v1,Firecrawl,0.00100000,3.0000,0.5000,0.9970,0.0005
+197,A_ASM,tool.devops.deployment,balanced,vercel/platform@v1,Vercel,0.00000000,1.0000,0.5000,0.9990,1.0000
+197,B_Random,tool.devops.deployment,balanced,vercel/platform@v1,Vercel,0.00000000,1.0000,0.5000,0.9990,1.0000
+197,C_Expensive,tool.devops.deployment,balanced,fly/machines@v1,Fly.io,0.00000310,2.0000,0.5000,0.9980,0.0000
+198,A_ASM,tool.productivity.project,speed_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+198,B_Random,tool.productivity.project,speed_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+198,C_Expensive,tool.productivity.project,speed_first,linear/api@v2,Linear,0.00000000,0.0800,0.0460,0.9990,0.5000
+199,A_ASM,infra.compute.serverless,quality_first,modal/serverless@v1,Modal,0.00001600,0.5000,0.5000,0.9980,0.5000
+199,B_Random,infra.compute.serverless,quality_first,modal/serverless@v1,Modal,0.00001600,0.5000,0.5000,0.9980,0.5000
+199,C_Expensive,infra.compute.serverless,quality_first,modal/serverless@v1,Modal,0.00001600,0.5000,0.5000,0.9980,0.5000
+200,A_ASM,tool.productivity.document,balanced,google/docs-api@v1,Google Docs,0.00000000,0.1200,0.5000,0.9995,0.5000
+200,B_Random,tool.productivity.document,balanced,google/docs-api@v1,Google Docs,0.00000000,0.1200,0.5000,0.9995,0.5000
+200,C_Expensive,tool.productivity.document,balanced,google/docs-api@v1,Google Docs,0.00000000,0.1200,0.5000,0.9995,0.5000

@@ -1,0 +1,33 @@
+{
+  "id": 13,
+  "category": "todo",
+  "prompt": "Create launch-day checklist: 8 tasks w/ owners + due times across US/EU/JP timezones",
+  "expected_taxonomy": "tool.productivity.todo",
+  "matched_taxonomy": "tool.productivity.project",
+  "confidence": 0.4545,
+  "candidates": [
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.5592
+    },
+    {
+      "taxonomy": "tool.productivity.calendar",
+      "score": 0.4772
+    },
+    {
+      "taxonomy": "tool.productivity.project",
+      "score": 0.4545
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.4518
+    },
+    {
+      "taxonomy": "tool.productivity.scheduling",
+      "score": 0.4461
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.productivity.project for \"Create launch-day checklist: 8 tasks w/ owners + due times across US/EU/JP timezones\" (0.455). The user's action is creating a structured checklist with tasks, owners, and due times across multiple time zones, which aligns with project planning and management rather than simple to-do lists, calendar events, or scheduling meetings.",
+  "correct": false,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

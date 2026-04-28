@@ -1,0 +1,25 @@
+{
+  "name": "@asm-protocol/discovery",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "precompute": "tsx scripts/precompute-embeddings.ts",
+    "demo": "tsx scripts/demo.ts",
+    "eval:benchmark": "tsx scripts/eval-benchmark.ts",
+    "test:smoke": "tsx --test test/smoke.test.ts"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@langchain/core": "^0.3.80",
+    "@langchain/langgraph": "^0.2.74",
+    "@langchain/openai": "^0.6.16",
+    "undici": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  }
+}

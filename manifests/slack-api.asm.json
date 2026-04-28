@@ -1,0 +1,70 @@
+{
+  "asm_version": "0.3",
+  "service_id": "slack/web-api@v2",
+  "taxonomy": "tool.communication.chat",
+  "display_name": "Slack",
+  "provenance": {
+    "source_url": "https://slack.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Salesforce",
+    "url": "https://slack.com"
+  },
+  "capabilities": {
+    "description": "Workspace messaging API — post messages, create channels, manage threads, and build bot interactions",
+    "input_modalities": [
+      "text",
+      "structured_data"
+    ],
+    "output_modalities": [
+      "text",
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_message",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "Free tier with 90-day message history"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "100ms",
+    "latency_p99": "400ms",
+    "uptime": 0.999,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://slack.com",
+    "onchain_address": "0xb8d7707f051dFa10260f28aB02ddA50EeA27C99B",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_threads": true,
+      "supports_blocks": true,
+      "supports_webhooks": true
+    }
+  }
+}

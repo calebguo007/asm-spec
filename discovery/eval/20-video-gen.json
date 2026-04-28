@@ -1,0 +1,33 @@
+{
+  "id": 20,
+  "category": "video-gen",
+  "prompt": "6s lifestyle clip, ADHD user feeling focused at desk",
+  "expected_taxonomy": "ai.video.generation",
+  "matched_taxonomy": "ai.video.generation",
+  "confidence": 0.3505,
+  "candidates": [
+    {
+      "taxonomy": "ai.video.generation",
+      "score": 0.3505
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.3505
+    },
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.3338
+    },
+    {
+      "taxonomy": "tool.productivity.calendar",
+      "score": 0.3137
+    },
+    {
+      "taxonomy": "tool.productivity.scheduling",
+      "score": 0.3085
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.video.generation for \"6s lifestyle clip, ADHD user feeling focused at desk\" (0.350). The user's task is to create a '6s lifestyle clip'—the core action is generating a short video, which directly matches the ai.video.generation taxonomy. The mention of 'ADHD user feeling focused at desk' describes the video's content/domain, not the action itself, so productivity-related tool taxonomies are not appropriate.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

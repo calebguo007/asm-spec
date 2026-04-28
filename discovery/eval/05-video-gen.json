@@ -1,0 +1,33 @@
+{
+  "id": 5,
+  "category": "video-gen",
+  "prompt": "6s product demo, screen recording style, highlight timer feature",
+  "expected_taxonomy": "ai.video.generation",
+  "matched_taxonomy": "tool.data.screenshot",
+  "confidence": 0.4676,
+  "candidates": [
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.4727
+    },
+    {
+      "taxonomy": "tool.data.screenshot",
+      "score": 0.4676
+    },
+    {
+      "taxonomy": "tool.productivity.scheduling",
+      "score": 0.4477
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.4472
+    },
+    {
+      "taxonomy": "tool.productivity.spreadsheet",
+      "score": 0.4424
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.screenshot for \"6s product demo, screen recording style, highlight timer feature\" (0.468). The user's action is capturing or creating a screen recording, which aligns with the screenshot tool's function of capturing screen content, rather than the domain of productivity or scheduling.",
+  "correct": false,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

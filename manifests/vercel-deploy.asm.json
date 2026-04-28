@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "vercel/platform@v1",
+  "taxonomy": "tool.devops.deployment",
+  "display_name": "Vercel",
+  "provenance": {
+    "source_url": "https://vercel.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Vercel",
+    "url": "https://vercel.com"
+  },
+  "capabilities": {
+    "description": "Frontend deployment platform — instant deploys, edge functions, and preview environments for every PR",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_deployment",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "Free for hobby projects"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "1s",
+    "latency_p99": "5s",
+    "uptime": 0.999,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://vercel.com",
+    "onchain_address": "0xf321B3EA2469266CA49b571c416B157b76eda49d",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_edge_functions": true,
+      "supports_preview": true,
+      "supports_analytics": true
+    }
+  }
+}

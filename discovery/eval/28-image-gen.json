@@ -1,0 +1,33 @@
+{
+  "id": 28,
+  "category": "image-gen",
+  "prompt": "Social ad banner, product UI screenshot + tagline, 1200x628",
+  "expected_taxonomy": "ai.vision.image_generation",
+  "matched_taxonomy": "ai.vision.image_generation",
+  "confidence": 0.4563,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.screenshot",
+      "score": 0.5273
+    },
+    {
+      "taxonomy": "ai.vision.image_generation",
+      "score": 0.4563
+    },
+    {
+      "taxonomy": "ai.llm.chat",
+      "score": 0.4512
+    },
+    {
+      "taxonomy": "ai.video.generation",
+      "score": 0.4253
+    },
+    {
+      "taxonomy": "tool.data.analytics",
+      "score": 0.4208
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.vision.image_generation for \"Social ad banner, product UI screenshot + tagline, 1200x628\" (0.456). The user's action is generating a visual asset (social ad banner with product UI screenshot and tagline at specific dimensions), which aligns with creating an image, not taking a screenshot or performing other actions.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

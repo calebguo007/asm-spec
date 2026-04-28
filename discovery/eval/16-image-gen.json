@@ -1,0 +1,33 @@
+{
+  "id": 16,
+  "category": "image-gen",
+  "prompt": "App icon, focus bear mascot, flat design, 512x512",
+  "expected_taxonomy": "ai.vision.image_generation",
+  "matched_taxonomy": "ai.vision.image_generation",
+  "confidence": 0.378,
+  "candidates": [
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.3808
+    },
+    {
+      "taxonomy": "ai.vision.image_generation",
+      "score": 0.378
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.3693
+    },
+    {
+      "taxonomy": "tool.productivity.calendar",
+      "score": 0.3573
+    },
+    {
+      "taxonomy": "tool.data.visualization",
+      "score": 0.3554
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.vision.image_generation for \"App icon, focus bear mascot, flat design, 512x512\" (0.378). The user's task is to create an app icon with specific visual attributes (mascot, flat design, dimensions), which is an action of generating an image, not managing forms, documents, calendars, or data visualization.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

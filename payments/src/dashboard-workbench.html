@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0; url=./dashboard.html">
+  <title>ASM Registry Workbench</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #050608;
+      color: rgba(255, 255, 255, 0.78);
+      font-family: "SF Mono", "Fira Mono", Menlo, monospace;
+      display: grid;
+      place-items: center;
+    }
+
+    a {
+      color: #a394e8;
+    }
+
+    /* ── Powered by Strip ── */
+    .powered-by-strip {
+      position:fixed; top:0; left:0; right:0; z-index:999;
+      display:flex; align-items:center; gap:10px;
+      height:32px; padding:0 16px;
+      background:rgba(5,6,8,0.92);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      font-size:12px; font-weight:500;
+      color:rgba(255,255,255,0.45);
+    }
+    .pb-label { letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.28); }
+    .pb-logo { white-space:nowrap; }
+    .pb-logo.pb-arc { color:#5ac8a0; }
+    .pb-logo.pb-arc::before { content:"●"; margin-right:4px; font-size:9px; vertical-align:middle; }
+    .pb-logo.pb-circle { color:#3e7bfa; }
+    .pb-logo.pb-circle::before { content:"◆"; margin-right:4px; font-size:9px; vertical-align:middle; }
+    .pb-divider { color:rgba(255,255,255,0.15); }
+    .pb-chain { font-size:11px; color:rgba(255,255,255,0.22); }
+  </style>
+</head>
+<body>
+  <!-- Powered by Strip -->
+  <div class="powered-by-strip">
+    <span class="pb-label">Powered by</span>
+    <span class="pb-logo pb-arc">Arc Testnet</span>
+    <span class="pb-divider">&times;</span>
+    <span class="pb-logo pb-circle">Circle x402</span>
+    <span class="pb-chain">eip155:5042002 &middot; USDC settlement</span>
+  </div>
+
+  <p>Opening <a href="./dashboard.html">ASM Registry Workbench</a>…</p>
+  <script>
+    location.replace("./dashboard.html");
+  </script>
+</body>
+</html>

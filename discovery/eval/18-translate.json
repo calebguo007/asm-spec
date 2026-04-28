@@ -1,0 +1,33 @@
+{
+  "id": 18,
+  "category": "translate",
+  "prompt": "Translate to Simplified Chinese, localize idioms",
+  "expected_taxonomy": "ai.nlp.translation",
+  "matched_taxonomy": "ai.nlp.translation",
+  "confidence": 0.3638,
+  "candidates": [
+    {
+      "taxonomy": "ai.nlp.translation",
+      "score": 0.3638
+    },
+    {
+      "taxonomy": "tool.data.geolocation",
+      "score": 0.2984
+    },
+    {
+      "taxonomy": "tool.communication.sms",
+      "score": 0.2687
+    },
+    {
+      "taxonomy": "ai.llm.embedding",
+      "score": 0.2669
+    },
+    {
+      "taxonomy": "tool.communication.email",
+      "score": 0.2623
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.nlp.translation for \"Translate to Simplified Chinese, localize idioms\" (0.364). The user's primary action is translation (converting text to Simplified Chinese) and localization (adapting idioms), which directly aligns with the ai.nlp.translation taxonomy. Other candidates like tool.data.geolocation or communication tools are irrelevant to the core verb 'translate/localize'.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

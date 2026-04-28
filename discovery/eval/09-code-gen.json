@@ -1,0 +1,33 @@
+{
+  "id": 9,
+  "category": "code-gen",
+  "prompt": "Generate Google Analytics 4 snippet for campaign tracking",
+  "expected_taxonomy": "ai.code.completion",
+  "matched_taxonomy": "ai.code.completion",
+  "confidence": 0.4742,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.analytics",
+      "score": 0.5724
+    },
+    {
+      "taxonomy": "ai.code.completion",
+      "score": 0.4742
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.4136
+    },
+    {
+      "taxonomy": "tool.productivity.calendar",
+      "score": 0.3881
+    },
+    {
+      "taxonomy": "tool.communication.email",
+      "score": 0.3877
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.code.completion for \"Generate Google Analytics 4 snippet for campaign tracking\" (0.474). The user's action is 'Generate' a code snippet (specifically a Google Analytics 4 snippet), which aligns with generating code, not with the domain of analytics itself.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

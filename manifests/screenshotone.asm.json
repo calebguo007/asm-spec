@@ -1,0 +1,69 @@
+{
+  "asm_version": "0.3",
+  "service_id": "screenshotone/api@v1",
+  "taxonomy": "tool.data.screenshot",
+  "display_name": "ScreenshotOne",
+  "provenance": {
+    "source_url": "https://screenshotone.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "ScreenshotOne",
+    "url": "https://screenshotone.com"
+  },
+  "capabilities": {
+    "description": "Website screenshot API — capture full-page screenshots, generate OG images, and render HTML to PNG/PDF",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "image"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_screenshot",
+        "cost_per_unit": 0.001,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "100 screenshots/month free"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "3s",
+    "latency_p99": "10s",
+    "uptime": 0.998,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://screenshotone.com",
+    "onchain_address": "0xF3905FBA470320034f71C7e8f8A6e4Fa1828ebc4",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_full_page": true,
+      "supports_pdf": true,
+      "supports_og_images": true
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "supabase/database@v2",
+  "taxonomy": "infra.database.postgres",
+  "display_name": "Supabase",
+  "provenance": {
+    "source_url": "https://supabase.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Supabase",
+    "url": "https://supabase.com"
+  },
+  "capabilities": {
+    "description": "Managed Postgres database with real-time subscriptions, Row Level Security, and auto-generated REST/GraphQL APIs",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_1_gb_month",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "500MB storage, 50K monthly active users"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "15ms",
+    "latency_p99": "80ms",
+    "uptime": 0.999,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://supabase.com",
+    "onchain_address": "0x8955Cd6ee061aA0a15d21e08Ce9631A5774D6F2c",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_realtime": true,
+      "supports_auth": true,
+      "supports_storage": true
+    }
+  }
+}

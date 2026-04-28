@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "pinecone/index@v3",
+  "taxonomy": "infra.database.vector",
+  "display_name": "Pinecone",
+  "provenance": {
+    "source_url": "https://www.pinecone.io",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Pinecone",
+    "url": "https://www.pinecone.io"
+  },
+  "capabilities": {
+    "description": "Managed vector database — store and query embeddings for semantic search, RAG, and recommendation systems",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_query",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "100K vectors free on starter plan"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "20ms",
+    "latency_p99": "80ms",
+    "uptime": 0.999,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://www.pinecone.io",
+    "onchain_address": "0xC7aB1B2720e8f5e421ac32Fe1A04Ecf5b566bA50",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_metadata_filtering": true,
+      "supports_namespaces": true,
+      "serverless": true
+    }
+  }
+}

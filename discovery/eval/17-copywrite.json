@@ -1,0 +1,33 @@
+{
+  "id": 17,
+  "category": "copywrite",
+  "prompt": "Twitter/X post, 240 chars, product launch announcement",
+  "expected_taxonomy": "ai.llm.chat",
+  "matched_taxonomy": "tool.communication.chat",
+  "confidence": 0.4722,
+  "candidates": [
+    {
+      "taxonomy": "tool.communication.sms",
+      "score": 0.5019
+    },
+    {
+      "taxonomy": "tool.productivity.project",
+      "score": 0.4759
+    },
+    {
+      "taxonomy": "tool.communication.chat",
+      "score": 0.4722
+    },
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.4715
+    },
+    {
+      "taxonomy": "tool.communication.email",
+      "score": 0.4549
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.communication.chat for \"Twitter/X post, 240 chars, product launch announcement\" (0.472). The user's action is writing a short-form social media post, which is a text composition task similar to chat or messaging, not managing projects, tasks, or emails. Among the candidates, tool.communication.chat best matches the action of crafting brief textual content for a communication platform.",
+  "correct": false,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

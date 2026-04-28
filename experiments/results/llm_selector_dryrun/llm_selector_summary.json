@@ -1,0 +1,109 @@
+{
+  "generated_at": "2026-04-28T10:08:34Z",
+  "tasks": 20,
+  "seed": 2024,
+  "provider": null,
+  "model": null,
+  "ran_llm": false,
+  "selectors": [
+    "raw_doc",
+    "manifest"
+  ],
+  "runs_per_task": 1,
+  "max_candidates": 5,
+  "summary": {
+    "asm_topsis": {
+      "count": 20,
+      "utility_mean": 0.8972,
+      "regret_mean": 0.0,
+      "constraint_violation_rate": 0.0,
+      "parse_failure_rate": 0.0,
+      "prompt_chars_mean": 0.0,
+      "completion_chars_mean": 0.0,
+      "cost_mean": 0.003595513,
+      "latency_mean": 7.0649,
+      "quality_mean": 0.7143
+    },
+    "cheapest_first": {
+      "count": 20,
+      "utility_mean": 0.7472,
+      "regret_mean": 0.15,
+      "constraint_violation_rate": 0.0,
+      "parse_failure_rate": 0.0,
+      "prompt_chars_mean": 0.0,
+      "completion_chars_mean": 0.0,
+      "cost_mean": 0.003595513,
+      "latency_mean": 7.0674,
+      "quality_mean": 0.7143
+    },
+    "fastest_first": {
+      "count": 20,
+      "utility_mean": 0.8355,
+      "regret_mean": 0.0617,
+      "constraint_violation_rate": 0.0,
+      "parse_failure_rate": 0.0,
+      "prompt_chars_mean": 0.0,
+      "completion_chars_mean": 0.0,
+      "cost_mean": 0.020895513,
+      "latency_mean": 5.5449,
+      "quality_mean": 0.7185
+    },
+    "highest_quality_first": {
+      "count": 20,
+      "utility_mean": 0.5023,
+      "regret_mean": 0.3949,
+      "constraint_violation_rate": 0.0,
+      "parse_failure_rate": 0.0,
+      "prompt_chars_mean": 0.0,
+      "completion_chars_mean": 0.0,
+      "cost_mean": 0.021317268,
+      "latency_mean": 5.9524,
+      "quality_mean": 0.7489
+    },
+    "most_expensive_first": {
+      "count": 20,
+      "utility_mean": 0.2025,
+      "regret_mean": 0.6946,
+      "constraint_violation_rate": 0.0,
+      "parse_failure_rate": 0.0,
+      "prompt_chars_mean": 0.0,
+      "completion_chars_mean": 0.0,
+      "cost_mean": 0.021831268,
+      "latency_mean": 6.0224,
+      "quality_mean": 0.5559
+    },
+    "weighted_average": {
+      "count": 20,
+      "utility_mean": 0.8436,
+      "regret_mean": 0.0536,
+      "constraint_violation_rate": 0.0,
+      "parse_failure_rate": 0.0,
+      "prompt_chars_mean": 0.0,
+      "completion_chars_mean": 0.0,
+      "cost_mean": 0.0207955155,
+      "latency_mean": 5.5574,
+      "quality_mean": 0.7177
+    }
+  },
+  "prompt_summary": {
+    "llm_manifest": {
+      "count": 20,
+      "prompt_chars_mean": 3981.5,
+      "prompt_chars_max": 4410,
+      "estimated_prompt_tokens_mean": 995.4
+    },
+    "llm_raw_doc": {
+      "count": 20,
+      "prompt_chars_mean": 7967.6,
+      "prompt_chars_max": 8657,
+      "estimated_prompt_tokens_mean": 1991.9
+    }
+  },
+  "fetch_summary": {
+    "count": 40,
+    "unique_sources": 24,
+    "cache_hit_rate": 1.0,
+    "unavailable_rate": 0.0,
+    "returned_chars_mean": 3675.9
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": 19,
+  "category": "tts",
+  "prompt": "Voiceover script B, male voice, 15s, energetic",
+  "expected_taxonomy": "ai.audio.tts",
+  "matched_taxonomy": "ai.audio.tts",
+  "confidence": 0.4978,
+  "candidates": [
+    {
+      "taxonomy": "ai.audio.tts",
+      "score": 0.4978
+    },
+    {
+      "taxonomy": "ai.audio.stt",
+      "score": 0.4538
+    },
+    {
+      "taxonomy": "tool.communication.sms",
+      "score": 0.384
+    },
+    {
+      "taxonomy": "ai.video.generation",
+      "score": 0.3809
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.3799
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.audio.tts for \"Voiceover script B, male voice, 15s, energetic\" (0.498). The user's action is generating a voiceover script with specific vocal characteristics (male voice, energetic), which involves converting text to speech, aligning with ai.audio.tts for text-to-speech synthesis, not other domains like speech recognition (ai.audio.stt) or video creation (ai.video.generation).",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

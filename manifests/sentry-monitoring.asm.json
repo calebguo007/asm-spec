@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "sentry/error-tracking@v1",
+  "taxonomy": "tool.devops.monitoring",
+  "display_name": "Sentry",
+  "provenance": {
+    "source_url": "https://sentry.io",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Sentry",
+    "url": "https://sentry.io"
+  },
+  "capabilities": {
+    "description": "Error tracking and performance monitoring — catch exceptions, trace transactions, and alert on anomalies",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_event",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "5K errors/month free"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "50ms",
+    "latency_p99": "200ms",
+    "uptime": 0.999,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://sentry.io",
+    "onchain_address": "0xf70C1176AA1dd83fEbD130475c49F59f09b85b3E",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_sourcemaps": true,
+      "supports_performance": true,
+      "supports_replays": true
+    }
+  }
+}

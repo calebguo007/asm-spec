@@ -1,0 +1,82 @@
+{
+  "asm_version": "0.3",
+  "service_id": "tavily/search-api@v1",
+  "taxonomy": "tool.data.search",
+  "display_name": "Tavily Search",
+  "provenance": {
+    "source_url": "https://tavily.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 3600,
+  "provider": {
+    "name": "Tavily",
+    "url": "https://tavily.com"
+  },
+  "capabilities": {
+    "description": "AI-optimized search API — returns structured, relevant results designed for LLM consumption, not raw HTML",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "structured_data",
+      "text"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "search_query",
+        "unit": "per_1",
+        "cost_per_unit": 0.001,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "1000 queries/month"
+  },
+  "quality": {
+    "metrics": [
+      {
+        "name": "Relevance_Score",
+        "score": 0.92,
+        "scale": "1.0",
+        "benchmark": "Internal benchmark vs Google Search",
+        "evaluated_at": "2026-03-01",
+        "self_reported": true
+      }
+    ]
+  },
+  "sla": {
+    "latency_p50": "800ms",
+    "latency_p99": "3s",
+    "uptime": 0.998,
+    "rate_limit": "100 req/min"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://tavily.com",
+    "onchain_address": "0xF7cDd620b3C9e20203bf12440973989743Baf92F",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_answer_extraction": true,
+      "supports_topic_filtering": true,
+      "supports_news_search": true,
+      "llm_optimized": true,
+      "integrations": [
+        "langchain",
+        "llamaindex",
+        "openai_plugins"
+      ]
+    }
+  }
+}

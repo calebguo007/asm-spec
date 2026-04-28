@@ -1,0 +1,86 @@
+{
+  "asm_version": "0.3",
+  "service_id": "twilio/sendgrid@v3",
+  "taxonomy": "tool.communication.email",
+  "display_name": "SendGrid",
+  "provenance": {
+    "source_url": "https://sendgrid.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Twilio",
+    "url": "https://sendgrid.com",
+    "verified_by": [
+      "twilio"
+    ]
+  },
+  "capabilities": {
+    "description": "Enterprise email delivery platform — transactional, marketing emails with advanced analytics and deliverability tools",
+    "input_modalities": [
+      "structured_data",
+      "text"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "email",
+        "unit": "per_1",
+        "cost_per_unit": 0.00035,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "100 emails/day"
+  },
+  "quality": {
+    "metrics": [
+      {
+        "name": "G2_Rating",
+        "score": 4,
+        "scale": "5.0",
+        "benchmark": "G2 Crowd Reviews",
+        "evaluated_at": "2026-03-01",
+        "self_reported": false
+      }
+    ]
+  },
+  "sla": {
+    "latency_p50": "400ms",
+    "latency_p99": "1.5s",
+    "uptime": 0.999,
+    "rate_limit": "600 req/s"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "invoice",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://signup.sendgrid.com",
+    "onchain_address": "0x04E242C36b6a91a33f9Af6dcEc46958F9F6B641c",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_templates": true,
+      "supports_webhooks": true,
+      "supports_analytics": true,
+      "supports_ip_warmup": true,
+      "integrations": [
+        "twilio",
+        "segment",
+        "salesforce"
+      ]
+    }
+  }
+}

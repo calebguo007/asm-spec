@@ -69,7 +69,7 @@ The MCP server exposes 5 tools: `asm_list`, `asm_get`, `asm_query`, `asm_compare
 
 ```json
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "anthropic/claude-sonnet-4@4.0",
   "taxonomy": "ai.llm.chat",
   "display_name": "Claude Sonnet 4",
@@ -138,13 +138,13 @@ Selection + Execution
 
 ---
 
-## Schema (v0.2)
+## Schema (v0.3)
 
 ASM manifests are JSON documents with **only 3 required fields**:
 
 ```json
 {
-  "asm_version": "0.2",
+  "asm_version": "0.3",
   "service_id": "anthropic/claude-sonnet-4@4.0",
   "taxonomy": "ai.llm.chat"
 }
@@ -154,17 +154,18 @@ Everything else is optional — services expose what they can:
 
 | Module | What it describes | Key fields |
 |---|---|---|
-| **pricing** | Cost structure | `billing_dimensions` (12 types), `tiers`, `conditions`, `batch_discount` |
+| **pricing** | Cost structure | open `billing_dimensions`, `tiers`, `conditions`, `batch_discount` |
 | **quality** | Performance metrics | `metrics` (benchmark + `self_reported` flag), `leaderboard_rank` |
 | **sla** | Reliability | `latency_p50/p99`, `uptime`, `rate_limit`, `cold_start`, `regions` |
 | **payment** | How to pay | `methods`, `auth_type`, `ap2_endpoint` |
+| **provenance** | Source traceability | `source_url`, `retrieved_at`, `last_verified_at`, `verification_status` |
 | **extensions** | Category-specific | Namespaced fields (e.g., `llm.supports_vision`, `image_gen.max_resolution`) |
 
-Full schema: [`schema/asm-v0.2.schema.json`](schema/asm-v0.2.schema.json)
+Full schema: [`schema/asm-v0.3.schema.json`](schema/asm-v0.3.schema.json)
 
-### Taxonomy (18 categories)
+### Taxonomy (47 categories)
 
-Hierarchical, prefix-queryable (e.g., `ai.llm.*` returns all LLM services):
+Hierarchical, prefix-queryable (e.g., `ai.llm.*` returns all LLM services). Excerpt:
 
 ```
 ai.llm.chat                     ai.audio.tts
@@ -185,8 +186,8 @@ ai.video.editing                 infra.storage.vector
 ```
 asm-spec/
 ├── schema/
-│   └── asm-v0.2.schema.json        # Formal JSON Schema
-├── manifests/                        # 14 real-world service manifests
+│   └── asm-v0.3.schema.json        # Formal JSON Schema
+├── manifests/                        # 70 real-world service manifests
 │   ├── anthropic-claude-sonnet-4.asm.json
 │   ├── openai-gpt-4o.asm.json
 │   ├── google-gemini-2.5-pro.asm.json
@@ -202,8 +203,8 @@ asm-spec/
 │   ├── replicate-gpu.asm.json
 │   └── runpod-gpu.asm.json
 ├── schema/
-│   ├── asm-v0.2.schema.json          # Formal JSON Schema (v0.2)
-│   └── asm-v0.3.schema.json          # v0.3 Schema (+receipt_endpoint, verification, updated_at, ttl)
+│   ├── asm-v0.2.schema.json          # Legacy JSON Schema (v0.2)
+│   └── asm-v0.3.schema.json          # Current schema (+provenance, receipt_endpoint, verification, updated_at, ttl)
 ├── scorer/
 │   └── scorer.py                     # Filter + TOPSIS + Trust Delta scoring engine
 ├── registry/
@@ -217,7 +218,7 @@ asm-spec/
     └── sep-asm-service-value.md      # SEP proposal for MCP specification
 ```
 
-### 14 Services Across 6 Categories
+### 70 Services Across 47 Taxonomies
 
 | Category | Services |
 |---|---|
@@ -303,7 +304,7 @@ The `asm:` namespace is registered for receipt type fields:
 - `asm:service_selection` — records which service was chosen, from which candidate pool, and why
 - Receipt payloads carry `service_id` and `taxonomy` from the manifest for full traceability
 
-Integration status: active collaboration with the [Agent Receipts](https://github.com/nicholasgriffintn/agent-receipts) team. Schema v0.3 will add `receipt_endpoint`, `verification.protocol`, and `verification.public_key` fields.
+Integration status: active collaboration with the [Agent Receipts](https://github.com/nicholasgriffintn/agent-receipts) team. Schema v0.3 includes `receipt_endpoint`, `verification.protocol`, `verification.public_key`, and manifest provenance fields.
 
 ---
 
@@ -345,11 +346,11 @@ Integration status: active collaboration with the [Agent Receipts](https://githu
 
 - [x] Schema v0.2 (JSON Schema)
 - [x] 18-category taxonomy
-- [x] 14 real-world manifests (6 categories)
+- [x] 70 real-world manifests (47 taxonomies)
 - [x] Scorer (Weighted Average + TOPSIS)
 - [x] MCP Server (5 tools)
 - [x] E2E demo (5 scenarios)
-- [x] Schema v0.3 (`receipt_endpoint`, `verification`, `updated_at`, `ttl`)
+- [x] Schema v0.3 (`provenance`, `receipt_endpoint`, `verification`, `updated_at`, `ttl`)
 - [x] Trust delta scoring with exponential decay
 - [x] Signed Receipts integration demo
 - [x] arXiv preprint

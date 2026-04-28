@@ -1,0 +1,69 @@
+{
+  "asm_version": "0.3",
+  "service_id": "fly/machines@v1",
+  "taxonomy": "tool.devops.deployment",
+  "display_name": "Fly.io",
+  "provenance": {
+    "source_url": "https://fly.io",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Fly.io",
+    "url": "https://fly.io"
+  },
+  "capabilities": {
+    "description": "Deploy full-stack apps globally — containers, databases, and persistent storage close to users",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_cpu_second",
+        "cost_per_unit": 0.0000031,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "3 shared VMs free"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "2s",
+    "latency_p99": "8s",
+    "uptime": 0.998,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://fly.io",
+    "onchain_address": "0xeac1843e2eAD31237CA8fC46d22bC77fc025D2F4",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_gpu": true,
+      "supports_volumes": true,
+      "global_regions": true
+    }
+  }
+}

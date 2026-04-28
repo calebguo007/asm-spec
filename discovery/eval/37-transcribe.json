@@ -1,0 +1,33 @@
+{
+  "id": 37,
+  "category": "transcribe",
+  "prompt": "Transcribe ADHD productivity podcast clip (90s) for quotable lines",
+  "expected_taxonomy": "ai.audio.stt",
+  "matched_taxonomy": "ai.audio.stt",
+  "confidence": 0.3595,
+  "candidates": [
+    {
+      "taxonomy": "ai.audio.stt",
+      "score": 0.3595
+    },
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.3344
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.329
+    },
+    {
+      "taxonomy": "tool.productivity.calendar",
+      "score": 0.3111
+    },
+    {
+      "taxonomy": "tool.productivity.project",
+      "score": 0.2922
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.audio.stt for \"Transcribe ADHD productivity podcast clip (90s) for quotable lines\" (0.359). The user's primary action is transcribing audio (a podcast clip), which is a speech-to-text task. The domain is productivity, but the verb is transcription, making ai.audio.stt the correct choice for the action, not productivity tools.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

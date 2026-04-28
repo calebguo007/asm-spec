@@ -3,6 +3,13 @@
   "service_id": "elevenlabs/tts-v2@2.0",
   "taxonomy": "ai.audio.tts",
   "display_name": "ElevenLabs TTS v2",
+  "provenance": {
+    "source_url": "https://elevenlabs.io",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
   "updated_at": "2026-04-10T00:00:00Z",
   "ttl": 3600,
   "provider": {
@@ -41,7 +48,7 @@
       {
         "dimension": "character",
         "unit": "per_1M",
-        "cost_per_unit": 180.0,
+        "cost_per_unit": 180,
         "currency": "USD"
       }
     ]

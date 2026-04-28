@@ -1,0 +1,33 @@
+{
+  "id": 39,
+  "category": "image-gen",
+  "prompt": "Thumbnail for short video, bold text overlay, 720x1280",
+  "expected_taxonomy": "ai.vision.image_generation",
+  "matched_taxonomy": "ai.vision.image_generation",
+  "confidence": 0.4134,
+  "candidates": [
+    {
+      "taxonomy": "ai.video.generation",
+      "score": 0.4994
+    },
+    {
+      "taxonomy": "tool.data.screenshot",
+      "score": 0.4707
+    },
+    {
+      "taxonomy": "tool.data.conversion",
+      "score": 0.4135
+    },
+    {
+      "taxonomy": "ai.vision.image_generation",
+      "score": 0.4134
+    },
+    {
+      "taxonomy": "tool.communication.sms",
+      "score": 0.4015
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.vision.image_generation for \"Thumbnail for short video, bold text overlay, 720x1280\" (0.413). The user's action is creating a thumbnail (a static image) with specific design elements (bold text overlay, dimensions 720x1280), which involves generating an image, not generating a video or taking a screenshot. Therefore, ai.vision.image_generation is the correct taxonomy for the image creation action, despite the mention of 'short video' as the domain.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

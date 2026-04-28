@@ -1,0 +1,33 @@
+{
+  "id": 38,
+  "category": "search",
+  "prompt": "Find TikTok creators in ADHD niche with 10k-100k followers",
+  "expected_taxonomy": "tool.data.search",
+  "matched_taxonomy": "tool.data.search",
+  "confidence": 0.3315,
+  "candidates": [
+    {
+      "taxonomy": "ai.llm.chat",
+      "score": 0.3547
+    },
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.3526
+    },
+    {
+      "taxonomy": "tool.communication.chat",
+      "score": 0.3482
+    },
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.3315
+    },
+    {
+      "taxonomy": "ai.video.generation",
+      "score": 0.329
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.search for \"Find TikTok creators in ADHD niche with 10k-100k followers\" (0.332). The user's action is searching for specific data (TikTok creators in a niche with follower constraints), not generating content or managing tasks. The taxonomy tool.data.search directly corresponds to the search action, while other candidates address unrelated actions like chatting, generating video, or managing to-dos.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

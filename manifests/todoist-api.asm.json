@@ -1,0 +1,95 @@
+{
+  "asm_version": "0.3",
+  "service_id": "todoist/api@v2",
+  "taxonomy": "tool.productivity.todo",
+  "display_name": "Todoist",
+  "provenance": {
+    "source_url": "https://todoist.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Doist",
+    "url": "https://todoist.com"
+  },
+  "capabilities": {
+    "description": "Full-featured task management API — create, update, complete tasks with due dates, labels, priorities, and reminders",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko",
+      "fr",
+      "de",
+      "es",
+      "pt",
+      "ru"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_1",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "5 projects, 5 collaborators",
+    "pro_price_monthly": 4
+  },
+  "quality": {
+    "metrics": [
+      {
+        "name": "G2_Rating",
+        "score": 4.4,
+        "scale": "5.0",
+        "benchmark": "G2 Crowd Reviews",
+        "evaluated_at": "2026-03-01",
+        "self_reported": false
+      }
+    ]
+  },
+  "sla": {
+    "latency_p50": "120ms",
+    "latency_p99": "500ms",
+    "uptime": 0.999,
+    "rate_limit": "450 req/15min"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://todoist.com/users/showregister",
+    "onchain_address": "0x29e22B366fBbcE9bdc12De5FD992D1925174F9C1",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_webhooks": true,
+      "supports_recurring_tasks": true,
+      "supports_reminders": true,
+      "supports_collaboration": true,
+      "mobile_apps": true,
+      "integrations": [
+        "google_calendar",
+        "slack",
+        "zapier",
+        "ifttt"
+      ]
+    }
+  }
+}

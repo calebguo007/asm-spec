@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "cloudconvert/api@v2",
+  "taxonomy": "tool.data.conversion",
+  "display_name": "CloudConvert",
+  "provenance": {
+    "source_url": "https://cloudconvert.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Lunaweb",
+    "url": "https://cloudconvert.com"
+  },
+  "capabilities": {
+    "description": "File conversion API — convert between 200+ formats including PDF, DOCX, images, video, and audio",
+    "input_modalities": [
+      "binary"
+    ],
+    "output_modalities": [
+      "binary"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_conversion",
+        "cost_per_unit": 0.001,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "25 conversions/day free"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "2s",
+    "latency_p99": "15s",
+    "uptime": 0.998,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://cloudconvert.com",
+    "onchain_address": "0xbcC6cBBC866442e652dc2068b23221A4c4351179",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "formats": 200,
+      "supports_batch": true
+    }
+  }
+}

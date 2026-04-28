@@ -1,0 +1,33 @@
+{
+  "id": 45,
+  "category": "copywrite",
+  "prompt": "Email subject line, under 50 chars, curiosity-driven",
+  "expected_taxonomy": "ai.llm.chat",
+  "matched_taxonomy": "tool.communication.email",
+  "confidence": 0.5384,
+  "candidates": [
+    {
+      "taxonomy": "tool.communication.email",
+      "score": 0.5384
+    },
+    {
+      "taxonomy": "tool.communication.sms",
+      "score": 0.4501
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.4449
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.4349
+    },
+    {
+      "taxonomy": "tool.communication.chat",
+      "score": 0.4101
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.communication.email for \"Email subject line, under 50 chars, curiosity-driven\" (0.538). The user's action is generating an email subject line, which is a specific function within email communication, not a general writing or AI task. The taxonomy tool.communication.email directly matches the action of creating email content, unlike broader categories like chat or document creation.",
+  "correct": false,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

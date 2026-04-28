@@ -1,0 +1,70 @@
+{
+  "asm_version": "0.3",
+  "service_id": "google/maps-platform@v1",
+  "taxonomy": "tool.data.geolocation",
+  "display_name": "Google Maps Platform",
+  "provenance": {
+    "source_url": "https://mapsplatform.google.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Google",
+    "url": "https://mapsplatform.google.com"
+  },
+  "capabilities": {
+    "description": "Geocoding, directions, places search, and distance matrix — location intelligence for any Agent task",
+    "input_modalities": [
+      "text",
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_request",
+        "cost_per_unit": 0.005,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "$200/month free credit"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "100ms",
+    "latency_p99": "400ms",
+    "uptime": 0.9999,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://mapsplatform.google.com",
+    "onchain_address": "0x8eB681fe4fbEecA210669bb0eA7EF5C05Ab2eE28",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_directions": true,
+      "supports_places": true,
+      "supports_geocoding": true
+    }
+  }
+}

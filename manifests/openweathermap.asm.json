@@ -1,0 +1,67 @@
+{
+  "asm_version": "0.3",
+  "service_id": "openweathermap/api@v3",
+  "taxonomy": "tool.data.weather",
+  "display_name": "OpenWeatherMap",
+  "provenance": {
+    "source_url": "https://openweathermap.org",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "OpenWeather",
+    "url": "https://openweathermap.org"
+  },
+  "capabilities": {
+    "description": "Current weather, forecasts, and historical data for any location — temperature, humidity, wind, precipitation",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_request",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "1000 calls/day free"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "200ms",
+    "latency_p99": "600ms",
+    "uptime": 0.998,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://openweathermap.org",
+    "onchain_address": "0xB2a89543e9E0c03f5684445787e956fF8a39EFA2",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_forecast": true,
+      "supports_historical": true
+    }
+  }
+}

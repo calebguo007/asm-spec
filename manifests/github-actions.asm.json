@@ -1,0 +1,88 @@
+{
+  "asm_version": "0.3",
+  "service_id": "github/actions@v2",
+  "taxonomy": "tool.devops.ci",
+  "display_name": "GitHub Actions",
+  "provenance": {
+    "source_url": "https://github.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "GitHub (Microsoft)",
+    "url": "https://github.com",
+    "verified_by": [
+      "microsoft"
+    ]
+  },
+  "capabilities": {
+    "description": "CI/CD automation platform — build, test, deploy from GitHub repos with 13,000+ community actions",
+    "input_modalities": [
+      "structured_data",
+      "file"
+    ],
+    "output_modalities": [
+      "structured_data",
+      "file"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "ci_minute",
+        "unit": "per_1",
+        "cost_per_unit": 0.008,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "2000 minutes/month (public repos unlimited)"
+  },
+  "quality": {
+    "metrics": [
+      {
+        "name": "Market_Share",
+        "score": 0.62,
+        "scale": "1.0",
+        "benchmark": "CI/CD Market Share 2026",
+        "evaluated_at": "2026-01-01",
+        "self_reported": false
+      }
+    ]
+  },
+  "sla": {
+    "latency_p50": "15s",
+    "latency_p99": "120s",
+    "uptime": 0.998,
+    "rate_limit": "500 concurrent jobs"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "github_billing",
+      "onchain_usdc"
+    ],
+    "auth_type": "github_token",
+    "signup_url": "https://github.com/features/actions",
+    "onchain_address": "0x34106Ef224F7FeC935f43340593AF1e314204745",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_matrix_builds": true,
+      "supports_self_hosted_runners": true,
+      "marketplace_actions": 13000,
+      "supports_docker": true,
+      "integrations": [
+        "github",
+        "docker",
+        "aws",
+        "azure",
+        "gcp"
+      ]
+    }
+  }
+}

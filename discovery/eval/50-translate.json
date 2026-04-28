@@ -1,0 +1,33 @@
+{
+  "id": 50,
+  "category": "translate",
+  "prompt": "Translate to Korean, preserve product name in katakana-style",
+  "expected_taxonomy": "ai.nlp.translation",
+  "matched_taxonomy": "tool.productivity.document",
+  "confidence": 0.4516,
+  "candidates": [
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.4516
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.4472
+    },
+    {
+      "taxonomy": "tool.productivity.calendar",
+      "score": 0.4442
+    },
+    {
+      "taxonomy": "tool.productivity.project",
+      "score": 0.4401
+    },
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.4378
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.productivity.document for \"Translate to Korean, preserve product name in katakana-style\" (0.452). The user's action is translation, which is a text manipulation task typically performed within a document or text editing context. Among the given candidates, 'tool.productivity.document' is the most appropriate as it directly relates to working with textual content, aligning with the core action of translating text while preserving specific formatting (katakana-style product names).",
+  "correct": false,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

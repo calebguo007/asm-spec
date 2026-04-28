@@ -1,0 +1,33 @@
+{
+  "id": 7,
+  "category": "scrape",
+  "prompt": "Scrape competitor Focusmate latest 10 posts + engagement",
+  "expected_taxonomy": "tool.data.scraping",
+  "matched_taxonomy": "tool.data.scraping",
+  "confidence": 0.5331,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.5426
+    },
+    {
+      "taxonomy": "tool.data.scraping",
+      "score": 0.5331
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.4696
+    },
+    {
+      "taxonomy": "tool.communication.chat",
+      "score": 0.4448
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.4239
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.scraping for \"Scrape competitor Focusmate latest 10 posts + engagement\" (0.533). The user's action is to scrape data (posts and engagement) from a competitor's source, which directly matches the data extraction function of tool.data.scraping, not the domain of search or other tools.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

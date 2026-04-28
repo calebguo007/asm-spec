@@ -1,0 +1,84 @@
+{
+  "asm_version": "0.3",
+  "service_id": "steel/browser@v1",
+  "taxonomy": "tool.automation.browser",
+  "display_name": "Steel Browser",
+  "provenance": {
+    "source_url": "https://steel.dev",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 3600,
+  "provider": {
+    "name": "Steel",
+    "url": "https://steel.dev"
+  },
+  "capabilities": {
+    "description": "Open-source browser API built for AI agents — session management, cookie persistence, and anti-detection for reliable web automation",
+    "input_modalities": [
+      "structured_data",
+      "text"
+    ],
+    "output_modalities": [
+      "structured_data",
+      "file",
+      "text"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "browser_minute",
+        "unit": "per_1",
+        "cost_per_unit": 0.005,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "self-hosted unlimited"
+  },
+  "quality": {
+    "metrics": [
+      {
+        "name": "GitHub_Stars",
+        "score": 4200,
+        "scale": "count",
+        "benchmark": "GitHub",
+        "evaluated_at": "2026-04-01",
+        "self_reported": false
+      }
+    ]
+  },
+  "sla": {
+    "latency_p50": "1.5s",
+    "latency_p99": "6s",
+    "uptime": 0.995,
+    "rate_limit": "100 concurrent sessions"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://steel.dev",
+    "onchain_address": "0x82c0538b1eD43E8eA88158D988D24c7647735e04",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "open_source": true,
+      "supports_stealth_mode": true,
+      "supports_proxy": true,
+      "supports_session_persistence": true,
+      "playwright_compatible": true,
+      "integrations": [
+        "playwright",
+        "puppeteer"
+      ]
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": 46,
+  "category": "translate",
+  "prompt": "Translate to Brazilian Portuguese, friendly tone",
+  "expected_taxonomy": "ai.nlp.translation",
+  "matched_taxonomy": "ai.nlp.translation",
+  "confidence": 0.3354,
+  "candidates": [
+    {
+      "taxonomy": "tool.communication.chat",
+      "score": 0.3897
+    },
+    {
+      "taxonomy": "tool.communication.sms",
+      "score": 0.3423
+    },
+    {
+      "taxonomy": "ai.audio.tts",
+      "score": 0.3418
+    },
+    {
+      "taxonomy": "ai.nlp.translation",
+      "score": 0.3354
+    },
+    {
+      "taxonomy": "tool.communication.email",
+      "score": 0.3304
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.nlp.translation for \"Translate to Brazilian Portuguese, friendly tone\" (0.335). The user's primary action is translation (converting text from one language to another), which directly matches the ai.nlp.translation taxonomy. The mention of 'friendly tone' is a stylistic constraint on the output, not the core action. Other candidates like tool.communication.* focus on communication domains (chat, SMS, email) rather than the translation verb, and ai.audio.tts is for speech synthesis, not translation.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

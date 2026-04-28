@@ -1,0 +1,33 @@
+{
+  "id": 8,
+  "category": "browse",
+  "prompt": "Open competitor pricing page in headless browser, capture full-page screenshot",
+  "expected_taxonomy": "tool.automation.browser",
+  "matched_taxonomy": "tool.data.screenshot",
+  "confidence": 0.5473,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.scraping",
+      "score": 0.5506
+    },
+    {
+      "taxonomy": "tool.data.screenshot",
+      "score": 0.5473
+    },
+    {
+      "taxonomy": "tool.automation.browser",
+      "score": 0.5273
+    },
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.5027
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.407
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.screenshot for \"Open competitor pricing page in headless browser, capture full-page screenshot\" (0.547). The user's primary action is 'capture full-page screenshot,' which directly aligns with taking a screenshot, not scraping data or automating a browser. The domain (competitor pricing page) is secondary to the verb 'capture screenshot.'",
+  "correct": false,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

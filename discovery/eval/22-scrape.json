@@ -1,0 +1,33 @@
+{
+  "id": 22,
+  "category": "scrape",
+  "prompt": "Scrape Reddit r/ADHD top posts of past week mentioning productivity apps",
+  "expected_taxonomy": "tool.data.scraping",
+  "matched_taxonomy": "tool.data.scraping",
+  "confidence": 0.4405,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.4752
+    },
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.4471
+    },
+    {
+      "taxonomy": "tool.data.scraping",
+      "score": 0.4405
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.4129
+    },
+    {
+      "taxonomy": "tool.productivity.calendar",
+      "score": 0.4088
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.scraping for \"Scrape Reddit r/ADHD top posts of past week mentioning productivity apps\" (0.441). The user's action is 'scrape' (extracting data from a website), which directly matches tool.data.scraping, not the domain (Reddit, ADHD, productivity apps) or other tool categories.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

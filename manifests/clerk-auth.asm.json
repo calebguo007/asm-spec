@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "clerk/auth@v5",
+  "taxonomy": "infra.auth.identity",
+  "display_name": "Clerk",
+  "provenance": {
+    "source_url": "https://clerk.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Clerk",
+    "url": "https://clerk.com"
+  },
+  "capabilities": {
+    "description": "Drop-in authentication and user management — social login, MFA, session management, and user profiles",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_mau",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "10K MAU free"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "60ms",
+    "latency_p99": "200ms",
+    "uptime": 0.999,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://clerk.com",
+    "onchain_address": "0x202911c1708d9226b8f9a8D6dA942953424d6A10",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_social_login": true,
+      "supports_mfa": true,
+      "supports_webhooks": true
+    }
+  }
+}

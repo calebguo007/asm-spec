@@ -1,0 +1,33 @@
+{
+  "id": 34,
+  "category": "scrape",
+  "prompt": "Scrape Product Hunt ADHD-related launches past 30 days",
+  "expected_taxonomy": "tool.data.scraping",
+  "matched_taxonomy": "tool.data.scraping",
+  "confidence": 0.5801,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.scraping",
+      "score": 0.5801
+    },
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.5798
+    },
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.5269
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.5036
+    },
+    {
+      "taxonomy": "tool.productivity.calendar",
+      "score": 0.4783
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.scraping for \"Scrape Product Hunt ADHD-related launches past 30 days\" (0.580). The user's action is 'scrape,' which involves extracting data from a website (Product Hunt). The domain (ADHD-related launches) is secondary; the primary verb is data scraping.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

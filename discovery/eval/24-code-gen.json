@@ -1,0 +1,33 @@
+{
+  "id": 24,
+  "category": "code-gen",
+  "prompt": "Generate TikTok Pixel install snippet for the landing page",
+  "expected_taxonomy": "ai.code.completion",
+  "matched_taxonomy": "ai.code.completion",
+  "confidence": 0.4799,
+  "candidates": [
+    {
+      "taxonomy": "ai.code.completion",
+      "score": 0.4799
+    },
+    {
+      "taxonomy": "tool.data.analytics",
+      "score": 0.4712
+    },
+    {
+      "taxonomy": "tool.data.screenshot",
+      "score": 0.4484
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.3952
+    },
+    {
+      "taxonomy": "tool.data.visualization",
+      "score": 0.3909
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.code.completion for \"Generate TikTok Pixel install snippet for the landing page\" (0.480). The user's action is 'Generate...snippet,' which is the act of creating code. The domain (TikTok Pixel, analytics) is secondary; the primary verb is generating code, matching ai.code.completion.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

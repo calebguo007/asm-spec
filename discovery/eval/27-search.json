@@ -1,0 +1,33 @@
+{
+  "id": 27,
+  "category": "search",
+  "prompt": "Find ADHD-focused newsletter sponsorship opportunities",
+  "expected_taxonomy": "tool.data.search",
+  "matched_taxonomy": "tool.data.search",
+  "confidence": 0.4215,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.4215
+    },
+    {
+      "taxonomy": "tool.communication.email",
+      "score": 0.3657
+    },
+    {
+      "taxonomy": "tool.productivity.calendar",
+      "score": 0.3627
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.3491
+    },
+    {
+      "taxonomy": "tool.business.crm",
+      "score": 0.3458
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.search for \"Find ADHD-focused newsletter sponsorship opportunities\" (0.421). The user's action is 'Find' (searching for opportunities), which is a data search task, not the domain of email, calendar, document, or CRM management.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

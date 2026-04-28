@@ -1,0 +1,33 @@
+{
+  "id": 44,
+  "category": "code-gen",
+  "prompt": "Generate webhook handler for Circle payment confirmation",
+  "expected_taxonomy": "ai.code.completion",
+  "matched_taxonomy": "tool.payment.processing",
+  "confidence": 0.5479,
+  "candidates": [
+    {
+      "taxonomy": "tool.payment.processing",
+      "score": 0.5479
+    },
+    {
+      "taxonomy": "tool.devops.ci",
+      "score": 0.371
+    },
+    {
+      "taxonomy": "tool.communication.email",
+      "score": 0.353
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.3401
+    },
+    {
+      "taxonomy": "tool.communication.sms",
+      "score": 0.3395
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.payment.processing for \"Generate webhook handler for Circle payment confirmation\" (0.548). The user's task is to generate a webhook handler for Circle payment confirmation, which is a development action related to processing payment events. The verb/action is 'generate a webhook handler,' which involves creating code to handle payment confirmations, but the taxonomy must reflect the action's domain-specific context. Among the candidates, tool.payment.processing directly aligns with the payment confirmation aspect, even though the action is code generation, as it best matches the domain of payment processing for webhook handling.",
+  "correct": false,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

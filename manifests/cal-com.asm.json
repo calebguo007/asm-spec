@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "cal/scheduling@v2",
+  "taxonomy": "tool.productivity.scheduling",
+  "display_name": "Cal.com",
+  "provenance": {
+    "source_url": "https://cal.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Cal.com",
+    "url": "https://cal.com"
+  },
+  "capabilities": {
+    "description": "Open-source scheduling infrastructure — booking pages, round-robin, and collective scheduling for teams",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_booking",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "Free for individuals"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "100ms",
+    "latency_p99": "400ms",
+    "uptime": 0.998,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://cal.com",
+    "onchain_address": "0x5f295F0799f67359ddF7A7E9e55257a0811c0b5d",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_round_robin": true,
+      "supports_collective": true,
+      "open_source": true
+    }
+  }
+}

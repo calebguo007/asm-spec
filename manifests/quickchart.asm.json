@@ -1,0 +1,73 @@
+{
+  "asm_version": "0.3",
+  "service_id": "quickchart/api@v1",
+  "taxonomy": "tool.data.visualization",
+  "display_name": "QuickChart",
+  "provenance": {
+    "source_url": "https://quickchart.io",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "QuickChart",
+    "url": "https://quickchart.io"
+  },
+  "capabilities": {
+    "description": "Chart image generation API — create bar, line, pie, radar, and scatter charts from data via URL or POST",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "image"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_chart",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "Free tier with watermark"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "200ms",
+    "latency_p99": "600ms",
+    "uptime": 0.998,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://quickchart.io",
+    "onchain_address": "0x08840F0d3acDD60d8fabf39CbB7D681cB5B00C9d",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "chart_types": [
+        "bar",
+        "line",
+        "pie",
+        "radar",
+        "scatter",
+        "doughnut"
+      ]
+    }
+  }
+}

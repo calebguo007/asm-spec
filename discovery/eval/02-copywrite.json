@@ -1,0 +1,33 @@
+{
+  "id": 2,
+  "category": "copywrite",
+  "prompt": "Instagram caption, 150 chars, witty, target ADHD adults 25-40",
+  "expected_taxonomy": "ai.llm.chat",
+  "matched_taxonomy": "ai.llm.chat",
+  "confidence": 0.4182,
+  "candidates": [
+    {
+      "taxonomy": "ai.llm.chat",
+      "score": 0.4182
+    },
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.3825
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.3657
+    },
+    {
+      "taxonomy": "tool.productivity.calendar",
+      "score": 0.3528
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.35
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.llm.chat for \"Instagram caption, 150 chars, witty, target ADHD adults 25-40\" (0.418). The user's task is to write a short, witty text caption. The action is generating text content, which aligns with ai.llm.chat (text generation/completion). The domain (Instagram) and target audience are secondary to the core action of writing.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

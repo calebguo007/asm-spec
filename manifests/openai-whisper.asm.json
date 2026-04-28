@@ -1,0 +1,69 @@
+{
+  "asm_version": "0.3",
+  "service_id": "openai/whisper@v1",
+  "taxonomy": "ai.audio.stt",
+  "display_name": "OpenAI Whisper",
+  "provenance": {
+    "source_url": "https://openai.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "OpenAI",
+    "url": "https://openai.com"
+  },
+  "capabilities": {
+    "description": "Automatic speech recognition — transcribe audio in 50+ languages with word-level timestamps",
+    "input_modalities": [
+      "audio"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_minute",
+        "cost_per_unit": 0.006,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "No free tier"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "3s",
+    "latency_p99": "10s",
+    "uptime": 0.999,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://openai.com",
+    "onchain_address": "0x9CbFa1086aAd16E50Be4E654E88C59d08D6b01ae",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "languages": 50,
+      "supports_timestamps": true,
+      "supports_translation": true
+    }
+  }
+}

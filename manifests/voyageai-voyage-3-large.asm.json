@@ -3,6 +3,13 @@
   "service_id": "voyageai/voyage-3-large@3.0",
   "taxonomy": "ai.llm.embedding",
   "display_name": "Voyage 3 Large",
+  "provenance": {
+    "source_url": "https://www.voyageai.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
   "updated_at": "2026-04-10T00:00:00Z",
   "ttl": 3600,
   "provider": {

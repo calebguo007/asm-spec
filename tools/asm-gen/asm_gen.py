@@ -439,13 +439,28 @@ def generate_manifest(
         manifest["display_name"] = title
 
     # updated_at & ttl
-    manifest["updated_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    manifest["updated_at"] = generated_at
     manifest["ttl"] = DEFAULT_TTL
 
     # provider
     provider = extract_provider(spec)
     if provider:
         manifest["provider"] = provider
+
+    source_url = (
+        info.get("termsOfService")
+        or (info.get("contact") or {}).get("url")
+        or (provider or {}).get("url")
+    )
+    if source_url:
+        manifest["provenance"] = {
+            "source_url": source_url,
+            "retrieved_at": generated_at,
+            "last_verified_at": generated_at,
+            "verification_status": "self_reported",
+            "notes": "Generated from the supplied OpenAPI document; verify pricing, SLA, and quality claims before marking manual_verified.",
+        }
 
     # capabilities
     capabilities = infer_capabilities(spec, taxonomy)

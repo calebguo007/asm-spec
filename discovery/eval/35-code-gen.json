@@ -1,0 +1,33 @@
+{
+  "id": 35,
+  "category": "code-gen",
+  "prompt": "Generate UTM-tagged link builder helper in TS",
+  "expected_taxonomy": "ai.code.completion",
+  "matched_taxonomy": "ai.code.completion",
+  "confidence": 0.3995,
+  "candidates": [
+    {
+      "taxonomy": "infra.auth.identity",
+      "score": 0.4147
+    },
+    {
+      "taxonomy": "tool.data.screenshot",
+      "score": 0.4046
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.4037
+    },
+    {
+      "taxonomy": "ai.code.completion",
+      "score": 0.3995
+    },
+    {
+      "taxonomy": "tool.productivity.scheduling",
+      "score": 0.3941
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.code.completion for \"Generate UTM-tagged link builder helper in TS\" (0.400). The user's task is to generate (create/write) a TypeScript helper for building UTM-tagged links, which is fundamentally a code generation action. The domain (UTM links, analytics) is secondary; the primary verb is generating code, making ai.code.completion the correct taxonomy.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

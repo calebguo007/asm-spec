@@ -3,6 +3,13 @@
   "service_id": "kuaishou/kling-3.0@3.0",
   "taxonomy": "ai.video.generation",
   "display_name": "Kling 3.0",
+  "provenance": {
+    "source_url": "https://klingai.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
   "updated_at": "2026-04-10T00:00:00Z",
   "ttl": 3600,
   "provider": {

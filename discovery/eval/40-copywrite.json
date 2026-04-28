@@ -1,0 +1,33 @@
+{
+  "id": 40,
+  "category": "copywrite",
+  "prompt": "TikTok hook line, 8 words, stop-the-scroll energy",
+  "expected_taxonomy": "ai.llm.chat",
+  "matched_taxonomy": "ai.llm.chat",
+  "confidence": 0.3633,
+  "candidates": [
+    {
+      "taxonomy": "tool.communication.chat",
+      "score": 0.3739
+    },
+    {
+      "taxonomy": "ai.llm.chat",
+      "score": 0.3633
+    },
+    {
+      "taxonomy": "tool.communication.sms",
+      "score": 0.34
+    },
+    {
+      "taxonomy": "tool.productivity.project",
+      "score": 0.3382
+    },
+    {
+      "taxonomy": "tool.data.screenshot",
+      "score": 0.337
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.llm.chat for \"TikTok hook line, 8 words, stop-the-scroll energy\" (0.363). The user's action is generating a short, engaging text line (a 'hook'), which is a text creation task. ai.llm.chat directly addresses writing/generating text, while tool.communication.chat refers to the domain of chat tools, not the core action.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

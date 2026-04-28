@@ -1,0 +1,33 @@
+{
+  "id": 6,
+  "category": "embed",
+  "prompt": "Embed 10 caption variants to find most semantically distinct 3",
+  "expected_taxonomy": "ai.llm.embedding",
+  "matched_taxonomy": "ai.llm.embedding",
+  "confidence": 0.5486,
+  "candidates": [
+    {
+      "taxonomy": "ai.llm.embedding",
+      "score": 0.5486
+    },
+    {
+      "taxonomy": "tool.data.visualization",
+      "score": 0.449
+    },
+    {
+      "taxonomy": "ai.video.generation",
+      "score": 0.4364
+    },
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.4319
+    },
+    {
+      "taxonomy": "tool.data.conversion",
+      "score": 0.4291
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.llm.embedding for \"Embed 10 caption variants to find most semantically distinct 3\" (0.549). The user's action is embedding text (captions) to compute semantic similarity and identify distinct variants, which directly matches the ai.llm.embedding taxonomy for creating embeddings, not the domain of search or visualization.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

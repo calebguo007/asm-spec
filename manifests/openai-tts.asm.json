@@ -3,6 +3,13 @@
   "service_id": "openai/tts-1@1.0",
   "taxonomy": "ai.audio.tts",
   "display_name": "OpenAI TTS",
+  "provenance": {
+    "source_url": "https://openai.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
   "updated_at": "2026-04-10T00:00:00Z",
   "ttl": 3600,
   "provider": {
@@ -39,7 +46,7 @@
       {
         "dimension": "character",
         "unit": "per_1M",
-        "cost_per_unit": 15.0,
+        "cost_per_unit": 15,
         "currency": "USD"
       }
     ]
@@ -48,7 +55,7 @@
     "metrics": [
       {
         "name": "MOS",
-        "score": 4.0,
+        "score": 4,
         "scale": "1-5",
         "benchmark": "Internal MOS evaluation",
         "self_reported": true

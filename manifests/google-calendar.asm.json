@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "google/calendar-api@v3",
+  "taxonomy": "tool.productivity.calendar",
+  "display_name": "Google Calendar",
+  "provenance": {
+    "source_url": "https://calendar.google.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Google",
+    "url": "https://calendar.google.com"
+  },
+  "capabilities": {
+    "description": "Calendar management API — create events, check availability, manage attendees, and set reminders",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_request",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "Free with Google account, 1M queries/day"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "80ms",
+    "latency_p99": "300ms",
+    "uptime": 0.9995,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://calendar.google.com",
+    "onchain_address": "0xFE4b6B5d420B62e997383B44052Fe2aC389f588E",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_recurring": true,
+      "supports_reminders": true,
+      "supports_video_meetings": true
+    }
+  }
+}

@@ -43,16 +43,28 @@ class Constraints:
 
 @dataclass
 class Preferences:
-    """Soft preferences — weights for scoring dimensions. Must sum to 1."""
+    """Soft preferences — weights for scoring dimensions. Must sum to 1.
+    
+    io_ratio controls how input vs output token costs are blended:
+      cost_repr = io_ratio * input_cost + (1 - io_ratio) * output_cost
+    Typical values:
+      0.3 = chat scenario (short prompts, long responses) — default
+      0.8 = RAG scenario (long context, short answers)
+      0.1 = creative writing (short prompts, very long outputs)
+      0.5 = balanced / translation tasks
+    """
     cost: float = 0.4
     quality: float = 0.35
     speed: float = 0.15
     reliability: float = 0.10
+    io_ratio: float = 0.3  # input token ratio, default 0.3 (typical chat scenario)
 
     def __post_init__(self):
         total = self.cost + self.quality + self.speed + self.reliability
         if not math.isclose(total, 1.0, abs_tol=0.01):
             raise ValueError(f"Preference weights must sum to 1.0, got {total:.3f}")
+        if not (0.0 <= self.io_ratio <= 1.0):
+            raise ValueError(f"io_ratio must be in [0, 1], got {self.io_ratio}")
 
 
 @dataclass
@@ -86,12 +98,17 @@ def _parse_latency(s: str | None) -> float:
         return float("inf")
 
 
-def _extract_primary_cost(pricing: dict) -> float:
+def _extract_primary_cost(pricing: dict, io_ratio: float = 0.3) -> float:
     """Extract a representative cost from billing_dimensions.
     
     For multi-dimension services (e.g., LLM with input+output tokens),
-    uses a weighted estimate: cost = 0.3 * input + 0.7 * output
-    (typical chat usage ratio).
+    uses a weighted estimate:
+      cost = io_ratio * input_cost + (1 - io_ratio) * output_cost
+    
+    Args:
+        pricing: The pricing dict from an ASM manifest.
+        io_ratio: Input token cost weight (0-1). Default 0.3 (chat scenario).
+                  Higher values favor input-heavy workloads (e.g., RAG = 0.8).
     """
     dims = pricing.get("billing_dimensions", [])
     if not dims:
@@ -117,8 +134,7 @@ def _extract_primary_cost(pricing: dict) -> float:
             output_cost = cost
 
     if input_cost is not None and output_cost is not None:
-        # Typical chat ratio: 30% input, 70% output
-        return 0.3 * input_cost + 0.7 * output_cost
+        return io_ratio * input_cost + (1 - io_ratio) * output_cost
 
     # Single dimension — use first
     d = dims[0]
@@ -161,8 +177,13 @@ def _extract_primary_quality(quality: dict) -> float:
         return score
 
 
-def parse_manifest(manifest: dict) -> ServiceVector:
-    """Parse an ASM manifest JSON into a scoreable ServiceVector."""
+def parse_manifest(manifest: dict, io_ratio: float = 0.3) -> ServiceVector:
+    """Parse an ASM manifest JSON into a scoreable ServiceVector.
+    
+    Args:
+        manifest: ASM manifest dict.
+        io_ratio: Input token cost weight for multi-dimension pricing.
+    """
     pricing = manifest.get("pricing", {})
     quality = manifest.get("quality", {})
     sla = manifest.get("sla", {})
@@ -171,7 +192,7 @@ def parse_manifest(manifest: dict) -> ServiceVector:
         service_id=manifest["service_id"],
         display_name=manifest.get("display_name", manifest["service_id"]),
         taxonomy=manifest["taxonomy"],
-        cost_per_unit=_extract_primary_cost(pricing),
+        cost_per_unit=_extract_primary_cost(pricing, io_ratio=io_ratio),
         quality_score=_extract_primary_quality(quality),
         latency_seconds=_parse_latency(sla.get("latency_p50")),
         uptime=sla.get("uptime", 0.5),
@@ -385,7 +406,7 @@ def score_topsis(
     results.sort(key=lambda x: x.total_score, reverse=True)
     for i, r in enumerate(results):
         r.rank = i + 1
-    r.reasoning = _generate_reasoning(r, preferences)
+        r.reasoning = _generate_reasoning(r, preferences)
     return results
 
 
@@ -620,8 +641,8 @@ def select_service(
     if constraints is None:
         constraints = Constraints()
 
-    # Parse manifests
-    services = [parse_manifest(m) for m in manifests]
+    # Parse manifests（pass io_ratio to support configurable cost normalization）
+    services = [parse_manifest(m, io_ratio=preferences.io_ratio) for m in manifests]
 
     # Stage 1: Filter
     filtered = filter_services(services, constraints)
@@ -641,7 +662,7 @@ def load_manifests(directory: str | Path) -> list[dict]:
     path = Path(directory)
     manifests = []
     for f in sorted(path.glob("*.asm.json")):
-        with open(f) as fp:
+        with open(f, encoding="utf-8") as fp:
             manifests.append(json.load(fp))
     return manifests
 

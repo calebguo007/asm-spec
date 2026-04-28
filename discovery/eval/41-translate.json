@@ -1,0 +1,33 @@
+{
+  "id": 41,
+  "category": "translate",
+  "prompt": "Translate to German, professional tone",
+  "expected_taxonomy": "ai.nlp.translation",
+  "matched_taxonomy": "ai.nlp.translation",
+  "confidence": 0.3558,
+  "candidates": [
+    {
+      "taxonomy": "ai.nlp.translation",
+      "score": 0.3558
+    },
+    {
+      "taxonomy": "tool.productivity.spreadsheet",
+      "score": 0.3115
+    },
+    {
+      "taxonomy": "tool.communication.email",
+      "score": 0.3077
+    },
+    {
+      "taxonomy": "tool.data.conversion",
+      "score": 0.307
+    },
+    {
+      "taxonomy": "tool.communication.sms",
+      "score": 0.2987
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.nlp.translation for \"Translate to German, professional tone\" (0.356). The user's action is 'Translate to German,' which is a language translation task. The taxonomy ai.nlp.translation directly corresponds to this action, while other candidates like tool.productivity.spreadsheet or tool.communication.email refer to domains (spreadsheets, email) rather than the core verb of translating.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

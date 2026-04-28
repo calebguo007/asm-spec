@@ -1,0 +1,33 @@
+{
+  "id": 36,
+  "category": "spreadsheet",
+  "prompt": "Build competitor feature-overlap matrix, FocusBear vs 5 rivals",
+  "expected_taxonomy": "tool.productivity.spreadsheet",
+  "matched_taxonomy": "tool.data.visualization",
+  "confidence": 0.4433,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.4811
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.4488
+    },
+    {
+      "taxonomy": "tool.data.visualization",
+      "score": 0.4433
+    },
+    {
+      "taxonomy": "tool.data.scraping",
+      "score": 0.4192
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.4127
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.visualization for \"Build competitor feature-overlap matrix, FocusBear vs 5 rivals\" (0.443). The user's action is to 'build' a matrix, specifically a feature-overlap matrix for competitor analysis. This is an act of creating a structured visual comparison (a matrix) to display data relationships, which aligns with data visualization, not searching, scraping, or document/forms creation.",
+  "correct": false,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

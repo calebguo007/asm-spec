@@ -1,0 +1,93 @@
+{
+  "asm_version": "0.3",
+  "service_id": "ticktick/api@v2",
+  "taxonomy": "tool.productivity.todo",
+  "display_name": "TickTick",
+  "provenance": {
+    "source_url": "https://ticktick.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Appest",
+    "url": "https://ticktick.com"
+  },
+  "capabilities": {
+    "description": "Cross-platform task manager with Pomodoro timer, habit tracker, and calendar view — ideal for power users",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en",
+      "zh",
+      "ja",
+      "ko"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_1",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "9 lists, basic features",
+    "pro_price_monthly": 2.79
+  },
+  "quality": {
+    "metrics": [
+      {
+        "name": "G2_Rating",
+        "score": 4.5,
+        "scale": "5.0",
+        "benchmark": "G2 Crowd Reviews",
+        "evaluated_at": "2026-03-01",
+        "self_reported": false
+      }
+    ]
+  },
+  "sla": {
+    "latency_p50": "150ms",
+    "latency_p99": "600ms",
+    "uptime": 0.998,
+    "rate_limit": "300 req/15min"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "app_store",
+      "onchain_usdc"
+    ],
+    "auth_type": "oauth2",
+    "signup_url": "https://ticktick.com",
+    "onchain_address": "0xB81Af5546eEe9FD9cc60320116dEce3858F042A8",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_webhooks": true,
+      "supports_recurring_tasks": true,
+      "supports_reminders": true,
+      "supports_collaboration": true,
+      "mobile_apps": true,
+      "pomodoro_timer": true,
+      "habit_tracker": true,
+      "integrations": [
+        "google_calendar",
+        "outlook",
+        "siri",
+        "alexa"
+      ]
+    }
+  }
+}

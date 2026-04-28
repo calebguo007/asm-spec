@@ -1,0 +1,33 @@
+{
+  "id": 14,
+  "category": "database",
+  "prompt": "Insert campaign_metrics row: run_id, total_cost, txs, ts — for later dashboard query",
+  "expected_taxonomy": "infra.database.postgres",
+  "matched_taxonomy": "infra.database.postgres",
+  "confidence": 0.4221,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.analytics",
+      "score": 0.4646
+    },
+    {
+      "taxonomy": "tool.communication.email",
+      "score": 0.4403
+    },
+    {
+      "taxonomy": "infra.database.postgres",
+      "score": 0.4221
+    },
+    {
+      "taxonomy": "tool.payment.processing",
+      "score": 0.3935
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.372
+    }
+  ],
+  "reasoning": "LangGraph: selected infra.database.postgres for \"Insert campaign_metrics row: run_id, total_cost, txs, ts — for later dashboard query\" (0.422). The user's action is inserting a row into a database table for later querying, which is a direct database operation. The domain (campaign metrics, dashboard) is secondary; the core verb is inserting data into a database, making infra.database.postgres the correct taxonomy for the action.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

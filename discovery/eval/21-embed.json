@@ -1,0 +1,33 @@
+{
+  "id": 21,
+  "category": "embed",
+  "prompt": "Embed competitor taglines to cluster their positioning angles",
+  "expected_taxonomy": "ai.llm.embedding",
+  "matched_taxonomy": "tool.data.visualization",
+  "confidence": 0.5009,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.visualization",
+      "score": 0.5009
+    },
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.4395
+    },
+    {
+      "taxonomy": "tool.data.scraping",
+      "score": 0.4199
+    },
+    {
+      "taxonomy": "ai.llm.chat",
+      "score": 0.4117
+    },
+    {
+      "taxonomy": "tool.data.geolocation",
+      "score": 0.4092
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.visualization for \"Embed competitor taglines to cluster their positioning angles\" (0.501). LLM rerank returned invalid output.",
+  "correct": false,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

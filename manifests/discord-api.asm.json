@@ -1,0 +1,70 @@
+{
+  "asm_version": "0.3",
+  "service_id": "discord/api@v10",
+  "taxonomy": "tool.communication.chat",
+  "display_name": "Discord",
+  "provenance": {
+    "source_url": "https://discord.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Discord",
+    "url": "https://discord.com"
+  },
+  "capabilities": {
+    "description": "Community messaging platform API — send messages, manage servers, create bots, and handle voice channels",
+    "input_modalities": [
+      "text",
+      "structured_data"
+    ],
+    "output_modalities": [
+      "text",
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_message",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "Free, rate limited"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "80ms",
+    "latency_p99": "300ms",
+    "uptime": 0.998,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://discord.com",
+    "onchain_address": "0x8D5008676A8A113764B867F2672b748B4C676BA4",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_voice": true,
+      "supports_threads": true,
+      "supports_webhooks": true
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": 12,
+  "category": "search",
+  "prompt": "Find top 5 ADHD productivity blogs with DA > 40",
+  "expected_taxonomy": "tool.data.search",
+  "matched_taxonomy": "tool.data.search",
+  "confidence": 0.4691,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.4691
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.4189
+    },
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.3953
+    },
+    {
+      "taxonomy": "tool.productivity.calendar",
+      "score": 0.3825
+    },
+    {
+      "taxonomy": "tool.productivity.knowledge",
+      "score": 0.3666
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.search for \"Find top 5 ADHD productivity blogs with DA > 40\" (0.469). The user's action is to 'find' specific blogs, which is a search/discovery task, not a productivity management action like document creation, to-do lists, calendars, or knowledge organization.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

@@ -1,0 +1,33 @@
+{
+  "id": 31,
+  "category": "tts",
+  "prompt": "Short tag jingle voice, neutral, 8s",
+  "expected_taxonomy": "ai.audio.tts",
+  "matched_taxonomy": "ai.audio.tts",
+  "confidence": 0.3835,
+  "candidates": [
+    {
+      "taxonomy": "ai.audio.tts",
+      "score": 0.3835
+    },
+    {
+      "taxonomy": "tool.communication.sms",
+      "score": 0.366
+    },
+    {
+      "taxonomy": "ai.audio.stt",
+      "score": 0.3539
+    },
+    {
+      "taxonomy": "tool.communication.chat",
+      "score": 0.3359
+    },
+    {
+      "taxonomy": "tool.data.geolocation",
+      "score": 0.326
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.audio.tts for \"Short tag jingle voice, neutral, 8s\" (0.384). The user's action is generating a short, neutral voice audio (a tag jingle), which is text-to-speech synthesis, matching ai.audio.tts. The domain (communication or jingle creation) is secondary to the core action of voice generation.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

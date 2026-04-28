@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "google/translate@v3",
+  "taxonomy": "ai.nlp.translation",
+  "display_name": "Google Cloud Translation",
+  "provenance": {
+    "source_url": "https://cloud.google.com/translate",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Google",
+    "url": "https://cloud.google.com/translate"
+  },
+  "capabilities": {
+    "description": "Neural and phrase-based translation supporting 130+ languages with auto-detection",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_character",
+        "cost_per_unit": 0.00002,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "500K characters/month free"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "150ms",
+    "latency_p99": "500ms",
+    "uptime": 0.999,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://cloud.google.com/translate",
+    "onchain_address": "0x6abA07310EcFD9ce836C920295293fDc43329EC5",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "languages": 133,
+      "supports_auto_detect": true
+    }
+  }
+}

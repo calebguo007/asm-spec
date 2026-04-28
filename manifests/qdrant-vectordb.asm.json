@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "qdrant/cloud@v1",
+  "taxonomy": "infra.database.vector",
+  "display_name": "Qdrant",
+  "provenance": {
+    "source_url": "https://qdrant.tech",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Qdrant",
+    "url": "https://qdrant.tech"
+  },
+  "capabilities": {
+    "description": "Open-source vector similarity search engine — fast, scalable, with rich filtering and payload storage",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_query",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "1GB free cluster"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "10ms",
+    "latency_p99": "50ms",
+    "uptime": 0.998,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://qdrant.tech",
+    "onchain_address": "0xe4c629864b739ff9aaA6aAD5251e02DD887B2126",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "open_source": true,
+      "supports_filtering": true,
+      "supports_sparse_vectors": true
+    }
+  }
+}

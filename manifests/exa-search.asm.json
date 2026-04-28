@@ -1,0 +1,82 @@
+{
+  "asm_version": "0.3",
+  "service_id": "exa/search-api@v1",
+  "taxonomy": "tool.data.search",
+  "display_name": "Exa Search",
+  "provenance": {
+    "source_url": "https://exa.ai",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 3600,
+  "provider": {
+    "name": "Exa",
+    "url": "https://exa.ai"
+  },
+  "capabilities": {
+    "description": "Neural search engine — semantic search over the entire web with content extraction, designed for AI agents and RAG",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "structured_data",
+      "text"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "search_query",
+        "unit": "per_1",
+        "cost_per_unit": 0.003,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "1000 queries/month"
+  },
+  "quality": {
+    "metrics": [
+      {
+        "name": "Semantic_Accuracy",
+        "score": 0.95,
+        "scale": "1.0",
+        "benchmark": "Internal benchmark",
+        "evaluated_at": "2026-03-01",
+        "self_reported": true
+      }
+    ]
+  },
+  "sla": {
+    "latency_p50": "600ms",
+    "latency_p99": "2.5s",
+    "uptime": 0.997,
+    "rate_limit": "50 req/min"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://exa.ai",
+    "onchain_address": "0x553984Bb7100978F763f67Ed2fC5B5AA4778E1e1",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_semantic_search": true,
+      "supports_content_extraction": true,
+      "supports_similarity_search": true,
+      "supports_date_filtering": true,
+      "integrations": [
+        "langchain",
+        "llamaindex",
+        "openai_plugins"
+      ]
+    }
+  }
+}

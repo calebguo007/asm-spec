@@ -1,0 +1,69 @@
+{
+  "asm_version": "0.3",
+  "service_id": "google/docs-api@v1",
+  "taxonomy": "tool.productivity.document",
+  "display_name": "Google Docs",
+  "provenance": {
+    "source_url": "https://docs.google.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Google",
+    "url": "https://docs.google.com"
+  },
+  "capabilities": {
+    "description": "Document creation and editing API — create, read, and modify documents programmatically",
+    "input_modalities": [
+      "text",
+      "structured_data"
+    ],
+    "output_modalities": [
+      "text",
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_request",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "Free with Google account"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "120ms",
+    "latency_p99": "500ms",
+    "uptime": 0.9995,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://docs.google.com",
+    "onchain_address": "0xD44d5b8Bd4034D92ca03A032aeD3c29a51D410cC",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_collaboration": true,
+      "supports_comments": true
+    }
+  }
+}

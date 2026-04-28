@@ -1,0 +1,92 @@
+{
+  "name": "@asm-protocol/payments",
+  "version": "0.3.0",
+  "description": "ASM (Agent Service Manifest) — x402 payment layer for AI Agent service discovery on Arc",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./buyer": {
+      "import": "./dist/buyer.js",
+      "types": "./dist/buyer.d.ts"
+    },
+    "./trust-delta": {
+      "import": "./dist/trust-delta.js",
+      "types": "./dist/trust-delta.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "asm-demo": "./dist/e2e-demo.js"
+  },
+  "keywords": [
+    "asm",
+    "agent",
+    "service-manifest",
+    "x402",
+    "nanopayments",
+    "circle",
+    "usdc",
+    "arc",
+    "topsis",
+    "trust-delta",
+    "ai-agent"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asm-protocol/asm"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/seller.js",
+    "dev:seller": "tsx src/seller.ts",
+    "dev:registry": "tsx ../registry/src/http.ts",
+    "dev:all": "tsx src/start-all.ts",
+    "deposit": "tsx scripts/deposit.ts",
+    "balance": "tsx scripts/check-balance.ts",
+    "benchmark:50tx": "tsx scripts/benchmark-50tx.ts",
+    "demo": "tsx src/e2e-demo.ts",
+    "dashboard": "tsx src/dashboard.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@circle-fin/x402-batching": "^2.1.0",
+    "@langchain/langgraph": "^0.2.74",
+    "@langchain/openai": "^0.6.16",
+    "@types/express-rate-limit": "^5.1.3",
+    "@x402/core": "^2.9.0",
+    "@x402/evm": "^2.9.0",
+    "@x402/express": "^2.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.0",
+    "express": "^4.21.0",
+    "express-rate-limit": "^8.3.2",
+    "helmet": "^8.1.0",
+    "viem": "^2.23.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^25.5.2",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "author": "ASM Protocol <asm@protocol.ai>",
+  "sideEffects": false
+}

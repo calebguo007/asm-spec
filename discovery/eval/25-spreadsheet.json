@@ -1,0 +1,33 @@
+{
+  "id": 25,
+  "category": "spreadsheet",
+  "prompt": "Log 50 Reddit comments + pain-point category into tracking sheet",
+  "expected_taxonomy": "tool.productivity.spreadsheet",
+  "matched_taxonomy": "tool.productivity.spreadsheet",
+  "confidence": 0.4557,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.analytics",
+      "score": 0.4767
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.4718
+    },
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.4618
+    },
+    {
+      "taxonomy": "tool.productivity.spreadsheet",
+      "score": 0.4557
+    },
+    {
+      "taxonomy": "tool.productivity.project",
+      "score": 0.4502
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.productivity.spreadsheet for \"Log 50 Reddit comments + pain-point category into tracking sheet\" (0.456). The user's action is logging data into a tracking sheet, which is a spreadsheet-based data entry task, not analytics, search, forms, or project management.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

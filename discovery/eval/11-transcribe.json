@@ -1,0 +1,33 @@
+{
+  "id": 11,
+  "category": "transcribe",
+  "prompt": "Transcribe 3-min competitor Focusmate demo video for theme extraction",
+  "expected_taxonomy": "ai.audio.stt",
+  "matched_taxonomy": "ai.audio.stt",
+  "confidence": 0.4256,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.conversion",
+      "score": 0.438
+    },
+    {
+      "taxonomy": "ai.video.generation",
+      "score": 0.4308
+    },
+    {
+      "taxonomy": "ai.audio.stt",
+      "score": 0.4256
+    },
+    {
+      "taxonomy": "ai.vision.ocr",
+      "score": 0.3972
+    },
+    {
+      "taxonomy": "ai.audio.tts",
+      "score": 0.396
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.audio.stt for \"Transcribe 3-min competitor Focusmate demo video for theme extraction\" (0.426). The user's primary action is transcribing audio from a video, which is speech-to-text conversion, not generating video, converting data formats, optical character recognition, or text-to-speech.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

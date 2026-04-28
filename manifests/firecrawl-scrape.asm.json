@@ -1,0 +1,70 @@
+{
+  "asm_version": "0.3",
+  "service_id": "firecrawl/scrape@v1",
+  "taxonomy": "tool.data.scraping",
+  "display_name": "Firecrawl",
+  "provenance": {
+    "source_url": "https://firecrawl.dev",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Mendable",
+    "url": "https://firecrawl.dev"
+  },
+  "capabilities": {
+    "description": "Web scraping API — extract clean markdown from any URL, crawl entire sites, and handle JS-rendered pages",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "text",
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_page",
+        "cost_per_unit": 0.001,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "500 pages/month free"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "3s",
+    "latency_p99": "10s",
+    "uptime": 0.997,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://firecrawl.dev",
+    "onchain_address": "0xF2BF8B0dEfd8dD49DC02F99518e81B132e96Bbd8",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_js_rendering": true,
+      "supports_crawl": true,
+      "returns_markdown": true
+    }
+  }
+}

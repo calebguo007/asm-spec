@@ -1,0 +1,33 @@
+{
+  "id": 47,
+  "category": "embed",
+  "prompt": "Embed founder-voice LinkedIn drafts, pick the most on-brand one",
+  "expected_taxonomy": "ai.llm.embedding",
+  "matched_taxonomy": "ai.llm.chat",
+  "confidence": 0.4722,
+  "candidates": [
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.4729
+    },
+    {
+      "taxonomy": "ai.llm.chat",
+      "score": 0.4722
+    },
+    {
+      "taxonomy": "tool.communication.chat",
+      "score": 0.4346
+    },
+    {
+      "taxonomy": "ai.audio.tts",
+      "score": 0.4138
+    },
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.4112
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.llm.chat for \"Embed founder-voice LinkedIn drafts, pick the most on-brand one\" (0.472). The user's action is selecting the most on-brand draft from embedded content, which involves evaluating and choosing text based on brand alignment—a text analysis and decision-making task performed by an LLM, not embedding creation (which was the prior step) or document/search tools.",
+  "correct": false,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

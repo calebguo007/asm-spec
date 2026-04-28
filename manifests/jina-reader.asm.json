@@ -1,0 +1,67 @@
+{
+  "asm_version": "0.3",
+  "service_id": "jina/reader@v1",
+  "taxonomy": "tool.data.scraping",
+  "display_name": "Jina Reader",
+  "provenance": {
+    "source_url": "https://jina.ai",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Jina AI",
+    "url": "https://jina.ai"
+  },
+  "capabilities": {
+    "description": "URL-to-markdown converter — prepend r.jina.ai/ to any URL and get clean, LLM-ready text",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_page",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "Free tier available"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "2s",
+    "latency_p99": "8s",
+    "uptime": 0.996,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://jina.ai",
+    "onchain_address": "0x2142D2a1BBD5C4a6277D121B1DCc1B09176c390b",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_search": true,
+      "returns_markdown": true
+    }
+  }
+}

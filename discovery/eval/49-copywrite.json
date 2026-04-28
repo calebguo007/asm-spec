@@ -1,0 +1,33 @@
+{
+  "id": 49,
+  "category": "copywrite",
+  "prompt": "Product Hunt tagline, under 60 chars, benefit-led",
+  "expected_taxonomy": "ai.llm.chat",
+  "matched_taxonomy": "tool.data.search",
+  "confidence": 0.4684,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.4684
+    },
+    {
+      "taxonomy": "tool.data.analytics",
+      "score": 0.4533
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.4475
+    },
+    {
+      "taxonomy": "tool.data.scraping",
+      "score": 0.4325
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.4253
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.search for \"Product Hunt tagline, under 60 chars, benefit-led\" (0.468). The user's action is to search for or retrieve a specific type of text (a benefit-led Product Hunt tagline under 60 characters), which aligns with the information retrieval function of tool.data.search, rather than analytics, forms, scraping, or document creation.",
+  "correct": false,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

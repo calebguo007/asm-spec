@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "github/copilot@v1",
+  "taxonomy": "ai.code.completion",
+  "display_name": "GitHub Copilot",
+  "provenance": {
+    "source_url": "https://github.com/features/copilot",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "GitHub",
+    "url": "https://github.com/features/copilot"
+  },
+  "capabilities": {
+    "description": "AI code completion and chat — context-aware suggestions across all major languages and IDEs",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_completion",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "$10/month individual plan"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "150ms",
+    "latency_p99": "500ms",
+    "uptime": 0.999,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://github.com/features/copilot",
+    "onchain_address": "0xb76797Ad243fAD4643D419D52ed4bA44C301Dd5c",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_chat": true,
+      "supports_inline": true,
+      "multi_language": true
+    }
+  }
+}

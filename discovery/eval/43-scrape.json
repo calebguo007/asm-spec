@@ -1,0 +1,33 @@
+{
+  "id": 43,
+  "category": "scrape",
+  "prompt": "Scrape App Store reviews for top 3 ADHD apps, latest 20 each",
+  "expected_taxonomy": "tool.data.scraping",
+  "matched_taxonomy": "tool.data.scraping",
+  "confidence": 0.4649,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.4924
+    },
+    {
+      "taxonomy": "tool.data.scraping",
+      "score": 0.4649
+    },
+    {
+      "taxonomy": "tool.productivity.forms",
+      "score": 0.4028
+    },
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.4024
+    },
+    {
+      "taxonomy": "tool.productivity.scheduling",
+      "score": 0.3888
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.scraping for \"Scrape App Store reviews for top 3 ADHD apps, latest 20 each\" (0.465). The user's action is scraping (extracting data from web sources), specifically App Store reviews, which directly matches the tool.data.scraping taxonomy. The domain (ADHD apps) and other aspects like search or productivity tools are secondary to the core action of data scraping.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

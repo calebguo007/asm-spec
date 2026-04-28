@@ -1,0 +1,33 @@
+{
+  "id": 48,
+  "category": "scrape",
+  "prompt": "Scrape YouTube titles of ADHD productivity videos past 7 days",
+  "expected_taxonomy": "tool.data.scraping",
+  "matched_taxonomy": "tool.data.scraping",
+  "confidence": 0.4634,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.4902
+    },
+    {
+      "taxonomy": "tool.data.scraping",
+      "score": 0.4634
+    },
+    {
+      "taxonomy": "ai.video.generation",
+      "score": 0.4288
+    },
+    {
+      "taxonomy": "tool.productivity.calendar",
+      "score": 0.4056
+    },
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.4032
+    }
+  ],
+  "reasoning": "LangGraph: selected tool.data.scraping for \"Scrape YouTube titles of ADHD productivity videos past 7 days\" (0.463). The user's action is scraping data (YouTube titles), not searching, generating video, or using productivity tools.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

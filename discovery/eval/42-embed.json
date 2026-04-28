@@ -1,0 +1,33 @@
+{
+  "id": 42,
+  "category": "embed",
+  "prompt": "Embed 20 Reddit pain-point quotes, cluster into top 5 themes",
+  "expected_taxonomy": "ai.llm.embedding",
+  "matched_taxonomy": "ai.llm.embedding",
+  "confidence": 0.3093,
+  "candidates": [
+    {
+      "taxonomy": "tool.data.search",
+      "score": 0.357
+    },
+    {
+      "taxonomy": "tool.data.visualization",
+      "score": 0.3247
+    },
+    {
+      "taxonomy": "ai.llm.embedding",
+      "score": 0.3093
+    },
+    {
+      "taxonomy": "tool.communication.chat",
+      "score": 0.2982
+    },
+    {
+      "taxonomy": "infra.database.vector",
+      "score": 0.2974
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.llm.embedding for \"Embed 20 Reddit pain-point quotes, cluster into top 5 themes\" (0.309). The user's primary action is 'Embed' — creating vector embeddings from text quotes to enable clustering. The domain (Reddit quotes, pain points) is secondary; the core task is generating embeddings, which matches ai.llm.embedding.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}

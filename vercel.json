@@ -1,0 +1,12 @@
+{
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/", "destination": "/payments/src/dashboard.html" },
+    { "source": "/marketplace", "destination": "/payments/src/marketplace.html" },
+    { "source": "/benchmark", "destination": "/payments/src/benchmark.html" },
+    { "source": "/workbench", "destination": "/payments/src/dashboard-workbench.html" },
+    { "source": "/assets/benchmark/:path*", "destination": "/payments/src/assets/benchmark/:path*" },
+    { "source": "/benchmark-results/:path*", "destination": "/payments/benchmark-results/:path*" },
+    { "source": "/slides", "destination": "/payments/src/slides.html" }
+  ]
+}

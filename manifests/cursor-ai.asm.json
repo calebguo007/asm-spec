@@ -1,0 +1,67 @@
+{
+  "asm_version": "0.3",
+  "service_id": "cursor/editor@v1",
+  "taxonomy": "ai.code.completion",
+  "display_name": "Cursor",
+  "provenance": {
+    "source_url": "https://cursor.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Anysphere",
+    "url": "https://cursor.com"
+  },
+  "capabilities": {
+    "description": "AI-first code editor — multi-file editing, codebase-aware chat, and intelligent code generation",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_completion",
+        "cost_per_unit": 0,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "Free tier with 2000 completions"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "200ms",
+    "latency_p99": "600ms",
+    "uptime": 0.998,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://cursor.com",
+    "onchain_address": "0x58C2ac638A77CfCd22Af2750b453C0DAe32400E0",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "supports_multi_file": true,
+      "supports_codebase_context": true
+    }
+  }
+}

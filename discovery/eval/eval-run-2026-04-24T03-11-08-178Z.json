@@ -1,0 +1,1661 @@
+{
+  "summary": {
+    "timestamp": "2026-04-24T03:11:08.178Z",
+    "total": 50,
+    "correct": 36,
+    "accuracy": 0.72,
+    "embedding_model": "openai-text-embedding-3-small"
+  },
+  "records": [
+    {
+      "id": 1,
+      "category": "image-gen",
+      "prompt": "Hero image, ADHD user working peacefully, calm palette, 1024x1024",
+      "expected_taxonomy": "ai.vision.image_generation",
+      "matched_taxonomy": "ai.vision.image_generation",
+      "confidence": 0.4825,
+      "candidates": [
+        {
+          "taxonomy": "ai.vision.image_generation",
+          "score": 0.4825
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.432
+        },
+        {
+          "taxonomy": "ai.llm.chat",
+          "score": 0.3971
+        },
+        {
+          "taxonomy": "tool.data.screenshot",
+          "score": 0.3925
+        },
+        {
+          "taxonomy": "tool.data.visualization",
+          "score": 0.3891
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.vision.image_generation for \"Hero image, ADHD user working peacefully, calm palette, 1024x1024\" (0.482). The user's task is to create a hero image with specific visual attributes (ADHD user working peacefully, calm palette, 1024x1024). The primary action is generating an image, which directly aligns with ai.vision.image_generation, not with domains like productivity tools or data visualization.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 2,
+      "category": "copywrite",
+      "prompt": "Instagram caption, 150 chars, witty, target ADHD adults 25-40",
+      "expected_taxonomy": "ai.llm.chat",
+      "matched_taxonomy": "ai.llm.chat",
+      "confidence": 0.4182,
+      "candidates": [
+        {
+          "taxonomy": "ai.llm.chat",
+          "score": 0.4182
+        },
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.3825
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.3657
+        },
+        {
+          "taxonomy": "tool.productivity.calendar",
+          "score": 0.3528
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.35
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.llm.chat for \"Instagram caption, 150 chars, witty, target ADHD adults 25-40\" (0.418). The user's task is to write a short, witty text caption. The action is generating text content, which aligns with ai.llm.chat (text generation/completion). The domain (Instagram) and target audience are secondary to the core action of writing.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 3,
+      "category": "translate",
+      "prompt": "Translate launch caption to Japanese, keep witty tone",
+      "expected_taxonomy": "ai.nlp.translation",
+      "matched_taxonomy": "ai.nlp.translation",
+      "confidence": 0.4185,
+      "candidates": [
+        {
+          "taxonomy": "ai.llm.chat",
+          "score": 0.4274
+        },
+        {
+          "taxonomy": "ai.nlp.translation",
+          "score": 0.4185
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.3989
+        },
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.3965
+        },
+        {
+          "taxonomy": "tool.productivity.project",
+          "score": 0.3927
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.nlp.translation for \"Translate launch caption to Japanese, keep witty tone\" (0.418). The user's primary action is translation (converting text from one language to another while preserving tone), which directly matches the ai.nlp.translation taxonomy. While ai.llm.chat could handle text generation, the core task is specifically translation, not general chat or writing.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 4,
+      "category": "tts",
+      "prompt": "Voiceover script A, female voice, 30s, warm conversational",
+      "expected_taxonomy": "ai.audio.tts",
+      "matched_taxonomy": "ai.llm.chat",
+      "confidence": 0.3156,
+      "candidates": [
+        {
+          "taxonomy": "ai.audio.tts",
+          "score": 0.4734
+        },
+        {
+          "taxonomy": "ai.audio.stt",
+          "score": 0.4073
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.3169
+        },
+        {
+          "taxonomy": "ai.llm.chat",
+          "score": 0.3156
+        },
+        {
+          "taxonomy": "ai.video.generation",
+          "score": 0.2969
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.llm.chat for \"Voiceover script A, female voice, 30s, warm conversational\" (0.316). The user's task is to create a voiceover script, which is a text generation/writing action. The domain involves audio/voiceover, but the verb is 'script' (writing). ai.llm.chat is the taxonomy for generating text content, matching the action of writing a script, while ai.audio.tts would apply if the action were converting text to speech.",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 5,
+      "category": "video-gen",
+      "prompt": "6s product demo, screen recording style, highlight timer feature",
+      "expected_taxonomy": "ai.video.generation",
+      "matched_taxonomy": "tool.data.screenshot",
+      "confidence": 0.4676,
+      "candidates": [
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.4727
+        },
+        {
+          "taxonomy": "tool.data.screenshot",
+          "score": 0.4676
+        },
+        {
+          "taxonomy": "tool.productivity.scheduling",
+          "score": 0.4477
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4472
+        },
+        {
+          "taxonomy": "tool.productivity.spreadsheet",
+          "score": 0.4424
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.screenshot for \"6s product demo, screen recording style, highlight timer feature\" (0.468). The user's action is capturing or creating a screen recording, which aligns with the screenshot tool's function of capturing screen content, rather than the domain of productivity or scheduling.",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 6,
+      "category": "embed",
+      "prompt": "Embed 10 caption variants to find most semantically distinct 3",
+      "expected_taxonomy": "ai.llm.embedding",
+      "matched_taxonomy": "ai.llm.embedding",
+      "confidence": 0.5486,
+      "candidates": [
+        {
+          "taxonomy": "ai.llm.embedding",
+          "score": 0.5486
+        },
+        {
+          "taxonomy": "tool.data.visualization",
+          "score": 0.449
+        },
+        {
+          "taxonomy": "ai.video.generation",
+          "score": 0.4364
+        },
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.4319
+        },
+        {
+          "taxonomy": "tool.data.conversion",
+          "score": 0.4291
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.llm.embedding for \"Embed 10 caption variants to find most semantically distinct 3\" (0.549). The user's action is embedding text (captions) to compute semantic similarity and identify distinct variants, which directly matches the ai.llm.embedding taxonomy for creating embeddings, not the domain of search or visualization.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 7,
+      "category": "scrape",
+      "prompt": "Scrape competitor Focusmate latest 10 posts + engagement",
+      "expected_taxonomy": "tool.data.scraping",
+      "matched_taxonomy": "tool.data.scraping",
+      "confidence": 0.5331,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.5426
+        },
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.5331
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4696
+        },
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.4448
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.4239
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.scraping for \"Scrape competitor Focusmate latest 10 posts + engagement\" (0.533). The user's action is to scrape data (posts and engagement) from a competitor's source, which directly matches the data extraction function of tool.data.scraping, not the domain of search or other tools.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 8,
+      "category": "browse",
+      "prompt": "Open competitor pricing page in headless browser, capture full-page screenshot",
+      "expected_taxonomy": "tool.automation.browser",
+      "matched_taxonomy": "tool.data.screenshot",
+      "confidence": 0.5473,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.5506
+        },
+        {
+          "taxonomy": "tool.data.screenshot",
+          "score": 0.5473
+        },
+        {
+          "taxonomy": "tool.automation.browser",
+          "score": 0.5273
+        },
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.5027
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.407
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.screenshot for \"Open competitor pricing page in headless browser, capture full-page screenshot\" (0.547). The user's primary action is 'capture full-page screenshot,' which directly aligns with taking a screenshot, not scraping data or automating a browser. The domain (competitor pricing page) is secondary to the verb 'capture screenshot.'",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 9,
+      "category": "code-gen",
+      "prompt": "Generate Google Analytics 4 snippet for campaign tracking",
+      "expected_taxonomy": "ai.code.completion",
+      "matched_taxonomy": "ai.code.completion",
+      "confidence": 0.4742,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.analytics",
+          "score": 0.5724
+        },
+        {
+          "taxonomy": "ai.code.completion",
+          "score": 0.4742
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4136
+        },
+        {
+          "taxonomy": "tool.productivity.calendar",
+          "score": 0.3881
+        },
+        {
+          "taxonomy": "tool.communication.email",
+          "score": 0.3877
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.code.completion for \"Generate Google Analytics 4 snippet for campaign tracking\" (0.474). The user's action is 'Generate' a code snippet (specifically a Google Analytics 4 snippet), which aligns with generating code, not with the domain of analytics itself.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 10,
+      "category": "spreadsheet",
+      "prompt": "Tag 100 App Store review snippets by sentiment (pos/neg/neutral) in a sheet",
+      "expected_taxonomy": "tool.productivity.spreadsheet",
+      "matched_taxonomy": "tool.productivity.spreadsheet",
+      "confidence": 0.5122,
+      "candidates": [
+        {
+          "taxonomy": "tool.productivity.spreadsheet",
+          "score": 0.5122
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4734
+        },
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.4492
+        },
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.4454
+        },
+        {
+          "taxonomy": "ai.code.completion",
+          "score": 0.4426
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.productivity.spreadsheet for \"Tag 100 App Store review snippets by sentiment (pos/neg/neutral) in a sheet\" (0.512). The user's action is tagging review snippets by sentiment in a sheet, which is a data organization and labeling task performed within a spreadsheet tool, aligning with the taxonomy for spreadsheet productivity tools.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 11,
+      "category": "transcribe",
+      "prompt": "Transcribe 3-min competitor Focusmate demo video for theme extraction",
+      "expected_taxonomy": "ai.audio.stt",
+      "matched_taxonomy": "ai.audio.stt",
+      "confidence": 0.4256,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.conversion",
+          "score": 0.438
+        },
+        {
+          "taxonomy": "ai.video.generation",
+          "score": 0.4308
+        },
+        {
+          "taxonomy": "ai.audio.stt",
+          "score": 0.4256
+        },
+        {
+          "taxonomy": "ai.vision.ocr",
+          "score": 0.3972
+        },
+        {
+          "taxonomy": "ai.audio.tts",
+          "score": 0.396
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.audio.stt for \"Transcribe 3-min competitor Focusmate demo video for theme extraction\" (0.426). The user's primary action is transcribing audio from a video, which is speech-to-text conversion, not generating video, converting data formats, optical character recognition, or text-to-speech.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 12,
+      "category": "search",
+      "prompt": "Find top 5 ADHD productivity blogs with DA > 40",
+      "expected_taxonomy": "tool.data.search",
+      "matched_taxonomy": "tool.data.search",
+      "confidence": 0.4691,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.4691
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.4189
+        },
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.3953
+        },
+        {
+          "taxonomy": "tool.productivity.calendar",
+          "score": 0.3825
+        },
+        {
+          "taxonomy": "tool.productivity.knowledge",
+          "score": 0.3666
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.search for \"Find top 5 ADHD productivity blogs with DA > 40\" (0.469). The user's action is to 'find' specific blogs, which is a search/discovery task, not a productivity management action like document creation, to-do lists, calendars, or knowledge organization.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 13,
+      "category": "todo",
+      "prompt": "Create launch-day checklist: 8 tasks w/ owners + due times across US/EU/JP timezones",
+      "expected_taxonomy": "tool.productivity.todo",
+      "matched_taxonomy": "tool.productivity.project",
+      "confidence": 0.4545,
+      "candidates": [
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.5592
+        },
+        {
+          "taxonomy": "tool.productivity.calendar",
+          "score": 0.4772
+        },
+        {
+          "taxonomy": "tool.productivity.project",
+          "score": 0.4545
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4518
+        },
+        {
+          "taxonomy": "tool.productivity.scheduling",
+          "score": 0.4461
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.productivity.project for \"Create launch-day checklist: 8 tasks w/ owners + due times across US/EU/JP timezones\" (0.455). The user's action is creating a structured checklist with tasks, owners, and due times across multiple time zones, which aligns with project planning and management rather than simple to-do lists, calendar events, or scheduling meetings.",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 14,
+      "category": "database",
+      "prompt": "Insert campaign_metrics row: run_id, total_cost, txs, ts — for later dashboard query",
+      "expected_taxonomy": "infra.database.postgres",
+      "matched_taxonomy": "infra.database.postgres",
+      "confidence": 0.4221,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.analytics",
+          "score": 0.4646
+        },
+        {
+          "taxonomy": "tool.communication.email",
+          "score": 0.4403
+        },
+        {
+          "taxonomy": "infra.database.postgres",
+          "score": 0.4221
+        },
+        {
+          "taxonomy": "tool.payment.processing",
+          "score": 0.3935
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.372
+        }
+      ],
+      "reasoning": "LangGraph: selected infra.database.postgres for \"Insert campaign_metrics row: run_id, total_cost, txs, ts — for later dashboard query\" (0.422). The user's action is inserting a row into a database table for later querying, which is a direct database operation. The domain (campaign metrics, dashboard) is secondary; the core verb is inserting data into a database, making infra.database.postgres the correct taxonomy for the action.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 15,
+      "category": "deploy",
+      "prompt": "Deploy landing page to production, return public URL",
+      "expected_taxonomy": "tool.devops.deployment",
+      "matched_taxonomy": "tool.devops.deployment",
+      "confidence": 0.3992,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.screenshot",
+          "score": 0.4059
+        },
+        {
+          "taxonomy": "infra.auth.identity",
+          "score": 0.4047
+        },
+        {
+          "taxonomy": "tool.devops.deployment",
+          "score": 0.3992
+        },
+        {
+          "taxonomy": "tool.data.visualization",
+          "score": 0.3584
+        },
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.3452
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.devops.deployment for \"Deploy landing page to production, return public URL\" (0.399). The user's action is 'deploy' (a landing page to production and return a public URL), which is a deployment operation. The taxonomy tool.devops.deployment directly matches this action, while other candidates relate to domains like data handling or authentication, not the core verb of deploying.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 16,
+      "category": "image-gen",
+      "prompt": "App icon, focus bear mascot, flat design, 512x512",
+      "expected_taxonomy": "ai.vision.image_generation",
+      "matched_taxonomy": "ai.vision.image_generation",
+      "confidence": 0.378,
+      "candidates": [
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.3808
+        },
+        {
+          "taxonomy": "ai.vision.image_generation",
+          "score": 0.378
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.3693
+        },
+        {
+          "taxonomy": "tool.productivity.calendar",
+          "score": 0.3573
+        },
+        {
+          "taxonomy": "tool.data.visualization",
+          "score": 0.3554
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.vision.image_generation for \"App icon, focus bear mascot, flat design, 512x512\" (0.378). The user's task is to create an app icon with specific visual attributes (mascot, flat design, dimensions), which is an action of generating an image, not managing forms, documents, calendars, or data visualization.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 17,
+      "category": "copywrite",
+      "prompt": "Twitter/X post, 240 chars, product launch announcement",
+      "expected_taxonomy": "ai.llm.chat",
+      "matched_taxonomy": "tool.communication.chat",
+      "confidence": 0.4722,
+      "candidates": [
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.5019
+        },
+        {
+          "taxonomy": "tool.productivity.project",
+          "score": 0.4759
+        },
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.4722
+        },
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.4715
+        },
+        {
+          "taxonomy": "tool.communication.email",
+          "score": 0.4549
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.communication.chat for \"Twitter/X post, 240 chars, product launch announcement\" (0.472). The user's action is writing a short-form social media post, which is a text composition task similar to chat or messaging, not managing projects, tasks, or emails. Among the candidates, tool.communication.chat best matches the action of crafting brief textual content for a communication platform.",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 18,
+      "category": "translate",
+      "prompt": "Translate to Simplified Chinese, localize idioms",
+      "expected_taxonomy": "ai.nlp.translation",
+      "matched_taxonomy": "ai.nlp.translation",
+      "confidence": 0.3638,
+      "candidates": [
+        {
+          "taxonomy": "ai.nlp.translation",
+          "score": 0.3638
+        },
+        {
+          "taxonomy": "tool.data.geolocation",
+          "score": 0.2984
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.2687
+        },
+        {
+          "taxonomy": "ai.llm.embedding",
+          "score": 0.2669
+        },
+        {
+          "taxonomy": "tool.communication.email",
+          "score": 0.2623
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.nlp.translation for \"Translate to Simplified Chinese, localize idioms\" (0.364). The user's primary action is translation (converting text to Simplified Chinese) and localization (adapting idioms), which directly aligns with the ai.nlp.translation taxonomy. Other candidates like tool.data.geolocation or communication tools are irrelevant to the core verb 'translate/localize'.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 19,
+      "category": "tts",
+      "prompt": "Voiceover script B, male voice, 15s, energetic",
+      "expected_taxonomy": "ai.audio.tts",
+      "matched_taxonomy": "ai.audio.tts",
+      "confidence": 0.4978,
+      "candidates": [
+        {
+          "taxonomy": "ai.audio.tts",
+          "score": 0.4978
+        },
+        {
+          "taxonomy": "ai.audio.stt",
+          "score": 0.4538
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.384
+        },
+        {
+          "taxonomy": "ai.video.generation",
+          "score": 0.3809
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.3799
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.audio.tts for \"Voiceover script B, male voice, 15s, energetic\" (0.498). The user's action is generating a voiceover script with specific vocal characteristics (male voice, energetic), which involves converting text to speech, aligning with ai.audio.tts for text-to-speech synthesis, not other domains like speech recognition (ai.audio.stt) or video creation (ai.video.generation).",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 20,
+      "category": "video-gen",
+      "prompt": "6s lifestyle clip, ADHD user feeling focused at desk",
+      "expected_taxonomy": "ai.video.generation",
+      "matched_taxonomy": "ai.video.generation",
+      "confidence": 0.3505,
+      "candidates": [
+        {
+          "taxonomy": "ai.video.generation",
+          "score": 0.3505
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.3505
+        },
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.3338
+        },
+        {
+          "taxonomy": "tool.productivity.calendar",
+          "score": 0.3137
+        },
+        {
+          "taxonomy": "tool.productivity.scheduling",
+          "score": 0.3085
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.video.generation for \"6s lifestyle clip, ADHD user feeling focused at desk\" (0.350). The user's task is to create a '6s lifestyle clip'—the core action is generating a short video, which directly matches the ai.video.generation taxonomy. The mention of 'ADHD user feeling focused at desk' describes the video's content/domain, not the action itself, so productivity-related tool taxonomies are not appropriate.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 21,
+      "category": "embed",
+      "prompt": "Embed competitor taglines to cluster their positioning angles",
+      "expected_taxonomy": "ai.llm.embedding",
+      "matched_taxonomy": "tool.data.visualization",
+      "confidence": 0.5009,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.visualization",
+          "score": 0.5009
+        },
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.4395
+        },
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.4199
+        },
+        {
+          "taxonomy": "ai.llm.chat",
+          "score": 0.4117
+        },
+        {
+          "taxonomy": "tool.data.geolocation",
+          "score": 0.4092
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.visualization for \"Embed competitor taglines to cluster their positioning angles\" (0.501). LLM rerank returned invalid output.",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 22,
+      "category": "scrape",
+      "prompt": "Scrape Reddit r/ADHD top posts of past week mentioning productivity apps",
+      "expected_taxonomy": "tool.data.scraping",
+      "matched_taxonomy": "tool.data.scraping",
+      "confidence": 0.4405,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.4752
+        },
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.4471
+        },
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.4405
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.4129
+        },
+        {
+          "taxonomy": "tool.productivity.calendar",
+          "score": 0.4088
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.scraping for \"Scrape Reddit r/ADHD top posts of past week mentioning productivity apps\" (0.441). The user's action is 'scrape' (extracting data from a website), which directly matches tool.data.scraping, not the domain (Reddit, ADHD, productivity apps) or other tool categories.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 23,
+      "category": "browse",
+      "prompt": "Automate Product Hunt submission flow draft, screenshot each step",
+      "expected_taxonomy": "tool.automation.browser",
+      "matched_taxonomy": "tool.data.screenshot",
+      "confidence": 0.5311,
+      "candidates": [
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.5516
+        },
+        {
+          "taxonomy": "tool.data.screenshot",
+          "score": 0.5311
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.5205
+        },
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.5134
+        },
+        {
+          "taxonomy": "tool.automation.browser",
+          "score": 0.4928
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.screenshot for \"Automate Product Hunt submission flow draft, screenshot each step\" (0.531). The user's primary action is 'screenshot each step' within an automation flow, which directly corresponds to capturing screenshots, not the broader automation or form-filling tasks.",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 24,
+      "category": "code-gen",
+      "prompt": "Generate TikTok Pixel install snippet for the landing page",
+      "expected_taxonomy": "ai.code.completion",
+      "matched_taxonomy": "ai.code.completion",
+      "confidence": 0.4799,
+      "candidates": [
+        {
+          "taxonomy": "ai.code.completion",
+          "score": 0.4799
+        },
+        {
+          "taxonomy": "tool.data.analytics",
+          "score": 0.4712
+        },
+        {
+          "taxonomy": "tool.data.screenshot",
+          "score": 0.4484
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.3952
+        },
+        {
+          "taxonomy": "tool.data.visualization",
+          "score": 0.3909
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.code.completion for \"Generate TikTok Pixel install snippet for the landing page\" (0.480). The user's action is 'Generate...snippet,' which is the act of creating code. The domain (TikTok Pixel, analytics) is secondary; the primary verb is generating code, matching ai.code.completion.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 25,
+      "category": "spreadsheet",
+      "prompt": "Log 50 Reddit comments + pain-point category into tracking sheet",
+      "expected_taxonomy": "tool.productivity.spreadsheet",
+      "matched_taxonomy": "tool.productivity.spreadsheet",
+      "confidence": 0.4557,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.analytics",
+          "score": 0.4767
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4718
+        },
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.4618
+        },
+        {
+          "taxonomy": "tool.productivity.spreadsheet",
+          "score": 0.4557
+        },
+        {
+          "taxonomy": "tool.productivity.project",
+          "score": 0.4502
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.productivity.spreadsheet for \"Log 50 Reddit comments + pain-point category into tracking sheet\" (0.456). The user's action is logging data into a tracking sheet, which is a spreadsheet-based data entry task, not analytics, search, forms, or project management.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 26,
+      "category": "transcribe",
+      "prompt": "Transcribe ADHD-creator TikTok voiceover (30s) to match their tone",
+      "expected_taxonomy": "ai.audio.stt",
+      "matched_taxonomy": "ai.audio.stt",
+      "confidence": 0.4922,
+      "candidates": [
+        {
+          "taxonomy": "ai.audio.tts",
+          "score": 0.5009
+        },
+        {
+          "taxonomy": "ai.audio.stt",
+          "score": 0.4922
+        },
+        {
+          "taxonomy": "ai.llm.chat",
+          "score": 0.3843
+        },
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.3557
+        },
+        {
+          "taxonomy": "ai.video.generation",
+          "score": 0.3452
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.audio.stt for \"Transcribe ADHD-creator TikTok voiceover (30s) to match their tone\" (0.492). The user's action is transcribing audio (voiceover) to text, which is speech-to-text conversion, matching the ai.audio.stt taxonomy for the verb 'transcribe', not the domain of TikTok or tone matching.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 27,
+      "category": "search",
+      "prompt": "Find ADHD-focused newsletter sponsorship opportunities",
+      "expected_taxonomy": "tool.data.search",
+      "matched_taxonomy": "tool.data.search",
+      "confidence": 0.4215,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.4215
+        },
+        {
+          "taxonomy": "tool.communication.email",
+          "score": 0.3657
+        },
+        {
+          "taxonomy": "tool.productivity.calendar",
+          "score": 0.3627
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.3491
+        },
+        {
+          "taxonomy": "tool.business.crm",
+          "score": 0.3458
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.search for \"Find ADHD-focused newsletter sponsorship opportunities\" (0.421). The user's action is 'Find' (searching for opportunities), which is a data search task, not the domain of email, calendar, document, or CRM management.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 28,
+      "category": "image-gen",
+      "prompt": "Social ad banner, product UI screenshot + tagline, 1200x628",
+      "expected_taxonomy": "ai.vision.image_generation",
+      "matched_taxonomy": "ai.vision.image_generation",
+      "confidence": 0.4563,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.screenshot",
+          "score": 0.5273
+        },
+        {
+          "taxonomy": "ai.vision.image_generation",
+          "score": 0.4563
+        },
+        {
+          "taxonomy": "ai.llm.chat",
+          "score": 0.4512
+        },
+        {
+          "taxonomy": "ai.video.generation",
+          "score": 0.4253
+        },
+        {
+          "taxonomy": "tool.data.analytics",
+          "score": 0.4208
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.vision.image_generation for \"Social ad banner, product UI screenshot + tagline, 1200x628\" (0.456). The user's action is generating a visual asset (social ad banner with product UI screenshot and tagline at specific dimensions), which aligns with creating an image, not taking a screenshot or performing other actions.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 29,
+      "category": "copywrite",
+      "prompt": "LinkedIn post, 500 chars, founder-voice, tell the ADHD pain point",
+      "expected_taxonomy": "ai.llm.chat",
+      "matched_taxonomy": "ai.llm.chat",
+      "confidence": 0.4187,
+      "candidates": [
+        {
+          "taxonomy": "ai.llm.chat",
+          "score": 0.4187
+        },
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.4132
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.3999
+        },
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.3958
+        },
+        {
+          "taxonomy": "tool.productivity.project",
+          "score": 0.3873
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.llm.chat for \"LinkedIn post, 500 chars, founder-voice, tell the ADHD pain point\" (0.419). The user's action is writing text (a LinkedIn post with specific tone and content), which aligns with ai.llm.chat for text generation, not the domain of communication tools or productivity tools.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 30,
+      "category": "translate",
+      "prompt": "Translate to Spanish (LATAM), casual register",
+      "expected_taxonomy": "ai.nlp.translation",
+      "matched_taxonomy": "ai.nlp.translation",
+      "confidence": 0.3571,
+      "candidates": [
+        {
+          "taxonomy": "tool.communication.email",
+          "score": 0.3719
+        },
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.3604
+        },
+        {
+          "taxonomy": "ai.nlp.translation",
+          "score": 0.3571
+        },
+        {
+          "taxonomy": "ai.llm.chat",
+          "score": 0.3456
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.3444
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.nlp.translation for \"Translate to Spanish (LATAM), casual register\" (0.357). The user's task is to translate text into Spanish (LATAM) with a casual register, which is fundamentally a translation action. The taxonomy ai.nlp.translation directly corresponds to this action, while other candidates like tool.communication.email or ai.llm.chat relate to communication domains or general text generation, not the core translation verb.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 31,
+      "category": "tts",
+      "prompt": "Short tag jingle voice, neutral, 8s",
+      "expected_taxonomy": "ai.audio.tts",
+      "matched_taxonomy": "ai.audio.tts",
+      "confidence": 0.3835,
+      "candidates": [
+        {
+          "taxonomy": "ai.audio.tts",
+          "score": 0.3835
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.366
+        },
+        {
+          "taxonomy": "ai.audio.stt",
+          "score": 0.3539
+        },
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.3359
+        },
+        {
+          "taxonomy": "tool.data.geolocation",
+          "score": 0.326
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.audio.tts for \"Short tag jingle voice, neutral, 8s\" (0.384). The user's action is generating a short, neutral voice audio (a tag jingle), which is text-to-speech synthesis, matching ai.audio.tts. The domain (communication or jingle creation) is secondary to the core action of voice generation.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 32,
+      "category": "video-gen",
+      "prompt": "3s logo sting, bear mascot animates, brand palette",
+      "expected_taxonomy": "ai.video.generation",
+      "matched_taxonomy": "ai.video.generation",
+      "confidence": 0.3296,
+      "candidates": [
+        {
+          "taxonomy": "ai.video.generation",
+          "score": 0.3296
+        },
+        {
+          "taxonomy": "ai.vision.image_generation",
+          "score": 0.292
+        },
+        {
+          "taxonomy": "ai.audio.stt",
+          "score": 0.2776
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.2734
+        },
+        {
+          "taxonomy": "ai.audio.tts",
+          "score": 0.2729
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.video.generation for \"3s logo sting, bear mascot animates, brand palette\" (0.330). The user's action is creating a short animated video (a '3s logo sting' with an animating bear mascot), which directly matches generating video content, not generating static images (ai.vision.image_generation) or audio processing tasks.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 33,
+      "category": "embed",
+      "prompt": "Embed landing-page headline candidates, find closest to 'relief'",
+      "expected_taxonomy": "ai.llm.embedding",
+      "matched_taxonomy": "tool.data.search",
+      "confidence": 0.5065,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.5065
+        },
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.4875
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.4693
+        },
+        {
+          "taxonomy": "tool.productivity.scheduling",
+          "score": 0.4439
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4436
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.search for \"Embed landing-page headline candidates, find closest to 'relief'\" (0.506). The user's action is to find the closest match among candidates based on similarity to a target concept ('relief'), which is a search/similarity lookup operation, not embedding creation. The taxonomy tool.data.search directly corresponds to this action of searching or comparing items for similarity.",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 34,
+      "category": "scrape",
+      "prompt": "Scrape Product Hunt ADHD-related launches past 30 days",
+      "expected_taxonomy": "tool.data.scraping",
+      "matched_taxonomy": "tool.data.scraping",
+      "confidence": 0.5801,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.5801
+        },
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.5798
+        },
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.5269
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.5036
+        },
+        {
+          "taxonomy": "tool.productivity.calendar",
+          "score": 0.4783
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.scraping for \"Scrape Product Hunt ADHD-related launches past 30 days\" (0.580). The user's action is 'scrape,' which involves extracting data from a website (Product Hunt). The domain (ADHD-related launches) is secondary; the primary verb is data scraping.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 35,
+      "category": "code-gen",
+      "prompt": "Generate UTM-tagged link builder helper in TS",
+      "expected_taxonomy": "ai.code.completion",
+      "matched_taxonomy": "ai.code.completion",
+      "confidence": 0.3995,
+      "candidates": [
+        {
+          "taxonomy": "infra.auth.identity",
+          "score": 0.4147
+        },
+        {
+          "taxonomy": "tool.data.screenshot",
+          "score": 0.4046
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4037
+        },
+        {
+          "taxonomy": "ai.code.completion",
+          "score": 0.3995
+        },
+        {
+          "taxonomy": "tool.productivity.scheduling",
+          "score": 0.3941
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.code.completion for \"Generate UTM-tagged link builder helper in TS\" (0.400). The user's task is to generate (create/write) a TypeScript helper for building UTM-tagged links, which is fundamentally a code generation action. The domain (UTM links, analytics) is secondary; the primary verb is generating code, making ai.code.completion the correct taxonomy.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 36,
+      "category": "spreadsheet",
+      "prompt": "Build competitor feature-overlap matrix, FocusBear vs 5 rivals",
+      "expected_taxonomy": "tool.productivity.spreadsheet",
+      "matched_taxonomy": "tool.data.visualization",
+      "confidence": 0.4433,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.4811
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4488
+        },
+        {
+          "taxonomy": "tool.data.visualization",
+          "score": 0.4433
+        },
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.4192
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.4127
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.visualization for \"Build competitor feature-overlap matrix, FocusBear vs 5 rivals\" (0.443). The user's action is to 'build' a matrix, specifically a feature-overlap matrix for competitor analysis. This is an act of creating a structured visual comparison (a matrix) to display data relationships, which aligns with data visualization, not searching, scraping, or document/forms creation.",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 37,
+      "category": "transcribe",
+      "prompt": "Transcribe ADHD productivity podcast clip (90s) for quotable lines",
+      "expected_taxonomy": "ai.audio.stt",
+      "matched_taxonomy": "ai.audio.stt",
+      "confidence": 0.3595,
+      "candidates": [
+        {
+          "taxonomy": "ai.audio.stt",
+          "score": 0.3595
+        },
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.3344
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.329
+        },
+        {
+          "taxonomy": "tool.productivity.calendar",
+          "score": 0.3111
+        },
+        {
+          "taxonomy": "tool.productivity.project",
+          "score": 0.2922
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.audio.stt for \"Transcribe ADHD productivity podcast clip (90s) for quotable lines\" (0.359). The user's primary action is transcribing audio (a podcast clip), which is a speech-to-text task. The domain is productivity, but the verb is transcription, making ai.audio.stt the correct choice for the action, not productivity tools.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 38,
+      "category": "search",
+      "prompt": "Find TikTok creators in ADHD niche with 10k-100k followers",
+      "expected_taxonomy": "tool.data.search",
+      "matched_taxonomy": "tool.data.search",
+      "confidence": 0.3315,
+      "candidates": [
+        {
+          "taxonomy": "ai.llm.chat",
+          "score": 0.3547
+        },
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.3526
+        },
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.3482
+        },
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.3315
+        },
+        {
+          "taxonomy": "ai.video.generation",
+          "score": 0.329
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.search for \"Find TikTok creators in ADHD niche with 10k-100k followers\" (0.332). The user's action is searching for specific data (TikTok creators in a niche with follower constraints), not generating content or managing tasks. The taxonomy tool.data.search directly corresponds to the search action, while other candidates address unrelated actions like chatting, generating video, or managing to-dos.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 39,
+      "category": "image-gen",
+      "prompt": "Thumbnail for short video, bold text overlay, 720x1280",
+      "expected_taxonomy": "ai.vision.image_generation",
+      "matched_taxonomy": "ai.vision.image_generation",
+      "confidence": 0.4134,
+      "candidates": [
+        {
+          "taxonomy": "ai.video.generation",
+          "score": 0.4994
+        },
+        {
+          "taxonomy": "tool.data.screenshot",
+          "score": 0.4707
+        },
+        {
+          "taxonomy": "tool.data.conversion",
+          "score": 0.4135
+        },
+        {
+          "taxonomy": "ai.vision.image_generation",
+          "score": 0.4134
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.4015
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.vision.image_generation for \"Thumbnail for short video, bold text overlay, 720x1280\" (0.413). The user's action is creating a thumbnail (a static image) with specific design elements (bold text overlay, dimensions 720x1280), which involves generating an image, not generating a video or taking a screenshot. Therefore, ai.vision.image_generation is the correct taxonomy for the image creation action, despite the mention of 'short video' as the domain.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 40,
+      "category": "copywrite",
+      "prompt": "TikTok hook line, 8 words, stop-the-scroll energy",
+      "expected_taxonomy": "ai.llm.chat",
+      "matched_taxonomy": "ai.llm.chat",
+      "confidence": 0.3633,
+      "candidates": [
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.3739
+        },
+        {
+          "taxonomy": "ai.llm.chat",
+          "score": 0.3633
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.34
+        },
+        {
+          "taxonomy": "tool.productivity.project",
+          "score": 0.3382
+        },
+        {
+          "taxonomy": "tool.data.screenshot",
+          "score": 0.337
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.llm.chat for \"TikTok hook line, 8 words, stop-the-scroll energy\" (0.363). The user's action is generating a short, engaging text line (a 'hook'), which is a text creation task. ai.llm.chat directly addresses writing/generating text, while tool.communication.chat refers to the domain of chat tools, not the core action.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 41,
+      "category": "translate",
+      "prompt": "Translate to German, professional tone",
+      "expected_taxonomy": "ai.nlp.translation",
+      "matched_taxonomy": "ai.nlp.translation",
+      "confidence": 0.3558,
+      "candidates": [
+        {
+          "taxonomy": "ai.nlp.translation",
+          "score": 0.3558
+        },
+        {
+          "taxonomy": "tool.productivity.spreadsheet",
+          "score": 0.3115
+        },
+        {
+          "taxonomy": "tool.communication.email",
+          "score": 0.3077
+        },
+        {
+          "taxonomy": "tool.data.conversion",
+          "score": 0.307
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.2987
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.nlp.translation for \"Translate to German, professional tone\" (0.356). The user's action is 'Translate to German,' which is a language translation task. The taxonomy ai.nlp.translation directly corresponds to this action, while other candidates like tool.productivity.spreadsheet or tool.communication.email refer to domains (spreadsheets, email) rather than the core verb of translating.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 42,
+      "category": "embed",
+      "prompt": "Embed 20 Reddit pain-point quotes, cluster into top 5 themes",
+      "expected_taxonomy": "ai.llm.embedding",
+      "matched_taxonomy": "ai.llm.embedding",
+      "confidence": 0.3093,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.357
+        },
+        {
+          "taxonomy": "tool.data.visualization",
+          "score": 0.3247
+        },
+        {
+          "taxonomy": "ai.llm.embedding",
+          "score": 0.3093
+        },
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.2982
+        },
+        {
+          "taxonomy": "infra.database.vector",
+          "score": 0.2974
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.llm.embedding for \"Embed 20 Reddit pain-point quotes, cluster into top 5 themes\" (0.309). The user's primary action is 'Embed' — creating vector embeddings from text quotes to enable clustering. The domain (Reddit quotes, pain points) is secondary; the core task is generating embeddings, which matches ai.llm.embedding.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 43,
+      "category": "scrape",
+      "prompt": "Scrape App Store reviews for top 3 ADHD apps, latest 20 each",
+      "expected_taxonomy": "tool.data.scraping",
+      "matched_taxonomy": "tool.data.scraping",
+      "confidence": 0.4649,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.4924
+        },
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.4649
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4028
+        },
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.4024
+        },
+        {
+          "taxonomy": "tool.productivity.scheduling",
+          "score": 0.3888
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.scraping for \"Scrape App Store reviews for top 3 ADHD apps, latest 20 each\" (0.465). The user's action is scraping (extracting data from web sources), specifically App Store reviews, which directly matches the tool.data.scraping taxonomy. The domain (ADHD apps) and other aspects like search or productivity tools are secondary to the core action of data scraping.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 44,
+      "category": "code-gen",
+      "prompt": "Generate webhook handler for Circle payment confirmation",
+      "expected_taxonomy": "ai.code.completion",
+      "matched_taxonomy": "tool.payment.processing",
+      "confidence": 0.5479,
+      "candidates": [
+        {
+          "taxonomy": "tool.payment.processing",
+          "score": 0.5479
+        },
+        {
+          "taxonomy": "tool.devops.ci",
+          "score": 0.371
+        },
+        {
+          "taxonomy": "tool.communication.email",
+          "score": 0.353
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.3401
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.3395
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.payment.processing for \"Generate webhook handler for Circle payment confirmation\" (0.548). The user's task is to generate a webhook handler for Circle payment confirmation, which is a development action related to processing payment events. The verb/action is 'generate a webhook handler,' which involves creating code to handle payment confirmations, but the taxonomy must reflect the action's domain-specific context. Among the candidates, tool.payment.processing directly aligns with the payment confirmation aspect, even though the action is code generation, as it best matches the domain of payment processing for webhook handling.",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 45,
+      "category": "copywrite",
+      "prompt": "Email subject line, under 50 chars, curiosity-driven",
+      "expected_taxonomy": "ai.llm.chat",
+      "matched_taxonomy": "tool.communication.email",
+      "confidence": 0.5384,
+      "candidates": [
+        {
+          "taxonomy": "tool.communication.email",
+          "score": 0.5384
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.4501
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.4449
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4349
+        },
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.4101
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.communication.email for \"Email subject line, under 50 chars, curiosity-driven\" (0.538). The user's action is generating an email subject line, which is a specific function within email communication, not a general writing or AI task. The taxonomy tool.communication.email directly matches the action of creating email content, unlike broader categories like chat or document creation.",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 46,
+      "category": "translate",
+      "prompt": "Translate to Brazilian Portuguese, friendly tone",
+      "expected_taxonomy": "ai.nlp.translation",
+      "matched_taxonomy": "ai.nlp.translation",
+      "confidence": 0.3354,
+      "candidates": [
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.3897
+        },
+        {
+          "taxonomy": "tool.communication.sms",
+          "score": 0.3423
+        },
+        {
+          "taxonomy": "ai.audio.tts",
+          "score": 0.3418
+        },
+        {
+          "taxonomy": "ai.nlp.translation",
+          "score": 0.3354
+        },
+        {
+          "taxonomy": "tool.communication.email",
+          "score": 0.3304
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.nlp.translation for \"Translate to Brazilian Portuguese, friendly tone\" (0.335). The user's primary action is translation (converting text from one language to another), which directly matches the ai.nlp.translation taxonomy. The mention of 'friendly tone' is a stylistic constraint on the output, not the core action. Other candidates like tool.communication.* focus on communication domains (chat, SMS, email) rather than the translation verb, and ai.audio.tts is for speech synthesis, not translation.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 47,
+      "category": "embed",
+      "prompt": "Embed founder-voice LinkedIn drafts, pick the most on-brand one",
+      "expected_taxonomy": "ai.llm.embedding",
+      "matched_taxonomy": "ai.llm.chat",
+      "confidence": 0.4722,
+      "candidates": [
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.4729
+        },
+        {
+          "taxonomy": "ai.llm.chat",
+          "score": 0.4722
+        },
+        {
+          "taxonomy": "tool.communication.chat",
+          "score": 0.4346
+        },
+        {
+          "taxonomy": "ai.audio.tts",
+          "score": 0.4138
+        },
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.4112
+        }
+      ],
+      "reasoning": "LangGraph: selected ai.llm.chat for \"Embed founder-voice LinkedIn drafts, pick the most on-brand one\" (0.472). The user's action is selecting the most on-brand draft from embedded content, which involves evaluating and choosing text based on brand alignment—a text analysis and decision-making task performed by an LLM, not embedding creation (which was the prior step) or document/search tools.",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 48,
+      "category": "scrape",
+      "prompt": "Scrape YouTube titles of ADHD productivity videos past 7 days",
+      "expected_taxonomy": "tool.data.scraping",
+      "matched_taxonomy": "tool.data.scraping",
+      "confidence": 0.4634,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.4902
+        },
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.4634
+        },
+        {
+          "taxonomy": "ai.video.generation",
+          "score": 0.4288
+        },
+        {
+          "taxonomy": "tool.productivity.calendar",
+          "score": 0.4056
+        },
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.4032
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.scraping for \"Scrape YouTube titles of ADHD productivity videos past 7 days\" (0.463). The user's action is scraping data (YouTube titles), not searching, generating video, or using productivity tools.",
+      "correct": true,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 49,
+      "category": "copywrite",
+      "prompt": "Product Hunt tagline, under 60 chars, benefit-led",
+      "expected_taxonomy": "ai.llm.chat",
+      "matched_taxonomy": "tool.data.search",
+      "confidence": 0.4684,
+      "candidates": [
+        {
+          "taxonomy": "tool.data.search",
+          "score": 0.4684
+        },
+        {
+          "taxonomy": "tool.data.analytics",
+          "score": 0.4533
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4475
+        },
+        {
+          "taxonomy": "tool.data.scraping",
+          "score": 0.4325
+        },
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.4253
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.data.search for \"Product Hunt tagline, under 60 chars, benefit-led\" (0.468). The user's action is to search for or retrieve a specific type of text (a benefit-led Product Hunt tagline under 60 characters), which aligns with the information retrieval function of tool.data.search, rather than analytics, forms, scraping, or document creation.",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    },
+    {
+      "id": 50,
+      "category": "translate",
+      "prompt": "Translate to Korean, preserve product name in katakana-style",
+      "expected_taxonomy": "ai.nlp.translation",
+      "matched_taxonomy": "tool.productivity.document",
+      "confidence": 0.4516,
+      "candidates": [
+        {
+          "taxonomy": "tool.productivity.document",
+          "score": 0.4516
+        },
+        {
+          "taxonomy": "tool.productivity.forms",
+          "score": 0.4472
+        },
+        {
+          "taxonomy": "tool.productivity.calendar",
+          "score": 0.4442
+        },
+        {
+          "taxonomy": "tool.productivity.project",
+          "score": 0.4401
+        },
+        {
+          "taxonomy": "tool.productivity.todo",
+          "score": 0.4378
+        }
+      ],
+      "reasoning": "LangGraph: selected tool.productivity.document for \"Translate to Korean, preserve product name in katakana-style\" (0.452). The user's action is translation, which is a text manipulation task typically performed within a document or text editing context. Among the given candidates, 'tool.productivity.document' is the most appropriate as it directly relates to working with textual content, aligning with the core action of translating text while preserving specific formatting (katakana-style product names).",
+      "correct": false,
+      "timestamp": "2026-04-24T03:11:08.178Z"
+    }
+  ]
+}

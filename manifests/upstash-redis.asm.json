@@ -1,0 +1,68 @@
+{
+  "asm_version": "0.3",
+  "service_id": "upstash/redis@v2",
+  "taxonomy": "infra.database.kv",
+  "display_name": "Upstash Redis",
+  "provenance": {
+    "source_url": "https://upstash.com",
+    "retrieved_at": "2026-04-28T00:00:00Z",
+    "last_verified_at": "2026-04-28T00:00:00Z",
+    "verification_status": "self_reported",
+    "notes": "Initial provenance backfill from the provider URL; pricing, SLA, and quality claims require source-level review before marking manual_verified."
+  },
+  "updated_at": "2026-04-14T00:00:00Z",
+  "ttl": 86400,
+  "provider": {
+    "name": "Upstash",
+    "url": "https://upstash.com"
+  },
+  "capabilities": {
+    "description": "Serverless Redis with per-request pricing — perfect for Agent state caching, rate limiting, and session management",
+    "input_modalities": [
+      "structured_data"
+    ],
+    "output_modalities": [
+      "structured_data"
+    ],
+    "supported_languages": [
+      "en"
+    ]
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "api_call",
+        "unit": "per_request",
+        "cost_per_unit": 0.000002,
+        "currency": "USD"
+      }
+    ],
+    "free_tier": "10K commands/day free"
+  },
+  "quality": {
+    "metrics": []
+  },
+  "sla": {
+    "latency_p50": "2ms",
+    "latency_p99": "10ms",
+    "uptime": 0.999,
+    "rate_limit": "varies"
+  },
+  "payment": {
+    "methods": [
+      "free_tier",
+      "stripe",
+      "onchain_usdc"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://upstash.com",
+    "onchain_address": "0x2A42e2Dc591C79e9524b81Ed47a8725fA15F9fbd",
+    "onchain_network": "eip155:5042002"
+  },
+  "extensions": {
+    "tool": {
+      "serverless": true,
+      "supports_global_replication": true
+    }
+  }
+}

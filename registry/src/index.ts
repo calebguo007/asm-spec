@@ -38,6 +38,13 @@ interface ASMManifest {
   service_id: string;
   taxonomy: string;
   display_name?: string;
+  provenance?: {
+    source_url: string;
+    retrieved_at: string;
+    last_verified_at: string;
+    verification_status: "manual_verified" | "self_reported" | "benchmark_verified";
+    notes?: string;
+  };
   provider?: { name?: string; url?: string; verified_by?: string[] };
   capabilities?: {
     description?: string;
@@ -318,6 +325,10 @@ function formatManifestSummary(m: ASMManifest): string {
   if (m.provider?.name) lines.push(`- Provider: ${m.provider.name}`);
   if (m.capabilities?.description)
     lines.push(`- Description: ${m.capabilities.description}`);
+  if (m.provenance) {
+    lines.push(`- Source: ${m.provenance.source_url}`);
+    lines.push(`- Verification: ${m.provenance.verification_status}, last checked ${m.provenance.last_verified_at}`);
+  }
 
   // Pricing
   if (m.pricing?.billing_dimensions) {

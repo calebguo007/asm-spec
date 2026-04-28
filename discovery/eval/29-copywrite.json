@@ -1,0 +1,33 @@
+{
+  "id": 29,
+  "category": "copywrite",
+  "prompt": "LinkedIn post, 500 chars, founder-voice, tell the ADHD pain point",
+  "expected_taxonomy": "ai.llm.chat",
+  "matched_taxonomy": "ai.llm.chat",
+  "confidence": 0.4187,
+  "candidates": [
+    {
+      "taxonomy": "ai.llm.chat",
+      "score": 0.4187
+    },
+    {
+      "taxonomy": "tool.communication.chat",
+      "score": 0.4132
+    },
+    {
+      "taxonomy": "tool.productivity.document",
+      "score": 0.3999
+    },
+    {
+      "taxonomy": "tool.productivity.todo",
+      "score": 0.3958
+    },
+    {
+      "taxonomy": "tool.productivity.project",
+      "score": 0.3873
+    }
+  ],
+  "reasoning": "LangGraph: selected ai.llm.chat for \"LinkedIn post, 500 chars, founder-voice, tell the ADHD pain point\" (0.419). The user's action is writing text (a LinkedIn post with specific tone and content), which aligns with ai.llm.chat for text generation, not the domain of communication tools or productivity tools.",
+  "correct": true,
+  "timestamp": "2026-04-24T03:11:08.178Z"
+}
