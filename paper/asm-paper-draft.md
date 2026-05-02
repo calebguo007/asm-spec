@@ -8,7 +8,7 @@
 
 ## Abstract
 
-The rapid growth of AI-as-a-Service has created an ecosystem where autonomous agents must choose among competing services before they can execute or pay. Existing protocols address service capability discovery (MCP), inter-agent communication (A2A), and secure payment execution (AP2), but they leave a missing settlement layer: agents can discover what tools can do, yet cannot compute what services are worth. We present **Agent Service Manifest (ASM)**, a lightweight settlement protocol, specified as a JSON Schema, that gives agents standardized, machine-readable value descriptors across pricing, quality, SLA, provenance, verification, and payment. The problem is not model intelligence; it is missing data infrastructure. In a reproducible audit of 50 public repositories returned by MCP-related GitHub queries, 0/50 expose ASM-style structured value metadata, only 9/50 expose SLA or rate-limit signals in public README/config text, and 0/50 expose all four core value classes (pricing, SLA, quality, payment). We validate ASM with **70 real-world service manifests spanning 47 taxonomies** and demonstrate a two-stage selection engine (constraint filtering + TOPSIS ranking) that produces preference-aware, explainable settlement decisions. In a 200-task A/B evaluation, ASM-guided selection achieves a **23.1% improvement in preference-weighted TOPSIS utility over uniform-random selection** ($p < 10^{-6}$) and a **59.2% cost reduction relative to a most-expensive baseline** ($p < 10^{-6}$), while remaining within 5ms scoring overhead per task. To test whether the protocol still helps when a frontier LLM is the selector, we replicate a 36-task ranking experiment across three independent LLMs (DeepSeek-V4-flash, Qwen3-Max, Moonshot Kimi K2.5): with the *same* model, the *same* tasks, and the *same* prompt template, swapping raw provider HTML for ASM manifests raises top-1 accuracy from 63.9–72.2% to 100.0%, with non-overlapping 95% CIs.
+Autonomous agents increasingly choose among competing AI services before they execute or pay. Existing protocols cover capability discovery (MCP), inter-agent communication (A2A), and payment execution (AP2), but a settlement layer is missing: agents can see what tools do, yet cannot compute what services are worth. We present **Agent Service Manifest (ASM)**, a lightweight settlement protocol — specified as a JSON Schema — that gives agents standardised value descriptors across pricing, quality, SLA, provenance, verification, and payment. An audit of 50 MCP-related public repositories finds 0/50 with ASM-style structured value metadata and 0/50 with all four core value classes simultaneously, confirming the gap is empirical rather than hypothetical. We validate ASM with **70 real-world manifests spanning 47 taxonomies** and a two-stage selection engine (constraint filter + TOPSIS). In a 200-task A/B evaluation, ASM-guided selection improves preference-weighted utility by **23.1%** over random and reduces cost by **59.2%** relative to most-expensive ($p < 10^{-6}$, scoring overhead < 5 ms). To test whether a frontier LLM makes the protocol redundant, we replicate a 36-task ranking suite across three LLMs from three labs (DeepSeek-V4-flash, Qwen3-Max, Kimi K2.5): swapping raw provider HTML for ASM manifests as the LLM's information surface raises top-1 accuracy from **63.9–72.2% to 100.0%** with non-overlapping 95% CIs. The protocol's contribution is precisely this surface change — converting a brittle HTML-parsing problem into a deterministic numerical comparison.
 
 ---
 
@@ -697,9 +697,9 @@ The system prompt is identical across `llm_manifest` and `llm_raw_doc`; only the
 | `asm_topsis` | 36 | 0.630 [0.370, 0.852] | 0.639 [0.375, 0.861] | 77.8% |
 | `llm_raw_doc` | 36 | 0.444 [0.130, 0.704] | 0.444 [0.125, 0.708] | 72.2% |
 
-**Reading the table.** The same LLM, given the *same* selection task with the *same* prompt structure, gets 28 percentage points lower top-1 accuracy and 0.56 lower Kendall's tau when the information surface is raw provider HTML rather than structured ASM manifests. The 95% CIs do not overlap on Kendall's tau ([0.130, 0.704] versus [1.000, 1.000]). This is the empirical operationalization of the protocol's value claim: the structuring work that ASM performs is not redundant with what a frontier LLM can recover from public documentation.
+**Reading the table.** With ASM manifests as the surface, the LLM's task collapses to numerical comparison over named fields — `pricing.billing_dimensions[*].cost_per_unit`, `sla.latency_p50`, `quality.metrics[name=...].score`. With raw HTML, the same LLM must first locate the relevant facts inside marketing copy, sometimes split across pricing and SLA pages. **This is the protocol's value, stated honestly: ASM does not make the LLM smarter; it removes the parsing step that introduces errors.** The 28-percentage-point top-1 gap and the non-overlapping Kendall's tau CIs ([0.130, 0.704] versus [1.000, 1.000]) are exactly what one would expect if structured fields are doing the work the LLM was previously doing imperfectly. The empirical claim is that this parsing step is non-trivial in practice — across three LLMs the gap is consistent and significant — not that the protocol contributes new reasoning capability.
 
-`asm_topsis` deliberately sits below `llm_manifest` because it follows the multi-criteria objective (cost weight 0.55 still leaves 0.45 mass on quality, speed, and reliability). When the ground truth is single-axis, multi-criteria scoring trades single-axis fidelity for cross-axis robustness — exactly the property ASM is designed to provide for real agent workloads where preferences are seldom pure.
+`asm_topsis` deliberately sits below `llm_manifest` because it follows the multi-criteria objective (axis weight 0.55 still leaves 0.45 mass on the other three dimensions). When the ground truth is single-axis, multi-criteria scoring trades single-axis fidelity for cross-axis robustness — exactly the property ASM is designed to provide for real agent workloads where preferences are seldom pure. We confirm this is a profile choice rather than an algorithmic limitation: re-running TOPSIS with a *pure*-axis profile (e.g., `quality=1.0, cost=speed=reliability=0`) recovers single-axis behaviour and matches the ground truth on all 5 quality tasks (Table 7c).
 
 **Per-axis breakdown.** The protocol gain is consistent across all three axes (Table 7a). Inspection of `llm_raw_doc` failure cases confirms the mechanism: provider landing pages and pricing tables often omit p50 latency entirely (e.g., embedding endpoints publish throughput but not latency), and pricing pages structure cost in marketing units (per-1K chars, free-tier-then-tiered) that require nontrivial parsing. ASM normalises these into single comparable scalars at the protocol layer.
 
@@ -711,7 +711,16 @@ The system prompt is identical across `llm_manifest` and `llm_raw_doc`; only the
 | latency | 20 | 70.0% | 90.0% | 100.0% |
 | quality | 5 | 80.0% | 0.0% | 100.0% |
 
-The quality row exposes a known property of TOPSIS rather than a defect: with the quality-leaning profile (0.55 on quality, 0.45 distributed over cost/speed/reliability), TOPSIS does not always select the single-axis quality leader. A pure-quality preference (quality=1.0) recovers single-axis behaviour. This trade-off is desirable for real agent workloads where preferences are seldom pure, and it is the same property quantified by §6.6's regret analysis.
+The quality row exposes a known property of TOPSIS rather than a defect (see Table 7c).
+
+**Table 7c: TOPSIS profile sensitivity on quality-axis tasks (n=5).**
+
+| Profile | weights (cost / quality / speed / reliability) | Top-1 vs single-axis GT |
+|---|---|---:|
+| Quality-leaning (default for `quality` axis) | 0.15 / 0.55 / 0.15 / 0.15 | 0/5 (0%) |
+| Pure quality | 0.00 / 1.00 / 0.00 / 0.00 | **5/5 (100%)** |
+
+The protocol exposes preference weights as a first-class input. Operators who genuinely care only about quality can express this; operators who balance multiple dimensions get the cross-axis robustness §6.6 quantifies. Single-axis TOPSIS underperformance is therefore a feature surface, not a bug surface.
 
 **Cross-model robustness.** We replicated the experiment with Qwen3-Max (Alibaba) and Moonshot Kimi K2.5 alongside DeepSeek-V4-flash. All three models — drawn from three distinct labs — score 100.0% top-1 on `llm_manifest` and between 63.9% and 72.2% on `llm_raw_doc` (Table 7b). The information-surface gap (27.8 to 36.1 percentage points) is therefore not a one-model artifact, and the larger gap for Qwen3-Max suggests that less specialised raw-doc parsers see *more* benefit from the protocol, not less.
 
@@ -723,7 +732,17 @@ The quality row exposes a known property of TOPSIS rather than a defect: with th
 | Qwen3-Max | 63.9% | 100.0% | +36.1 |
 | Moonshot Kimi K2.5 | 69.4% | 100.0% | +30.6 |
 
-**Caveats.** The single-axis ground truth is conservative: real agent decisions involve preference vectors, where the gap between raw-doc selection and structured selection is expected to widen. A live-API extension that measures *realised* cost / latency / quality after API invocation is the natural next step (deferred to §7.4). The full task set is auto-generated from `manifests/` by `experiments/expert_annotation/generate_objective_tasks.py`; raw responses, prompts, and per-task results are at `experiments/expert_annotation/results_objective*/`.
+**Sample-size adequacy.** The Kendall's tau CI for `llm_raw_doc` is wide ([0.130, 0.704]) because n=36 is modest and per-task tau is bounded to a small number of distinct values for n_candidates ∈ {2, 3}. The CI nevertheless excludes the `llm_manifest` interval [1.000, 1.000] entirely, so the directional claim — manifest dominates raw-doc — is robust. We do not over-claim the *magnitude* of the gap from this n; the more conservative top-1 metric (binomial, exact CI on each cell) gives `llm_manifest` 100% [90.3%, 100%] versus `llm_raw_doc` 72.2% [54.8%, 85.8%], also non-overlapping. Extending n to 60+ would tighten the tau interval but is unlikely to flip directionality given the per-axis breakdowns in Table 7a.
+
+**Caveats.** The single-axis ground truth is conservative: real agent decisions involve preference vectors, where the gap between raw-doc selection and structured selection is expected to widen. A live-API extension that measures *realised* cost / latency / quality after API invocation is the natural next step (deferred to §7.4).
+
+**Reproducibility.** The full task set is auto-generated from `manifests/` by `experiments/expert_annotation/generate_objective_tasks.py`. Per-LLM raw responses, prompts, and per-task records are at:
+
+- `experiments/expert_annotation/results_objective/` (DeepSeek-V4-flash)
+- `experiments/expert_annotation/results_objective_qwen/` (Qwen3-Max)
+- `experiments/expert_annotation/results_objective_kimi/` (Kimi K2.5)
+
+Each directory contains `ranking_results.csv` (108 records: 36 tasks × 3 selectors), `ranking_summary.json`, and `ranking_report.md`. Raw HTML snapshots used by `llm_raw_doc` are cached at `experiments/expert_annotation/cache/raw_docs/`.
 
 ---
 
