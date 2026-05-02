@@ -1,0 +1,42 @@
+# ASM artifact-evaluation image (separate from production Dockerfile).
+#
+# Production Dockerfile (root) builds the runtime registry + payment services.
+# This image is for reviewers reproducing the paper experiments end-to-end.
+#
+# Build:  docker build -f Dockerfile.artifact -t asm-artifact .
+# Run:    docker run --rm -v "$PWD/experiments/results:/app/experiments/results" asm-artifact
+# Live LLM (§6.7):
+#         docker run --rm -e DEEPSEEK_API_KEY=$DEEPSEEK_API_KEY \
+#           -e LLM_PROVIDER=deepseek-v4-flash -e LLM_MODEL=deepseek-v4-flash \
+#           -e LLM_BASE_URL=https://tokendance.space/gateway/v1 \
+#           -e LLM_API_KEY_ENV=DEEPSEEK_API_KEY \
+#           -v "$PWD/experiments/results:/app/experiments/results" \
+#           asm-artifact make llm-eval-live
+
+FROM python:3.11-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        curl ca-certificates make git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Node 20 — only required by `make test-ts`.
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get update && apt-get install -y --no-install-recommends nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Layer-cache friendly: install Python deps first.
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+# Best-effort registry install for `make test-ts`. Does not fail the image build
+# if the registry has no lockfile yet.
+RUN cd registry && npm install --no-audit --no-fund || true
+
+ENV PYTHONIOENCODING=utf-8
+ENV PYTHONUNBUFFERED=1
+
+CMD ["make", "reproduce"]

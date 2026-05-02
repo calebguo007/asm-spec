@@ -1,4 +1,4 @@
-.PHONY: test test-py test-ts eval ablations preference-alignment llm-eval llm-eval-live audit value-audit paper-tables clean clean-cache help
+.PHONY: test test-py test-ts eval ablations preference-alignment llm-eval llm-eval-live audit value-audit value-audit-full paper-tables reproduce clean clean-cache help
 
 LLM_PROVIDER ?= deepseek
 LLM_MODEL ?= deepseek-chat
@@ -17,8 +17,10 @@ help:
 	@echo "  make llm-eval      LLM-as-selector dry-run (no API calls)"
 	@echo "  make llm-eval-live LLM-as-selector with live LLM (override LLM_PROVIDER/LLM_MODEL/LLM_BASE_URL/LLM_API_KEY_ENV)"
 	@echo "  make audit         Run MCP ecosystem audit (Section 2)"
-	@echo "  make value-audit   Run expanded MCP registry/directory value metadata audit"
+	@echo "  make value-audit   Run expanded MCP registry/directory value metadata audit (n=600)"
+	@echo "  make value-audit-full  Same audit on full MCPCorpus (~14K entries; first run downloads ~13MB)"
 	@echo "  make paper-tables  Generate paper tables from experiment results"
+	@echo "  make reproduce     Run every offline experiment in one command (Section 6 audit/eval/ablations/alignment + LLM dry-run)"
 	@echo "  make clean         Remove cache artifacts"
 	@echo "  make clean-cache   Remove raw-doc cache (large)"
 	@echo ""
@@ -74,15 +76,40 @@ audit:
 value-audit:
 	python experiments/mcp_value_metadata_audit.py --sample-size 600 --seed 2026
 
+value-audit-full:
+	python experiments/mcp_value_metadata_audit.py \
+	  --sample-size 15000 \
+	  --mcpcorpus-limit 14000 \
+	  --official-limit 300 \
+	  --glama-limit 300 \
+	  --atlas-limit 100 \
+	  --seed 2026
+
 paper-tables:
+	python experiments/generate_paper_tables.py
+
+reproduce:
+	@echo "==> [1/6] §6.0  GitHub repository audit (n=50)"
+	python experiments/mcp_ecosystem_audit.py
+	@echo "==> [2/6] §6.0a Registry-level value-metadata audit (n=600)"
+	python experiments/mcp_value_metadata_audit.py --sample-size 600 --seed 2026
+	@echo "==> [3/6] §6.5  Controlled A/B vs random/most-expensive"
 	python experiments/ab_test.py
 	python experiments/analyze.py
+	@echo "==> [4/6] §6.3a Component ablations (trust delta, TOPSIS vs WA, io_ratio)"
 	python experiments/ablation_experiments.py --seed 2024
+	@echo "==> [5/6] §6.6a Preference alignment over 20 NL requests"
 	python experiments/preference_alignment.py --seed 2024
-	python experiments/mcp_value_metadata_audit.py --sample-size 600 --seed 2026
+	@echo "==> [6/6] §6.7  LLM-as-selector dry-run (deterministic; no API)"
 	python experiments/expert_annotation/run_ranking_experiment.py \
 	  --tasks-file experiments/expert_annotation/tasks_objective.yaml \
 	  --dry-run
+	@echo ""
+	@echo "==> Generating paper-table snippets from results"
+	python experiments/generate_paper_tables.py
+	@echo ""
+	@echo "[OK] Reproduction complete. See experiments/results/ and experiments/expert_annotation/results/."
+	@echo "    For live LLM (§6.7 headline numbers): make llm-eval-live with API credentials."
 
 # ---------------------------------------------------------------------------
 # Clean targets
