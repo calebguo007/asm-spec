@@ -8,7 +8,7 @@
 
 ## Abstract
 
-Autonomous agents increasingly choose among competing AI services before they execute or pay. Existing protocols cover capability discovery (MCP), inter-agent communication (A2A), and payment execution (AP2), but a settlement layer is missing: agents can see what tools do, yet cannot compute what services are worth. We present **Agent Service Manifest (ASM)**, a lightweight settlement protocol — specified as a JSON Schema — that gives agents standardised value descriptors across pricing, quality, SLA, provenance, verification, and payment. An audit of 50 MCP-related public repositories finds 0/50 with ASM-style structured value metadata and 0/50 with all four core value classes simultaneously, confirming the gap is empirical rather than hypothetical. We validate ASM with **70 real-world manifests spanning 47 taxonomies** and a two-stage selection engine (constraint filter + TOPSIS). In a 200-task A/B evaluation, ASM-guided selection improves preference-weighted utility by **23.1%** over random and reduces cost by **59.2%** relative to most-expensive ($p < 10^{-6}$, scoring overhead < 5 ms). To test whether a frontier LLM makes the protocol redundant, we replicate a 36-task ranking suite across three LLMs from three labs (DeepSeek-V4-flash, Qwen3-Max, Kimi K2.5): swapping raw provider HTML for ASM manifests as the LLM's information surface raises top-1 accuracy from **63.9–72.2% to 100.0%** with non-overlapping 95% CIs. The protocol's contribution is precisely this surface change — converting a brittle HTML-parsing problem into a deterministic numerical comparison.
+Autonomous agents increasingly choose among competing AI services before they execute or pay. Existing protocols cover capability discovery (MCP), inter-agent communication (A2A), and payment execution (AP2), but a settlement layer is missing: agents can see what tools do, yet cannot compute what services are worth. We present **Agent Service Manifest (ASM)**, a lightweight settlement protocol — specified as a JSON Schema — that gives agents standardised value descriptors across pricing, quality, SLA, provenance, verification, and payment. Two audits ground the gap: 0/50 MCP-related GitHub repositories expose all four core value classes (pricing + SLA + quality + payment), and 0/600 entries sampled from five MCP registries / directories expose them either. We validate ASM with **70 real-world manifests spanning 47 taxonomies** and a two-stage selection engine (constraint filter + TOPSIS). On 200 synthetic tasks ASM improves preference-weighted utility by **23.1%** over random and cuts cost **59.2%** relative to most-expensive ($p < 10^{-6}$, < 5 ms scoring overhead); on 20 natural-language user requests with explicit preference vectors, ASM is zero-regret on 100% of tasks while the strongest single-axis policy is zero-regret on 75%. To test whether a frontier LLM makes the protocol redundant, we replicate a 36-task ranking suite across three LLMs from three labs (DeepSeek-V4-flash, Qwen3-Max, Kimi K2.5): swapping raw provider HTML for ASM manifests raises top-1 accuracy from **63.9–72.2% to 100.0%** with non-overlapping 95% CIs. The protocol's contribution is precisely this surface change — converting brittle HTML parsing into deterministic numerical comparison.
 
 ---
 
@@ -499,6 +499,25 @@ To test whether ASM addresses a real ecosystem gap rather than an invented abstr
 
 The result supports the paper's necessity claim: current MCP repositories may expose capabilities, examples, and authentication instructions, but they rarely expose the computable value surface an autonomous agent needs before selection. Even generous text matching finds complete pricing/SLA/quality/payment coverage in 0% of the sample, and no repository exposes ASM-style structured metadata.
 
+#### 6.0a Registry-Level Audit (n = 600 entries across five sources)
+
+The 50-repository audit looks at how individual MCP servers describe themselves; we also need to know how the **registries and directories** that agents query for discovery describe those same servers. We therefore sampled 600 entries across five sources: the official MCP registry (`registry.modelcontextprotocol.io/v0/servers`, n=140), Glama (`glama.ai/api/mcp/v1/servers`, n=138), MCP Atlas (`mcpatlas.dev/browse`, n=42), MCPCorpus (the Hugging Face `Website/mcpso_servers_cleaned.json` snapshot, n=279), and FindMCP (n=1, the only entry with a stable scrape surface at audit time). For each entry the audit script labels six metadata classes — pricing, SLA/rate-limit, quality/benchmark, payment, provenance, and security/trust — at four granularities: `absent`, `human_readable`, `structured_unverified`, and `machine_actionable`.
+
+**Table 0a: Value-metadata coverage across five MCP registries / directories (n = 600).**
+
+| Field | Absent | Human-readable | Structured | Machine-actionable |
+|---|---:|---:|---:|---:|
+| pricing | 539 | 61 | 0 | 0 |
+| sla / rate_limit | 590 | 9 | 1 | 0 |
+| quality / benchmark | 136 | 47 | 417 | 0 |
+| payment | 584 | 16 | 0 | 0 |
+| provenance | 0 | 1 | 0 | 599 |
+| security / trust | 120 | 71 | 32 | 377 |
+
+Entries exposing **all four** core economic value classes simultaneously (pricing + SLA + quality + payment): **0 / 600 (0.0%)**. The pattern is consistent across sources: every directory exposes provenance and security signals at registry level (because that is what GitHub-derived metadata naturally carries), but none expose pricing, SLA, or payment in a structured way. The observation generalises beyond the §6.0 GitHub sample to the discovery layer agents actually consult.
+
+**Methodological caveats.** This is a metadata-surface audit, not a full crawl of every linked repository or pricing page. Keyword patterns can over-count human-readable mentions such as a *billing-data* tool that does not expose its own pricing. The strongest reading of the data is therefore the **structured-coverage gap on economic fields** — pricing, SLA, payment — rather than the absence of any signal at all. Raw scrape, labels, and summary are at `experiments/mcp_value_metadata_audit.py` and `experiments/results/mcp_value_metadata_audit.*`.
+
 ### 6.1 Pricing Heterogeneity Coverage
 
 We populated **70 ASM manifests with source-linked pricing data from production APIs across 47 taxonomies**, spanning AI/ML services (LLM, image, video, TTS, STT, embedding, code generation), infrastructure (GPU compute, serverless, object storage, vector databases, relational databases, caches, identity, DNS, secrets, observability), and developer/productivity tooling (search, scraping, PDF processing, CI/CD, deployment, monitoring, payment, communication, calendar, document, spreadsheet, knowledge management). Table 1 illustrates the pricing diversity encountered with a representative subset of 14 services:
@@ -668,6 +687,32 @@ where $U$ is the task's preference-weighted TOPSIS utility, $s^*$ is the best fe
 | Most-expensive-first | 0.1980 | 0.7091 | 13.0% | 0.0220168655 | 6.0715 | 0.5780 |
 
 The result clarifies the role of ASM: single-objective heuristics can optimize their own dimension, but they systematically incur regret when user preferences span cost, quality, speed, and reliability. Weighted average is a much stronger baseline than random, yet still leaves mean regret of 0.0787 because it does not account for distance to both ideal and anti-ideal services. The reproducibility script and raw records are available at `experiments/selection_baselines.py` and `experiments/results/selection_baselines.*`.
+
+### 6.6a Preference Alignment on Natural-Language User Requests
+
+The §6.5 / §6.6 experiments use synthetic preference profiles drawn from a 4-class library. To connect the settlement objective back to user intent, we add a 20-request preference-alignment suite. Each task starts as a natural-language request — e.g., "I need a cheap but reliable TTS API for a 10-minute voiceover; latency should stay under one second", or "I need web search with the strongest answer quality for a research agent." The experiment authors manually map each request to (i) a taxonomy, (ii) a candidate service set, (iii) hard constraints, and (iv) an explicit preference vector over cost, quality, speed, and reliability. **This is not a user study and does not evaluate natural-language preference extraction**; it evaluates selection once preferences are explicit.
+
+The experiment operationalises suitability as
+
+$$\text{most suitable} = \arg\max_{s \in \mathcal{S}_{\text{feas}}} U(s; \mathbf{w})$$
+
+where $\mathcal{S}_{\text{feas}}$ is the set of services satisfying the user's hard constraints and $U$ is the preference-weighted TOPSIS utility under the request-specific weight vector $\mathbf{w}$. ASM does not define a universal "best"; it makes "best for this user under these constraints" computable.
+
+As in §6.6, ASM-TOPSIS achieves zero regret by construction because the regret oracle is the same TOPSIS objective the selector optimises. The empirical content is again the spread among non-TOPSIS baselines.
+
+**Table 6a: Preference alignment over 20 natural-language requests (lower regret is better).**
+
+| Selector | Utility mean | Regret mean | Alignment mean | Zero-regret rate |
+|---|---:|---:|---:|---:|
+| ASM-TOPSIS | **0.901** | **0.000** | **1.000** | **100.0%** |
+| Weighted average | 0.892 | 0.008 | 0.991 | 95.0% |
+| Cheapest-first | 0.800 | 0.101 | 0.875 | 75.0% |
+| Fastest-first | 0.750 | 0.150 | 0.833 | 75.0% |
+| Highest-quality-first | 0.635 | 0.266 | 0.722 | 60.0% |
+| Highest-reliability-first | 0.472 | 0.429 | 0.533 | 35.0% |
+| Random | 0.456 | 0.444 | 0.526 | 40.0% |
+
+Two findings beyond §6.6: (i) when preference vectors are written from realistic user requests instead of synthesised, weighted-average drops only one rank place (95% vs 100% zero-regret), so TOPSIS adds modest but consistent value at the multi-criteria level; (ii) single-axis policies — including reliability-first, which is a common naive default — leave 27–44% mean regret on these tasks, so the protocol does measurable work whenever an agent's preference is anything other than "all weight on one dimension". Reproducibility: `experiments/preference_alignment.py`, `experiments/preference_alignment_tasks.json`, results at `experiments/results/preference_alignment.*`.
 
 ### 6.7 LLM-as-Selector Comparison: Does the Protocol Actually Help LLMs?
 

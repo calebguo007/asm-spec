@@ -1,14 +1,13 @@
 {
   "experiment": "glm_3_io_ratio_sensitivity",
-  "generated_at": "2026-05-02T10:22:52Z",
+  "generated_at": "2026-05-02T12:41:01Z",
   "io_ratios_swept": [
     0.1,
     0.2,
     0.3,
     0.5,
     0.8,
-    1.0,
-    2.0
+    1.0
   ],
   "profiles_tested": [
     "cost_first",
@@ -56,21 +55,13 @@
         1.0
       ],
       "n_comparisons": 80
-    },
-    "1.0->2.0": {
-      "tau_mean": 0.95,
-      "ci95": [
-        0.8833,
-        1.0
-      ],
-      "n_comparisons": 80
     }
   },
   "stable_range": {
     "start": 0.1,
-    "end": 2.0,
+    "end": 1.0,
     "note": "tau >= 0.9 considered stable"
   },
-  "total_rankings": 1204,
-  "interpretation": "Stable range [0.2, 0.5] would confirm chat-scenario default is safe; degradation outside this band would warrant user-facing io_ratio config"
+  "total_rankings": 1032,
+  "interpretation": "Rankings remain stable across the valid [0.1, 1.0] range; io_ratio is safe to expose as a task hint rather than a precomputed field"
 }

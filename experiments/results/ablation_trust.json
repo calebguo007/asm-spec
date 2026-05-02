@@ -1,6 +1,6 @@
 {
   "experiment": "glm-1_trust_delta_ablation",
-  "generated_at": "2026-05-02T10:22:51Z",
+  "generated_at": "2026-05-02T12:41:00Z",
   "tasks": 200,
   "evaluated": 200,
   "tau_mean": 0.95,

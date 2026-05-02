@@ -22,7 +22,7 @@ cd registry && npm install
 
 ## Adding a Service Manifest
 
-Manifests live in `manifests/`. Each file is a single JSON document validated against [`schema/asm-v0.3.schema.json`](../schema/asm-v0.3.schema.json).
+Manifests live in `manifests/`. Each file is a single JSON document validated against [`schema/asm-v0.3.schema.json`](schema/asm-v0.3.schema.json).
 
 ### Steps
 
@@ -102,6 +102,19 @@ Three ablations: trust-delta removal, TOPSIS vs weighted average, io_ratio sensi
 Also available as:
 ```bash
 make ablations
+```
+
+### Preference alignment (Section 6.6a)
+
+```bash
+python experiments/preference_alignment.py --seed 2024
+```
+
+Evaluates 20 natural-language user requests mapped to explicit hard constraints and preference weights. It compares ASM-TOPSIS against weighted average, cheapest-first, fastest-first, highest-quality-first, highest-reliability-first, and random selection. Output: `experiments/results/preference_alignment.*`.
+
+Also available as:
+```bash
+make preference-alignment
 ```
 
 ### LLM-as-selector ranking experiment (Section 6.7)

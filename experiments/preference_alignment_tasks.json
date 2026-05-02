@@ -1,0 +1,165 @@
+{
+  "description": "Natural-language user requests mapped to explicit constraints and preference weights. The evaluation defines suitability as zero-regret selection among feasible candidates under the stated preference vector.",
+  "tasks": [
+    {
+      "task_id": 1,
+      "request": "I need a cheap but reliable TTS API for a 10-minute voiceover; latency should stay under one second.",
+      "taxonomy": "ai.audio.tts",
+      "candidates": ["openai/tts-1@1.0", "elevenlabs/tts-v2@2.0"],
+      "constraints": {"max_latency_s": 1.0, "min_quality": 0.7},
+      "preferences": {"cost": 0.55, "quality": 0.25, "speed": 0.10, "reliability": 0.10}
+    },
+    {
+      "task_id": 2,
+      "request": "I need premium voice quality for a polished product demo, and cost is secondary.",
+      "taxonomy": "ai.audio.tts",
+      "candidates": ["openai/tts-1@1.0", "elevenlabs/tts-v2@2.0"],
+      "constraints": {"max_latency_s": 1.0, "min_quality": 0.7},
+      "preferences": {"cost": 0.05, "quality": 0.80, "speed": 0.10, "reliability": 0.05}
+    },
+    {
+      "task_id": 3,
+      "request": "I need a low-cost general chat model, but it still needs strong quality and reasonable latency.",
+      "taxonomy": "ai.llm.chat",
+      "candidates": ["anthropic/claude-sonnet-4@4.0", "openai/gpt-4o@2024-11-20", "google/gemini-2.5-pro@2.5"],
+      "constraints": {"max_latency_s": 2.0, "min_quality": 0.8},
+      "preferences": {"cost": 0.55, "quality": 0.25, "speed": 0.10, "reliability": 0.10}
+    },
+    {
+      "task_id": 4,
+      "request": "I need the best chat model quality for a reasoning-heavy analysis task; cost is not important.",
+      "taxonomy": "ai.llm.chat",
+      "candidates": ["anthropic/claude-sonnet-4@4.0", "openai/gpt-4o@2024-11-20", "google/gemini-2.5-pro@2.5"],
+      "constraints": {"max_latency_s": 2.0, "min_quality": 0.8},
+      "preferences": {"cost": 0.02, "quality": 0.93, "speed": 0.03, "reliability": 0.02}
+    },
+    {
+      "task_id": 5,
+      "request": "I need a low-latency chat model for an interactive support agent.",
+      "taxonomy": "ai.llm.chat",
+      "candidates": ["anthropic/claude-sonnet-4@4.0", "openai/gpt-4o@2024-11-20", "google/gemini-2.5-pro@2.5"],
+      "constraints": {"max_latency_s": 1.0, "min_quality": 0.8},
+      "preferences": {"cost": 0.20, "quality": 0.20, "speed": 0.50, "reliability": 0.10}
+    },
+    {
+      "task_id": 6,
+      "request": "I need embeddings for a high-volume RAG pipeline and want to minimize cost without falling below acceptable benchmark quality.",
+      "taxonomy": "ai.llm.embedding",
+      "candidates": ["openai/text-embedding-3-large@3.0", "voyageai/voyage-3-large@3.0"],
+      "constraints": {"max_latency_s": 0.2, "min_quality": 0.64},
+      "preferences": {"cost": 0.60, "quality": 0.25, "speed": 0.10, "reliability": 0.05}
+    },
+    {
+      "task_id": 7,
+      "request": "I need embeddings for a quality-sensitive retrieval benchmark; benchmark quality dominates cost.",
+      "taxonomy": "ai.llm.embedding",
+      "candidates": ["openai/text-embedding-3-large@3.0", "voyageai/voyage-3-large@3.0"],
+      "constraints": {"max_latency_s": 0.2, "min_quality": 0.64},
+      "preferences": {"cost": 0.02, "quality": 0.93, "speed": 0.03, "reliability": 0.02}
+    },
+    {
+      "task_id": 8,
+      "request": "I need the highest-quality image generator for advertising assets; latency under 15 seconds is acceptable.",
+      "taxonomy": "ai.vision.image_generation",
+      "candidates": ["black-forest-labs/flux-1.1-pro@1.1", "google/imagen-3@3.0", "openai/dall-e-3@3.0"],
+      "constraints": {"max_latency_s": 15.0, "min_quality": 0.65},
+      "preferences": {"cost": 0.10, "quality": 0.65, "speed": 0.15, "reliability": 0.10}
+    },
+    {
+      "task_id": 9,
+      "request": "I need image generation for a batch workflow where speed matters more than small quality differences.",
+      "taxonomy": "ai.vision.image_generation",
+      "candidates": ["black-forest-labs/flux-1.1-pro@1.1", "google/imagen-3@3.0", "openai/dall-e-3@3.0"],
+      "constraints": {"max_latency_s": 15.0, "min_quality": 0.65},
+      "preferences": {"cost": 0.15, "quality": 0.20, "speed": 0.55, "reliability": 0.10}
+    },
+    {
+      "task_id": 10,
+      "request": "I need web search with the strongest answer quality for a research agent; cost is secondary.",
+      "taxonomy": "tool.data.search",
+      "candidates": ["tavily/search-api@v1", "exa/search-api@v1"],
+      "constraints": {"max_latency_s": 1.0, "min_quality": 0.9},
+      "preferences": {"cost": 0.02, "quality": 0.93, "speed": 0.03, "reliability": 0.02}
+    },
+    {
+      "task_id": 11,
+      "request": "I need cheap web search for a high-volume enrichment job.",
+      "taxonomy": "tool.data.search",
+      "candidates": ["tavily/search-api@v1", "exa/search-api@v1"],
+      "constraints": {"max_latency_s": 1.0, "min_quality": 0.9},
+      "preferences": {"cost": 0.60, "quality": 0.20, "speed": 0.10, "reliability": 0.10}
+    },
+    {
+      "task_id": 12,
+      "request": "I need a scraper for many simple pages, so cost dominates.",
+      "taxonomy": "tool.data.scraping",
+      "candidates": ["jina/reader@v1", "firecrawl/scrape@v1"],
+      "constraints": {"max_latency_s": 4.0},
+      "preferences": {"cost": 0.65, "quality": 0.15, "speed": 0.10, "reliability": 0.10}
+    },
+    {
+      "task_id": 13,
+      "request": "I need a scraper for an interactive agent and prefer the faster option if costs are acceptable.",
+      "taxonomy": "tool.data.scraping",
+      "candidates": ["jina/reader@v1", "firecrawl/scrape@v1"],
+      "constraints": {"max_latency_s": 4.0},
+      "preferences": {"cost": 0.25, "quality": 0.20, "speed": 0.45, "reliability": 0.10}
+    },
+    {
+      "task_id": 14,
+      "request": "I need cheap GPU serverless compute for a batch inference job.",
+      "taxonomy": "infra.compute.gpu",
+      "candidates": ["runpod/gpu-serverless@1.0", "replicate/gpu-serverless@1.0"],
+      "constraints": {"max_latency_s": 6.0},
+      "preferences": {"cost": 0.60, "quality": 0.10, "speed": 0.20, "reliability": 0.10}
+    },
+    {
+      "task_id": 15,
+      "request": "I need video generation for a benchmark-quality demo; rank by visual quality above all else.",
+      "taxonomy": "ai.video.generation",
+      "candidates": ["google/veo-3.1@3.1", "kuaishou/kling-3.0@3.0"],
+      "constraints": {"max_latency_s": 200.0, "min_quality": 0.7},
+      "preferences": {"cost": 0.00, "quality": 1.00, "speed": 0.00, "reliability": 0.00}
+    },
+    {
+      "task_id": 16,
+      "request": "I need cheap video generation for social drafts and can tolerate lower benchmark quality.",
+      "taxonomy": "ai.video.generation",
+      "candidates": ["google/veo-3.1@3.1", "kuaishou/kling-3.0@3.0"],
+      "constraints": {"max_latency_s": 200.0, "min_quality": 0.7},
+      "preferences": {"cost": 0.60, "quality": 0.20, "speed": 0.10, "reliability": 0.10}
+    },
+    {
+      "task_id": 17,
+      "request": "I need real-time speech-to-text for a meeting assistant.",
+      "taxonomy": "ai.audio.stt",
+      "candidates": ["deepgram/nova@v2", "openai/whisper@v1"],
+      "constraints": {"max_latency_s": 3.5},
+      "preferences": {"cost": 0.20, "quality": 0.20, "speed": 0.50, "reliability": 0.10}
+    },
+    {
+      "task_id": 18,
+      "request": "I need low-cost speech transcription for a batch audio archive.",
+      "taxonomy": "ai.audio.stt",
+      "candidates": ["deepgram/nova@v2", "openai/whisper@v1"],
+      "constraints": {"max_latency_s": 3.5},
+      "preferences": {"cost": 0.60, "quality": 0.20, "speed": 0.10, "reliability": 0.10}
+    },
+    {
+      "task_id": 19,
+      "request": "I need a todo API for a fast personal productivity agent.",
+      "taxonomy": "tool.productivity.todo",
+      "candidates": ["todoist/api@v2", "ticktick/api@v2", "google/tasks-api@v1"],
+      "constraints": {"max_latency_s": 0.25},
+      "preferences": {"cost": 0.20, "quality": 0.20, "speed": 0.50, "reliability": 0.10}
+    },
+    {
+      "task_id": 20,
+      "request": "I need a todo API where app quality and reliability matter more than raw latency.",
+      "taxonomy": "tool.productivity.todo",
+      "candidates": ["todoist/api@v2", "ticktick/api@v2", "google/tasks-api@v1"],
+      "constraints": {"max_latency_s": 0.25},
+      "preferences": {"cost": 0.10, "quality": 0.55, "speed": 0.15, "reliability": 0.20}
+    }
+  ]
+}

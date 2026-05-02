@@ -1,4 +1,9 @@
-.PHONY: test test-py test-ts eval ablations llm-eval llm-eval-live audit paper-tables clean clean-cache help
+.PHONY: test test-py test-ts eval ablations preference-alignment llm-eval llm-eval-live audit value-audit paper-tables clean clean-cache help
+
+LLM_PROVIDER ?= deepseek
+LLM_MODEL ?= deepseek-chat
+LLM_BASE_URL ?= https://api.deepseek.com
+LLM_API_KEY_ENV ?= DEEPSEEK_API_KEY
 
 help:
 	@echo "ASM Build & Experiment Targets"
@@ -8,9 +13,11 @@ help:
 	@echo "  make test-ts       Run TypeScript MCP server tests only"
 	@echo "  make eval          Run A/B evaluation (Section 6.5)"
 	@echo "  make ablations     Run ablation studies (Section 6.3a)"
+	@echo "  make preference-alignment  Run natural-language preference evaluation (Section 6.6a)"
 	@echo "  make llm-eval      LLM-as-selector dry-run (no API calls)"
-	@echo "  make llm-eval-live LLM-as-selector with live LLM (needs API key)"
+	@echo "  make llm-eval-live LLM-as-selector with live LLM (override LLM_PROVIDER/LLM_MODEL/LLM_BASE_URL/LLM_API_KEY_ENV)"
 	@echo "  make audit         Run MCP ecosystem audit (Section 2)"
+	@echo "  make value-audit   Run expanded MCP registry/directory value metadata audit"
 	@echo "  make paper-tables  Generate paper tables from experiment results"
 	@echo "  make clean         Remove cache artifacts"
 	@echo "  make clean-cache   Remove raw-doc cache (large)"
@@ -41,28 +48,41 @@ eval:
 ablations:
 	python experiments/ablation_experiments.py --seed 2024
 
+preference-alignment:
+	python experiments/preference_alignment.py --seed 2024
+
 llm-eval:
 	python experiments/expert_annotation/run_ranking_experiment.py \
 	  --tasks-file experiments/expert_annotation/tasks_objective.yaml \
 	  --dry-run
 
 llm-eval-live:
-	@if [ -z "$$DEEPSEEK_API_KEY" ] && [ -z "$$QWEN_API_KEY" ] && [ -z "$$KIMI_API_KEY" ]; then \
-		echo "Error: set DEEPSEEK_API_KEY, QWEN_API_KEY, or KIMI_API_KEY"; \
+	@if [ -z "$${$(LLM_API_KEY_ENV)}" ]; then \
+		echo "Error: set $(LLM_API_KEY_ENV), or override LLM_API_KEY_ENV=<ENV_NAME>"; \
 		exit 1; \
 	fi
 	python experiments/expert_annotation/run_ranking_experiment.py \
-	  --tasks-file experiments/expert_annotation/tasks_objective.yaml
+	  --tasks-file experiments/expert_annotation/tasks_objective.yaml \
+	  --provider $(LLM_PROVIDER) \
+	  --model $(LLM_MODEL) \
+	  --base-url $(LLM_BASE_URL) \
+	  --api-key-env $(LLM_API_KEY_ENV)
 
 audit:
 	python experiments/mcp_ecosystem_audit.py
 
+value-audit:
+	python experiments/mcp_value_metadata_audit.py --sample-size 600 --seed 2026
+
 paper-tables:
-	@echo "TODO: paper-tables script not yet wired;"
-	@echo "tables are produced by individual experiment scripts above:"
-	@echo "  make eval      -> Section 6.5 tables"
-	@echo "  make ablations -> Section 6.3a tables"
-	@echo "  make llm-eval  -> Section 6.7 tables"
+	python experiments/ab_test.py
+	python experiments/analyze.py
+	python experiments/ablation_experiments.py --seed 2024
+	python experiments/preference_alignment.py --seed 2024
+	python experiments/mcp_value_metadata_audit.py --sample-size 600 --seed 2026
+	python experiments/expert_annotation/run_ranking_experiment.py \
+	  --tasks-file experiments/expert_annotation/tasks_objective.yaml \
+	  --dry-run
 
 # ---------------------------------------------------------------------------
 # Clean targets
