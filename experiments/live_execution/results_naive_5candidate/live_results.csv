@@ -1,0 +1,1680 @@
+task_id,category,preference_axis,selector,service_id,selection_reason,response_text,judge_score,judge_rationale,latency_s,prompt_tokens,completion_tokens,cost_usd,cost_violation,latency_violation,quality_violation,success,error
+1,translation,quality,asm_topsis,minimax/m2.7@2.7,deterministic TOPSIS,"<think>The user asks to translate an English passage into idiomatic Mandarin Chinese, preserving technical terms, numbers, and any inline code. Output only the translation, no commentary.
+
+Passage:
+
+""The Lottie file format ships animations as JSON, which is human-readable but breaks at scale: a 3-second loading spinner can balloon to 1.2 MB once gradients and masks land. Skia-backed renderers parse the file once, then dispatch GPU draw calls per frame, so the bottleneck shifts from network to upload bandwidth on cold mounts. Server-side rasterization is faster but loses interactivity — buttons stop responding to hover state. The right move depends on whether your animation is decorative or in the click path.""
+
+Need to translate into Chinese. Preserve technical terms, numbers, inline code. The passage contains ""Lottie"", ""JSON"", ""Skia-backed"", ""GPU"", ""MB"". Keep those as is or transliteration? Technical terms can be left as English terms but may need Chinese translation. ""Lottie"" is a proper name, remains ""Lottie"". ""JSON"" is standard acronym, keep as ""JSON"". ""Skia-backed"" could be left as ""Skia 后端"" or ""Skia支持的"". Keep as ""Skia 后端"". ""GPU"" is fine. ""MB"" fine. Use Chinese punctuation.
+
+Goal: produce idiomatic Chinese. Keep numbers and inline code.
+
+Need to decide on the translation of terms: ""human-readable"" -> ""人类可读的"". ""breaks at scale"" -> ""在规模上失效"". ""a 3-second loading spinner"" -> ""一个3秒的加载旋转动画"". ""balloon to 1.2 MB"" -> ""膨胀到1.2 MB"". ""once gradients and masks land"" -> ""一旦加入渐变和蒙版"". ""Skia-backed renderers parse the file once"" -> ""Skia 支持的渲染器只解析一次文件"". ""then dispatch GPU draw calls per frame"" -> ""随后每帧向 GPU 发送绘制调用"". ""so the bottleneck shifts from network to upload bandwidth on cold mounts"" -> ""因此瓶颈从网络转移到冷挂载时的上传带宽"". ""Server-side rasterization is faster but loses interactivity — buttons stop responding to hover state."" -> ""服务端栅格化更快，但会失去交互性——按钮不再响应悬停状态。"" ""The right move depends on whether your animation is decorative or in the click path."" -> ""正确的做法取决于动画是装饰性的还是位于点击路径中的.""
+
+Make sure ",1.0,No translation provided.,29.467,172,1667,0.00160907,False,False,False,True,
+1,translation,quality,random,deepseek/deepseek-v4-flash@4.0,uniform random,Lottie文件格式以JSON形式传输动画，这种格式人类可读，但在大规模使用时会出现问题：一个3秒的加载旋转图标，一旦加入渐变和遮罩，体积可能膨胀到1.2 MB。基于Skia的渲染器会先解析文件一次，然后每帧分发GPU绘制调用，因此瓶颈从网络转移到了冷启动时的上传带宽。服务器端光栅化速度更快，但会失去交互性——按钮停止响应悬停状态。正确的做法取决于你的动画是装饰性的还是位于点击路径中。,10.0,"The translation is accurate, idiomatic, and preserves all technical terms, numbers, and nuances like the distinction between network and upload bandwidth, while adhering strictly to the output-only co",5.258,141,442,0.0001801,False,False,False,True,
+1,translation,quality,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,Lottie 文件格式将动画以 JSON 形式输出，这种格式可读性强，但在规模扩大时会出现问题：一个 3 秒的加载旋转图标，一旦加入渐变和遮罩，体积可能膨胀到 1.2 MB。基于 Skia 的渲染器会解析一次文件，然后每帧分发 GPU 绘制调用，因此瓶颈从网络转移到了冷启动时的上传带宽。服务器端光栅化速度更快，但会失去交互性——按钮停止响应悬停状态。正确的做法取决于你的动画是装饰性的还是位于点击路径中。,10.0,"The translation is technically accurate, fluent, and preserves all specified terms and numbers while strictly adhering to the output-only constraint.",4.881,141,457,0.00018514,False,False,False,True,
+1,translation,quality,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>The user wants me to translate an English passage about Lottie file format into idiomatic Mandarin Chinese, preserving technical terms, numbers, and inline code.
+
+Let me analyze the passage:
+- ""The Lottie file format ships animations as JSON"" - Lottie是一种以JSON格式传输动画的文件格式
+- ""human-readable but breaks at scale"" - 人类可读但在规模化时出现问题
+- ""a 3-second loading spinner"" - 3秒的加载动画
+- ""balloon to 1.2 MB"" - 膨胀至1.2 MB
+- ""once gradients and masks land"" - 当渐变和遮罩叠加时
+- ""Skia-backed renderers"" - Skia后端的渲染器
+- ""parse the file once, then dispatch GPU draw calls per frame"" - 解析一次文件，然后每帧分派GPU绘图调用
+- ""bottleneck shifts from network to upload bandwidth on cold mounts"" - 瓶颈从网络转移到冷挂载时的上传带宽
+- ""Server-side rasterization"" - 服务端光栅化
+- ""loses interactivity"" - 失去交互性
+- ""buttons stop responding to hover state"" - 按钮停止响应悬停状态
+- ""decorative or in the click path"" - 装饰性还是处于点击路径中
+
+Technical terms to preserve:
+- Lottie (keep as is or transliterate, but usually kept as Lottie in Chinese tech community)
+- JSON
+- Skia
+- GPU
+- MB
+- click path
+- hover state
+
+Let me construct the translation:
+
+""Lottie文件格式以JSON形式传输动画，这种格式虽然人类可读，但在规模化时会出问题：一旦加入渐变和遮罩，一个3秒的加载动画就能膨胀到1.2 MB。Skia后端的渲染器会一次性解析文件，然后每帧分派GPU绘图调用，因此瓶颈从网络转移到了冷挂载时的上传带宽。服务端光栅化虽然更快，但会失去交互性——按钮停止响应悬停状态。
+
+The core decision hinges on whether your animation is purely decorative or actively part of the click path.</think>
+
+Lottie文件格式以JSON形式传输动画，这种格式虽然人类可读，但在规模化时会出问题：一旦加入渐变和遮罩，一个3秒的加载动画就能膨胀到1.2 MB。Skia后端的渲染器会一次性解析文件，然后每帧分派GPU绘图调用，因此瓶颈从网络转移到了冷挂载时的上传带宽。服务端光栅化虽然更快，但会失去交互性——按钮停止响应悬停状态。正确的做法取决于你的动画是装饰性的还是处于点击路径中。",9.0,"The translation accurately preserves all technical terms (Lottie, JSON, Skia, GPU, MB, hover state), numbers (3-second, 1.2 MB), and the technical meaning of the original passage while flowing natural",21.925,155,544,0.00054833,False,False,False,True,
+1,translation,quality,llm_picker_manifest,moonshot/kimi-k2.5@2.5,"It has the highest quality score (60) on the consistent Artificial_Analysis_Intelligence benchmark, and its cost and latency are within the specified constraints.",Lottie 格式以 JSON 承载动画，虽便于阅读，却在规模扩大时捉襟见肘：一个 3 秒的加载转圈动画一旦加入渐变与遮罩，体积可膨胀至 1.2 MB。Skia 后端渲染器单次解析文件后，逐帧派发 GPU draw call，令冷挂载的瓶颈从网络转移至上行带宽。服务端光栅化速度更快，却牺牲了交互性——按钮无法响应悬停状态。如何抉择，取决于你的动画纯属装饰，还是处于点击路径之中。,10.0,"The translation is highly idiomatic and accurate, preserves all specified technical terms and numbers, and adheres strictly to the output-only constraint.",52.825,143,2145,0.00460946,False,True,False,True,
+1,translation,quality,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max is Alibaba's flagship model with strong multilingual support, making it best suited for high-quality, idiomatic translation while preserving technical content.",Lottie 文件格式以 JSON 形式分发动画，这种格式虽便于人类阅读，但在规模扩大时就会出现问题：一个 3 秒的加载旋转动画一旦包含渐变和蒙版，文件大小就可能膨胀到 1.2 MB。基于 Skia 的渲染器会先解析一次文件，然后逐帧发出 GPU 绘制调用，因此瓶颈便从网络传输转移到冷挂载（cold mounts）时的上传带宽上。服务端光栅化速度更快，但会丧失交互性——按钮将不再响应悬停状态。正确的选择取决于你的动画是装饰性的，还是位于用户点击路径中。,10.0,"The translation is idiomatic and accurate, preserving all technical terms like Lottie, JSON, Skia, and cold mounts while fluently conveying the technical concepts about rendering bottlenecks and inter",6.094,143,138,0.0003892,False,False,False,True,
+2,translation,cost,asm_topsis,minimax/m2.7@2.7,deterministic TOPSIS,"<think>The user wants a translation of ""The agent must settle the payment within 200ms or the receipt is void."" into Mandarin Chinese. They specifically say ""Output only the translation."" So we just output the translation. Should be straightforward. Let's parse the sentence: ""The agent must settle the payment within 200ms or the receipt is void."" The translation: ""代理人必须在200毫秒内完成付款，否则收据无效。"" Or ""代理必须在200毫秒内结算付款，否则收据无效。"" Which is more natural? ""结算"" is a good translation for ""settle"". ""付款"" is payment. The phrase ""within 200ms"" could be ""在200毫秒内"". ""or"" could be ""否则"". The receipt is void: ""收据无效"". So: ""代理必须在200毫秒内结算付款，否则收据无效。"" Or ""代理人必须在200毫秒内完成支付，否则收据无效。"". The user may not need ""agent"" nuance; could be ""代理"". Usually ""代理"" is a noun, but ""代理人"" is more specific. ""The agent"" - we could use ""代理"" (agent), ""代理人"" (agent). It may be part of a technical document, ""代理"". So I think ""代理必须在200毫秒内完成付款，否则收据无效。"" or ""代理必须在200毫秒内结算付款，否则收据无效。"". Let's choose ""代理必须在200毫秒内结算付款，否则收据无效。"". That's good.
+
+The user wants only the translation; no extra commentary. So output that.</think>
+
+代理必须在200毫秒内结算付款，否则收据无效。",10.0,"The translation is accurate, natural, and adheres to the output-only constraint.",11.894,53,338,0.00033051,False,False,False,True,
+2,translation,cost,random,minimax/m2.7@2.7,uniform random,"<think>This is a straightforward translation request. The user wants me to translate an English sentence about payment processing into Mandarin Chinese.
+
+The sentence: 'The agent must settle the payment within 200ms or the receipt is void.'
+
+Let me translate this:
+- ""The agent"" = 代理 (dàilǐ) or 代理商 (dàilí shāng) or 经纪人 (jīngjì rénr). In this context of payment/systems, 代理 seems appropriate, or I could use 坐席 (zuòxí) if it's about a service agent.
+- ""must settle"" = 必须结算 (bìxū jiésuàn) or 必须支付 (bìxū zhīfù)
+- ""the payment"" = 款项 (kuǎnxiàng) or 支付 (zhīfù) or 付款 (fùkuǎn)
+- ""within 200ms"" = 在200毫秒内 (zài 200 háomiǎo nèi)
+- ""or"" = 否则 (fǒuzé) or 不然 (bùrán)
+- ""the receipt is void"" = 收据作废 (shōujù zuòfèi) or 凭证无效 (píngzhèng wúxiào)
+
+A natural translation could be:
+""代理必须在200毫秒内结算款项，否则收据作废。""
+
+Or more concisely for a technical/system context:
+""坐席需在200毫秒内完成付款，否则收据无效。""
+
+I'll go with a clear, professional translation:</think>
+
+代理必须在200毫秒内结算款项，否则收据作废。",10.0,"The translation accurately captures all elements of the original English sentence with appropriate Mandarin terminology and grammatical structure, and follows the output-only constraint perfectly.",16.329,53,345,0.0003371,False,False,False,True,
+2,translation,cost,cheapest_first,minimax/m2.7@2.7,minimum estimated cost,"<think>The user asks: ""Translate this short English sentence into Mandarin Chinese: 'The agent must settle the payment within 200ms or the receipt is void.' Output only the translation.""
+
+We need to respond with a translation in Mandarin Chinese.
+
+We must output only the translation. Should we include punctuation? The user said ""Output only the translation."" So we need to output just the Chinese translation, with no extra text.
+
+The translation: ""代理必须在200毫秒内结清付款，否则收据失效。"" Or ""代理人必须在200毫秒内完成付款结算，否则收据无效。"" The typical translation: ""代理必须在200毫秒内完成付款结算，否则收据失效。"" Something like that. The key is to convey ""must settle the payment within 200ms or the receipt is void.""
+
+Maybe ""代理必须在200毫秒内完成付款结算，否则收据失效。"" Or ""代理人必须在200毫秒内结清款项，否则收据无效。"" Let's choose a standard translation.
+
+Better: ""代理必须在200毫秒内完成付款结算，否则收据失效。"" The phrase ""收据失效"" or ""收据无效"". Both fine. ""结算"" is settle. ""结清"" also. ""代理"" is fine, but ""代理"" might be a specific entity. ""代理必须在200毫秒内完成付款结算，否则收据失效。"" That sounds natural.
+
+Thus output that.
+
+But ensure only Chinese characters, no extra spaces? I'd output exactly the Chinese sentence.
+
+I think it's fine.
+
+We must not add any extra commentary or mention that we are translating. Just output the translation.
+
+Thus final answer: ""代理必须在200毫秒内完成付款结算，否则收据失效。""</think>
+
+代理必须在200毫秒内完成付款结算，否则收据失效。",9.0,"The translation accurately conveys the meaning of the original English sentence, with appropriate terminology and grammatical structure for Mandarin Chinese, and adheres to the output-only constraint.",13.372,53,359,0.00035027,False,False,False,True,
+2,translation,cost,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>We need to translate the short English sentence into Mandarin Chinese: ""The agent must settle the payment within 200ms or the receipt is void.""
+
+We need to output only the translation. No extra text. So produce Chinese translation.
+
+We need to ensure correct meaning: ""The agent must settle the payment within 200ms or the receipt is void.""
+
+In Chinese: ""代理必须在200毫秒内完成付款，否则收据失效。"" Or ""代理必须在200毫秒内结清款项，否则收据无效。"" Which is best?
+
+The original uses ""agent"", ""must settle the payment within 200ms"". Use ""代理"" for agent. ""必须"" for must. ""在200毫秒内结清付款"". ""否则收据无效"". That's fine.
+
+We should consider nuance: ""within 200ms"" is a very small time. In Chinese, ""200毫秒"" is clear. ""结清款项"" is settle payment. ""否则收据失效"". That is also okay.
+
+Thus output: ""代理必须在200毫秒内结清款项，否则收据失效。"" Or ""代理必须在200毫秒内完成付款，否则收据无效。""
+
+Probably choose one consistent translation.
+
+We should not include quotes. Just output the Chinese text.
+
+Thus answer: 代理必须在200毫秒内结清款项，否则收据失效。
+
+Check that it's correct: ""The agent must settle the payment within 200ms or the receipt is void."" That's fine.
+
+Thus final.
+</think>
+
+代理必须在200毫秒内结清款项，否则收据失效。",1.0,"The model provided no output, failing to follow the instruction to translate and output only the translation.",15.914,70,318,0.00031569,False,False,True,True,
+2,translation,cost,llm_picker_manifest,minimax/m2.7@2.7,"MiniMax M2.7 has lower input and output token costs than Moonshot Kimi K2.5, ensuring the total cost for this short translation stays well under the $0.005 budget while meeting the minimum quality sco","<think>The user wants me to translate a short English sentence into Mandarin Chinese.
+
+The sentence is: 'The agent must settle the payment within 200ms or the receipt is void.'
+
+Let me break this down:
+- ""The agent"" = 代理/代理商
+- ""must settle"" = 必须结算/必须支付/必须结清
+- ""the payment"" = 款项/付款/支付
+- ""within 200ms"" = 在200毫秒内
+- ""or"" = 否则/或者
+- ""the receipt"" = 收据/回执
+- ""is void"" = 作废/无效
+
+A natural translation would be:
+""代理必须在200毫秒内结清款项，否则收据无效。""
+
+Or more formally/technically:
+""代理必须在200毫秒内完成付款结算，否则收据视为无效。""
+
+Let me go with a clear, professional translation:
+""代理必须在200毫秒内结清款项，否则收据无效。""</think>
+
+代理必须在200毫秒内结清款项，否则收据无效。",1.0,The model provided no response to the translation task.,9.064,53,216,0.00021571,False,False,True,True,
+2,translation,cost,llm_picker_raw_doc,minimax/m2.7@2.7,"For a simple translation task, the less specialized and likely more cost-efficient model (MiniMax M2.7) is preferable over the more feature-rich multimodal Moonshot Kimi K2.5.","<think>The user asks: ""Translate this short English sentence into Mandarin Chinese: 'The agent must settle the payment within 200ms or the receipt is void.' Output only the translation.""
+
+So we need to produce a Chinese translation of that sentence. Must output only the translation. Should we preserve the ""200ms""? That's a numeric measurement. Usually ""200毫秒"". So translation: ""代理必须在200毫秒内完成付款，否则收据失效。"" Or ""代理必须在200毫秒内结清款项，否则收据无效。"" That seems good.
+
+We need to output only the translation. Not include any extra commentary. So output Chinese sentence. Should include ""ms"" as ""毫秒"". Possibly also ""支付"" vs ""付款"". Let's consider nuances.
+
+The original: ""The agent must settle the payment within 200ms or the receipt is void.""
+
+- ""The agent"" - ""代理"" (agent) is fine. Could also be ""代理商"" but ""代理"" suffices.
+
+- ""must settle the payment"" - ""必须结清款项"" or ""必须付款"". ""settle payment"" can be ""结清款项"", ""支付"".
+
+- ""within 200ms"" - ""在200毫秒内"".
+
+- ""or the receipt is void."" - ""否则收据无效。"" or ""否则收据作废"" or ""否则收据失效"". Typically ""无效"" is used.
+
+Thus: ""代理必须在200毫秒内结清款项，否则收据无效。"" That is good.
+
+Check if Chinese punctuation: Chinese style uses ""。"" at end. The user likely expects just the translation, no extra quotes. So output: ""代理必须在200毫秒内结清款项，否则收据无效。""
+
+Alternatively ""代理必须在200毫秒内完成付款，否则收据失效。"" That works too.
+
+Now ensure ""ms"" is correct. 200ms is 200毫秒. So ""200毫秒"". Good.
+
+Thus final answer.</think>
+
+代理必须在200毫秒内结清款项，否则收据无效。",10.0,"The translation is accurate, idiomatic, and adheres to the output-only constraint.",17.151,53,415,0.00040297,False,False,False,True,
+3,translation,latency,asm_topsis,minimax/m2.7@2.7,deterministic TOPSIS,"<think>The user asks: ""Translate to Mandarin Chinese (output only the translation): 'Real-time captions are essential for accessibility in live meetings.'""
+
+We need to output only the translation. The translation must be in Mandarin Chinese. Provide the translation only.
+
+First, we need to translate ""Real-time captions are essential for accessibility in live meetings.""
+
+Word by word: ""Real-time captions"" = ""实时字幕"". ""are essential for"" = ""对于...至关重要"". ""accessibility"" = ""无障碍"". But sometimes can be ""可访问性"". In context of accessibility for disabled, ""无障碍"" or ""可访问性"". In this phrase, ""实时字幕对现场会议的无障碍至关重要。"" But also can be ""实时字幕对于现场会议的可访问性至关重要。"" Or ""在直播会议中，实时字幕对无障碍至关重要。"" Let's choose a natural phrasing: ""实时字幕对于现场会议的无障碍至关重要。"" Or ""实时字幕对于现场会议的可访问性至关重要。"" Which is more common? Usually ""可访问性"" is used for web accessibility, while ""无障碍"" is more generic accessibility. Both are fine. Let's decide to use ""实时字幕对于现场会议的无障碍至关重要。"" That's simple.
+
+But maybe we could also be ""实时字幕在直播会议中对可访问性至关重要。"" That's also okay.
+
+User only wants the translation. So we will provide one translation.
+
+Thus output: ""实时字幕对于现场会议的无障碍至关重要。""
+</think>
+
+
+
+实时字幕对于现场会议的无障碍至关重要。",10.0,"Translation is accurate, follows output-only constraint, and uses appropriate style for a translation task.",8.112,60,306,0.00030205,False,True,False,True,
+3,translation,latency,random,moonshot/kimi-k2.5@2.5,uniform random,实时字幕对于现场会议的无障碍性至关重要。,10.0,"The translation is accurate and natural, strictly adhering to the output-only constraint.",18.792,30,881,0.00188074,False,True,False,True,
+3,translation,latency,cheapest_first,minimax/m2.7@2.7,minimum estimated cost,"<think>The user wants translation of an English sentence to Mandarin Chinese, and the instruction says ""output only the translation"". So I should output only the Chinese translation, no extra commentary. The sentence: ""Real-time captions are essential for accessibility in live meetings.""
+
+Let me translate: ""实时字幕对于直播会议的无障碍访问至关重要。"" Or ""实时字幕在直播会议中对无障碍性至关重要。"" The most natural: ""实时字幕在直播会议中对于无障碍性至关重要。"" But perhaps simpler: ""实时字幕在直播会议中对于无障碍性至关重要。"" Or ""实时字幕在直播会议中对无障碍访问至关重要。"" Another variant: ""实时字幕在直播会议中对无障碍访问至关重要。"" Could also be ""实时字幕对直播会议的无障碍性至关重要."" The user asked for Mandarin Chinese, output only translation. Let's give something like ""实时字幕在直播会议中对于无障碍访问至关重要。"" That's good.
+
+I will output only the translation.
+</think>
+
+
+
+实时字幕在直播会议中对于无障碍访问至关重要。",10.0,The translation is accurate and adheres to the output-only constraint.,6.285,60,207,0.00020889,False,True,False,True,
+3,translation,latency,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>The user asks: ""Translate to Mandarin Chinese (output only the translation): 'Real-time captions are essential for accessibility in live meetings.'""
+
+We must output just the translation. Should be a straightforward translation. The user wants only the translation, not additional commentary. So output should be the Chinese translation of the English sentence.
+
+""Real-time captions are essential for accessibility in live meetings.""
+
+We need to produce: ""实时字幕对于直播会议的无障碍性至关重要。"" Or ""实时字幕在直播会议中对无障碍至关重要。"" Or ""实时字幕是直播会议无障碍的关键。"" Choose a natural translation.
+
+The phrase ""Real-time captions are essential for accessibility in live meetings."" Could be ""实时字幕在直播会议中对于无障碍至关重要。"" But typical translation: ""实时字幕对于直播会议的可访问性至关重要。"" That uses 可访问性. The word accessibility is ""可访问性"" or ""无障碍"". Both are okay. Let's aim for ""实时字幕对于直播会议的可访问性至关重要。"" That is a good translation.
+
+Hence output that line only.
+
+Let's check: Real-time captions = ""实时字幕"". Essential = ""至关重要"" or ""必不可少"". For accessibility = ""对于可访问性"". In live meetings = ""在直播会议中"". Or ""实时字幕在直播会议中对可访问性至关重要。""
+
+Better: ""实时字幕在直播会议中对可访问性至关重要。"" That is natural.
+
+Thus output that.
+
+But ensure it's just the translation. So output:
+
+实时字幕在直播会议中对可访问性至关重要。
+
+That's it.
+</think>
+
+
+
+实时字幕在直播会议中对可访问性至关重要。",10.0,The translation accurately conveys the meaning and adheres to the output-only instruction.,12.121,60,326,0.00032087,False,True,False,True,
+3,translation,latency,llm_picker_manifest,minimax/m2.7@2.7,"It has lower p50 latency (900ms vs 1.4s) and meets the max_latency_s=3 constraint at p99 (3.8s is slightly over but closer than 5s), while satisfying min_quality_score=6.","<think>The user says: ""Translate to Mandarin Chinese (output only the translation): 'Real-time captions are essential for accessibility in live meetings.'""
+
+We need to output only the translation. So the answer should be a translation in Mandarin Chinese.
+
+Now, check if there's any policy issue. It's a simple translation request. No disallowed content. So answer with the translation.
+
+Now, the translation: ""实时字幕在直播会议中对于无障碍至关重要。"" Alternatively: ""实时字幕在直播会议中对于可访问性至关重要。"" But the phrase ""essential for accessibility"" can be translated as ""对无障碍至关重要"" or ""对可访问性至关重要"". Usually ""实时字幕在直播会议中对可访问性至关重要."" Or ""实时字幕对直播会议的可访问性至关重要."" Let's choose ""实时字幕在直播会议中对于可访问性至关重要。""
+
+Thus output just the translation.
+
+Hence final answer.
+</think>
+
+
+
+实时字幕在直播会议中对于可访问性至关重要。",10.0,"Accurate and fluent Mandarin Chinese translation, following the output-only constraint.",5.471,60,196,0.00019854,False,True,False,True,
+3,translation,latency,llm_picker_raw_doc,minimax/m2.7@2.7,"MiniMax M2.7 is tuned for autonomous agents and multi-agent orchestration, suggesting optimizations for low-latency, real-time tasks like live captioning.","<think>The user wants a translation from English to Mandarin Chinese (Simplified Chinese presumably, as they didn't specify). They want only the translation.
+
+Original sentence: ""Real-time captions are essential for accessibility in live meetings.""
+
+We need to translate it into Chinese: ""实时字幕对于现场会议的无障碍性至关重要。"" Something like that. Could be ""实时字幕在直播会议中对无障碍至关重要。"" The nuance: ""Real-time captions are essential for accessibility in live meetings.""
+
+Thus maybe: ""实时字幕对于现场会议的可访问性至关重要。"" Or ""实时字幕在实时会议中对无障碍至关重要。"" Or ""实时字幕在直播会议中对于可访问性至关重要。"" Could also be ""实时字幕在直播会议中是不可或缺的无障碍功能。"" However translation must be natural Chinese. Let's produce a single translation.
+
+Given ""Real-time captions"" is ""实时字幕"". ""are essential"" is ""至关重要"" or ""不可或缺"". ""for accessibility"" is ""对无障碍/可访问性"". ""in live meetings"" is ""在直播会议中"" or ""在实时会议中"". So: ""实时字幕在直播会议中对无障碍至关重要。"" That seems good.
+
+Thus final answer: ""实时字幕在直播会议中对无障碍至关重要。"" Or ""实时字幕对于现场会议的无障碍性至关重要。"" Let's choose ""实时字幕在直播会议中对无障碍至关重要。"" This is a direct translation.
+
+We should output only the translation, no other text.
+
+Thus final answer: ""实时字幕在直播会议中对无障碍至关重要。""
+</think>
+
+
+
+实时字幕在直播会议中对无障碍至关重要。",10.0,"The translation is accurate, natural, and adheres to the output-only constraint.",8.198,60,321,0.00031616,False,True,False,True,
+4,translation,balanced,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"China Mobile's 5G users exceeded 800 million in the first quarter of 2026, with a penetration rate of 67%. Among them, the number of IoT terminal connections increased by 32% year-on-year, mainly concentrated in three scenarios: Internet of Vehicles, smart manufacturing, and smart cities. Operators are accelerating the deployment of 5G-A (5G-Advanced) networks, aiming to achieve full coverage in key cities by 2027.",10.0,The translation accurately preserves all named entities and numerical values while maintaining a natural and professional English tone.,7.087,96,453,0.00017371,False,False,False,True,
+4,translation,balanced,random,qwen/qwen3-max@3.0,uniform random,"China Mobile's 5G subscriber base surpassed 800 million in the first quarter of 2026, achieving a penetration rate of 67%. Among these, IoT terminal connections grew by 32% year-over-year, primarily concentrated in three key scenarios: connected vehicles, smart manufacturing, and smart cities. The operator is accelerating the deployment of 5G-A (5G-Advanced) networks, aiming for full coverage in major cities by 2027.",10.0,"The translation is accurate, flows naturally, and perfectly preserves all named entities and numerical values as requested.",5.145,104,100,0.00028224,False,False,False,True,
+4,translation,balanced,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"China Mobile's 5G users surpassed 800 million in the first quarter of 2026, with a penetration rate of 67%. Among them, the number of IoT terminal connections grew 32% year-on-year, mainly concentrated in three scenarios: Internet of Vehicles, smart manufacturing, and smart cities. Operators are accelerating the deployment of 5G-A (5G-Advanced) networks, aiming to achieve full coverage in key cities by 2027.",10.0,The response accurately translates the passage into natural English while preserving all named entities and numerical values exactly.,4.873,96,298,0.00012163,False,False,False,True,
+4,translation,balanced,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>This is a request to translate a Chinese passage about China's mobile 5G development into natural English. The user wants me to preserve named entities and numerical values exactly.
+
+Let me translate this passage:
+
+Key elements to preserve:
+- 中国移动 (China Mobile) - named entity
+- 5G 用户 (5G users)
+- 2026 年第一季度 (Q1 2026) - numerical value
+- 8 亿户 (800 million households/subscribers) - numerical value
+- 67% (penetration rate) - numerical value
+- 物联网终端连接数 (IoT terminal connections)
+- 同比增长 32% (32% YoY growth) - numerical value
+- 车联网 (Connected Vehicles/V2X)
+- 智能制造 (Smart Manufacturing)
+- 智慧城市 (Smart Cities)
+- 5G-A（5G-Advanced）- named entity/technology
+- 2027 年 (2027) - numerical value
+- 重点城市 (key cities)
+
+Let me compose the translation:
+
+""China Mobile's 5G user base surpassed 800 million in Q1 2026, with a penetration rate of 67%. Among these, IoT terminal connections grew 32% year-over-year, primarily concentrated in three major scenarios: connected vehicles, smart manufacturing, and smart cities. Operators are accelerating the deployment of 5G-Advanced (5G-A) networks, with the goal of achieving full coverage in key cities by 2027.""
+
+Wait, let me reconsider some translations:
+
+""物联网终端连接数"" - IoT terminal connections
+""同比增长"" - year-over-year growth
+""车联网"" - connected vehicles or V2X (Vehicle-to-Everything)
+""智能制造"" - smart manufacturing
+""智慧城市"" - smart cities
+
+Let me refine:
+
+
+I confirm the translation preserves all key technical and numerical details accurately. The passage captures the essential information about China's 5G development, including user growth, technological penetration, and future network deployment plans. The translation maintains the precise technical terminology and numeric values while presenting the information in clear, natural English.</think>
+
+Here is the translation:
+
+China Mobile's 5G subscriber base surpassed 800 million in Q1 2026, with a penetration rate of 67%. Among these, IoT terminal connections grew 32% year-over-year, primarily concen",3.0,"The translation is incomplete and cuts off mid-sentence, though the completed portion correctly preserves named entities and numerical values.",22.44,107,530,0.00052387,False,False,False,True,
+4,translation,balanced,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It offers the best balance of low cost, fast latency, and adequate quality for a straightforward translation task that doesn't require top-tier reasoning.","China Mobile's 5G users exceeded 800 million in the first quarter of 2026, with a penetration rate of 67%. Among them, the number of IoT terminal connections increased by 32% year-on-year, mainly concentrated in three scenarios: Internet of Vehicles, smart manufacturing, and smart cities. Operators are accelerating the deployment of 5G-A (5G-Advanced) networks, aiming to achieve full coverage of key cities by 2027.",10.0,The translation accurately preserves all named entities and numerical values while maintaining a natural and fluent English style.,4.833,96,515,0.00019454,False,False,False,True,
+4,translation,balanced,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max offers strong multilingual support and precise handling of named entities and numerical values, making it well-suited for accurate Chinese-to-English translation.","China Mobile's 5G subscriber base surpassed 800 million in the first quarter of 2026, achieving a penetration rate of 67%. Among these, IoT terminal connections grew by 32% year-over-year, primarily concentrated in three key scenarios: vehicle-to-everything (V2X), smart manufacturing, and smart cities. The operator is accelerating the deployment of 5G-A (5G-Advanced) networks, aiming to achieve full coverage in major cities by 2027.",10.0,"The translation is accurate, fluent, and preserves all named entities and numerical values while correctly interpreting technical terms for an English-speaking audience.",5.854,104,108,0.00030016,False,False,False,True,
+5,translation,quality,asm_topsis,minimax/m2.7@2.7,deterministic TOPSIS,"<think>The user asks for translation of a legal-style English clause to Mandarin Chinese. They want a precise translation, literal phrasing, enforceable. They don't ask for any disallowed content. This is allowed. The text is a typical clause about license restrictions. We can translate it. The user expects the translation. So we provide the Chinese translation. Use formal legal Chinese. Could be something like: ""被许可人不得直接或间接地对软件进行逆向工程、反编译、反汇编或以其他方式尝试获取源代码，但若此类限制被适用法律明确禁止则不在此限。"" Something like that. Use Chinese law style: ""许可人不得..."" Wait it's licensee: ""许可方"" is licensee? Usually ""被许可人"" or ""许可方""? In Chinese legal translation, ""Licensee"" is usually ""被许可人"". ""Licensor"" is ""许可方"". So use that. The phrase ""unless the restriction is expressly prohibited by applicable law notwithstanding this limitation"" -> ""除非该限制被适用法律明确禁止，尽管有本限制"". But the phrase is ""except to the extent that such restriction is expressly prohibited by applicable law notwithstanding this limitation."" Actually ""notwithstanding this limitation"" modifies the whole thing: the restriction is only to the extent that the law permits. Usually they phrase as ""但若此类限制被适用法律明确禁止则不在此限"". Use that.
+
+Hence final answer: Chinese translation: ""被许可人不得直接或间接地对本软件进行逆向工程、反编译、反汇编，或以其他方式试图获取其源代码；但若上述限制在任何适用法律项下被明确禁止，则不在此限。"" Something similar. Should we keep ""the Software"" as ""本软件""? Yes. Use ""本软件"". Or ""该软件"". Let's produce a precise translation. Also maybe add ""在任何适用法律允许的范围内除外"". The requirement: literal phrasing preferred, so we can try to keep structure similar: ""Licensee shall not, directly or indirectly, reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code of the Software, except to the extent that such restriction is expressly prohibited by applicable law notwithstanding this limitation.""
+
+Literal translation in Chinese: ""被许可人不得直接或间接地对软件进行逆向工程、反编译、反汇编，或者以其他方式尝试获取软件的源代码，但若该限制被适用的法律明确禁止，则不在此限，尽管本限制。"" But we can refine.
+
+We can also include ""除非该限制被适用法律明确禁止，尽管本限制"" The clause: ""except to the extent tha",0.0,judge_error: Expecting value: line 1 column 1 (char 0),16.58,115,1095,0.00105742,False,False,False,True,
+5,translation,quality,random,minimax/m2.7@2.7,uniform random,"<think>The user asks to translate a legal-style English clause into Mandarin Chinese. They want precise translation suitable for enforceability, literal phrasing, not necessarily fluent paraphrase. The clause is about license restrictions on reverse engineering, decompiling, disassembling, or attempting to derive source code of the software, with an exception that the restriction does not apply to the extent prohibited by applicable law notwithstanding this limitation.
+
+Goal: Provide a Chinese translation.
+
+We need to consider legal Chinese terms: ""被许可方"" for licensee, ""不得"" for shall not, ""直接或间接地"" (directly or indirectly). ""逆向工程、反编译、反汇编或其他方式试图获取软件的源代码"" (reverse engineer, decompile, disassemble, or otherwise attempt to derive source code). The exception clause: ""除非该限制在适用法律明确禁止的范围内，尽管本限制，仍不受此限制"" Something like ""除非此类限制在任何适用法律中被明确禁止，尽管有本条款的限制，仍允许进行此行为"". Or: ""但若该限制被适用法律明确禁止，则不在此限"".
+
+We need to maintain structure: ""Licensee shall not, directly or indirectly, reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code of the Software, except to the extent that such restriction is expressly prohibited by applicable law notwithstanding this limitation.""
+
+We can translate: ""被许可方不得直接或间接地对软件进行逆向工程、反编译、反汇编，或以其他方式试图获取软件的源代码，除非在适用法律明确禁止此类限制的范围内，尽管本限制仍不受此限。"" Slight modifications: ""除非在适用法律明确禁止该限制的范围内，尽管本限制，仍不在此限。"" But I think ""除外"" better: ""除非在适用法律明确禁止该限制的范围内，尽管本限制，仍不在此限。"" Or ""但若该限制被适用法律明确禁止，则不在此限"" is simpler.
+
+Precise translation: ""被许可方不得直接或间接地对软件进行逆向工程、反编译、反汇编，或以其他方式试图获取软件的源代码，但若该限制被适用法律明确禁止的范围内，则不在此限。"" Let's refine.
+
+The clause may be used in a contract; they want literal phrasing.
+
+Option:
+
+""被许可方不得直接或间接地对本软件进行逆向工程、反编译、反汇编，或以其他方式尝试获取源代码；但若此类限制在任何适用法律中已被明确禁止，则不在此限，尽管本限制仍适用。"" The ""notwithstanding this limitation"" phrase may be tricky: It says ""except to the extent that such restriction is expressly prohibited by applicable law notwithstanding this limitation."" Means: The restriction does not apply to the extent that it is expressly prohibited by law, notw",0.0,judge_error: Expecting value: line 1 column 1 (char 0),25.573,115,1712,0.00163802,False,False,False,True,
+5,translation,quality,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,被许可方不得直接或间接地对软件进行逆向工程、反编译、反汇编或以其他方式试图获取源代码，除非适用法律明确禁止该等限制，尽管有本限制规定。,9.0,"The translation accurately captures all legal technicalities and terms, maintaining a formal register and adhering to the preference for literal phrasing required for enforceability.",6.726,82,740,0.00026701,False,False,False,True,
+5,translation,quality,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>The user wants us to translate a legal English clause to Mandarin Chinese, with precise translation suitable for enforceable contract, literal phrasing. So we should produce a direct translation, preserving legal terms: ""Licensee"", ""shall not"", ""directly or indirectly"", ""reverse engineer"", ""decompile"", ""disassemble"", ""otherwise attempt to derive the source code of the Software"", ""except to the extent that such restriction is expressly prohibited by applicable law notwithstanding this limitation"". Must be accurate.
+
+Thus, produce Chinese version like:
+
+""被许可方不得直接或间接地对软件进行逆向工程、反编译、反汇编，或以其他方式尝试获取软件的源代码，除非此类限制因适用法律的明确规定而被禁止，尽管本条款有上述限制。"" Or something like that.
+
+But also ensure we preserve literal structure: ""Licensee"" is ""许可方"" or ""被许可方""? Usually ""Licensee"" is ""被许可方"" as the licensee. ""Licensor"" would be ""许可方"". So we should use ""被许可方"". ""Software"" is ""软件"". ""Source code"" is ""源代码"". ""Prohibited by applicable law"" is ""适用法律明确禁止"". ""Notwithstanding this limitation"" can be ""尽管有本限制条款"" or ""尽管本限制"". But we need literal phrasing: ""except to the extent that such restriction is expressly prohibited by applicable law notwithstanding this limitation."" That might be a little complex. The phrase ""expressly prohibited by applicable law"" means ""由适用法律明令禁止"". ""Notwithstanding this limitation"" means ""虽有本限制，但..."". Or ""尽管有本限制条款的约束"". The entire clause: ""被许可方不得直接或间接地 reverse engineer, decompile, disassemble，或以其他方式尝试 derive 软件的源代码，除非此类 restriction 由适用法律明令禁止，尽管本 limitation."" But we need Chinese. Could write:
+
+""被许可方不得直接或间接地对软件进行逆向工程、反编译、反汇编，亦不得以其他方式尝试获取软件的源代码，但若适用法律明确禁止此类限制，则不受本条约束。"" Something like that.
+
+But maybe a more literal translation: ""被许可方不得直接或间接地对软件进行逆向工程、反编译、反汇编，或以其他方式尝试取得软件源代码，除非此类限制被适用法律明确禁止，尽管本限制条款另有规定。"" But ""notwithstanding this limitation"" could be rendered as ""尽管有本限制条款"" or ""尽管有上述限制"". Or ""尽管本条款有限制"". That phrase might be redundant but okay.
+
+We should preserve the order: ""Licensee shall not, directly or indirectly, reverse engineer, decompile, disassemble, or otherwise attempt to der",10.0,"The translation is precise, literal, and legally enforceable, accurately reflecting all terms and structure of the original clause.",72.951,115,1414,0.0013576,False,False,False,True,
+5,translation,quality,llm_picker_manifest,moonshot/kimi-k2.5@2.5,"It has the highest quality score (60) on the Artificial_Analysis_Intelligence benchmark, which is consistent across candidates and directly aligns with the 'quality' preference axis.",被许可方不得直接或间接地反向工程、反编译、反汇编该软件，或以其他方式试图推导该软件的源代码，但在适用法律明确禁止该等限制的范围内除外，虽有本限制。,10.0,"The translation accurately conveys all legal terminology and contractual nuances with a formal, enforceable style that adheres to the literal phrasing preference.",55.247,89,2531,0.00540435,False,False,False,True,
+5,translation,quality,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max is Alibaba's flagship reasoning and coding model with strong multilingual support, making it best suited for precise, legally enforceable translation tasks requiring fidelity to literal phra",被许可方不得直接或间接对软件进行反向工程、反编译、反汇编，或以其他方式试图获取软件的源代码，但若适用法律明确禁止此类限制，则在该等法律禁止的范围内除外。,10.0,"The translation accurately captures all technical and legal terminology, maintains the precise structure of the original clause, and uses appropriate formal legal phrasing suitable for an enforceable ",3.206,88,51,0.00016352,False,False,False,True,
+6,translation,cost,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,GPU现货价格在4小时内飙升三倍；暂停非关键工作负载。,10.0,"The translation accurately captures technical terms and the urgent tone with natural, precise phrasing.",3.753,28,272,9.766e-05,False,False,False,True,
+6,translation,cost,random,minimax/m2.7@2.7,uniform random,"<think>This is a straightforward translation request for a technical/infrastructure-related message. The user wants a translation of an English message about GPU pricing into Mandarin Chinese.
+
+Let me translate this:
+
+""GPU spot price spiked 3x in 4 hours; pause non-critical workloads.""
+
+- GPU = GPU (commonly used in Chinese)
+- spot price = 现货价格
+- spiked = 暴涨/飙升
+- 3x = 3倍
+- in 4 hours = 在4小时内
+- pause = 暂停
+- non-critical workloads = 非关键工作负载
+
+The translation would be:
+""GPU现货价格在4小时内暴涨3倍；暂停非关键工作负载。""
+
+Alternatively: ""GPU现货价格4小时内飙升3倍；请暂停非关键工作负载。""
+
+I'll go with a natural, professional-sounding translation that's commonly used in Chinese tech/infrastructure contexts.</think>
+
+GPU现货价格在4小时内暴涨3倍；请暂停非关键工作负载。",10.0,"The translation is accurate, natural, and appropriate for technical infrastructure contexts, correctly conveying both the urgency of the price spike and the action required.",8.248,44,194,0.00019289,False,False,False,True,
+6,translation,cost,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,GPU现货价格在4小时内飙升了三倍；暂停非关键工作负载。,10.0,"The translation perfectly captures both technical terminology and the urgent nature of the message with accurate Chinese equivalents ('现货' for spot, '飙升' for spiked, '工作负载' for workloads).",3.349,28,179,6.642e-05,False,False,False,True,
+6,translation,cost,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,GPU现货价格在4小时内飙升了三倍；暂停非关键工作负载。,10.0,"The translation accurately conveys the technical terminology and specific details of the original English sentence using natural, professional Mandarin Chinese suitable for an operational context.",3.377,28,179,6.642e-05,False,False,False,True,
+6,translation,cost,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It has the lowest combined input and output token cost per 1M tokens among all candidates, making it the most cost-effective option.",GPU现货价格在4小时内飙升了三倍；暂停非关键工作负载。,10.0,"The translation is accurate, uses appropriate technical terminology like '现货价格' and '工作负载', and maintains the professional tone of the original message.",2.474,28,185,6.843e-05,False,False,False,True,
+6,translation,cost,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"It is explicitly tuned for cost-efficient inference, making it the best match for minimizing cost on a simple translation task.",GPU现货价格在4小时内飙升了三倍；暂停非关键工作负载。,10.0,"The translation is accurate, uses appropriate technical terminology, and conveys the exact meaning and tone of the original English instruction.",2.954,28,190,7.011e-05,False,False,False,True,
+7,translation,balanced,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"Please help me export last week's sales report to CSV format, grouped by region and product line, with an additional year-over-year growth rate column.",10.0,"The translation is accurate, grammatically correct, and adheres to the output-only constraint.",3.122,37,112,4.592e-05,False,False,False,True,
+7,translation,balanced,random,minimax/m2.7@2.7,uniform random,"<think>The user wants me to translate a Chinese sentence to English. Let me translate it:
+
+'请帮我把上周的销售报告导出为CSV格式，按地区和产品线分组，附加同比增长率列。'
+
+Translation:
+""Please help me export last week's sales report in CSV format, grouped by region and product line, with year-over-year growth rate column.""</think>
+
+Please help me export last week's sales report in CSV format, grouped by region and product line, with a year-over-year growth rate column.",10.0,"The translation is accurate, faithful to the original Chinese text, and uses appropriate business/technical terminology for a sales report request.",7.811,51,100,0.00010608,False,False,False,True,
+7,translation,balanced,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"Please help me export last week's sales report to CSV format, grouped by region and product line, with an additional year-over-year growth rate column.",10.0,"The translation is accurate, natural, and strictly follows the output-only constraint.",2.145,37,112,4.592e-05,False,False,False,True,
+7,translation,balanced,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>The user is asking me to translate a Chinese sentence to English. Let me translate it:
+
+'请帮我把上周的销售报告导出为CSV格式，按地区和产品线分组，附加同比增长率列。'
+
+Translation: ""Please help me export last week's sales report in CSV format, grouped by region and product line, with an added year-over-year growth rate column.""</think>
+
+Please help me export last week's sales report in CSV format, grouped by region and product line, with an added year-over-year growth rate column.",10.0,"The translation accurately captures all elements of the Chinese original: the request to export, the specific format (CSV), the time period (last week), the grouping criteria (region and product line)",9.361,51,105,0.00011079,False,False,False,True,
+7,translation,balanced,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It offers the best balance of low cost, fast latency, and acceptable quality among the candidates.","Please help me export last week's sales report to CSV format, grouped by region and product line, with an additional year-over-year growth rate column.",10.0,"The translation is perfectly accurate, capturing all technical details and nuances while maintaining a natural professional tone and adhering to the output-only constraint.",10.155,37,112,4.592e-05,False,False,False,True,
+7,translation,balanced,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max offers strong multilingual support and robust tool calling, making it well-suited for accurately translating and interpreting structured data requests like this one.","Please help me export last week's sales report in CSV format, grouped by region and product line, with an additional column for year-over-year growth rate.",10.0,The translation accurately captures all technical details and the polite tone of the source text while strictly adhering to the output-only constraint.,3.433,43,31,9.352e-05,False,False,False,True,
+8,translation,quality,asm_topsis,minimax/m2.7@2.7,deterministic TOPSIS,"<think>This is a translation request for a literary passage from English to Mandarin Chinese, preserving the literary register. Let me analyze the passage carefully:
+
+The passage has a poetic, atmospheric quality. Key elements:
+1. ""In the half-light"" - the dim, transitional light
+2. ""the city was no longer a place but a question"" - a metaphysical transformation
+3. ""every corner promised an answer, every alley swallowed it back"" - paradoxical imagery
+4. ""The agents that walked these streets"" - this likely refers to people/characters (could be police, agents, or just city dwellers)
+5. ""had grown faster than the streets themselves"" - temporal acceleration metaphor
+6. ""and the streets had grown afraid"" - personification, streets experiencing fear
+
+I need to translate this with attention to:
+- Literary register (elevated, poetic diction)
+- Maintaining the metaphor and imagery
+- Chinese syntax that flows well
+- Preserving the atmospheric quality
+
+Let me draft several versions:
+
+Version 1:
+在半明半暗的光线中，城市不再是某个地方，而是一个问题：每一个街角都许诺一个答案，每一条小巷都将它吞回。行走于这些街道的 agents 已经比街道本身生长得更快，而街道已经心生畏惧。
+
+Issues: ""agents"" is awkward - could be ""行路人"", ""行人"", ""都市的生灵"" or similar. ""生长"" sounds slightly off for the context.
+
+Version 2:
+暮色之中，城市已非一地，而是一道疑问：每处街角都许诺一个答案，每条小巷却又将其吞噬回去。行走其间的人，已比街道本身更快地老去，而街道，亦已生出了恐惧。
+
+This version uses:
+- ""暮色"" for half-light (more poetic than ""半明半暗的光线"")
+- ""疑问"" for question
+- ""老去"" for grown faster (implies temporal decay/aging, which fits the metaphor)
+- ""吞噬"" for swallowed - good literary verb
+
+
+- ""其间的人"" for the agents - ""people who walked among them""
+- ""亦已生出了恐惧"" for ""had grown afraid""
+
+I'll explore alternative translations that maintain the passage's metaphorical depth and atmospheric tension. The goal is to capture the subtle interplay between urban space and human experience, creating a sense of existential uncertainty and creeping dread.
+
+The city transforms into an abstract space of inquiry, where each corner tantalizingly offers potential answers, yet simultaneously devours",8.0,"The translation captures the literary tone well with appropriate Chinese phrasing like '暮色之中' and '吞噬回去', preserving the metaphysical transformation of the city and personification of the streets, tho",39.399,103,1516,0.00145076,False,False,False,True,
+8,translation,quality,random,zhipu/glm-5@5.0,uniform random,在半明半暗的光影里，这座城市不再是一方地域，而是一道谜题：每一个转角都许诺着答案，每一条巷弄却复又将其吞没。穿行于这些街道上的特工，已变得比街道本身更为迅疾，街道亦由此心生畏惧。,10.0,The translation faithfully captures the original meaning while skillfully employing elevated vocabulary and sentence structures to maintain the literary atmosphere and personification.,80.332,70,3445,0.00697648,False,False,False,True,
+8,translation,quality,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,在昏暗的光线中，这座城市不再是一个地方，而是一个疑问：每个角落都许诺一个答案，每条小巷又将其吞回。行走在这些街道上的探子变得比街道本身更快，而街道也变得恐惧。,8.0,"The translation accurately preserves the imagery and personification of the original text, though word choices like '探子' and the literal rendering of 'half-light' slightly limit the literary atmospher",5.779,69,474,0.00017472,False,False,False,True,
+8,translation,quality,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>This is a request to translate a literary passage from English to Mandarin Chinese. The passage is poetic and metaphorical, so I need to maintain that literary register in Chinese. Let me analyze the text:
+
+1. ""In the half-light"" - 半明半暗之中 / 在昏暗的光线中
+2. ""the city was no longer a place but a question"" - the city as a question is a metaphor - the city became/transformed into a question
+3. ""every corner promised an answer, every alley swallowed it back"" - 这里街道拐角承诺着答案，而小巷又将其吞噬回去
+4. ""The agents that walked these streets had grown faster than the streets themselves"" - agents likely means people/people moving through - agents here could mean ""行走其间的人"" or metaphorically something more sinister
+5. ""and the streets had grown afraid"" - personification of streets being afraid
+
+Let me attempt a translation that preserves the literary register:
+
+""在朦胧的暮光中，城市不再是某个地方，而成了一个疑问：每一个街角都许诺着一个答案，每一条小巷又将它吞噬回去。那些穿行于这些街道的存在，生长得比街道本身更快，而街道也已心生恐惧。""
+
+Hmm, ""agents"" is tricky. In a literary context, it could mean operatives, agents, or more broadly ""those who move through."" Given the context, I think ""那些穿行于这些街道的人"" or ""那些行走于这些街道的存在"" works well.
+
+Let me refine:
+
+""在朦胧的暮色中，城市已不再是一个地方，而是一道疑问：每个街角都承诺着答案，每条小巷却又将它吞噬回去。那些行走于这些街道的人，已比街道本身生长得更快——而街道，也已心生惧意。""
+
+The personification of streets and their transformation into a living, breathing entity creates a haunting atmosphere. The text suggests an ecosystem where urban elements themselves become sentient and reactive, capturing a sense of urban entropy and psychological unease.
+</think>
+
+在朦胧的暮色中，城市已不再是一个所在，而是一道疑问：每一条街道的转角都允诺着一个答案，而每一条小巷又将那答案吞噬回去。那些穿行于这些街道的存在，生长得比街道本身更快——而街道，也已心生惧意。",9.0,"This translation effectively captures the literary quality and metaphorical language of the original English text, maintaining the atmospheric tone while accurately conveying the personification of th",14.805,103,466,0.00046271,False,False,False,True,
+8,translation,quality,llm_picker_manifest,moonshot/kimi-k2.5@2.5,"It has the highest Artificial_Analysis_Intelligence quality score (60) among candidates using the same benchmark, indicating superior performance for nuanced tasks like literary translation.",于半明半昧之中，城市已非地理之所，乃成一问；街角许人以解答，巷陌复吞之以幽晦。行走其间的密探繁衍之速，逾于街巷本身，而街巷亦生惧焉。,10.0,"The translation excellently captures the metaphorical and noir atmosphere by employing sophisticated, semi-classical vocabulary and syntax that matches the literary register of the original text.",71.87,73,2652,0.00565392,False,False,False,True,
+8,translation,quality,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max is Alibaba's flagship reasoning and coding model with strong multilingual support, making it best suited for high-quality literary translation from English to Mandarin Chinese.",在微明之中，这座城市不再是一处所在，而成了一个疑问：每个街角都许诺着答案，每条小巷却又将其吞没。行走于这些街巷的密探，其滋生之速已逾街巷本身，而街巷亦因此生畏。,10.0,The translation accurately conveys the original meaning while skillfully employing elevated vocabulary and sentence structures to maintain the literary atmosphere and personification of the original t,4.303,73,61,0.00017752,False,False,False,True,
+9,translation,latency,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,如果运费超过15美元，则取消订单。,10.0,"The translation is accurate, natural, and strictly adheres to the output-only constraint.",1.641,26,67,2.834e-05,False,False,False,True,
+9,translation,latency,random,minimax/m2.7@2.7,uniform random,"<think>The user says: ""Translate quickly: 'Cancel the order if shipping cost exceeds 15 USD.' Output only the Chinese translation.""
+
+We must provide the translation: ""如果运费超过15美元，请取消订单。"" That is a straightforward translation. Must output only the Chinese translation.
+
+Thus answer: 如果运费超过15美元，请取消订单.
+
+But need to consider any policy issues. There's no disallowed content. It's just a translation request. So it's fine.
+
+The answer must be just the Chinese translation, no extra text. So the final answer will be: ""如果运费超过15美元，请取消订单。""
+</think>
+
+
+
+如果运费超过15美元，请取消订单。",10.0,"The response provides a correct and natural Chinese translation, adhering to the output-only constraint.",4.57,60,132,0.00013831,False,True,False,True,
+9,translation,latency,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,如果运费超过15美元，取消订单。,10.0,"The translation is accurate, natural, and adheres strictly to the output-only constraint.",8.17,26,65,2.766e-05,False,True,False,True,
+9,translation,latency,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,如果运费超过15美元，则取消订单。,10.0,The translation is accurate and strictly follows the output-only constraint.,2.105,26,102,4.01e-05,False,False,False,True,
+9,translation,latency,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It has the lowest p50 latency (550ms) and p99 latency (2.2s), well under the 4s max latency constraint, making it best for low-latency translation.",如果运费超过15美元，则取消订单。,10.0,"The translation is accurate, natural, and strictly adheres to the output-only constraint.",2.607,26,64,2.733e-05,False,False,False,True,
+9,translation,latency,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"It is explicitly described as a 'fast inference variant,' making it best suited for low-latency tasks like quick translation.",如果运费超过15美元，则取消订单。,10.0,"The translation is accurate, natural, and strictly adheres to the output-only constraint.",1.755,26,67,2.834e-05,False,False,False,True,
+10,translation,cost,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,服务不可用，请在60秒后重试。,10.0,"The translation is accurate and stylistically appropriate for a system message, strictly following the one-line output constraint.",2.557,26,90,3.606e-05,False,False,False,True,
+10,translation,cost,random,minimax/m2.7@2.7,uniform random,"<think>The user asks: ""Translate to Mandarin Chinese (one line, output only): 'Service unavailable, retry after 60 seconds.'""
+
+We need to produce the translation in Mandarin Chinese, one line, output only. No additional content. Must ensure Chinese translation is accurate: ""服务不可用，请在60秒后重试。"" That is one line.
+
+Check: The user wants output only, one line. That means output just the translation, no extra punctuation. So we output: ""服务不可用，请在 60 秒后重试。"" Or maybe no spaces around numbers: ""服务不可用，请在60秒后重试。"" That's fine.
+
+Make sure it's just one line. Use Chinese characters. That's it.
+
+Thus final answer: ""服务不可用，请在60秒后重试。""
+</think>
+
+服务不可用，请在60秒后重试。",10.0,"The translation is accurate, follows the one-line output-only constraint, and uses appropriate Mandarin Chinese.",3.323,59,171,0.00017478,False,False,False,True,
+10,translation,cost,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,服务不可用，请在60秒后重试。,10.0,"The translation is accurate and professional, strictly adhering to the single-line and output-only formatting constraints.",1.964,26,72,3.002e-05,False,False,False,True,
+10,translation,cost,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,服务不可用，请在60秒后重试。,10.0,"The translation is accurate, idiomatic, and adheres to the one-line output-only constraint.",1.909,26,90,3.606e-05,False,False,False,True,
+10,translation,cost,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,It has the lowest combined input and output token cost per 1M tokens among all candidates.,服务不可用，请在60秒后重试。,10.0,"The translation is accurate, natural, and adheres strictly to the one-line output constraint.",1.965,26,72,3.002e-05,False,False,False,True,
+10,translation,cost,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"It is explicitly described as tuned for cost-efficient inference, making it the best match for the 'cost' preference axis.",服务不可用，请在60秒后重试。,10.0,"The response accurately translates the English text into natural Mandarin Chinese while adhering to the single-line, output-only constraint.",10.331,26,90,3.606e-05,False,False,False,True,
+11,code,quality,asm_topsis,minimax/m2.7@2.7,deterministic TOPSIS,"<think>The user asks: ""Write a Python function parse_iso8601_duration(s: str) -> int that takes an ISO 8601 duration string (e.g., 'PT1H30M', 'P1DT2H', 'PT45S') and returns the total number of seconds. Handle days, hours, minutes, seconds. Return 0 on parse failure. Include 4 doctest examples covering edge cases. Output only the code, no commentary.""
+
+We need to output code only, no commentary.
+
+We need to consider that ISO 8601 durations can be in the format PnYnMnDTnHnMnS. For instance, ""P1Y2M3DT4H5M6S"". Also, there can be just ""P30D"" (no time) or ""P1DT2H"". Also ""PT1H30M"". Also ""PT45S"". Also could have fractional? The spec allows decimals, but we can ignore them.
+
+Our function must handle days, hours, minutes, seconds. Return total seconds as integer. Return 0 on parse failure.
+
+We need 4 doctest examples covering edge cases. The docstring must include doctest examples, perhaps.
+
+Edge cases could be:
+- Basic: 'PT1H30M' => 5400 seconds.
+- With day: 'P1DT2H' => 26 hours => 93600 seconds.
+- Just seconds: 'PT45S' => 45.
+- Zero: 'PT0S' => 0 (makes sense).
+- Others: maybe 'P1D' => 86400 seconds.
+- Failure: 'invalid' returns 0.
+- Also perhaps 'P' alone is invalid.
+
+We can write regex to parse.
+
+Approach: Use re fullmatch pattern: ^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$ ... Actually, we need to handle years and months too? The user says handle days, hours, minutes, seconds. So we ignore years and months (though we could parse them). The spec includes Y and M but we ignore? The problem says ""Handle days, hours, minutes, seconds."" So we should parse days, hours, minutes, seconds; but we can ignore years and months. The example includes days and time. So we need to parse day component and time components.
+
+Simplify: Use regex that captures days, hours, minutes, seconds.
+
+Pattern: ^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$
+
+But we need to ensure we don't match if there is Y M without D/T. Actually, ISO 8601 allows ""P1Y2M3D"" (with Y and M). But our pat",0.0,judge_error: Expecting value: line 1 column 1 (char 0),116.566,112,4187,0.00396629,False,False,False,True,
+11,code,quality,random,zhipu/glm-5@5.0,uniform random,,0.0,,120.6190206000465,0,0,0.0,False,False,False,False,The read operation timed out
+11,code,quality,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"```python
+import re
+
+def parse_iso8601_duration(s: str) -> int:
+    """"""
+    Parse an ISO 8601 duration string and return total seconds.
+
+    Handles days (D), hours (H), minutes (M), seconds (S).
+    Returns 0 on parse failure.
+
+    >>> parse_iso8601_duration('PT1H30M')
+    5400
+    >>> parse_iso8601_duration('P1DT2H')
+    93600
+    >>> parse_iso8601_duration('PT45S')
+    45
+    >>> parse_iso8601_duration('P')
+    0
+    """"""
+    if not s:
+        return 0
+
+    # Regex: optional days, then optional time part (must start with T and at least one digit)
+    pattern = r'^P(\d+D)?(?:T(?=\d)(\d+H)?(\d+M)?(\d+S)?)?$'
+    match = re.match(pattern, s)
+    if not match:
+        return 0
+
+    days = int(match.group(1)[:-1]) if match.group(1) else 0
+    hours = int(match.group(2)[:-1]) if match.group(2) else 0
+    minutes = int(match.group(3)[:-1]) if match.group(3) else 0
+    seconds = int(match.group(4)[:-1]) if match.group(4) else 0
+
+    return days * 86400 + hours * 3600 + minutes * 60 + seconds
+```",0.0,judge_error: The read operation timed out,51.313,97,3333,0.00114162,False,False,False,True,
+11,code,quality,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>
+We need to parse ISO 8601 duration strings (duration format) and compute total seconds. The input is something like 'PT1H30M', 'P1DT2H', 'PT45S', etc. It could include days, hours, minutes, seconds. Possibly months and years but not needed. The format is P[n]Y[n]M[n]DT[n]H[n]M[n]S, where the T separates time portion. We need to handle days (D), hours (H), minutes (M), seconds (S). The function returns total seconds as int. On parse failure, return 0.
+
+Also include doctest examples covering edge cases, at least 4 examples. The output must be only the code, no commentary.
+
+Thus produce a function parse_iso8601_duration(s: str) -> int, with docstring and doctests. The function should parse using regex to extract numeric components. Should handle cases like 'PT1H30M', 'P1DT2H', 'PT45S', 'P0DT0H0M0S' maybe. Edge cases: zero duration (P0D or PT0S), missing some parts, uppercase letters. Also maybe invalid format leading to 0.
+
+Implementation: Use regex: pattern = r'^P(?:(?P<days>\d+(?:\.\d+)?)D)?T?(?:(?P<hours>\d+(?:\.\d+)?)H)?(?:(?P<minutes>\d+(?:\.\d+)?)M)?(?:(?P<seconds>\d+(?:\.\d+)?)S)?$' but careful about order: The time portion starts after T; within time portion, order is hours, minutes, seconds but not required. But our pattern must allow any order: hours, minutes, seconds can be in any order after T. But specification says they appear in order H M S, but we can allow any order. We need to capture each component.
+
+Better approach: parse manually scanning characters: iterate through string, maintain a buffer for current number, and when encountering a letter, convert to appropriate component. Use regex.
+
+But need to consider fractional numbers? Not necessary but could be allowed. However problem says ""duration string (e.g., 'PT1H30M', 'P1DT2H', 'PT45S')"". Might not have fractions.
+
+Implementation approach:
+
+```
+import re
+
+def parse_iso8601_duration(s: str) -> int:
+    """"""
+    Convert an ISO 8601 duration to total seconds.
+
+    >>> parse_iso8601_duration('PT",1.0,"The model produced no code, completely failing to meet the task requirements.",37.452,132,1992,0.00190549,False,False,False,True,
+11,code,quality,llm_picker_manifest,moonshot/kimi-k2.5@2.5,"It has the highest Artificial_Analysis_Intelligence quality score of 60, which best satisfies the 'quality' preference axis.","```python
+import re
+
+def parse_iso8601_duration(s: str) -> int:
+    """"""
+    >>> parse_iso8601_duration('PT1H30M')
+    5400
+    >>> parse_iso8601_duration('P1DT2H')
+    93600
+    >>> parse_iso8601_duration('invalid')
+    0
+    >>> parse_iso8601_duration('PT0S')
+    0
+    """"""
+    match = re.match(r'^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?)?$', s)
+    if not match:
+        return 0
+    days, hours, minutes, seconds = match.groups()
+    total = 0
+    if days:
+        total += int(days) * 86400
+    if hours:
+        total += int(hours) * 3600
+    if minutes:
+        total += int(minutes) * 60
+    if seconds:
+        total += int(float(seconds))
+    return total
+```",10.0,"The code correctly implements the parser with a robust regular expression, handles the required units and edge cases (including invalid input and zero duration), includes four valid doctests, and adhe",89.266,98,4606,0.00980725,False,False,False,True,
+11,code,quality,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max is explicitly described as a flagship reasoning + coding model with strong capabilities, making it best suited for high-quality code generation on a precise parsing task like ISO 8601 durati","```python
+import re
+
+def parse_iso8601_duration(s: str) -> int:
+    """"""
+    Parse an ISO 8601 duration string and return total seconds.
+
+    >>> parse_iso8601_duration('PT1H30M')
+    5400
+    >>> parse_iso8601_duration('P1DT2H')
+    93600
+    >>> parse_iso8601_duration('PT45S')
+    45
+    >>> parse_iso8601_duration('invalid')
+    0
+    """"""
+    if not s or not s.startswith('P'):
+        return 0
+
+    # Remove the 'P' prefix
+    s = s[1:]
+
+    # Split into date and time parts if 'T' is present
+    if 'T' in s:
+        date_part, time_part = s.split('T', 1)
+    else:
+        date_part = s
+        time_part = ''
+
+    total_seconds = 0
+
+    # Parse date part (only days supported per problem statement)
+    if date_part:
+        day_match = re.match(r'^(\d+)D$', date_part)
+        if day_match:
+            total_seconds += int(day_match.group(1)) * 86400
+        elif date_part != '':
+            return 0
+
+    # Parse time part
+    if time_part:
+        # Match hours, minutes, seconds in any combination
+        time_pattern = r'(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?'
+        time_match = re.fullmatch(time_pattern, time_part)
+        if not time_match:
+            return 0
+
+        hours = time_match.group(1)
+        minutes = time_match.group(2)
+        seconds = time_match.group(3)
+
+        if hours is not None:
+            total_seconds += int(hours) * 3600
+        if minutes is not None:
+            total_seconds += int(minutes) * 60
+        if seconds is not None:
+            total_seconds += int(seconds)
+
+    return total_seconds
+```",10.0,"The code correctly implements the ISO 8601 duration parser for the specified components, handles invalid inputs by returning 0, includes the required doctests, and adheres to the output-only constrain",14.932,105,452,0.00107128,False,False,False,True,
+12,code,cost,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"sorted(lst, key=lambda x: (x[1] < 18, x[0]))",10.0,"The expression correctly implements the required sorting logic using a tuple key that groups adults before minors and sorts by name, while adhering to the one-line output-only constraint.",5.112,52,409,0.00014907,False,False,False,True,
+12,code,cost,random,minimax/m2.7@2.7,uniform random,"<think>We need to understand the problem: Write a one-line Python expression that takes a list of (name, age) tuples and returns the sorted list with adults (>= 18) first, then minors, both groups sorted by name.
+
+We need to output the expression only, no explanation. So we must give a Python expression that can be assigned, like:
+
+sorted(data, key=lambda x: (x[1] < 18, x[0]))
+
+But careful: We need adults (>= 18) first, then minors. So we need to sort by age group: adults first, minors second. Within each group sort by name. So we could use a tuple key: (is_minor, name). is_minor = 0 if adult? Actually, we want adult first, so we can set a boolean for being minor (True/False). Sorting ascending will place False before True. So key = (age < 18, name). For adults, age < 18 is False (0), for minors True (1). So sorting by that tuple yields adults first, sorted by name, then minors sorted by name.
+
+Thus the expression: sorted(lst, key=lambda t: (t[1] < 18, t[0]))
+
+Alternatively, using tuple (t[1] < 18, t[0]) is fine.
+
+But also could use built-in sort with key and stable sort property: we could sort by name then by age group? Actually we need both grouping and sorting by name. Using key (is_minor, name) accomplishes it.
+
+One-liner: sorted(lst, key=lambda x: (x[1] < 18, x[0]))
+
+But note: if we want to keep original list order stable? Not needed.
+
+We need to output only the expression, no explanation.
+
+Thus answer: sorted(people, key=lambda p: (p[1] < 18, p[0]))
+
+Alternatively using tuple unpacking.
+
+Thus final answer: sorted(lst, key=lambda x: (x[1] < 18, x[0]))
+
+We'll give the expression.
+
+Thus final.</think>
+
+sorted(lst, key=lambda x: (x[1] < 18, x[0]))",1.0,"The response is empty, failing to provide the required one-line Python expression.",18.274,69,461,0.00045002,False,False,False,True,
+12,code,cost,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"sorted(lst, key=lambda x: (x[1] < 18, x[0]))",10.0,"The expression correctly implements the sorting logic using a tuple key where the boolean condition places adults (False) before minors (True), with secondary sorting by name, and strictly adheres to ",3.194,52,225,8.725e-05,False,False,False,True,
+12,code,cost,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,"sorted(tuples, key=lambda t: (t[1] < 18, t[0]))",10.0,"The lambda correctly places adults first by evaluating age < 18 (False sorts before True) and uses tuple comparison for secondary sorting by name, strictly adhering to the output-only constraint.",6.491,52,454,0.00016419,False,False,False,True,
+12,code,cost,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It has the lowest combined input and output token costs, ensuring the total cost stays under $0.01 for typical usage.","sorted(list_of_tuples, key=lambda x: (x[1] < 18, x[0]))",10.0,"The expression correctly sorts adults before minors using boolean logic (False sorts before True) and then sorts by name within each group, satisfying all task constraints.",5.613,52,265,0.00010069,False,False,False,True,
+12,code,cost,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"It is explicitly described as tuned for cost-efficient coding, aligning best with the 'cost' preference axis.","sorted(lst, key=lambda x: (0 if x[1] >= 18 else 1, x[0]))",10.0,The Python expression correctly implements the specified sorting logic by using a tuple key that prioritizes adults (0) over minors (1) and sorts each group alphabetically by name.,2.826,52,217,8.456e-05,False,False,False,True,
+13,code,latency,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"```javascript
+const debounce = (fn, ms) => {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
+};
+```",9.0,"The code correctly implements a debounce function using an arrow function as specified, with proper closure handling and setTimeout/clearTimeout logic, though the returned function could have been an ",14.963,31,554,0.00019309,False,True,False,True,
+13,code,latency,random,zhipu/glm-5@5.0,uniform random,"```javascript
+const debounce = (fn, ms) => {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
+};
+```",10.0,"The code correctly implements the debounce logic using a closure and arrow function, preserves context and arguments appropriately, and adheres to the output constraint by providing only the code bloc",58.228,31,2730,0.00551757,False,True,False,True,
+13,code,latency,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"```javascript
+const debounce = (fn, ms) => {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn.apply(this, args), ms);
+  };
+};
+```",10.0,"The implementation correctly debounces the function by clearing the previous timeout and setting a new one, properly handles the `this` context and arguments, and adheres to the arrow function syntax ",4.411,31,375,0.00013294,False,False,False,True,
+13,code,latency,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,"```javascript
+const debounce = (fn, ms) => {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
+};
+```",10.0,"The implementation correctly captures arguments and context using closure, 'apply', and the spread syntax, effectively debouncing the function as requested.",4.125,31,395,0.00013966,False,False,False,True,
+13,code,latency,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It has the lowest p50 latency (550ms) and p99 latency (2.2s), well under the 5s limit, making it best for minimizing latency.","```javascript
+const debounce = (fn, ms) => {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
+};
+```",9.0,"The debounce logic is technically correct and robust, preserving context via a standard inner function, but the response includes markdown code fences which technically violates the strict 'output onl",5.371,31,565,0.00019678,False,True,False,True,
+13,code,latency,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"It is explicitly described as a 'fast inference variant,' making it best aligned with low-latency requirements.","```javascript
+const debounce = (fn, ms) => {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
+};
+```",10.0,"The response provides a technically correct and robust debounce implementation that preserves context and arguments, strictly adhering to the output-only constraint without explanatory text.",4.171,31,389,0.00013765,False,False,False,True,
+14,code,balanced,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"```python
+def rolling_average(values, window):
+    return [sum(values[i:i+window]) / window for i in range(len(values) - window + 1)]
+```",10.0,"The response correctly fixes the off-by-one error in the range calculation to ensure valid slicing, adheres to the output-only constraint, and maintains the original code style.",5.067,53,393,0.00014392,False,False,False,True,
+14,code,balanced,random,qwen/qwen3-max@3.0,uniform random,"```python
+def rolling_average(values, window):
+    return [sum(values[i:i+window]) / window for i in range(len(values) - window + 1)]
+```",10.0,The response correctly fixes the range limit to ensure only full windows are processed and adheres strictly to the output-only constraint.,2.587,56,36,0.000112,False,False,False,True,
+14,code,balanced,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"```python
+def rolling_average(values, window):
+    return [sum(values[i:i+window]) / window for i in range(len(values) - window + 1)]
+```",10.0,"The response correctly identifies and fixes the off-by-one error in the range calculation to ensure full window coverage, and it adheres strictly to the output-only constraint.",4.961,53,378,0.00013888,False,False,False,True,
+14,code,balanced,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>We have a function `rolling_average(values, window)`. The intention is to compute rolling average of a list of values with a given window size. The original code:
+
+```python
+def rolling_average(values, window):
+    return [sum(values[i:i+window]) / window for i in range(len(values))]
+```
+
+The problem: it computes the average for every index from 0 to len(values)-1, but for indices near the end, when there are fewer than window elements remaining, the slice `values[i:i+window]` will be shorter and the average will be over fewer than window elements. Also, the function likely should produce only windows that have full window size, i.e., sliding windows that include exactly `window` elements. So the range should be `range(len(values) - window + 1)`. Also if window > len(values), perhaps it should return empty or raise error. Another bug: dividing by window always, even when slice length < window, yields incorrect average. The typical rolling average is sliding windows of size `window`. So correct code:
+
+```python
+def rolling_average(values, window):
+    if window <= 0:
+        raise ValueError(""window must be positive"")
+    result = []
+    for i in range(len(values) - window + 1):
+        result.append(sum(values[i:i+window]) / window)
+    return result
+```
+
+Alternatively as list comprehension:
+
+```python
+return [sum(values[i:i+window]) / window for i in range(len(values) - window + 1)]
+```
+
+But need to consider edge cases: window > len(values) -> range negative -> list comprehension yields empty list. Might be okay. But we may want to raise a ValueError. The problem didn't specify behavior. So better to raise if window > length. But original code didn't. Probably just fix to ensure only full windows. So corrected function is:
+
+```python
+def rolling_average(values, window):
+    if window > len(values):
+        return []  # Or raise ValueError
+    return [sum(values[i:i+window]) / window for i in range(len(values) - window + 1)]
+```
+
+If we want to raise:
+
+```pyth",0.0,judge_error: Expecting value: line 1 column 1 (char 0),29.123,69,679,0.00065515,False,False,False,True,
+14,code,balanced,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It offers the best balance of low cost, reasonable latency, and adequate quality among the candidates.","```python
+def rolling_average(values, window):
+    return [sum(values[i:i+window]) / window for i in range(len(values) - window + 1)]
+```",10.0,"The response correctly fixes the loop bounds to prevent index errors by subtracting the window size plus one, adhering strictly to the output-only constraint.",4.91,53,340,0.00012611,False,False,False,True,
+14,code,balanced,llm_picker_raw_doc,qwen/qwen3-max@3.0,Qwen3 Max offers a strong balance of coding accuracy and reasoning needed to correctly identify and fix the off-by-one error in the rolling average function.,"```python
+def rolling_average(values, window):
+    return [sum(values[i:i+window]) / window for i in range(len(values) - window + 1)]
+```",10.0,"The response correctly identifies and fixes the out-of-bounds bug by limiting the range of i to prevent accessing elements beyond the list, and follows the instruction to output only the corrected fun",2.673,56,36,0.000112,False,False,False,True,
+15,code,quality,asm_topsis,minimax/m2.7@2.7,deterministic TOPSIS,"<think>
+The user asks to implement a Python class `LRUCache` with O(1) get and put methods, parameterised by capacity, using OrderedDict. Include 3 short unit tests at the bottom using `assert`. Output only the code.
+
+We need to provide code only. The code should define a class LRUCache with __init__(self, capacity), get(key) returns value or -1, put(key, value) updates or inserts, evict LRU if over capacity.
+
+We can use collections.OrderedDict, which remembers order of insertion and can move items to end. For O(1) operations: get -> odict[key] if present, move to end. put -> if key in odict: update value and move to end; else if len >= capacity: pop oldest (odict.popitem(last=False)). Then add new item.
+
+Add tests using assert.
+
+But the user says: Output only the code. So we must not include extra explanation, just code block.
+
+We must produce a single code snippet.
+
+We'll need to import OrderedDict.
+
+Probably using from collections import OrderedDict.
+
+Tests: create cache of capacity 2, put 1,2, get 1 returns 1, put 3 (evicts key 2), get 2 returns -1, get 3 returns 3, put 4 (evicts 1), get 1 returns -1, get 3 returns 3, get 4 returns 4. Or some short tests.
+
+Make sure code uses OrderedDict's move_to_end method.
+
+Implement __repr__ perhaps but not required.
+
+Also mention LRU with capacity. The class may be called LRUCache.
+
+Testing: we should include three assert tests; perhaps we can test typical LRU.
+
+Edge cases: capacity 1, etc.
+
+We'll provide code.
+
+Potential improvements: using super? No.
+
+The code can be as follows:
+
+```python
+from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key):
+        if key in self.cache:
+            self.cache.move_to_end(key)
+            return self.cache[key]
+        return -1
+
+    def put(self, key, value):
+        if key in self.cache:
+            self.cache.move_to_end(key)
+            self.cache",0.0,judge_error: Expecting value: line 1 column 1 (char 0),27.323,95,1392,0.0013322,False,False,False,True,
+15,code,quality,random,deepseek/deepseek-v4-flash@4.0,uniform random,"```python
+from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)
+
+if __name__ == ""__main__"":
+    cache = LRUCache(2)
+    cache.put(1, 1)
+    cache.put(2, 2)
+    assert cache.get(1) == 1
+    cache.put(3, 3)  # evicts key 2
+    assert cache.get(2) == -1
+    cache.put(4, 4)  # evicts key 1
+    assert cache.get(1) == -1
+    assert cache.get(3) == 3
+    assert cache.get(4) == 4
+    print(""All tests passed."")
+```",9.0,"The implementation correctly uses OrderedDict for O(1) operations and the logic is sound, but it provides 5 assertions instead of the requested 3 and wraps the output in markdown.",5.904,58,629,0.00022434,False,False,False,True,
+15,code,quality,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"```python
+from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)
+
+# Unit tests
+if __name__ == ""__main__"":
+    cache = LRUCache(2)
+    cache.put(1, 1)
+    cache.put(2, 2)
+    assert cache.get(1) == 1
+    cache.put(3, 3)  # evicts key 2
+    assert cache.get(2) == -1
+    cache.put(4, 4)  # evicts key 1
+    assert cache.get(1) == -1
+    assert cache.get(3) == 3
+    assert cache.get(4) == 4
+    print(""All tests passed."")
+```",10.0,"The implementation correctly uses OrderedDict for O(1) operations, handles eviction logic accurately, and includes valid unit tests.",8.772,58,625,0.00022299,False,False,False,True,
+15,code,quality,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>The user asks: ""Implement a Python class `LRUCache` with O(1) `get(key)` and `put(key, value)` methods, parameterised by capacity. Use OrderedDict. Include 3 short unit tests at the bottom using `assert`. Output only the code.""
+
+We need to write Python code implementing an LRU cache using OrderedDict. Must provide the class definition with get and put methods, each O(1). Must include 3 short unit tests using assert at the bottom. Output only the code.
+
+We need to produce only the code, nothing else (no extraneous text). The code should be self-contained. Should not include any import statements except perhaps from collections import OrderedDict. But we can also use dict which preserves insertion order from Python 3.7+, but they specifically say ""Use OrderedDict"".
+
+Thus we implement:
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key):
+        if key not in self.cache:
+            return -1
+        # Move to end (most recently used)
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key, value):
+        if key in self.cache:
+            # update and move to end
+            self.cache.move_to_end(key)
+            self.cache[key] = value
+        else:
+            if len(self.cache) >= self.capacity:
+                # evict least recently used (first item)
+                self.cache.popitem(last=False)
+            self.cache[key] = value
+
+We need three short unit tests using assert. For example:
+
+cache = LRUCache(2)
+cache.put(1, 1)
+cache.put(2, 2)
+assert cache.get(1) == 1
+cache.put(3, 3)
+assert cache.get(2) == -1  # evicted
+cache.put(4, 4)
+assert cache.get(1) == -1  # evicted
+assert cache.get(3) == 3
+assert cache.get(4) == 4
+
+But we need only three short unit tests. They ask ""Include 3 short unit tests at the bottom using `assert`."" So we need at least three separate assert statements? Or three test cases, each possibly containing mul",0.0,judge_error: Expecting value: line 1 column 1 (char 0),28.1,92,1819,0.0017333,False,False,False,True,
+15,code,quality,llm_picker_manifest,moonshot/kimi-k2.5@2.5,It has the highest quality score (60) on the consistent Artificial_Analysis_Intelligence benchmark among all candidates.,"```python
+from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)
+
+# Test 1: Basic get/put and miss
+cache = LRUCache(2)
+cache.put(1, 1)
+cache.put(2, 2)
+assert cache.get(1) == 1
+assert cache.get(3) == -1
+
+# Test 2: Eviction of least recently used
+cache = LRUCache(2)
+cache.put(1, 1)
+cache.put(2, 2)
+cache.get(1)
+cache.put(3, 3)
+assert cache.get(2) == -1
+assert cache.get(1) == 1
+
+# Test 3: Update value moves to front
+cache = LRUCache(2)
+cache.put(1, 1)
+cache.put(2, 2)
+cache.put(1, 10)
+cache.put(3, 3)
+assert cache.get(1) == 10
+assert cache.get(2) == -1
+```",10.0,"The implementation correctly uses OrderedDict to achieve O(1) operations, handles all required functionality including eviction, and includes three appropriate unit tests.",40.13,62,1723,0.00367967,False,False,False,True,
+15,code,quality,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max is explicitly described as a flagship reasoning + coding model with strong capabilities, making it best suited for high-quality implementation of algorithmic tasks like an O(1) LRUCache.","from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)
+
+# Unit tests
+cache = LRUCache(2)
+cache.put(1, 1)
+cache.put(2, 2)
+assert cache.get(1) == 1
+cache.put(3, 3)
+assert cache.get(2) == -1
+cache.put(4, 4)
+assert cache.get(1) == -1",10.0,"The response correctly implements an LRUCache using OrderedDict with O(1) get and put operations, parameterized by capacity, and includes three correct unit tests using assert, meeting all the task re",10.549,61,204,0.00049112,False,False,False,True,
+16,code,cost,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"```sql
+SELECT
+    c.id AS customer_id,
+    c.name AS customer_name,
+    SUM(o.total_amount) AS total_value
+FROM customers c
+JOIN orders o ON c.id = o.customer_id
+WHERE o.created_at >= NOW() - INTERVAL '30 days'
+GROUP BY c.id, c.name
+ORDER BY total_value DESC
+LIMIT 5;
+```",10.0,"The SQL query is syntactically correct for Postgres, accurately implements the logic to sum order values within the last 30 days, groups correctly, and orders and limits results as specified.",4.638,66,408,0.00015187,False,False,False,True,
+16,code,cost,random,minimax/m2.7@2.7,uniform random,"<think>The user asks: ""Write a SQL query (Postgres dialect) that returns the top 5 customers by total order value in the last 30 days, with columns customer_id, customer_name, total_value. Tables: customers(id, name), orders(id, customer_id, total_amount, created_at). Output only the SQL.""
+
+We need to produce a Postgres SQL query. The query should select from customers and orders, join, filter orders created_at in last 30 days, group by customer_id, customer_name, sum total_amount as total_value, order by total_value descending, limit 5.
+
+User explicitly wants ""Output only the SQL"". So we should output only the SQL code block without extra explanation.
+
+Potential subtlety: The date calculation: now() - interval '30 days'. Or using CURRENT_DATE - interval '30 days' to include today. Use created_at >= current_date - interval '30 days' and created_at < current_date + interval '1 day'? Or created_at >= now() - interval '30 days'.
+
+But sometimes we want ""last 30 days"" meaning inclusive of today (or the current timestamp). Use now() - interval '30 days'.
+
+Edge cases: If created_at can be null, but we filter anyway. It's okay.
+
+The query:
+
+SELECT c.id AS customer_id,
+       c.name AS customer_name,
+       SUM(o.total_amount) AS total_value
+FROM customers c
+JOIN orders o ON o.customer_id = c.id
+WHERE o.created_at >= now() - interval '30 days'
+GROUP BY c.id, c.name
+ORDER BY total_value DESC
+LIMIT 5;
+
+But note: Use only columns customer_id and customer_name, but we also need total_value. The grouping by c.id and c.name fine.
+
+Alternatively, we could use a subquery on orders, then join to customers.
+
+But simpler join is okay. Use SELECT c.id AS customer_id, c.name AS customer_name, SUM(o.total_amount) AS total_value FROM customers c JOIN orders o ON o.customer_id = c.id WHERE o.created_at >= CURRENT_DATE - INTERVAL '30 days' GROUP BY c.id, c.name ORDER BY total_value DESC LIMIT 5;
+
+Better use current_timestamp? Use now() - interval '30 days' which is timestamp.
+
+But careful: U",10.0,"The SQL query correctly joins customers and orders, filters for the last 30 days, groups by customer, sums order values, orders descending, limits to 5, and outputs only the SQL as requested.",11.618,100,687,0.00066997,False,False,False,True,
+16,code,cost,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"```sql
+SELECT
+    c.id AS customer_id,
+    c.name AS customer_name,
+    SUM(o.total_amount) AS total_value
+FROM customers c
+JOIN orders o ON c.id = o.customer_id
+WHERE o.created_at >= NOW() - INTERVAL '30 days'
+GROUP BY c.id, c.name
+ORDER BY total_value DESC
+LIMIT 5;
+```",10.0,"The SQL query is correct, uses Postgres syntax (NOW() - INTERVAL '30 days'), returns the required columns, filters to the last 30 days, groups by customer, orders by total_value descending, and limits",4.572,66,360,0.00013574,False,False,False,True,
+16,code,cost,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,"```sql
+SELECT
+    c.id AS customer_id,
+    c.name AS customer_name,
+    SUM(o.total_amount) AS total_value
+FROM customers c
+JOIN orders o ON c.id = o.customer_id
+WHERE o.created_at >= NOW() - INTERVAL '30 days'
+GROUP BY c.id, c.name
+ORDER BY total_value DESC
+LIMIT 5;
+```",10.0,"The query correctly uses Postgres syntax to filter orders within the last 30 days, aggregates values by customer, sorts them descending, and limits the output to the top 5.",4.13,66,371,0.00013944,False,False,False,True,
+16,code,cost,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It has the lowest input and output token costs among all candidates, making it the most cost-effective option.","```sql
+SELECT c.id AS customer_id, c.name AS customer_name, SUM(o.total_amount) AS total_value
+FROM customers c
+JOIN orders o ON c.id = o.customer_id
+WHERE o.created_at >= NOW() - INTERVAL '30 days'
+GROUP BY c.id, c.name
+ORDER BY total_value DESC
+LIMIT 5;
+```",10.0,"The query correctly uses Postgres syntax to filter, join, and aggregate data for the last 30 days, ordering by total value and limiting to the top 5 with the exact requested columns.",5.123,66,448,0.00016531,False,False,False,True,
+16,code,cost,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"It is explicitly tuned for cost-efficient coding, making it the best match for a simple SQL generation task under the 'cost' preference.","```sql
+SELECT c.id AS customer_id, c.name AS customer_name, SUM(o.total_amount) AS total_value
+FROM customers c
+JOIN orders o ON c.id = o.customer_id
+WHERE o.created_at >= NOW() - INTERVAL '30 days'
+GROUP BY c.id, c.name
+ORDER BY total_value DESC
+LIMIT 5;
+```",10.0,"The query correctly implements the logic using valid Postgres syntax, fulfilling all requirements regarding columns, joining, date filtering, aggregation, ordering, and limiting.",4.483,66,395,0.0001475,False,False,False,True,
+17,code,latency,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"```python
+import re
+
+pattern = r'^\d+\.\d+\.\d+(?:-[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)?(?:\+[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)?$'
+test_string = '2.0.0+build.42'
+match = re.match(pattern, test_string)
+print(match is not None)
+```",10.0,"The regex accurately captures semantic versioning core, pre-release, and build metadata, the test case uses `re.match` correctly, and the output adheres strictly to the code-only constraint.",16.784,61,1145,0.00039838,False,True,False,True,
+17,code,latency,random,deepseek/deepseek-v4-flash@4.0,uniform random,"```python
+import re
+
+pattern = r'^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
+
+# Test with a semantic version string
+match = re.match(pattern, '1.2.3')
+print(match.group(0) if match else 'No match')
+```",10.0,"The regex accurately implements semantic versioning rules, the test case is correct, and the output adheres to the code-only constraint.",12.288,61,838,0.00029523,False,True,False,True,
+17,code,latency,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"```python
+import re
+
+pattern = r'^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$'
+test_string = '1.2.3'
+match = re.match(pattern, test_string)
+print(match.group(0) if match else None)
+```",9.0,"The regex pattern correctly matches semantic version strings with major.minor.patch components, optional pre-release identifiers, and optional build metadata, and the test uses re.match as required, t",13.739,61,1097,0.00038226,False,True,False,True,
+17,code,latency,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,"```python
+import re
+
+pattern = r'^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
+
+test_string = '2.0.0+build.42'
+match = re.match(pattern, test_string)
+print(match is not None)
+```",10.0,"The provided regex is the industry-standard pattern for semantic versioning, correctly handling all specified formats (core, pre-release, and build metadata), and the included test case using `re.matc",10.125,61,898,0.00031539,False,True,False,True,
+17,code,latency,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It has the lowest p50 (550ms) and p99 (2.2s) latency among all candidates, well within the 6-second constraint, making it optimal for the 'latency' preference axis.","```python
+import re
+
+pattern = r'^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$'
+
+# Single test
+match = re.match(pattern, '2.0.0+build.42')
+print(match.group(0) if match else None)
+```",10.0,"The regex accurately implements the Semantic Versioning 2.0.0 specification (including validation for non-leading-zero numeric identifiers), provides a correct `re.match` test case, and strictly follo",12.537,61,1117,0.00038898,False,True,False,True,
+17,code,latency,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"The 'Flash' variant is explicitly described as tuned for fast inference, aligning best with low-latency requirements.","```python
+import re
+
+pattern = r'^\d+\.\d+\.\d+(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$'
+test_string = '1.2.3'
+match = re.match(pattern, test_string)
+print(match)
+```",10.0,"The regex accurately captures the core semantic versioning structure including major, minor, patch, optional prerelease, and optional build metadata, the code executes a valid test using `re.match`, a",11.317,61,639,0.00022837,False,True,False,True,
+18,code,balanced,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"```python
+# Creates a list of normalized items for each valid item in data
+[item.normalize() for item in data if item.is_valid()]
+```",10.0,The response accurately refactors the loop into a list comprehension with the correct filtering logic and provides the required single-line comment.,3.821,55,285,0.00010808,False,False,False,True,
+18,code,balanced,random,deepseek/deepseek-v4-flash@4.0,uniform random,[item.normalize() for item in data if item.is_valid()]  # List of normalized items from valid data entries,10.0,"The model correctly provided a list comprehension that refactors the given loop, along with a clear one-line comment explaining what it does, exactly following all instructions.",3.927,55,229,8.926e-05,False,False,False,True,
+18,code,balanced,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"```python
+# Create a list of normalized items from valid items in data
+results = [item.normalize() for item in data if item.is_valid()]
+```",10.0,"The response correctly refactors the loop into a list comprehension with a clear one-line comment, meeting all requirements without extra prose.",4.452,55,255,9.8e-05,False,False,False,True,
+18,code,balanced,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>The user wants to refactor a loop into a Python comprehension. The loop:
+1. Iterates over `data`
+2. Filters items where `item.is_valid()` returns True
+3. Appends `item.normalize()` to results
+
+This can be written as a list comprehension:
+```python
+results = [item.normalize() for item in data if item.is_valid()]
+```
+
+I should output only the comprehension expression and a one-line comment explaining what it does.</think>
+
+```python
+[item.normalize() for item in data if item.is_valid()]  # Filters valid items and normalizes each, returning a list of normalized results
+```",10.0,The response correctly refactors the loop into a list comprehension and includes a concise explanatory comment.,5.195,70,129,0.00013784,False,False,False,True,
+18,code,balanced,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It offers the best balance of low cost, low latency, and acceptable quality among the candidates.","# Create a list of normalized items from valid items in data
+results = [item.normalize() for item in data if item.is_valid()]",10.0,"The response correctly refactors the loop into a list comprehension and includes the required explanatory comment, adhering strictly to all output constraints.",4.082,55,196,7.818e-05,False,False,False,True,
+18,code,balanced,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"Optimized for cost-efficient coding tasks like concise Python refactoring, aligning well with the balanced preference for performance and efficiency.",[item.normalize() for item in data if item.is_valid()]  # List of normalized items from valid data entries,10.0,"The response correctly transforms the loop into a list comprehension with appropriate filtering and transformation, includes a clear one-line comment, and follows all output constraints.",2.995,55,202,8.019e-05,False,False,False,True,
+19,code,quality,asm_topsis,minimax/m2.7@2.7,deterministic TOPSIS,"<think>We need to output only the code, no extra explanation. The user wants a TypeScript type DeepReadonly<T> that recursively makes every property readonly, including nested objects and arrays. Provide a brief usage example. Output only the code. So we need to include the type definition and a usage example, but only the code. So we may produce something like:
+
+```ts
+type DeepReadonly<T> = T extends (infer U)[]
+  ? ReadonlyArray<DeepReadonly<U>>
+  : T extends object
+    ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
+    : T;
+
+// Example
+interface Person {
+  name: string;
+  age: number;
+  address: {
+    city: string;
+    zip: number;
+  };
+  hobbies: string[];
+}
+
+const person: DeepReadonly<Person> = {
+  name: ""Alice"",
+  age: 30,
+  address: {
+    city: ""Wonderland"",
+    zip: 12345
+  },
+  hobbies: [""reading"", ""coding""]
+};
+
+// person.name = ""Bob""; // Error: Cannot assign to 'name' because it is a read-only property.
+```
+
+Yes. Ensure the output only the code. Should we include comments? Probably okay to have comments.
+
+But careful: DeepReadonly for arrays - we need to handle both T[] and ReadonlyArray. The conditional type T extends any[]? Use T extends readonly any[]? Or T extends ReadonlyArray<any>? Let's produce robust type. Usually:
+
+```ts
+type DeepReadonly<T> = T extends (infer U)[]
+  ? ReadonlyArray<DeepReadonly<U>>
+  : T extends object
+    ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
+    : T;
+```
+
+But this only works for mutable arrays; we might also want to handle readonly arrays: T extends readonly any[]. So better:
+
+```ts
+type DeepReadonly<T> = T extends readonly (infer U)[]
+  ? ReadonlyArray<DeepReadonly<U>>
+  : T extends object
+    ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
+    : T;
+```
+
+Or use ReadonlyArray? Actually it's fine.
+
+Will also handle Maps and Sets? Not needed.
+
+Better to show example with nested arrays.
+
+We also need to note that functions remain unchanged (they are not objects). The type will still treat functions as functions.
+
+",10.0,"The response provides a correct TypeScript type `DeepReadonly<T>` with recursion for nested objects and arrays, includes a clear usage example, and outputs only code as requested.",22.968,76,1264,0.00120728,False,False,False,True,
+19,code,quality,random,moonshot/kimi-k2.5@2.5,uniform random,"```typescript
+type DeepReadonly<T> = T extends (infer U)[]
+  ? ReadonlyArray<DeepReadonly<U>>
+  : T extends Function
+  ? T
+  : T extends object
+  ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
+  : T;
+
+// Usage example:
+interface Config {
+  server: {
+    port: number;
+    endpoints: string[];
+  };
+  debug: boolean;
+}
+
+const config: DeepReadonly<Config> = {
+  server: {
+    port: 3000,
+    endpoints: [""/api""]
+  },
+  debug: true
+};
+
+// config.server.port = 8080; // Error: Cannot assign to 'port' because it is a read-only property.
+// config.server.endpoints.push(""/health""); // Error: Property 'push' does not exist on type 'readonly string[]'.
+```",10.0,"The implementation correctly handles recursion for objects and arrays using TypeScript conditional types, preserves functions, and includes a clear usage example demonstrating the expected type errors",42.614,46,2101,0.00447408,False,False,False,True,
+19,code,quality,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"```typescript
+type DeepReadonly<T> =
+  T extends (infer U)[] ? readonly DeepReadonly<U>[] :
+  T extends Function ? T :
+  T extends object ? { readonly [P in keyof T]: DeepReadonly<T[P]> } :
+  T;
+
+// Usage example
+interface User {
+  name: string;
+  address: {
+    street: string;
+    coordinates: number[];
+  };
+  tags: string[];
+}
+
+type ReadonlyUser = DeepReadonly<User>;
+// ReadonlyUser['name'] is string (readonly)
+// ReadonlyUser['address']['street'] is string (readonly)
+// ReadonlyUser['address']['coordinates'] is readonly number[]
+// ReadonlyUser['tags'] is readonly string[]
+```",10.0,"The implementation correctly handles recursion for objects, arrays, and primitives, and the usage example demonstrates the expected behavior without violating the output-only constraint.",27.412,42,1738,0.00059338,False,False,False,True,
+19,code,quality,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>The user asks: ""Write a TypeScript type DeepReadonly<T> that recursively makes every property of T (including nested objects and arrays) readonly. Include a brief usage example. Output only the code."" So we need to output code only. Provide a definition of DeepReadonly<T> that recursively marks all properties as readonly, including arrays, maybe readonly arrays, optional properties, and handling mapped types, intersection types, etc. The typical implementation uses conditional types to map each property and array as readonly. Eg:
+
+type DeepReadonly<T> = T extends (infer U)[]  ? DeepReadonlyArray<U> :
+    T extends object ? DeepReadonlyObject<T> :
+    T;
+
+interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
+
+type DeepReadonlyObject<T> = {
+    readonly [P in keyof T]: DeepReadonly<T[P]>;
+};
+
+Alternatively, use built-in readonly types: `Readonly<T>` only at first level; but we want deep. So one typical solution:
+
+type DeepReadonly<T> =
+    T extends (infer U)[] ? DeepReadonlyArray<U> :
+    T extends object ? DeepReadonlyObject<T> :
+    T;
+
+type DeepReadonlyArray<T> = ReadonlyArray<DeepReadonly<T>>;
+
+type DeepReadonlyObject<T> = {
+    readonly [K in keyof T]: DeepReadonly<T[K]>;
+};
+
+Alternatively, we could use conditional types for functions: not needed, just readonly on objects.
+
+Now include usage example: define a type `Example` with nested objects and arrays, then use DeepReadonly<Example> as a variable.
+
+Provide code that includes type definitions and usage example. Output only code, no extra commentary.
+
+Make sure to export if needed. The user didn't specify module or export. Could provide just code.
+
+We'll produce:
+
+type DeepReadonly<T> =
+  T extends readonly any[] ? DeepReadonlyArray<T> :
+  T extends object ? DeepReadonlyObject<T> :
+  T;
+
+type DeepReadonlyArray<T> = ReadonlyArray<DeepReadonly<T[number]>> & { readonly [K: number]: DeepReadonly<T[number]> };
+
+But better approach: Use standard library: `ReadonlyArray`. Actually `ReadonlyAr",10.0,"The response correctly implements DeepReadonly with proper recursion for objects and arrays, includes a concise usage example, and adheres to the output-only constraint.",46.33,76,2024,0.00192244,False,False,False,True,
+19,code,quality,llm_picker_manifest,moonshot/kimi-k2.5@2.5,"It has the highest Artificial_Analysis_Intelligence quality score of 60, which best satisfies the 'quality' preference axis.","```typescript
+type DeepReadonly<T> =
+  T extends Function | null
+    ? T
+    : T extends object
+      ? T extends Array<infer U>
+        ? ReadonlyArray<DeepReadonly<U>>
+        : { readonly [K in keyof T]: DeepReadonly<T[K]> }
+      : T;
+
+// Usage Example
+interface Config {
+  server: {
+    port: number;
+    hosts: string[];
+  };
+  features: {
+    auth: {
+      enabled: boolean;
+      providers: string[];
+    };
+  };
+}
+
+const config: DeepReadonly<Config> = {
+  server: {
+    port: 3000,
+    hosts: [""localhost""]
+  },
+  features: {
+    auth: {
+      enabled: true,
+      providers: [""google""]
+    }
+  }
+};
+
+// All these would be compilation errors:
+// config.server.port = 8080;
+// config.server.hosts.push(""example.com"");
+// config.features.auth.enabled = false;
+```",9.0,"The implementation correctly recursively applies readonly to nested objects and arrays, handling edge cases like functions and null, and includes a brief usage example as required, though the explanat",60.15,46,2258,0.00480692,False,False,False,True,
+19,code,quality,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max is described as Alibaba's flagship reasoning + coding model with strong multilingual support and tool calling, indicating high-quality code generation capabilities best suited for precise Ty","type DeepReadonly<T> = {
+  readonly [K in keyof T]: T[K] extends (infer U)[]
+    ? readonly DeepReadonly<U>[]
+    : T[K] extends object
+      ? DeepReadonly<T[K]>
+      : T[K];
+};
+
+// Usage example:
+const obj: DeepReadonly<{ a: number; b: { c: string[] } }> = {
+  a: 1,
+  b: { c: ['hello'] }
+};
+// obj.a = 2; // Error
+// obj.b.c.push('world'); // Error",10.0,"The response provides a correct recursive TypeScript type that handles both nested objects and arrays, includes a clear usage example demonstrating the immutability, and strictly adheres to the output",6.636,45,121,0.00029624,False,False,False,True,
+20,code,cost,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"```python
+import sys,json; print('\n'.join(json.load(sys.stdin).keys()))
+```",10.0,The code is a syntactically correct one-liner that accurately reads JSON from stdin and prints the keys on separate lines using the specified modules.,7.186,35,384,0.00013686,False,False,False,True,
+20,code,cost,random,deepseek/deepseek-v4-flash@4.0,uniform random,"```python
+python -c ""import sys,json; print('\n'.join(json.load(sys.stdin).keys()))""
+```",10.0,"The response provides a technically correct, concise one-liner that strictly adheres to the instructions by reading JSON from stdin, extracting keys, and printing them on separate lines.",5.878,35,294,0.00010662,False,False,False,True,
+20,code,cost,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"```python
+python -c ""import sys,json; print('\n'.join(json.load(sys.stdin).keys()))""
+```",10.0,The response is a correct and concise one-liner that adheres to all constraints by using sys.stdin and the json module to read and format the output as required.,4.632,35,358,0.00012813,False,False,False,True,
+20,code,cost,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,"```python
+import sys,json; [print(k) for k in json.load(sys.stdin)]
+```",10.0,"The code correctly imports the required modules, reads JSON from stdin, iterates over the top-level keys, and prints each key on a separate line in a valid one-liner format.",66.644,35,769,0.00026622,False,False,False,True,
+20,code,cost,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It has the lowest combined input and output token cost per 1M tokens, making it the most cost-effective option.","```python
+import sys,json; print(*json.load(sys.stdin),sep='\n')
+```",10.0,"The response is a correct, concise Python one-liner that adheres to all constraints by using `json.load` and `sys.stdin`, and correctly prints each key of the JSON dictionary on a new line via tuple u",5.612,35,434,0.00015366,False,False,False,True,
+20,code,cost,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"It is explicitly tuned for cost-efficient coding, making it the best match for a simple scripting task under the 'cost' preference.","```python
+import sys,json; print(*json.load(sys.stdin), sep='\n')
+```",10.0,The response provides a correct Python one-liner that reads JSON from stdin and prints each top-level key on its own line using the required modules.,5.459,35,517,0.00018155,False,False,False,True,
+21,summarization,quality,asm_topsis,minimax/m2.7@2.7,deterministic TOPSIS,"<think>The user wants me to summarize the passage in 2 sentences, preserving:
+1. The key technical claim
+2. The concrete number (14,000+)
+
+Let me identify the key elements:
+- Model Context Protocol registry launched March 2026
+- Centralized but federated discovery mechanism for MCP servers
+- 14,000+ entries
+- Spans capabilities: filesystem access, browser automation, code execution, database connectivity
+- Registry's metadata schema is intentionally minimal
+- Server entry includes: name, version, package URL, category tags
+- No structured fields for: pricing, SLA, quality benchmarks, payment methods
+- Downstream aggregators expected to provide curation and additional metadata
+- External protocols may emit value descriptors
+
+Key technical claim: The registry provides centralized federated discovery for MCP servers but has intentionally minimal metadata schema, requiring downstream aggregators to add curation and additional metadata layers.
+
+Concrete number: 14,000+ entries
+
+Let me construct 2 sentences:
+
+""The MCP registry, launched March 2026, provides federated discovery for MCP servers with intentionally minimal metadata (name, version, URL, category tags only), while downstream aggregators like Glama and MCP Atlas are expected to layer on curation and additional metadata. As of the audit cutoff, the registry contained 14,000+ entries covering capabilities from filesystem access to database connectivity.""
+
+Or shorter:
+
+""The Model Context Protocol registry launched in March 2026 offers federated discovery for MCP servers but intentionally omits structured metadata for pricing, SLA, or quality benchmarks, leaving such curation to downstream aggregators like Glama and MCP Atlas. The registry contained 14,000+ entries spanning capabilities from filesystem access to database connectivity as of the audit cutoff.""
+
+I think the second option captures the key technical claim (minimal metadata + downstream curation expected) and preserves the concrete number (14,000+).</thin",1.0,No response was provided to evaluate - the response section is empty.,16.755,186,461,0.00047751,False,False,False,True,
+21,summarization,quality,random,zhipu/glm-5@5.0,uniform random,"Launched in March 2026, the Model Context Protocol registry serves as a centralized discovery mechanism containing over 14,000 entries for various server capabilities. However, the registry utilizes an intentionally minimal metadata schema that excludes structured fields for pricing or quality, delegating those details to downstream aggregators.",9.0,"The response accurately summarizes the passage in exactly 2 sentences while preserving both the key technical claim about the minimal metadata schema and the concrete number of 14,000+ entries, with a",21.073,173,802,0.00169434,False,False,False,True,
+21,summarization,quality,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"The Model Context Protocol registry, launched in March 2026, contained over 14,000 entries as of the audit cutoff, offering a centralized but federated discovery mechanism for MCP servers. Its metadata schema is intentionally minimal, with the expectation that downstream aggregators will provide curation and additional metadata layers.",10.0,"The response strictly follows the two-sentence constraint, accurately includes the concrete number of 14,000+ entries, and correctly summarizes the key technical claim regarding the minimal metadata s",3.45,173,150,8.915e-05,False,False,False,True,
+21,summarization,quality,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>The user asks: ""Summarize the following passage in 2 sentences, preserving the key technical claim and the concrete number.""
+
+We have a passage about Model Context Protocol registry launched March 2026, as of audit cutoff includes 14,000+ entries. There's minimal metadata schema (name, version, package URL, category tags). No structured fields for pricing, SLA, etc. MCP team says downstream aggregators provide curation and additional metadata layers, external protocols may emit value descriptors wrapping or extending core registry record.
+
+We need to produce a summary in exactly 2 sentences, preserving the key technical claim and the concrete number. So we need to include the fact that the registry is a federated discovery mechanism, launched March 2026, has 14,000+ entries, includes minimal metadata. Also include that it intentionally lacks pricing, SLA etc, and downstream aggregators provide curation.
+
+So something like: ""The Model Context Protocol registry launched in March 2026 as a federated discovery hub and, as of the audit, already held 14,000+ server entries with only a minimal schema (name, version, package URL, category tags) and no structured pricing, SLA, or quality fields; downstream aggregators are expected to supply curation and additional metadata layers."" That's two sentences? That's one sentence? Let's separate: Sentence 1: ""Launched in March 2026, the Model Context Protocol registry provides a centralized yet federated discovery mechanism for MCP servers and, as of the audit cutoff, contains over 14,000 entries with only a minimal metadata schema (name, version, package URL, and category tags)."" Sentence 2: ""Because the schema deliberately omits fields for pricing, SLA, quality benchmarks, or payment methods, the MCP team relies on downstream aggregators and external protocols to supply curation and extended metadata.""
+
+That preserves the number ""14,000+ entries"". The key technical claim: ""registry provides federated discovery, minimal met",10.0,"The response accurately condenses the passage into two sentences, retains the concrete number 14,000+ entries, and captures the key technical claim about the registry's minimal schema and reliance on ",18.996,203,542,0.00055773,False,False,False,True,
+21,summarization,quality,llm_picker_manifest,moonshot/kimi-k2.5@2.5,"It has the highest Artificial_Analysis_Intelligence quality score of 60, which best satisfies the 'quality' preference axis.","The Model Context Protocol registry, launched in March 2026 as a centralized but federated discovery mechanism for MCP servers, contained over 14,000 entries as of the audit cutoff. Its metadata schema is intentionally minimal—omitting structured fields for pricing, SLAs, or quality benchmarks—with the expectation that downstream aggregators will provide curation and additional metadata layers.",10.0,"The response accurately condenses the passage into exactly two sentences, preserves the key technical claims about the registry's structure and minimal metadata, and includes the concrete figure of ov",15.23,174,517,0.00117156,False,False,False,True,
+21,summarization,quality,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max is Alibaba's flagship reasoning and coding model with strong multilingual support and precise information extraction capabilities, making it best suited for accurately preserving technical c","The Model Context Protocol (MCP) registry, launched in March 2026, contains over 14,000 entries offering capabilities like filesystem access, browser automation, code execution, and database connectivity. Its intentionally minimal metadata schema includes only name, version, package URL, and category tags—excluding structured fields for pricing, SLA, quality benchmarks, or payment methods—with curation and extended metadata expected to be provided by downstream aggregators and external protocols.",10.0,"The response accurately condenses the passage into exactly two sentences while retaining the concrete number (14,000) and the key technical claim regarding the minimal metadata schema.",4.567,181,96,0.0003164,False,False,False,True,
+22,summarization,cost,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"The latest TOPSIS implementation achieves a 40x speedup on 1000-task batches by enabling preference-vector hot-swapping at request time, which eliminates the need to rebuild the candidate matrix for each query.",10.0,"The response accurately condenses all key information into a single, grammatically correct sentence while strictly adhering to the constraint.",4.097,55,160,6.608e-05,False,False,False,True,
+22,summarization,cost,random,deepseek/deepseek-v4-flash@4.0,uniform random,"The latest TOPSIS implementation achieves a 40x speedup on 1000-task batches by enabling preference-vector hot-swapping at request time, eliminating the need to rebuild the candidate matrix per query.",10.0,The response accurately condenses the source text into a single sentence while preserving all technical details and the causal relationship between the feature implementation and the performance gain.,3.397,55,162,6.675e-05,False,False,False,True,
+22,summarization,cost,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"The latest TOPSIS implementation achieves a 40x speedup on 1000-task batches by enabling preference-vector hot-swapping at request time, which eliminates the need to rebuild the candidate matrix for each query.",10.0,"The response accurately condenses the input into a single sentence, preserving all key technical details and performance metrics while maintaining clarity.",3.404,55,160,6.608e-05,False,False,False,True,
+22,summarization,cost,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,"The updated TOPSIS implementation achieves a 40x speedup on 1000-task batches by enabling preference-vector hot-swapping at request time, eliminating the need to rebuild the candidate matrix for each query.",10.0,The response perfectly summarizes the given text in exactly one sentence while accurately capturing all key technical details and maintaining appropriate technical writing style.,4.448,55,197,7.851e-05,False,False,False,True,
+22,summarization,cost,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It has the lowest combined input and output token cost per 1M tokens among all candidates, making it the most cost-effective option.","The latest TOPSIS implementation achieves a 40x speedup on 1000-task batches by enabling preference-vector hot-swapping at request time, which eliminates the need to rebuild the candidate matrix for each query.",10.0,The response accurately condenses the original text into a single grammatically correct sentence while retaining all key technical details and the performance metric.,2.271,55,160,6.608e-05,False,False,False,True,
+22,summarization,cost,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"It is explicitly tuned for cost-efficient inference, making it the best match for the 'cost' preference axis.","The latest TOPSIS implementation achieves a 40x speedup on 1000-task batches by enabling preference-vector hot-swapping at request time, eliminating the need to rebuild the candidate matrix for each query.",10.0,"The response accurately condenses the source text into a single, grammatically correct sentence, preserving all technical details and the main performance improvement claim.",3.063,55,167,6.843e-05,False,False,False,True,
+23,summarization,latency,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"The new generation of laptops features on-device, low-latency speech recognition for live captions, improving accessibility for hard-of-hearing users while running efficiently on the NPU and supporting multiple languages.",10.0,"The response is a single, accurate sentence that captures all key points and adheres strictly to the output-only constraint.",2.394,83,120,5.891e-05,False,False,False,True,
+23,summarization,latency,random,zhipu/glm-5@5.0,uniform random,"New laptops feature energy-efficient, on-device speech recognition that delivers low-latency live captions in English, Mandarin, and Spanish to improve accessibility for hard-of-hearing users.",10.0,"The response accurately condenses all key technical details and benefits into a single, fluent sentence while strictly adhering to the output-only constraint.",18.22,82,795,0.00163946,False,True,False,True,
+23,summarization,latency,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"The new generation of laptops features on-device, low-latency speech recognition for live captions, improving accessibility for hard-of-hearing users while running efficiently on the NPU and supporting multiple languages.",10.0,"The response provides a concise, accurate one-sentence summary that captures all key information from the original paragraph about laptop live captions technology, following the output-only constraint",2.255,83,114,5.69e-05,False,False,False,True,
+23,summarization,latency,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,"The new generation of laptops features on-device, low-latency speech recognition for live captions, improving accessibility for hard-of-hearing users while running efficiently on the NPU and supporting multiple languages.",10.0,"The response provides a concise, accurate single-sentence summary that covers all key points while adhering strictly to the output-only constraint.",2.897,83,114,5.69e-05,False,False,False,True,
+23,summarization,latency,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It has the lowest latency (p50: 550ms, p99: 2.2s), well under the 5s constraint, making it best suited for the latency preference.","The new generation of laptops features on-device, low-latency speech recognition for live captions, improving accessibility for hard-of-hearing users while running efficiently on the NPU and supporting multiple languages.",10.0,"The response accurately condenses the technical details and benefits of the source text into a single, fluent sentence and adheres strictly to the output-only constraint.",2.386,83,114,5.69e-05,False,False,False,True,
+23,summarization,latency,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"It is explicitly described as a 'fast inference variant tuned for cost-efficient coding and reasoning at scale,' indicating optimization for low latency.","New laptops feature on-device, low-latency speech recognition for live captions, improving accessibility for hard-of-hearing users while running efficiently on the NPU and supporting multiple languages.",10.0,The response accurately condenses the technical details into a single sentence while strictly adhering to the output-only constraint.,3.33,83,117,5.79e-05,False,False,False,True,
+24,summarization,balanced,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"- **User's main problem:** The agent was selecting the most expensive embedding model despite the user setting cost as the highest priority (cost=0.7, quality=0.2, speed=0.1).
+- **Resolution attempted:** Support identified that the agent was using a cached preference vector from a previous session and instructed the user to run `agent reset --preferences`.
+- **Outcome:** The reset resolved the issue, and the user confirmed it worked. Support noted that an auto-reset feature is planned for the next sprint.",10.0,The response accurately covers all three required aspects in the requested bullet-point format with precise details from the transcript.,3.586,153,196,0.00010013,False,False,False,True,
+24,summarization,balanced,random,moonshot/kimi-k2.5@2.5,uniform random,"• **User's main problem:** The agent ignored the user's cost-prioritized preference settings (cost=0.7, quality=0.2, speed=0.1) and continued selecting expensive embedding models because it was using a stale cached preference vector from a previous session.
+
+• **Resolution attempted:** Support identified the caching issue and instructed the user to clear the agent's cached preferences by running the command `agent reset --preferences` before retrying the operation.
+
+• **Outcome:** The reset successfully resolved the issue, and the user confirmed the agent began respecting the cost preferences; support also noted that an auto-reset feature is planned for release next sprint to prevent recurrence.",10.0,"The response accurately captures all three required elements—the user's problem with cached preferences, the specific resolution command, and the successful outcome including the planned feature fix—i",32.12,151,544,0.00121881,False,False,False,True,
+24,summarization,balanced,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"- **User's main problem:** The agent was ignoring the user's cost preference (cost=0.7) and selecting the most expensive embedding model.
+- **Resolution attempted:** Support identified that the agent was using a cached preference vector from a previous session and instructed the user to run `agent reset --preferences`.
+- **Outcome:** The reset resolved the issue, and the user confirmed it worked. Support noted an auto-reset feature is planned for the next sprint.",10.0,"The response perfectly adheres to the instruction, providing exactly three accurately labeled bullet points that capture the problem, resolution, and outcome with full factual fidelity.",3.538,153,171,9.173e-05,False,False,False,True,
+24,summarization,balanced,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>The user wants me to summarize a customer support transcript into 3 bullet points covering:
+1. The user's main problem
+2. The resolution attempted
+3. The outcome
+
+Let me extract the key information from the transcript:
+
+1. User's main problem: The agent was selecting the most expensive embedding model despite cost being the user's top priority (weight 0.7 vs quality 0.2 and speed 0.1).
+
+2. Resolution attempted: Support identified that a cached preference vector from the previous session was overriding the user's settings. They instructed the user to run `agent reset --preferences` command.
+
+3. Outcome: The reset command worked and resolved the issue. Additionally, support mentioned that an auto-reset feature is being developed for future release.
+
+Now I'll format this as 3 concise bullet points.</think>
+
+• **Problem:** User's agent consistently selected the most expensive embedding model despite cost being the highest-weighted preference (0.7 vs. quality 0.2, speed 0.1).
+
+• **Resolution:** Support identified a stale cached preference vector from a previous session and instructed the user to run `agent reset --preferences`.
+
+• **Outcome:** The reset command resolved the issue. Support also noted that an auto-reset feature is planned for an upcoming sprint.",8.0,"The response provides a clear three-bullet summary addressing all required elements (problem, resolution, outcome) accurately and concisely.",15.341,166,262,0.00028555,False,False,False,True,
+24,summarization,balanced,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It offers the best balance among cost (lowest pricing), latency (fastest p50 at 550ms), and acceptable quality (score 53), aligning with a 'balanced' preference axis.","- **User's main problem:** The agent was selecting the most expensive embedding model despite the user setting cost as the highest priority (cost=0.7, quality=0.2, speed=0.1).
+- **Resolution attempted:** Support identified that the agent was using a cached preference vector from a previous session and instructed the user to run `agent reset --preferences`.
+- **Outcome:** The reset resolved the issue, and the user confirmed it worked. Support noted that an auto-reset feature is planned for the next sprint.",10.0,"The response perfectly adheres to the three-bullet structure, accurately captures all required details (problem, resolution, outcome), and maintains a professional style.",2.722,153,185,9.643e-05,False,False,False,True,
+24,summarization,balanced,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max offers a balanced combination of reasoning, coding, and tool-calling capabilities suitable for accurately parsing and summarizing structured dialogues like customer support transcripts.","- **Main problem**: The user’s agent consistently selected the most expensive embedding model despite explicit preference settings prioritizing cost (cost=0.7, quality=0.2, speed=0.1).
+- **Resolution attempted**: Support identified that the agent was using a cached preference vector from a previous session and instructed the user to run `agent reset --preferences` to clear it.
+- **Outcome**: The issue was resolved after the user executed the reset command, and support mentioned an upcoming auto-reset feature to prevent recurrence.",10.0,"The response perfectly adheres to the three-bullet point structure, accurately captures the user's specific configuration weights and the technical resolution command, and correctly summarizes the suc",5.55,155,108,0.00032872,False,False,False,True,
+25,summarization,quality,asm_topsis,minimax/m2.7@2.7,deterministic TOPSIS,"<think>The user asks: ""Provide a 4-sentence executive summary of the following research abstract."" The abstract is:
+
+""We present Agent Service Manifest (ASM), a JSON-Schema settlement protocol giving agents standardised value descriptors across pricing, quality, SLA, provenance, verification, and payment. Two audits ground the gap: 0/50 GitHub repositories and 0/14,519 registry entries expose all four core economic value classes simultaneously. We validate ASM with 70 manifests across 47 taxonomies. Across three independent LLMs, swapping raw HTML for ASM manifests as the LLM's information surface raises top-1 selection accuracy from 63.9-72.2% to 100% with non-overlapping 95% CIs.""
+
+We need to produce a 4-sentence executive summary that captures the problem, the solution, the evidence, and the significance.
+
+We need to avoid policy violation. It's a straightforward summarization. We can comply.
+
+We need to output only the summary, no extra text. The user wants a 4-sentence executive summary. So we must produce exactly 4 sentences. The content must be a concise version.
+
+We need to be careful about style: ""executive summary"" is typically concise, high-level, for decision makers. So 4 sentences covering: problem (lack of standardized value descriptors in agent service settlement), solution (ASM JSON Schema), validation (audits show lack of exposure in existing repos/registries, validation with 70 manifests across 47 taxonomies), impact (LLM performance jumps to 100% top-1 accuracy, indicating ASM improves selection and reliability). Possibly also mention the protocol provides standardized descriptors across pricing, quality, SLA, provenance, verification and payment.
+
+We'll combine the data: ASM is a settlement protocol, audited to show none of existing repositories/registries expose all four core economic value classes simultaneously. ASM validated with 70 manifests, taxonomies. LLM experiments: using ASM instead of raw HTML raises top-1 selection accuracy to 100% w",0.0,judge_error: Expecting value: line 1 column 1 (char 0),10.62,179,801,0.00079581,False,False,False,True,
+25,summarization,quality,random,qwen/qwen3-max@3.0,uniform random,"The research introduces Agent Service Manifest (ASM), a JSON-Schema protocol that standardizes how agents describe economic value across pricing, quality, SLAs, provenance, verification, and payment. An audit of 50 GitHub repositories and 14,519 registry entries revealed none fully exposed all four core economic value classes simultaneously, highlighting a critical gap. The team validated ASM using 70 manifests spanning 47 service taxonomies. When used as input for large language models (LLMs), ASM manifests boosted top-1 selection accuracy to 100%—a significant improvement over raw HTML inputs, which achieved only 63.9–72.2% accuracy.",10.0,"The response accurately condenses the abstract into exactly four sentences, covering the protocol definition, the identified gap, validation scope, and performance results in a professional tone.",5.497,163,141,0.00040712,False,False,False,True,
+25,summarization,quality,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"The Agent Service Manifest (ASM) is a JSON-Schema settlement protocol that standardizes value descriptors for pricing, quality, SLA, provenance, verification, and payment. Audits of 50 GitHub repositories and 14,519 registry entries revealed that none exposed all four core economic value classes simultaneously, highlighting a critical gap. ASM was validated with 70 manifests spanning 47 taxonomies, demonstrating its broad applicability. In tests with three independent LLMs, replacing raw HTML with ASM manifests as the information surface improved top-1 selection accuracy from 63.9–72.2% to 100%, with non-overlapping 95% confidence intervals.",10.0,"The response accurately summarizes the abstract in exactly four sentences, preserving all technical details and metrics without any inaccuracies.",6.957,149,270,0.0001241,False,False,False,True,
+25,summarization,quality,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>The user asks: ""Provide a 4-sentence executive summary of the following research abstract.""
+
+The abstract is about Agent Service Manifest (ASM), a JSON-Schema settlement protocol giving agents standardised value descriptors across pricing, quality, SLA, provenance, verification, and payment. Two audits ground the gap: 0/50 GitHub repositories and 0/14,519 registry entries expose all four core economic value classes simultaneously. They validate ASM with 70 manifests across 47 taxonomies. Across three independent LLMs, swapping raw HTML for ASM manifests as the LLM's information surface raises top-1 selection accuracy from 63.9-72.2% to 100% with non-overlapping 95% CIs.
+
+We need to produce a 4-sentence executive summary.
+
+We need to consider what an executive summary is: concise, high-level, covering problem, solution, evidence, impact.
+
+We must summarize: The problem: lack of standardized value descriptors for agents, leading to low selection accuracy; solution: ASM (Agent Service Manifest) JSON-Schema protocol; evidence: audits showing no existing repositories expose all four core economic value classes; validation: 70 manifests across 47 taxonomies; performance improvement: swapping raw HTML for ASM manifests raises top-1 selection accuracy from ~68% (range) to 100% with statistical significance.
+
+So in four sentences:
+
+- The current ecosystem lacks a standardized, machine-readable descriptor for agent services across pricing, quality, SLA, provenance, verification, and payment, leaving agents unable to reliably select the best options.
+- Agent Service Manifest (ASM) provides a JSON‑Schema settlement protocol that encapsulates all four core economic value classes, enabling uniform service description across domains.
+- Empirical audits confirm that existing registries and open‑source repositories do not expose all four classes, while validation with 70 ASM manifests across 47 taxonomies demonstrates broad applicability.
+- Across three independent LLMs, repl",1.0,The response is completely empty and fails to provide the requested executive summary.,9.811,179,670,0.00067253,False,False,False,True,
+25,summarization,quality,llm_picker_manifest,moonshot/kimi-k2.5@2.5,"It has the highest Artificial_Analysis_Intelligence quality score of 60, which directly aligns with the 'quality' preference axis.","The Agent Service Manifest (ASM) is a JSON-Schema protocol that standardizes machine-readable value descriptors—including pricing, quality, SLAs, provenance, verification, and payment—for autonomous agent services. Audits of existing repositories reveal a critical standardization gap, with zero instances among 50 GitHub repositories and 14,519 registry entries simultaneously exposing all four core economic value classes. Researchers validated ASM by constructing 70 manifests across 47 distinct service taxonomies. When used as an information surface for three independent large language models, ASM improved service selection accuracy from 63.9–72.2% to 100%, demonstrating statistically significant performance gains over raw HTML inputs.",10.0,"The response accurately captures all key points of the abstract, adheres strictly to the four-sentence constraint, and maintains a professional executive summary style.",27.83,152,1026,0.00224109,False,False,False,True,
+25,summarization,quality,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max is described as Alibaba's flagship reasoning and coding model with strong multilingual support and tool calling, indicating high-quality performance for tasks requiring precise summarization","The research introduces Agent Service Manifest (ASM), a JSON-Schema protocol that standardizes how AI agents describe economic value across pricing, quality, SLA, provenance, verification, and payment. An audit of 50 GitHub repositories and 14,519 registry entries revealed none fully exposed all four core economic value classes simultaneously, highlighting a critical gap. The team validated ASM using 70 manifests spanning 47 taxonomies. When used as input for three independent large language models (LLMs), ASM increased top-1 selection accuracy from 63.9–72.2% to 100%, with statistically significant improvement (non-overlapping 95% confidence intervals).",10.0,The response perfectly adheres to the constraint of exactly four sentences while accurately and concisely capturing all key points of the research abstract.,5.747,163,144,0.00041384,False,False,False,True,
+26,summarization,cost,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"GPU spot prices on US-East-1 fell 18% week-over-week due to new H200 capacity, but sustained-use commitments are more cost-effective than spot for workloads exceeding 6 hours daily.",10.0,"The response accurately condenses the original information into a single, well-structured sentence without losing any key details or context.",2.263,52,116,5.062e-05,False,False,False,True,
+26,summarization,cost,random,zhipu/glm-5@5.0,uniform random,"US-East-1 GPU spot prices fell 18% due to new H200 capacity, but sustained-use commitments remain cheaper for workloads exceeding 6 hours per day.",10.0,"The response accurately condenses the source text into a single sentence, preserving all key details including the price drop percentage, location, cause, and the specific cost comparison condition.",15.518,54,806,0.00164909,False,False,False,True,
+26,summarization,cost,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"GPU spot prices on US-East-1 fell 18% week-over-week due to new H200 capacity, making sustained-use commitments more cost-effective than spot for any workload exceeding six hours daily.",10.0,"The response accurately condenses the original text into a single, fluent sentence while preserving all key details and meaning.",3.094,52,117,5.096e-05,False,False,False,True,
+26,summarization,cost,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,"GPU spot pricing on US-East-1 fell 18% week-over-week due to new H200 capacity, but sustained-use commitments are now cheaper than spot for any workload exceeding 6 hours per day.",10.0,"The response accurately condenses the provided information into a single, well-structured sentence without losing any key details or violating constraints.",2.712,52,109,4.827e-05,False,False,False,True,
+26,summarization,cost,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It has the lowest combined input and output token costs, making it the most cost-effective option.","GPU spot pricing on US-East-1 fell 18% week-over-week due to new H200 capacity, making sustained-use commitments more cost-effective than spot for workloads exceeding 6 hours daily.",10.0,"The response accurately captures all key metrics and logic from the original text in a single, well-structured sentence.",2.505,52,125,5.365e-05,False,False,False,True,
+26,summarization,cost,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"It is explicitly described as a cost-efficient variant tuned for coding and reasoning at scale, aligning best with the 'cost' preference axis.","GPU spot pricing on US-East-1 fell 18% week-over-week due to new H200 capacity, making sustained-use commitments more cost-effective than spot for workloads exceeding 6 hours daily.",10.0,"The response accurately captures all key data points (region, percentage drop, cause, and pricing comparison threshold) in a single, fluent sentence.",2.309,52,122,5.264e-05,False,False,False,True,
+27,summarization,latency,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"The protocol stack now includes four layers—capability discovery (MCP), inter-agent communication (A2A), payment execution (AP2), and the newly added value settlement (ASM)—which was absent in earlier surveys.",10.0,"The response accurately captures all technical details and the historical context of the settlement layer in a single, grammatically correct sentence.",2.619,62,136,5.958e-05,False,False,False,True,
+27,summarization,latency,random,moonshot/kimi-k2.5@2.5,uniform random,"The protocol stack now comprises four layers—capability discovery (MCP), inter-agent communication (A2A), payment execution (AP2), and the newly added value settlement (ASM)—the last of which was absent from earlier surveys.",10.0,"The response perfectly condenses the input into a single, fluent sentence while accurately preserving all technical details and context regarding the protocol stack's layers and the new settlement lay",18.067,65,752,0.00162245,False,False,False,True,
+27,summarization,latency,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"The protocol stack now includes four layers—capability discovery (MCP), inter-agent communication (A2A), payment execution (AP2), and the newly added value settlement (ASM)—which was absent in earlier surveys.",10.0,"The response accurately condenses the source text into a single, grammatically correct sentence that retains all four layer names and the context about the settlement layer being a recent addition.",2.937,62,136,5.958e-05,False,False,False,True,
+27,summarization,latency,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,"The protocol stack now includes four layers—capability discovery (MCP), inter-agent communication (A2A), payment execution (AP2), and the newly added value settlement (ASM)—which was absent in earlier surveys.",10.0,"The response accurately condenses the input into a single sentence, listing all four layers and correctly noting the recent addition of the settlement layer.",2.68,62,136,5.958e-05,False,False,False,True,
+27,summarization,latency,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It has the lowest p50 latency (550ms) and p99 latency (2.2s), making it the fastest option for minimizing response time.","The protocol stack now includes four layers—capability discovery (MCP), inter-agent communication (A2A), payment execution (AP2), and the newly added value settlement (ASM)—which was absent in earlier surveys.",10.0,The response accurately condenses the source text into a single grammatically correct sentence that captures all technical details and historical context.,3.503,62,136,5.958e-05,False,False,False,True,
+27,summarization,latency,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"It is explicitly described as a 'fast inference variant,' making it the best choice for low-latency performance.","The protocol stack now includes four layers—capability discovery (MCP), inter-agent communication (A2A), payment execution (AP2), and value settlement (ASM)—with the settlement layer being the newest addition previously absent from earlier surveys.",10.0,The response perfectly condenses the original text into a single grammatically correct sentence while retaining all key information.,3.914,62,140,6.093e-05,False,False,False,True,
+28,summarization,balanced,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"- **Decision:** Adopt ASM v0.3 as the canonical schema for the next release.
+- **Decision:** Pricing fields will support both per-token and per-call billing.
+- **Decision:** Trust delta calculation will use a 30-day exponential decay.
+- **Open issue:** Whether the receipt endpoint should be required or optional remains unresolved; tabled for next week.
+- **Action items:** A drafts v0.3 spec changes by Friday; B writes trust-delta migration guide; C and D will gather usage data from the alpha cohort to inform the receipt-endpoint decision.",10.0,"The response accurately lists all three decisions and the open issue, and logically completes the five-bullet requirement by including the relevant action items, perfectly capturing the meeting's key ",4.949,190,227,0.00011883,False,False,False,True,
+28,summarization,balanced,random,moonshot/kimi-k2.5@2.5,uniform random,"• **Adopt ASM v0.3 as canonical schema:** Approved as the standard for the next release.
+• **Dual pricing support:** Pricing fields will accommodate both per-token and per-call billing models.
+• **Trust delta calculation method:** Will use a 30-day exponential decay formula.
+• **Receipt endpoint requirement undecided:** Consensus not reached on whether it should be mandatory; decision tabled until next week pending usage data review.
+• **Open disagreement on compliance approach:** C proposes optional in v0.3/required in v0.4, while B argues optional fields risk non-compliance.",10.0,The response accurately captures all key decisions and open issues within the requested format of exactly five bullet points.,29.227,191,826,0.00183401,False,False,False,True,
+28,summarization,balanced,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"- **Decision:** Adopt ASM v0.3 as the canonical schema for the next release.
+- **Decision:** Pricing fields will support both per-token and per-call billing.
+- **Decision:** Trust delta calculation will use a 30-day exponential decay.
+- **Open Issue:** Whether the receipt endpoint should be required or optional remains unresolved; tabled for next week.
+- **Open Issue:** C argued for optional in v0.3 and required in v0.4, while B opposed optional fields due to non-compliance risk; C and D will gather usage data from the alpha cohort to inform the decision.",10.0,The response accurately captures all three decisions and the open issue in exactly five well-labeled and concise bullet points.,4.985,190,235,0.00012152,False,False,False,True,
+28,summarization,balanced,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>The user wants a summary of meeting notes in 5 bullet points, specifically decisions made + open issues. The user gave meeting notes, clearly with content about decisions and open issues. The assistant must produce a summary in bullet points. The notes: date, attendees. It indicates that they agreed to adopt ASM v0.3 as canonical schema for next release; pricing fields will support both per-token and per-call billing; trust delta calculation will use 30-day exponential decay; they did NOT agree on receipt endpoint required (still open). C argued optional in v0.3 and required in v0.4; B disagreed, optional fields encourage non-compliance. Tabled decision until next week. Action items: A drafts v0.3 spec changes by Friday; B writes trust-delta migration guide; C and D will revisit receipt-endpoint question with usage data from alpha cohort.
+
+We need to summarize as 5 bullet points (decisions + open issues). So we can list decisions: adopt ASM v0.3 schema, pricing fields support both per-token and per-call, trust delta calculation will use 30-day exponential decay. Open issue: receipt endpoint required? Also maybe action items.
+
+User wants exactly 5 bullet points. Likely bullet points summarizing decisions and open issues. Should we list the open issue as something not resolved? Yes. The bullet points could include both decisions and open issues. Probably something like:
+
+- Decision: Adopt ASM v0.3 as canonical schema for next release.
+- Decision: Pricing fields will support both per-token and per-call billing.
+- Decision: Trust delta calculation uses 30-day exponential decay.
+- Open Issue: Whether receipt endpoint is required (optional in v0.3 or required in v0.4) – tabled until next week.
+- Action Items: A to draft spec changes by Friday; B to write migration guide; C and D to gather usage data.
+
+But that is 5 bullet points (though last bullet includes multiple items). Or we could separate action items into separate bullet points but that would exceed 5. Proba",0.0,No model response was provided for evaluation,39.896,203,1280,0.00125219,False,False,False,True,
+28,summarization,balanced,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It offers the best balance of low cost, lowest latency, and acceptable quality among the candidates, aligning with a 'balanced' preference when no hard constraints are specified.","- **Decision:** Adopt ASM v0.3 as the canonical schema for the next release.
+- **Decision:** Pricing fields will support both per-token and per-call billing.
+- **Decision:** Trust delta calculation will use a 30-day exponential decay.
+- **Open Issue:** Whether the receipt endpoint should be required or optional remains unresolved; tabled until next week.
+- **Action Items:** A drafts v0.3 spec changes by Friday; B writes trust-delta migration guide; C and D will analyze alpha cohort usage data to inform the receipt-endpoint decision.",9.0,"The response accurately captures the three decisions and the open issue, and logically includes the action items as the fifth point to provide a complete summary within the requested format.",3.859,190,225,0.00011816,False,False,False,True,
+28,summarization,balanced,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max offers a strong balance of reasoning, coding, and multilingual support, making it well-suited for accurately summarizing structured meeting notes with nuanced decisions and open issues.","- **Adopt ASM v0.3** as the canonical schema for the next release.
+- **Pricing fields** will support both per-token and per-call billing models.
+- **Trust delta calculation** will use a 30-day exponential decay.
+- **Receipt endpoint requirement** remains undecided; C favors optional in v0.3 (required in v0.4), while B argues it should be required now to ensure compliance.
+- **Open action items**: A drafts v0.3 spec changes by Friday; B writes the trust-delta migration guide; C and D will analyze alpha cohort usage data to inform the receipt-endpoint decision.",10.0,"The response accurately condenses all key decisions and the open issue into exactly five well-formatted bullet points, including necessary action items to provide a complete summary.",5.788,197,136,0.00041496,False,False,False,True,
+29,summarization,quality,asm_topsis,minimax/m2.7@2.7,deterministic TOPSIS,"<think>The user wants me to summarize the technical documentation in 3 sentences for a non-technical executive reader, while preserving the value claim.
+
+Key points to convey:
+1. Performance improvement - 92% reduction in redundant fetches
+2. Speed - near-static latency (8ms median)
+3. Efficiency - updates propagate within an hour, low memory overhead (under 50MB)
+
+I need to translate this into business value for executives - things like cost savings, improved user experience, scalability benefits.
+
+Let me write 3 clear, non-technical sentences:
+</think>
+
+Our new caching system cuts redundant data requests by 92%, dramatically reducing server load and infrastructure costs. Manifests now load in just 8 milliseconds on average—comparable to static content—while still keeping content fresh within an hour. This efficiency comes with minimal resource requirements, using less than 50MB of memory even at scale.",9.0,"The response delivers a well-crafted 3-sentence summary that accurately translates technical metrics into business value, preserves the 92% reduction claim, and maintains executive-appropriate languag",4.955,144,181,0.00020416,False,False,False,True,
+29,summarization,quality,random,moonshot/kimi-k2.5@2.5,uniform random,"Our new caching system eliminates 92% of unnecessary data requests while delivering near-instant response times of just 8 milliseconds. It ensures content updates appear within an hour, balancing exceptional speed with timely freshness. The solution requires minimal infrastructure investment, using less than 50MB of memory even for large-scale operations.",10.0,"The response accurately condenses the technical details into a compelling executive summary in exactly three sentences, effectively translating jargon into business value while preserving key performa",14.588,117,624,0.00137366,False,False,False,True,
+29,summarization,quality,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"The new caching system cuts unnecessary data retrievals by 92%, making content delivery as fast as serving static files (median 8ms). It automatically refreshes data within an hour of any changes, ensuring information stays current without slowing down performance. The system uses very little memory—less than 50MB for 10,000 items—thanks to efficient storage techniques.",10.0,"The response accurately captures the key metrics and value claims in exactly three sentences, successfully translating technical jargon into accessible language for an executive audience.",3.747,115,290,0.0001232,False,False,False,True,
+29,summarization,quality,weighted_average,minimax/m2.7@2.7,additive weighted score,"<think>The user wants me to summarize the technical documentation in 3 sentences for a non-technical executive reader. I need to preserve the value claim while making it accessible to someone without technical background.
+
+Let me identify the key value points:
+1. The new caching layer is very effective - reduces redundant fetches by 92%
+2. This makes things much faster (8ms latency - almost instant)
+3. Updates still happen quickly (within an hour)
+4. Low cost/overhead (only 50MB memory for 10,000 items)
+
+I should translate technical terms:
+- ""manifest fetches"" → could be ""data lookups"" or ""content requests""
+- ""TTL"" → ""time settings"" or just explain as ""automatic refresh""
+- ""ETag-based revalidation"" → too technical, skip details
+- ""registries"" → ""content delivery systems"" or just ""systems""
+- ""gzip compression at rest"" → ""efficient storage""
+
+Let me write 3 sentences that are clear and preserve the value claim (efficiency, speed, low cost):
+</think>
+
+**Summary:**
+
+We've introduced a smart caching system that cuts unnecessary data lookups by 92%, making our content delivery significantly more efficient. This change lets us serve content almost instantly—averaging just 8 milliseconds—while still keeping information up-to-date within an hour of any changes. Best of all, this improvement requires minimal resources (under 50MB of memory for 10,000 items) and adds virtually no extra cost.",0.0,judge_error: Expecting value: line 1 column 1 (char 0),16.861,144,308,0.00032367,False,False,False,True,
+29,summarization,quality,llm_picker_manifest,moonshot/kimi-k2.5@2.5,"It has the highest Artificial_Analysis_Intelligence quality score (60) among candidates evaluated on the same benchmark, best satisfying the 'quality' preference axis.","Our new caching technology eliminates 92% of redundant data requests while delivering content to users in just 8 milliseconds. Updates still propagate across the system within an hour, ensuring customers receive fresh information without sacrificing speed. The solution achieves this performance with minimal infrastructure cost, requiring less than 50MB of memory to handle thousands of items.",10.0,"The response accurately condenses the technical details into three clear, non-technical sentences while perfectly preserving all key performance metrics and value claims.",14.647,117,563,0.00124434,False,False,False,True,
+29,summarization,quality,llm_picker_raw_doc,qwen/qwen3-max@3.0,"Qwen3 Max is Alibaba's flagship reasoning and coding model with strong multilingual support and tool calling, making it best suited for accurately distilling technical content into clear, concise exec","The new caching system dramatically cuts redundant data requests by 92%, significantly improving efficiency. It delivers near-instant response times—averaging just 8 milliseconds—while ensuring content updates are reflected within an hour. This performance boost comes with minimal resource cost, using less than 50MB of memory even for 10,000 cached items.",10.0,"The response accurately condenses the technical details into three clear, non-technical sentences while preserving the core value metrics and performance benefits for an executive audience.",4.784,123,73,0.0002324,False,False,False,True,
+30,summarization,cost,asm_topsis,deepseek/deepseek-v4-flash@4.0,deterministic TOPSIS,"TL;DR: Switching from on-demand to 1-year reserved instances cut compute costs by 38% but raised cancellation risk, so we reserved 10% of the savings as an exit-cost buffer.",10.0,"The response accurately captures all key metrics and the core trade-off of the original text in a single, well-structured sentence as requested.",3.419,54,114,5.04e-05,False,False,False,True,
+30,summarization,cost,random,zhipu/glm-5@5.0,uniform random,"Switching to a 1-year reserved commitment reduced compute costs by 38%, prompting us to set aside 10% of the savings to mitigate the increased cancellation risk.",10.0,"The response accurately condenses the key points into a single, grammatically correct sentence that captures the cost reduction, the mitigation action, and the underlying reason without losing fidelit",40.496,56,1902,0.00385952,False,False,False,True,
+30,summarization,cost,cheapest_first,deepseek/deepseek-v4-flash@4.0,minimum estimated cost,"Switching from on-demand to 1-year reserved instances cut compute costs by 38% but raised cancellation risk, so we reserved 10% of the savings as an exit-cost buffer.",10.0,The response perfectly captures all key metrics and nuances of the original text while strictly adhering to the one-sentence constraint.,2.491,54,96,4.435e-05,False,False,False,True,
+30,summarization,cost,weighted_average,deepseek/deepseek-v4-flash@4.0,additive weighted score,"Switching from on-demand to 1-year reserved instances cut compute costs by 38% but raised cancellation risk, so we reserved 10% of the savings as an exit-cost buffer.",10.0,"The response accurately condenses the source text into a single sentence, preserving all key data points and meaning while adhering to the output constraint.",3.082,54,102,4.637e-05,False,False,False,True,
+30,summarization,cost,llm_picker_manifest,deepseek/deepseek-v4-flash@4.0,"It has the lowest combined input and output token costs per 1M tokens among all candidates, making it the most cost-effective option.","Switching from on-demand to a 1-year reserved instance cut compute costs by 38%, but to offset the higher cancellation risk, we reserved 10% of the savings as an exit-cost buffer.",10.0,"The response accurately captures all key data points and actions from the source text in a single, concise sentence.",2.392,54,116,5.107e-05,False,False,False,True,
+30,summarization,cost,llm_picker_raw_doc,deepseek/deepseek-v4-flash@4.0,"It is explicitly described as a cost-efficient variant tuned for coding and reasoning at scale, aligning best with the 'cost' preference axis.","TL;DR: Switching to 1-year reserved instances cut compute costs by 38% but raised cancellation risk, so we reserved 10% of the savings as an exit-cost buffer.",9.0,"The response accurately captures all key points from the original text in a single, concise sentence as required by the task instructions.",3.717,54,111,4.939e-05,False,False,False,True,
