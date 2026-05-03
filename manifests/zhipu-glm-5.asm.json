@@ -1,0 +1,90 @@
+{
+  "asm_version": "0.3",
+  "service_id": "zhipu/glm-5@5.0",
+  "taxonomy": "ai.llm.chat",
+  "display_name": "Z.ai GLM-5",
+  "provenance": {
+    "source_url": "https://open.bigmodel.cn",
+    "retrieved_at": "2026-05-02T00:00:00Z",
+    "last_verified_at": "2026-05-02T00:00:00Z",
+    "verification_status": "manual_verified",
+    "notes": "Pricing and routing manually verified via TokenDance gateway live API calls. Quality from Artificial Analysis 2026-04 snapshot (or MMLU self-reported where AA does not list)."
+  },
+  "updated_at": "2026-05-02T00:00:00Z",
+  "ttl": 3600,
+  "provider": {
+    "name": "Z.ai (Zhipu)",
+    "url": "https://www.zhipuai.cn",
+    "verified_by": [
+      "tokendance-gateway"
+    ]
+  },
+  "capabilities": {
+    "description": "Z.ai's open flagship base model, designed for complex system design and long-chain agent workflows.",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en",
+      "zh"
+    ],
+    "context_window": 200000
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "input_token",
+        "unit": "per_1M",
+        "cost_per_unit": 0.448,
+        "currency": "USD"
+      },
+      {
+        "dimension": "output_token",
+        "unit": "per_1M",
+        "cost_per_unit": 2.016,
+        "currency": "USD"
+      }
+    ]
+  },
+  "quality": {
+    "metrics": [
+      {
+        "name": "Artificial_Analysis_Intelligence",
+        "score": 58,
+        "scale": "0-100",
+        "benchmark": "Artificial Analysis intelligence index",
+        "benchmark_url": "https://artificialanalysis.ai",
+        "evaluated_at": "2026-04-01",
+        "self_reported": false
+      }
+    ]
+  },
+  "sla": {
+    "latency_p50": "1.1s",
+    "latency_p99": "4.5s",
+    "throughput": "55 tokens/s",
+    "uptime": 0.998,
+    "rate_limit": "varies",
+    "regions": [
+      "cn-beijing"
+    ]
+  },
+  "payment": {
+    "methods": [
+      "api_key_prepaid"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://open.bigmodel.cn"
+  },
+  "extensions": {
+    "llm": {
+      "supports_function_calling": true,
+      "supports_vision": false,
+      "supports_extended_thinking": true,
+      "max_output_tokens": 16384
+    }
+  }
+}

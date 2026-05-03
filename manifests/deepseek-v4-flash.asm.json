@@ -1,0 +1,91 @@
+{
+  "asm_version": "0.3",
+  "service_id": "deepseek/deepseek-v4-flash@4.0",
+  "taxonomy": "ai.llm.chat",
+  "display_name": "DeepSeek V4 Flash",
+  "provenance": {
+    "source_url": "https://api.deepseek.com",
+    "retrieved_at": "2026-05-02T00:00:00Z",
+    "last_verified_at": "2026-05-02T00:00:00Z",
+    "verification_status": "manual_verified",
+    "notes": "Pricing and routing manually verified via TokenDance gateway live API calls. Quality from Artificial Analysis 2026-04 snapshot (or MMLU self-reported where AA does not list)."
+  },
+  "updated_at": "2026-05-02T00:00:00Z",
+  "ttl": 3600,
+  "provider": {
+    "name": "DeepSeek",
+    "url": "https://www.deepseek.com",
+    "verified_by": [
+      "tokendance-gateway"
+    ]
+  },
+  "capabilities": {
+    "description": "DeepSeek's fast inference variant tuned for cost-efficient coding and reasoning at scale.",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en",
+      "zh"
+    ],
+    "context_window": 128000
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "input_token",
+        "unit": "per_1M",
+        "cost_per_unit": 0.224,
+        "currency": "USD"
+      },
+      {
+        "dimension": "output_token",
+        "unit": "per_1M",
+        "cost_per_unit": 0.336,
+        "currency": "USD"
+      }
+    ]
+  },
+  "quality": {
+    "metrics": [
+      {
+        "name": "Artificial_Analysis_Intelligence",
+        "score": 53,
+        "scale": "0-100",
+        "benchmark": "Artificial Analysis intelligence index",
+        "benchmark_url": "https://artificialanalysis.ai",
+        "evaluated_at": "2026-04-01",
+        "self_reported": false
+      }
+    ]
+  },
+  "sla": {
+    "latency_p50": "550ms",
+    "latency_p99": "2.2s",
+    "throughput": "120 tokens/s",
+    "uptime": 0.997,
+    "rate_limit": "varies",
+    "regions": [
+      "cn-north-1",
+      "us-east-1"
+    ]
+  },
+  "payment": {
+    "methods": [
+      "api_key_prepaid"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://platform.deepseek.com"
+  },
+  "extensions": {
+    "llm": {
+      "supports_function_calling": true,
+      "supports_vision": false,
+      "supports_extended_thinking": false,
+      "max_output_tokens": 8192
+    }
+  }
+}

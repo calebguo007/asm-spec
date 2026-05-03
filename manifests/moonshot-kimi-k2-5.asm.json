@@ -1,0 +1,90 @@
+{
+  "asm_version": "0.3",
+  "service_id": "moonshot/kimi-k2.5@2.5",
+  "taxonomy": "ai.llm.chat",
+  "display_name": "Moonshot Kimi K2.5",
+  "provenance": {
+    "source_url": "https://platform.moonshot.cn",
+    "retrieved_at": "2026-05-02T00:00:00Z",
+    "last_verified_at": "2026-05-02T00:00:00Z",
+    "verification_status": "manual_verified",
+    "notes": "Pricing and routing manually verified via TokenDance gateway live API calls. Quality from Artificial Analysis 2026-04 snapshot (or MMLU self-reported where AA does not list)."
+  },
+  "updated_at": "2026-05-02T00:00:00Z",
+  "ttl": 3600,
+  "provider": {
+    "name": "Moonshot AI",
+    "url": "https://www.moonshot.cn",
+    "verified_by": [
+      "tokendance-gateway"
+    ]
+  },
+  "capabilities": {
+    "description": "Native multimodal model with reasoning content and 256K context, strong on agent swarm and visual coding.",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en",
+      "zh"
+    ],
+    "context_window": 256000
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "input_token",
+        "unit": "per_1M",
+        "cost_per_unit": 0.434,
+        "currency": "USD"
+      },
+      {
+        "dimension": "output_token",
+        "unit": "per_1M",
+        "cost_per_unit": 2.12,
+        "currency": "USD"
+      }
+    ]
+  },
+  "quality": {
+    "metrics": [
+      {
+        "name": "Artificial_Analysis_Intelligence",
+        "score": 60,
+        "scale": "0-100",
+        "benchmark": "Artificial Analysis intelligence index",
+        "benchmark_url": "https://artificialanalysis.ai",
+        "evaluated_at": "2026-04-01",
+        "self_reported": false
+      }
+    ]
+  },
+  "sla": {
+    "latency_p50": "1.4s",
+    "latency_p99": "5s",
+    "throughput": "45 tokens/s",
+    "uptime": 0.998,
+    "rate_limit": "varies",
+    "regions": [
+      "cn-beijing"
+    ]
+  },
+  "payment": {
+    "methods": [
+      "api_key_prepaid"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://platform.moonshot.cn"
+  },
+  "extensions": {
+    "llm": {
+      "supports_function_calling": true,
+      "supports_vision": false,
+      "supports_extended_thinking": true,
+      "max_output_tokens": 16384
+    }
+  }
+}

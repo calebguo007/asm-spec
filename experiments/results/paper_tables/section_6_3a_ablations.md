@@ -4,4 +4,4 @@
 |---|---|---:|---|
 | Drop trust delta | Kendall's tau vs full TOPSIS | 0.95 | trust delta is a tiebreaker |
 | TOPSIS vs weighted average | Kendall's tau | 0.6133 | top-1 disagreement 22.5% |
-| io_ratio sweep | Min adjacent tau in [0.1, 1.0] | n/a | rankings stable across realistic I/O ratios |
+| io_ratio sweep | Min adjacent tau in swept range | 0.9833 | rankings stable across realistic I/O ratios |

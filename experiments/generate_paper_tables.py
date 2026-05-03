@@ -130,20 +130,49 @@ def table_section_6_0a() -> None:
 # §6.3a — Component ablations
 
 def table_section_6_3a() -> None:
+    """§6.3a synthesises trust-delta + aggregator + io_ratio results.
+
+    Master JSON nests the three experiments under .experiments. The io_ratio
+    pairwise comparisons live under `pairwise_adjacent` (NOT `pairwise_tau`).
+    """
     master = load_json(RESULTS / "ablation_master.json")
     if master is None:
         return
     glm1 = master.get("experiments", {}).get("glm-1") or {}
     glm2 = master.get("experiments", {}).get("glm-2") or {}
     glm3 = master.get("experiments", {}).get("glm-3") or {}
+
+    # io_ratio pairwise lives as a dict keyed "0.1->0.2": {"tau_mean": ..., "ci95": [..]}
+    # in the experiment JSON, but the legacy schema flattened it into a list. Handle both.
+    pairwise_raw = glm3.get("pairwise_adjacent") or glm3.get("pairwise_tau") or []
+    if isinstance(pairwise_raw, dict):
+        pairwise_iter = list(pairwise_raw.values())
+    elif isinstance(pairwise_raw, list):
+        pairwise_iter = pairwise_raw
+    else:
+        pairwise_iter = []
+    min_adj_tau: Any = "n/a"
+    taus = [p.get("tau_mean") for p in pairwise_iter
+            if isinstance(p, dict) and isinstance(p.get("tau_mean"), (int, float))]
+    if taus:
+        min_adj_tau = round(min(taus), 4)
+
+    top1_disagree = glm2.get("top1_disagreement_rate")
+    top1_str = (
+        f"{top1_disagree*100:.1f}%" if isinstance(top1_disagree, (int, float)) else "n/a"
+    )
+
+    tau_glm1 = glm1.get("tau_mean", "n/a")
+    tau_glm2 = glm2.get("kendall_tau_mean", "n/a")
+
     lines = [
         "**Table 5: Component ablations on the same 200-task suite as §6.5.**",
         "",
         "| Ablation | Metric | Result | Interpretation |",
         "|---|---|---:|---|",
-        f"| Drop trust delta | Kendall's tau vs full TOPSIS | {glm1.get('tau_mean', 'n/a')} | trust delta is a tiebreaker |",
-        f"| TOPSIS vs weighted average | Kendall's tau | {glm2.get('kendall_tau_mean', 'n/a')} | top-1 disagreement {glm2.get('top1_disagreement_rate', '?')*100 if isinstance(glm2.get('top1_disagreement_rate'), (int, float)) else 'n/a'}% |",
-        f"| io_ratio sweep | Min adjacent tau in [0.1, 1.0] | {min((p.get('tau_mean', 1.0) for p in (glm3.get('pairwise_tau') or [])), default='n/a')} | rankings stable across realistic I/O ratios |",
+        f"| Drop trust delta | Kendall's tau vs full TOPSIS | {tau_glm1} | trust delta is a tiebreaker |",
+        f"| TOPSIS vs weighted average | Kendall's tau | {tau_glm2} | top-1 disagreement {top1_str} |",
+        f"| io_ratio sweep | Min adjacent tau in swept range | {min_adj_tau} | rankings stable across realistic I/O ratios |",
     ]
     write("section_6_3a_ablations.md", "\n".join(lines))
 
@@ -152,24 +181,63 @@ def table_section_6_3a() -> None:
 # §6.5 — A/B comparison
 
 def table_section_6_5() -> None:
+    """§6.5 reads ab_test_analysis.json. The actual JSON keys are
+    A_ASM / B_Random / C_Expensive (with the order prefix), nested under
+    .summary. The TOPSIS utility field is `topsis_mean`.
+    """
     data = load_json(RESULTS / "ab_test_analysis.json")
     if data is None:
         return
+    summary = data.get("summary") or {}
     lines = [
         "**Table 4: Mean outcomes across 200 tasks, 3 selectors.**",
         "",
-        "| Selector | TOPSIS utility | Cost | Quality |",
-        "|---|---:|---:|---:|",
+        "| Selector | n | TOPSIS utility | Cost | Quality | Latency |",
+        "|---|---:|---:|---:|---:|---:|",
     ]
-    selectors = data.get("selectors") or data.get("by_selector") or data
-    for label in ("asm", "random", "most_expensive"):
-        s = selectors.get(label) if isinstance(selectors, dict) else None
+    label_map = {
+        "A_ASM": "ASM-TOPSIS",
+        "B_Random": "Random",
+        "C_Expensive": "Most-expensive-first",
+    }
+    for raw_key, pretty in label_map.items():
+        s = summary.get(raw_key)
         if not s:
             continue
-        utility = s.get("topsis_score_mean") or s.get("utility_mean")
-        cost = s.get("cost_mean")
-        quality = s.get("quality_mean")
-        lines.append(f"| {label} | {utility} | {cost} | {quality} |")
+        utility = s.get("topsis_mean", s.get("topsis_score_mean", "n/a"))
+        cost = s.get("cost_mean", "n/a")
+        quality = s.get("quality_mean", "n/a")
+        latency = s.get("latency_mean", "n/a")
+        n = s.get("count", "n/a")
+        lines.append(
+            f"| {pretty} | {n} | "
+            f"{utility:.4f} | "
+            f"{cost:.6f} | "
+            f"{quality:.4f} | "
+            f"{latency:.4f} |"
+            if isinstance(utility, (int, float)) else
+            f"| {pretty} | {n} | {utility} | {cost} | {quality} | {latency} |"
+        )
+
+    # Stat-sig footer (Welch's t-tests on TOPSIS score across selector pairs).
+    # JSON shape: t_tests[<field>][<pair>]={t, p, significant}.
+    # We only surface topsis_score and cost_per_unit.
+    t_tests = data.get("t_tests") or {}
+    if t_tests:
+        lines.append("")
+        lines.append("**Welch's t-tests, ASM vs baselines:**")
+        lines.append("")
+        lines.append("| Metric | Comparison | t | p |")
+        lines.append("|---|---|---:|---:|")
+        for field in ("topsis_score", "cost_per_unit"):
+            pairs = t_tests.get(field) or {}
+            for pair_label, stats in pairs.items():
+                t = stats.get("t", "n/a")
+                p = stats.get("p", "n/a")
+                t_str = f"{t:.3f}" if isinstance(t, (int, float)) else str(t)
+                p_str = f"{p:.2e}" if isinstance(p, (int, float)) else str(p)
+                lines.append(f"| {field} | {pair_label} | {t_str} | {p_str} |")
+
     write("section_6_5_ab_test.md", "\n".join(lines))
 
 

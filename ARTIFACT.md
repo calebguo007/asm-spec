@@ -6,9 +6,11 @@ This document maps every empirical claim in `paper/asm-paper-draft.md` to the sc
 
 ```bash
 git clone https://github.com/calebguo007/asm-spec.git && cd asm-spec
-docker build -t asm-artifact .
+docker build -f Dockerfile.artifact -t asm-artifact .
 docker run --rm -v "$PWD/experiments/results:/app/experiments/results" asm-artifact make reproduce
 ```
+
+The repository ships two Docker images: `Dockerfile` (production registry + payment services) and `Dockerfile.artifact` (this one — Python + Node + every experiment). Use `-f Dockerfile.artifact` for reproduction.
 
 Or without Docker (Python 3.10+):
 
@@ -44,10 +46,12 @@ Each row links a paper claim → the command → the output file. "Output file" 
 |---|---|---|
 | 0/N entries across MCP Registry + Glama + MCP Atlas + MCPCorpus + FindMCP expose pricing+SLA+quality+payment | `make value-audit` | `experiments/results/mcp_value_metadata_audit.{csv,json,md}` |
 
-The `--mcpcorpus-limit` flag controls sample size; `make value-audit` defaults to 600. For the headline n=13,875 number, run:
+The `--mcpcorpus-limit` flag controls sample size; `make value-audit` defaults to 600. For the headline n=14,519 number, run:
 ```bash
-python experiments/mcp_value_metadata_audit.py --mcpcorpus-limit 14000 --official-mcp-limit 200 --glama-limit 200 --seed 2026
+python experiments/mcp_value_metadata_audit.py \
+  --mcpcorpus-limit 14000 --official-limit 300 --glama-limit 300 --atlas-limit 100 --sample-size 15000 --seed 2026
 ```
+Or via Make: `make value-audit-full`.
 
 ### §6.1 — Pricing heterogeneity over 70 manifests
 

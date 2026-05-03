@@ -1,0 +1,90 @@
+{
+  "asm_version": "0.3",
+  "service_id": "minimax/m2.7@2.7",
+  "taxonomy": "ai.llm.chat",
+  "display_name": "MiniMax M2.7",
+  "provenance": {
+    "source_url": "https://api.minimax.chat",
+    "retrieved_at": "2026-05-02T00:00:00Z",
+    "last_verified_at": "2026-05-02T00:00:00Z",
+    "verification_status": "manual_verified",
+    "notes": "Pricing and routing manually verified via TokenDance gateway live API calls. Quality from Artificial Analysis 2026-04 snapshot (or MMLU self-reported where AA does not list)."
+  },
+  "updated_at": "2026-05-02T00:00:00Z",
+  "ttl": 3600,
+  "provider": {
+    "name": "MiniMax",
+    "url": "https://www.minimax.chat",
+    "verified_by": [
+      "tokendance-gateway"
+    ]
+  },
+  "capabilities": {
+    "description": "MiniMax's autonomous-agent-tuned next-gen model with multi-agent orchestration support.",
+    "input_modalities": [
+      "text"
+    ],
+    "output_modalities": [
+      "text"
+    ],
+    "supported_languages": [
+      "en",
+      "zh"
+    ],
+    "context_window": 200000
+  },
+  "pricing": {
+    "billing_dimensions": [
+      {
+        "dimension": "input_token",
+        "unit": "per_1M",
+        "cost_per_unit": 0.235,
+        "currency": "USD"
+      },
+      {
+        "dimension": "output_token",
+        "unit": "per_1M",
+        "cost_per_unit": 0.941,
+        "currency": "USD"
+      }
+    ]
+  },
+  "quality": {
+    "metrics": [
+      {
+        "name": "MMLU",
+        "score": 78,
+        "scale": "0-100",
+        "benchmark": "MMLU 5-shot",
+        "benchmark_url": "https://crfm.stanford.edu/helm/lite/latest",
+        "evaluated_at": "2026-03-01",
+        "self_reported": true
+      }
+    ]
+  },
+  "sla": {
+    "latency_p50": "900ms",
+    "latency_p99": "3.8s",
+    "throughput": "55 tokens/s",
+    "uptime": 0.997,
+    "rate_limit": "varies",
+    "regions": [
+      "cn-beijing"
+    ]
+  },
+  "payment": {
+    "methods": [
+      "api_key_prepaid"
+    ],
+    "auth_type": "api_key",
+    "signup_url": "https://api.minimax.chat"
+  },
+  "extensions": {
+    "llm": {
+      "supports_function_calling": true,
+      "supports_vision": false,
+      "supports_extended_thinking": false,
+      "max_output_tokens": 8192
+    }
+  }
+}
