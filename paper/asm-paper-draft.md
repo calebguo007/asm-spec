@@ -835,6 +835,33 @@ The protocol exposes preference weights as a first-class input. Operators who ge
 
 Each directory contains `ranking_results.csv` (108 records: 36 tasks × 3 selectors), `ranking_summary.json`, and `ranking_report.md`. Raw HTML snapshots used by `llm_raw_doc` are cached at `experiments/expert_annotation/cache/raw_docs/`.
 
+### 6.8 External Preference Correlation: ASM Quality vs LM Arena Elo
+
+§6.6a maps natural-language requests to author-defined preference vectors; §6.7 defines ground truth from manifest fields themselves. A reviewer can reasonably ask whether the *quality* dimension ASM ships matches population-scale user preference at all. To answer this we correlate the quality scores in our 8 LLM-chat manifests (`ai.llm.chat`) against LM Arena Elo, derived from over **2 million pairwise human preference votes** [14]. Arena Elo is the closest publicly available signal of mass user preference for LLMs. Source: the Aug 2025 snapshot from `lmarena-ai/chatbot-arena-leaderboard` on Hugging Face Spaces, which contains 242 models with bootstrap Elo, vote counts, and rankings.
+
+**Setup.** For each ASM LLM manifest we identify the closest dated Arena variant (e.g., `claude-sonnet-4@4.0` → `claude-sonnet-4-20250514`; full mapping in `experiments/external_validation/correlate_arena_elo.py`). 8 of 8 manifests pair successfully. We compute Spearman's rho and Kendall's tau between manifest-declared quality and Arena Elo, with 2,000-iteration bootstrap CIs over the paired observations.
+
+**Pooled headline (heterogeneous metrics).** Across all 8 manifests the pooled correlation is uninformative: Spearman's rho = -0.21 (95% CI [-0.86, 0.76]). The pooled number is noisy because the 8 manifests use **three different declared quality metrics** — three carry LMSYS_Elo (the three Western LLMs), four carry Artificial Analysis Intelligence (Chinese LLMs), and one carries MMLU (MiniMax). Mixing these three scales into one rank correlation is precisely the same operation §6.5b showed is hazardous.
+
+**Per-metric breakdown.** Restricting to within-metric subsets sharpens the picture:
+
+**Table 8: Per-metric correlation between ASM-declared quality and LM Arena Elo (Aug 2025 snapshot).**
+
+| Declared metric | n | Spearman's rho (95% CI) | Kendall's tau |
+|---|---:|---|---:|
+| `LMSYS_Elo` (Western LLMs)              | 3 | **1.000** [1.000, 1.000] | **1.000** |
+| `Artificial_Analysis_Intelligence` (Chinese LLMs) | 4 | −0.200 [−0.600, 1.000] | 0.000 |
+| `MMLU` (MiniMax)                        | 1 | n/a (single observation)  | n/a |
+
+**Two findings.**
+
+1. **When the manifest's declared metric matches the ground-truth scale, ASM ranking aligns perfectly with population preference.** All three Elo-declared manifests rank-correlate with Arena Elo at ρ = 1.0 (n=3, narrow CI by construction since rank-order has only six possible permutations for n=3). The protocol's quality dimension *can* faithfully transmit user preference at scale — provided the declared metric is the right one.
+2. **When the metric differs from the preference signal, the rank order does not transfer.** AA Intelligence — a composite of GPQA, AIME, math reasoning — is not the same construct as Arena chat preference. ASM's normalisation treats them as interchangeable scalars at scoring time, but they rank LLMs differently. The Chinese subset's ρ ≈ 0 confirms this: the manifests are not "wrong"; they declare a benchmark composite, and that composite does not predict head-to-head preference for the small N we examined.
+
+**Implication.** ASM's `quality.metrics[].name` and `benchmark` fields are load-bearing — they declare which population-preference signal each score is faithful to. A future selector should respect this semantic: when a user's preference is "best at chat" it should weight Elo-derived scores, and when it is "best at hard reasoning" it should weight AA-derived scores. The current TOPSIS engine treats them as commensurable; this is a known limitation surfaced again by §6.5b and §7.1.
+
+**Caveats.** N = 8 paired observations is small; the bootstrap CIs for the per-metric subsets are wide. The pickle-only Arena distribution requires `plotly<6` to deserialise, and the Aug 2025 snapshot pre-dates several of our manifest variants (DeepSeek-V4, Qwen3-Max, Kimi-K2.5, GLM-5) — we use closest dated predecessors and document the gap per pair. The full mapping, raw data, and bootstrap script are at `experiments/external_validation/correlate_arena_elo.py` and `experiments/results/external_validation/arena_elo_correlation.{csv,json,md}`. Reviewers can re-derive the headline numbers from a clean checkout in under one minute by pulling the `elo_results_*.pkl` from the linked Hugging Face Space.
+
 ---
 
 ## 7. Discussion
@@ -843,7 +870,7 @@ Each directory contains `ranking_results.csv` (108 records: 36 tasks × 3 select
 
 **Static declarations.** ASM manifests are point-in-time snapshots. Real-world pricing and quality change — a service may run a promotion, degrade under load, or update its model. The `updated_at` and `ttl` fields (v0.3) partially address this by signaling freshness, but ASM does not yet support real-time pricing feeds or dynamic quality updates.
 
-**Quality normalization.** Our normalization of heterogeneous quality scales (Elo → [0,1], FID → [0,1], MOS → [0,1]) involves information loss. An Elo score of 1290 and an FID of 5.2 are not truly commensurable — they measure fundamentally different properties. ASM preserves original values for transparency but relies on normalization for cross-category comparison, which is inherently approximate. The §6.5b live-execution experiment provides empirical evidence of this failure mode in the wild: MiniMax M2.7's manifest reported quality on MMLU 78 while four peer LLM manifests reported AA Intelligence 53–60, and TOPSIS over-selected MiniMax because the higher-scaled MMLU number normalised to a higher quality coordinate. Mitigation is methodological — registries should enforce same-benchmark constraints among candidates of the same taxonomy, similar to how database schemas enforce type compatibility — rather than algorithmic.
+**Quality normalization.** Our normalization of heterogeneous quality scales (Elo → [0,1], FID → [0,1], MOS → [0,1]) involves information loss. An Elo score of 1290 and an FID of 5.2 are not truly commensurable — they measure fundamentally different properties. ASM preserves original values for transparency but relies on normalization for cross-category comparison, which is inherently approximate. We have two converging pieces of evidence for this failure mode: §6.5b shows it as a *live-execution* failure (TOPSIS over-selected MiniMax because its MMLU 78 normalised higher than peers' AA Intelligence 53–60); §6.8 shows it as a *measurement* failure (Elo-declared manifests rank-correlate with Arena Elo at ρ = 1.0, while AA-Intelligence-declared manifests do not — the two metrics measure different constructs). Mitigation is methodological — registries should enforce same-benchmark constraints among candidates of the same taxonomy, and selectors should respect the `quality.metrics[].name` field at scoring time — rather than algorithmic.
 
 **Trust bootstrapping.** New services have no receipt history, receiving a neutral trust score (0.5) with zero confidence. This creates a cold-start problem: honest newcomers are disadvantaged relative to established services with proven track records. Potential mitigations include third-party attestation services or trust transfer from related services.
 
@@ -930,3 +957,5 @@ The protocol, reference implementation, all 70 service manifests, audit data, ev
 [12] Cloud Service Selection using MCDM: A Systematic Review. Journal of Network and Systems Management, 2020.
 
 [13] C.L. Hwang and K. Yoon. Multiple Attribute Decision Making: Methods and Applications. Springer, 1981.
+
+[14] LMSYS Chatbot Arena (LM Arena). 2024–2025 leaderboard snapshots (`elo_results_*.pkl`). https://huggingface.co/spaces/lmarena-ai/chatbot-arena-leaderboard

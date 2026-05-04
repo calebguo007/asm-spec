@@ -1,0 +1,9 @@
+asm_service_id,asm_quality_metric,asm_quality_score,arena_model,arena_elo,arena_rank,arena_battles,gap_note
+openai/gpt-4o@2024-11-20,LMSYS_Elo,1285.0,gpt-4o-2024-08-06,1285.5243209687944,86,47973,"Closest dated GPT-4o variant; manifest is 2024-11-20, Arena snapshot has Aug 2024 release."
+anthropic/claude-sonnet-4@4.0,LMSYS_Elo,1290.0,claude-sonnet-4-20250514,1333.750019442709,50,28536,Same family generation (Sonnet 4); Arena entry is May 2025 release.
+google/gemini-2.5-pro@2.5,LMSYS_Elo,1300.0,gemini-2.5-pro,1466.2449319357888,1,35586,Direct match.
+deepseek/deepseek-v4-flash@4.0,Artificial_Analysis_Intelligence,53.0,deepseek-v3.1,1417.7252859443245,2,4979,V4-flash not yet on Arena (Aug 2025 snapshot); using V3.1 as nearest predecessor.
+qwen/qwen3-max@3.0,Artificial_Analysis_Intelligence,56.0,qwen-max-2025-08-15,1428.9845440105557,2,5547,Closest Qwen-Max release in Arena snapshot; manifest is Qwen3 line.
+moonshot/kimi-k2.5@2.5,Artificial_Analysis_Intelligence,60.0,kimi-k2-0711-preview,1379.3329635518317,24,18734,"Only Kimi entry in Arena Aug 2025 snapshot; manifest is K2.5, Arena has K2 preview."
+zhipu/glm-5@5.0,Artificial_Analysis_Intelligence,58.0,glm-4.5,1429.0835090080654,2,11222,GLM-5 not yet on Arena snapshot; GLM-4.5 is the most recent dated entry.
+minimax/m2.7@2.7,MMLU,78.0,minimax-m1,1349.8295586822455,42,22994,"Only MiniMax entry in Arena snapshot; manifest is M2.7, Arena has M1."

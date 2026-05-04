@@ -1,0 +1,124 @@
+{
+  "generated_at": "2026-05-04T05:17:25Z",
+  "source": "pickle:arena_elo.pkl",
+  "n_manifests_attempted": 8,
+  "n_paired": 8,
+  "spearman_rho": -0.2143,
+  "spearman_ci95": [
+    -0.8571,
+    0.7619
+  ],
+  "kendall_tau": -0.2143,
+  "kendall_ci95": [
+    -0.75,
+    0.4286
+  ],
+  "by_metric": {
+    "LMSYS_Elo": {
+      "n": 3,
+      "spearman_rho": 1.0,
+      "spearman_ci95": [
+        1.0,
+        1.0
+      ],
+      "kendall_tau": 1.0
+    },
+    "Artificial_Analysis_Intelligence": {
+      "n": 4,
+      "spearman_rho": -0.2,
+      "spearman_ci95": [
+        -0.6,
+        1.0
+      ],
+      "kendall_tau": 0.0
+    },
+    "MMLU": {
+      "n": 1,
+      "spearman_rho": null,
+      "spearman_ci95": null,
+      "kendall_tau": null
+    }
+  },
+  "rows": [
+    {
+      "asm_service_id": "openai/gpt-4o@2024-11-20",
+      "asm_quality_metric": "LMSYS_Elo",
+      "asm_quality_score": 1285.0,
+      "arena_model": "gpt-4o-2024-08-06",
+      "arena_elo": 1285.5243209687944,
+      "arena_rank": 86,
+      "arena_battles": 47973,
+      "gap_note": "Closest dated GPT-4o variant; manifest is 2024-11-20, Arena snapshot has Aug 2024 release."
+    },
+    {
+      "asm_service_id": "anthropic/claude-sonnet-4@4.0",
+      "asm_quality_metric": "LMSYS_Elo",
+      "asm_quality_score": 1290.0,
+      "arena_model": "claude-sonnet-4-20250514",
+      "arena_elo": 1333.750019442709,
+      "arena_rank": 50,
+      "arena_battles": 28536,
+      "gap_note": "Same family generation (Sonnet 4); Arena entry is May 2025 release."
+    },
+    {
+      "asm_service_id": "google/gemini-2.5-pro@2.5",
+      "asm_quality_metric": "LMSYS_Elo",
+      "asm_quality_score": 1300.0,
+      "arena_model": "gemini-2.5-pro",
+      "arena_elo": 1466.2449319357888,
+      "arena_rank": 1,
+      "arena_battles": 35586,
+      "gap_note": "Direct match."
+    },
+    {
+      "asm_service_id": "deepseek/deepseek-v4-flash@4.0",
+      "asm_quality_metric": "Artificial_Analysis_Intelligence",
+      "asm_quality_score": 53.0,
+      "arena_model": "deepseek-v3.1",
+      "arena_elo": 1417.7252859443245,
+      "arena_rank": 2,
+      "arena_battles": 4979,
+      "gap_note": "V4-flash not yet on Arena (Aug 2025 snapshot); using V3.1 as nearest predecessor."
+    },
+    {
+      "asm_service_id": "qwen/qwen3-max@3.0",
+      "asm_quality_metric": "Artificial_Analysis_Intelligence",
+      "asm_quality_score": 56.0,
+      "arena_model": "qwen-max-2025-08-15",
+      "arena_elo": 1428.9845440105557,
+      "arena_rank": 2,
+      "arena_battles": 5547,
+      "gap_note": "Closest Qwen-Max release in Arena snapshot; manifest is Qwen3 line."
+    },
+    {
+      "asm_service_id": "moonshot/kimi-k2.5@2.5",
+      "asm_quality_metric": "Artificial_Analysis_Intelligence",
+      "asm_quality_score": 60.0,
+      "arena_model": "kimi-k2-0711-preview",
+      "arena_elo": 1379.3329635518317,
+      "arena_rank": 24,
+      "arena_battles": 18734,
+      "gap_note": "Only Kimi entry in Arena Aug 2025 snapshot; manifest is K2.5, Arena has K2 preview."
+    },
+    {
+      "asm_service_id": "zhipu/glm-5@5.0",
+      "asm_quality_metric": "Artificial_Analysis_Intelligence",
+      "asm_quality_score": 58.0,
+      "arena_model": "glm-4.5",
+      "arena_elo": 1429.0835090080654,
+      "arena_rank": 2,
+      "arena_battles": 11222,
+      "gap_note": "GLM-5 not yet on Arena snapshot; GLM-4.5 is the most recent dated entry."
+    },
+    {
+      "asm_service_id": "minimax/m2.7@2.7",
+      "asm_quality_metric": "MMLU",
+      "asm_quality_score": 78.0,
+      "arena_model": "minimax-m1",
+      "arena_elo": 1349.8295586822455,
+      "arena_rank": 42,
+      "arena_battles": 22994,
+      "gap_note": "Only MiniMax entry in Arena snapshot; manifest is M2.7, Arena has M1."
+    }
+  ]
+}
