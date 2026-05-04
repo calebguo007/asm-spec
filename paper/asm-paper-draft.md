@@ -8,7 +8,7 @@
 
 ## Abstract
 
-Autonomous agents increasingly choose among competing AI services before they execute or pay. Existing protocols cover capability discovery (MCP), inter-agent communication (A2A), and payment execution (AP2), but a settlement layer is missing: agents can see what tools do, yet cannot compute what services are worth. We present **Agent Service Manifest (ASM)**, a lightweight settlement protocol — specified as a JSON Schema — that gives agents standardised value descriptors across pricing, quality, SLA, provenance, verification, and payment. Two audits ground the gap: 0/50 MCP-related GitHub repositories expose all four core value classes (pricing + SLA + quality + payment), and 0/14,519 entries across five MCP registries and directories — including the full MCPCorpus public dataset — expose them either. We validate ASM with **70 real-world manifests spanning 47 taxonomies** and a two-stage selection engine (constraint filter + TOPSIS). On 200 synthetic tasks ASM improves preference-weighted utility by **23.1%** over random and cuts cost **59.2%** relative to most-expensive ($p < 10^{-6}$, < 5 ms scoring overhead); on 20 natural-language user requests with explicit preference vectors, ASM is zero-regret on 100% of tasks while the strongest single-axis policy is zero-regret on 75%. To test whether a frontier LLM makes the protocol redundant, we replicate a 36-task ranking suite across three LLMs from three labs (DeepSeek-V4-flash, Qwen3-Max, Kimi K2.5): swapping raw provider HTML for ASM manifests raises top-1 accuracy from **63.9–72.2% to 100.0%** with non-overlapping 95% CIs. The protocol's contribution is precisely this surface change — converting brittle HTML parsing into deterministic numerical comparison.
+Autonomous agents increasingly choose among competing AI services before they execute or pay. Existing protocols cover capability discovery (MCP), inter-agent communication (A2A), and payment execution (AP2), but a settlement layer is missing: agents can see what tools do, yet cannot compute what services are worth. We present **Agent Service Manifest (ASM)**, a lightweight settlement protocol — a JSON Schema giving agents standardised value descriptors across pricing, quality, SLA, provenance, verification, and payment. Two audits ground the gap: 0/50 MCP-related GitHub repositories and 0/14,519 entries across five MCP registries and directories (including the full MCPCorpus dataset) expose all four core value classes simultaneously. We validate ASM with **70 manifests across 47 taxonomies** and a two-stage selection engine (constraint filter + TOPSIS). On 200 synthetic tasks ASM improves preference-weighted utility by **23.1%** over random and cuts cost **59.2%** vs. most-expensive ($p < 10^{-6}$, < 5 ms scoring overhead); on 20 natural-language user requests, ASM is zero-regret on 100% vs. 75% for the strongest single-axis policy. Across three frontier LLMs (DeepSeek-V4-flash, Qwen3-Max, Kimi K2.5), swapping raw HTML for ASM manifests raises top-1 selection accuracy from **63.9–72.2% to 100.0%** with non-overlapping 95% CIs. A live-execution follow-up over 30 real tasks routed through five Chinese-LLM endpoints shows ASM-TOPSIS matching the strongest deterministic baseline on judge-rated quality at the same realised cost — but only after enforcing a same-benchmark candidate-set constraint, providing direct in-the-wild evidence of the protocol's quality-normalisation limitation. ASM's contribution is the surface change — brittle HTML parsing becomes deterministic numerical comparison — and its honest caveat is that the protocol inherits the data quality of the manifests it is fed.
 
 ---
 
@@ -664,7 +664,53 @@ For each selection, we record the realized cost, latency, quality, uptime, and t
 
 4. **Gains are robust across preference profiles.** Disaggregating by preference vector, ASM beats both baselines on TOPSIS score in all four profiles (cost-first: 0.683 vs. 0.455 vs. 0.390; quality-first: 0.659 vs. 0.558 vs. 0.426; speed-first: 0.616 vs. 0.576 vs. 0.452; balanced: 0.723 vs. 0.579 vs. 0.338), confirming the ranking is not driven by a single profile.
 
-The reproducibility script and raw selection records are available at `experiments/ab_test.py` and `experiments/results/` in the open-source release. We treat this experiment as the primary quantitative evidence for the protocol's utility; live-API replication with real provider responses is discussed in §7 as immediate future work.
+The reproducibility script and raw selection records are available at `experiments/ab_test.py` and `experiments/results/` in the open-source release. We treat this experiment as the primary quantitative evidence for the protocol's utility; live-API replication with real provider responses is reported next in §6.5b.
+
+### 6.5b Live-API Execution: ASM as a Data-Quality-Sensitive Layer
+
+The §6.5 A/B comparison runs over manifest-declared pricing, latency, and quality. The natural follow-up is whether ASM-guided selection still works when the candidates are actually invoked, and what happens when manifest data is *not* uniformly clean. We therefore extended ASM with five Chinese-LLM manifests (DeepSeek V4 Flash, Qwen3 Max, Moonshot Kimi K2.5, Z.ai GLM-5, MiniMax M2.7) all routable through the TokenDance OpenAI-compatible gateway, designed 30 real-world tasks split across translation, code generation, and summarisation, and ran 6 selectors per task with realised cost (from token usage), realised latency (wall clock), and realised quality (independent judge model, GLM-4.7) recorded for each call.
+
+**Setup.** Tasks span four preference axes (cost / latency / quality / balanced) with optional hard constraints (`max_cost_usd`, `max_latency_s`, `min_quality_score`). The six selectors are: `asm_topsis`, `weighted_average`, `cheapest_first`, `random`, `llm_picker_manifest` (a separate LLM reads compact ASM manifests and chooses), `llm_picker_raw_doc` (same LLM reads short provider descriptions only). Cost accounting separates execution cost (the candidate-LLM call), picker cost (the LLM-selector call when applicable), and judge cost so that selection-time overhead is not conflated with task cost. The full task set, prompts, manifests, and per-call records are at `experiments/live_execution/`.
+
+**Naive run (5 candidates, n=180).** ASM-TOPSIS underperformed every other selector on judge score:
+
+**Table 5b: Naive 5-candidate live execution (mean judge score, lower is worse).**
+
+| Selector | n | Judge mean | Total execution cost (USD) | Mean latency (s) |
+|---|---:|---:|---:|---:|
+| llm_picker_raw_doc  | 30 | **9.97** | $0.0068 | 5.74 |
+| llm_picker_manifest | 30 | 9.60 | $0.0411 | 17.55 |
+| cheapest_first      | 30 | 9.50 | $0.0054 | 7.39 |
+| random              | 29 | 9.28 | $0.0392 | 18.45 |
+| asm_topsis          | 30 | 7.93 | $0.0149 | 13.46 |
+| weighted_average    | 30 | 7.40 | $0.0145 | 17.71 |
+
+**Diagnosis.** Per-model judge scores expose the cause: Qwen3 Max 10.00, Kimi K2.5 9.93, DeepSeek 9.81, GLM-5 8.43, **MiniMax 6.00**. Of TOPSIS's 30 picks, 11 chose MiniMax — driven by MiniMax's manifest reporting quality on **MMLU 78** while the four peers reported **AA Intelligence 53–60**. After per-benchmark normalisation, MMLU 78 maps to a higher quality coordinate than AA Intelligence 60, so TOPSIS over-selects MiniMax. In live execution, MiniMax's actual output quality is much lower than its declared score predicts. *This is precisely the §7.1 quality-normalisation limitation observed in the wild* — cross-benchmark scaling is not commensurable.
+
+**Same-benchmark run (4 candidates, n=180).** Re-running with MiniMax excluded (matching the §6.7 same-benchmark constraint) restores ASM-TOPSIS to expected behaviour:
+
+**Table 5c: Naive vs same-benchmark, side-by-side judge means.**
+
+| Selector | Naive (5 cands) | Same-benchmark (4 cands) | Δ |
+|---|---:|---:|---:|
+| asm_topsis          | 7.93 | **9.27** | +1.33 |
+| weighted_average    | 7.40 | 9.31 | +1.91 |
+| cheapest_first      | 9.50 | 9.65 | +0.15 |
+| random              | 9.28 | 9.21 | -0.07 |
+| llm_picker_manifest | 9.60 | 9.21 | -0.39 |
+| llm_picker_raw_doc  | 9.97 | 9.23 | -0.73 |
+
+In the same-benchmark run all six selectors are within ~0.5 judge points (9.21–9.65) and ASM-TOPSIS execution cost ($0.0064) matches the cheapest-first baseline. The asymmetry in deltas is itself informative: ASM-TOPSIS and weighted-average — both manifest-driven scoring — gain dramatically when manifest quality data is consistent, while LLM-picker selectors lose slightly because in the naive run they correctly avoided the MiniMax trap that TOPSIS fell into (raw-doc descriptions don't reveal MMLU 78, only the manifest's structured `quality` block does, and the picker LLM was conservative).
+
+**What this experiment shows.** Three findings of different status:
+
+1. **(Confirmatory)** When manifests use the same benchmark scale, ASM-TOPSIS produces selections whose realised cost, latency, and quality match the protocol's predictions and are comparable to the strongest deterministic baseline (cheapest-first). The protocol's value claim therefore transfers from synthetic to live execution.
+
+2. **(Critical)** ASM is a thin layer over manifest data; it inherits the data's limitations. Heterogeneous benchmark scales caused a 1.3-point judge-score drop in our naive run because TOPSIS interpreted MMLU 78 as commensurable with AA Intelligence 60. **The protocol does not detect or correct this — it propagates it.** Production deployments must enforce same-benchmark constraints at registry time, similar to how database schemas enforce type compatibility.
+
+3. **(Negative)** ASM-TOPSIS does *not* dominate `llm_picker_raw_doc` on this 30-task suite (9.27 vs 9.23 in the same-benchmark run). When the candidate set is small (4) and the LLM has provider names + descriptions, frontier LLMs can already rank competitively. ASM's value is structured, deterministic, sub-millisecond settlement — not necessarily a higher absolute score on small candidate sets. The §6.7 36-task ranking experiment showed the gap widens for harder tasks; the live-execution evidence here suggests the gap narrows for easier tasks.
+
+**Reproducibility.** All raw responses, judge ratings, token counts, and per-task records are at `experiments/live_execution/results_naive_5candidate/` and `experiments/live_execution/results/`. The comparison table above was auto-generated by `experiments/live_execution/compare_runs.py`; the experiment runner is `run_live_execution.py`. Total cash cost for both runs combined: < $0.30 in gateway fees plus judge-model calls.
 
 ### 6.6 Selection Regret Against Stronger Heuristic Baselines
 
@@ -797,7 +843,7 @@ Each directory contains `ranking_results.csv` (108 records: 36 tasks × 3 select
 
 **Static declarations.** ASM manifests are point-in-time snapshots. Real-world pricing and quality change — a service may run a promotion, degrade under load, or update its model. The `updated_at` and `ttl` fields (v0.3) partially address this by signaling freshness, but ASM does not yet support real-time pricing feeds or dynamic quality updates.
 
-**Quality normalization.** Our normalization of heterogeneous quality scales (Elo → [0,1], FID → [0,1], MOS → [0,1]) involves information loss. An Elo score of 1290 and an FID of 5.2 are not truly commensurable — they measure fundamentally different properties. ASM preserves original values for transparency but relies on normalization for cross-category comparison, which is inherently approximate.
+**Quality normalization.** Our normalization of heterogeneous quality scales (Elo → [0,1], FID → [0,1], MOS → [0,1]) involves information loss. An Elo score of 1290 and an FID of 5.2 are not truly commensurable — they measure fundamentally different properties. ASM preserves original values for transparency but relies on normalization for cross-category comparison, which is inherently approximate. The §6.5b live-execution experiment provides empirical evidence of this failure mode in the wild: MiniMax M2.7's manifest reported quality on MMLU 78 while four peer LLM manifests reported AA Intelligence 53–60, and TOPSIS over-selected MiniMax because the higher-scaled MMLU number normalised to a higher quality coordinate. Mitigation is methodological — registries should enforce same-benchmark constraints among candidates of the same taxonomy, similar to how database schemas enforce type compatibility — rather than algorithmic.
 
 **Trust bootstrapping.** New services have no receipt history, receiving a neutral trust score (0.5) with zero confidence. This creates a cold-start problem: honest newcomers are disadvantaged relative to established services with proven track records. Potential mitigations include third-party attestation services or trust transfer from related services.
 
