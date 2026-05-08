@@ -21,6 +21,14 @@ make reproduce
 
 `make reproduce` runs every experiment that does not require external API calls or paid services. Live-API and external-LLM evaluations are gated behind separate targets that require API keys.
 
+Developer-facing adoption checks are separate from paper reproduction:
+
+```bash
+pip install -e .
+asm score "cheap reliable TTS under 1s"
+make validate-mcp-examples
+```
+
 ## Environment
 
 - **Python**: 3.10 or newer (tested on 3.13 Windows + 3.11 Linux Docker).
@@ -136,8 +144,17 @@ The LLM dry-run (`make llm-eval`) generates prompts and runs only `asm_topsis` d
 |---|---|---|
 | Pooled heterogeneous quality metrics are uninformative (rho = -0.2143) | `python experiments/external_validation/correlate_arena_elo.py --elo-pkl path/to/arena_elo.pkl` | `experiments/results/external_validation/arena_elo_correlation.{csv,json,md}` |
 | Within-metric LMSYS_Elo subset aligns with Arena Elo (n=3, rho = 1.0) | same | same |
+| OpenRouter usage correlation is weak, as expected for a usage signal | `python experiments/external_validation/correlate_openrouter.py` | `experiments/results/external_validation/openrouter_correlation.{csv,json,md}` |
 
 The Arena pickle is not committed because it is an external LM Arena artifact. Reviewers can alternatively pass `--arena-csv model,elo,battles,rank` with the same mapped model names documented in the output JSON.
+
+## Adoption artifact checks
+
+| Claim | Command | Output |
+|---|---|---|
+| MCP `server.json` can carry valid ASM metadata under publisher-provided `_meta` | `make validate-mcp-examples` | validator pass/fail output |
+| Embedded ASM can be extracted to a standalone manifest | `asm-mcp-validate examples/mcp-server-json/remote-with-asm.server.json --write-out /tmp/remote-search.asm.json` | extracted `.asm.json` |
+| The README 60-second scoring demo runs from an editable install | `asm score "cheap reliable TTS under 1s"` | ranked + rejected services |
 
 ## File layout
 
@@ -147,6 +164,8 @@ asm-spec/
 ├── schema/asm-v0.3.schema.json             # protocol spec
 ├── scorer/                                 # Python TOPSIS engine + tests
 ├── registry/                               # TypeScript MCP server + tests
+examples/mcp-server-json/             # MCP Registry server.json examples with ASM _meta
+docs/integrations/                    # MCP Registry and aggregator adoption docs
 ├── experiments/
 │   ├── ab_test.py                          # §6.5
 │   ├── analyze.py                          # §6.5 stats

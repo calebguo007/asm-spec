@@ -1,4 +1,4 @@
-.PHONY: test test-py test-ts eval ablations selection-baselines preference-alignment llm-eval llm-eval-live audit value-audit value-audit-full paper-tables reproduce clean clean-cache help
+.PHONY: test test-py test-ts validate-mcp-examples eval ablations selection-baselines preference-alignment llm-eval llm-eval-live audit value-audit value-audit-full paper-tables reproduce clean clean-cache help
 
 LLM_PROVIDER ?= deepseek
 LLM_MODEL ?= deepseek-chat
@@ -11,6 +11,7 @@ help:
 	@echo "  make test          Run all tests (Python + TypeScript)"
 	@echo "  make test-py       Run Python scorer tests only"
 	@echo "  make test-ts       Run TypeScript MCP server tests only"
+	@echo "  make validate-mcp-examples  Validate ASM metadata embedded in MCP server.json examples"
 	@echo "  make eval          Run A/B evaluation (Section 6.5)"
 	@echo "  make ablations     Run ablation studies (Section 6.3a)"
 	@echo "  make selection-baselines  Run 7-policy regret analysis (Section 6.6)"
@@ -34,11 +35,16 @@ test: test-py test-ts
 	@echo "[OK] All tests passed."
 
 test-py:
-	python -m pytest scorer/test_scorer.py -v
+	python -m pytest scorer -v
 
 test-ts:
 	cd registry && npx tsx src/test_scorer.ts
 	cd registry && npx tsx src/test_topsis.ts
+
+validate-mcp-examples:
+	python mcp_server_json_asm.py examples/mcp-server-json/basic-with-asm.server.json
+	python mcp_server_json_asm.py examples/mcp-server-json/remote-with-asm.server.json
+	python mcp_server_json_asm.py examples/mcp-server-json/package-with-asm.server.json
 
 # ---------------------------------------------------------------------------
 # Experiment targets

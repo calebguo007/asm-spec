@@ -1,0 +1,35 @@
+name: Propose taxonomy or metric mapping
+description: Propose a new taxonomy category, quality metric, or benchmark compatibility rule.
+title: "Taxonomy/metric proposal: <name>"
+labels: ["taxonomy", "metrics"]
+body:
+  - type: dropdown
+    id: proposal_type
+    attributes:
+      label: Proposal type
+      options:
+        - new taxonomy
+        - new quality metric
+        - benchmark compatibility rule
+        - metric normalization rule
+    validations:
+      required: true
+  - type: input
+    id: proposed_name
+    attributes:
+      label: Proposed name
+      placeholder: "tool.data.reranking or recall_at_10"
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why is this needed, and which services would use it?
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility notes
+      description: For metrics, say which benchmarks are comparable and which are not.

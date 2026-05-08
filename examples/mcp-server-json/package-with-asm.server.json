@@ -1,0 +1,102 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.asm.example/package-vector-db",
+  "description": "Package-distributed MCP server example with ASM verification metadata.",
+  "status": "active",
+  "repository": {
+    "url": "https://github.com/calebguo007/asm-spec",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registry_name": "npm",
+      "name": "@asm-example/vector-db-mcp",
+      "version": "1.0.0",
+      "package_arguments": [],
+      "environment_variables": [
+        {
+          "name": "VECTOR_DB_API_KEY",
+          "description": "API key for the managed vector database.",
+          "is_required": true,
+          "is_secret": true
+        }
+      ]
+    },
+    {
+      "registry_name": "pypi",
+      "name": "asm-example-vector-db-mcp",
+      "version": "1.0.0",
+      "package_arguments": [],
+      "environment_variables": [
+        {
+          "name": "VECTOR_DB_API_KEY",
+          "description": "API key for the managed vector database.",
+          "is_required": true,
+          "is_secret": true
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "asm": {
+        "asm_version": "0.3",
+        "service_id": "example/vector-db@1.0",
+        "taxonomy": "infra.database.vector",
+        "display_name": "Example Vector Database",
+        "provenance": {
+          "source_url": "https://docs.example.com/vector/pricing",
+          "retrieved_at": "2026-05-08T00:00:00Z",
+          "last_verified_at": "2026-05-08T00:00:00Z",
+          "verification_status": "manual_verified",
+          "notes": "Package server example with explicit verification config."
+        },
+        "pricing": {
+          "billing_dimensions": [
+            {
+              "dimension": "vector",
+              "unit": "per_1M",
+              "cost_per_unit": 0.12,
+              "currency": "USD"
+            },
+            {
+              "dimension": "storage",
+              "unit": "per_1_gb_month",
+              "cost_per_unit": 0.25,
+              "currency": "USD"
+            }
+          ]
+        },
+        "quality": {
+          "metrics": [
+            {
+              "name": "recall_at_10",
+              "score": 0.94,
+              "scale": "0-1",
+              "benchmark": "BEIR retrieval subset",
+              "self_reported": false
+            }
+          ]
+        },
+        "sla": {
+          "latency_p50": "45ms",
+          "latency_p99": "250ms",
+          "uptime": 0.9995,
+          "rate_limit": "500 req/s"
+        },
+        "payment": {
+          "methods": ["stripe", "invoice"],
+          "auth_type": "api_key",
+          "signup_url": "https://docs.example.com/vector/signup"
+        },
+        "verification": {
+          "protocol": "signed-receipts-acta",
+          "public_key": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+          "signature_algorithm": "ed25519",
+          "receipt_format": "application/json"
+        }
+      }
+    }
+  }
+}

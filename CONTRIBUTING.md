@@ -60,11 +60,27 @@ Taxonomies use hierarchical dot-notation (e.g., `ai.llm.chat`). To propose one:
 1. Open an issue with the proposed name, parent category, and at least 2 services that would use it.
 2. The maintainers will check for conflicts with existing categories and approve or suggest alternatives.
 
+## Adding ASM to an MCP `server.json`
+
+MCP publishers can embed ASM without changing MCP runtime behavior. Put a valid ASM v0.3 object at:
+
+```text
+_meta.io.modelcontextprotocol.registry/publisher-provided.asm
+```
+
+Use the examples in `examples/mcp-server-json/` as templates, then validate:
+
+```bash
+asm-mcp-validate path/to/server.json
+```
+
+Missing ASM metadata is only a warning for an MCP server. Malformed ASM metadata is a schema error because agents and aggregators cannot safely rank it.
+
 ## Running Tests
 
 ```bash
-# Python scorer tests
-python -m pytest scorer/test_scorer.py -v
+# Python scorer and manifest/MCP metadata tests
+python -m pytest scorer -v
 
 # TypeScript MCP server tests
 cd registry && npx tsx src/test_scorer.ts
@@ -72,6 +88,9 @@ cd registry && npx tsx src/test_topsis.ts
 
 # All tests via Make
 make test
+
+# MCP server.json ASM examples
+make validate-mcp-examples
 ```
 
 ## Reproducing Experiments

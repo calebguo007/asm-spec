@@ -5,6 +5,8 @@
 > **Last Updated**: 2026-04-14
 > **Compatibility**: MCP v1.0+
 
+> **2026-05 update**: For immediate MCP Registry adoption, prefer embedding the full ASM object in `server.json` at `_meta.io.modelcontextprotocol.registry/publisher-provided.asm`. See [`docs/integrations/mcp-registry.md`](../integrations/mcp-registry.md). The older `x-asm` ToolAnnotations shape remains useful as a tool-level extension proposal, but registry-level metadata is the current recommended path.
+
 ## Abstract
 
 This document proposes `x-asm` — a metadata extension for MCP (Model Context Protocol) Tool definitions that enables AI agents to make quality-aware, cost-optimized tool selection decisions at runtime. The extension adds structured pricing, SLA, quality, and trust metadata to MCP tools without breaking backward compatibility.

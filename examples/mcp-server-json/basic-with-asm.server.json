@@ -1,0 +1,60 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.asm.example/basic-email",
+  "description": "Example MCP server with inline ASM value metadata.",
+  "status": "active",
+  "repository": {
+    "url": "https://github.com/calebguo007/asm-spec",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "asm": {
+        "asm_version": "0.3",
+        "service_id": "resend/email-api@v1",
+        "taxonomy": "tool.communication.email",
+        "display_name": "Resend Email API",
+        "provenance": {
+          "source_url": "https://resend.com/pricing",
+          "retrieved_at": "2026-05-08T00:00:00Z",
+          "last_verified_at": "2026-05-08T00:00:00Z",
+          "verification_status": "manual_verified",
+          "notes": "Example ASM metadata embedded in MCP server.json _meta."
+        },
+        "pricing": {
+          "billing_dimensions": [
+            {
+              "dimension": "email",
+              "unit": "per_1K",
+              "cost_per_unit": 0.1,
+              "currency": "USD"
+            }
+          ]
+        },
+        "quality": {
+          "metrics": [
+            {
+              "name": "delivery_rate",
+              "score": 0.997,
+              "scale": "0-1",
+              "benchmark": "provider status and delivery telemetry",
+              "self_reported": true
+            }
+          ]
+        },
+        "sla": {
+          "latency_p50": "200ms",
+          "latency_p99": "800ms",
+          "uptime": 0.999,
+          "rate_limit": "1000 req/min"
+        },
+        "payment": {
+          "methods": ["stripe", "api_key_prepaid"],
+          "auth_type": "api_key",
+          "signup_url": "https://resend.com"
+        }
+      }
+    }
+  }
+}

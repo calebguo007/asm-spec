@@ -1,0 +1,38 @@
+name: Report pricing or SLA mismatch
+description: Report stale or incorrect manifest value metadata.
+title: "Mismatch: <service_id>"
+labels: ["manifest", "data-quality"]
+body:
+  - type: input
+    id: service_id
+    attributes:
+      label: ASM service_id
+      placeholder: "provider/service@version"
+    validations:
+      required: true
+  - type: dropdown
+    id: mismatch_type
+    attributes:
+      label: Mismatch type
+      options:
+        - pricing
+        - SLA/rate limit
+        - quality/benchmark
+        - payment/auth
+        - provenance/source
+    validations:
+      required: true
+  - type: input
+    id: current_source
+    attributes:
+      label: Correct source URL
+      description: Link to the current provider documentation or benchmark.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What value is wrong, and what should it be?
+    validations:
+      required: true

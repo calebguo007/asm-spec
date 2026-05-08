@@ -1,0 +1,46 @@
+name: Add manifest
+description: Propose a new ASM service manifest.
+title: "Add manifest: <provider/service>"
+labels: ["manifest", "good first issue"]
+body:
+  - type: input
+    id: service
+    attributes:
+      label: Service
+      description: Provider and service name.
+      placeholder: "example/search-api"
+    validations:
+      required: true
+  - type: input
+    id: taxonomy
+    attributes:
+      label: Taxonomy
+      description: ASM taxonomy, e.g. ai.audio.tts or tool.data.search.
+    validations:
+      required: true
+  - type: input
+    id: source_url
+    attributes:
+      label: Source URL
+      description: Pricing/docs/benchmark page used for provenance.
+    validations:
+      required: true
+  - type: textarea
+    id: value_metadata
+    attributes:
+      label: Value metadata
+      description: Known pricing, SLA, quality, payment, and verification details.
+      placeholder: |
+        pricing:
+        SLA:
+        quality benchmark:
+        payment methods:
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I can provide source URLs for pricing/SLA/quality claims.
+          required: true
+        - label: I understand self-reported claims should be marked as self_reported.
+          required: true

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.asm.example/remote-search",
+  "description": "Remote MCP server example with ASM pricing, SLA, quality, and provenance metadata.",
+  "status": "active",
+  "repository": {
+    "url": "https://github.com/calebguo007/asm-spec",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.example.com/search"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "asm": {
+        "asm_version": "0.3",
+        "service_id": "example/remote-search@1.0",
+        "taxonomy": "tool.data.search",
+        "display_name": "Example Remote Search MCP",
+        "provenance": {
+          "source_url": "https://mcp.example.com/.well-known/asm",
+          "retrieved_at": "2026-05-08T00:00:00Z",
+          "last_verified_at": "2026-05-08T00:00:00Z",
+          "verification_status": "self_reported",
+          "notes": "Remote MCP server publishes the same ASM document at .well-known/asm."
+        },
+        "pricing": {
+          "billing_dimensions": [
+            {
+              "dimension": "query",
+              "unit": "per_1K",
+              "cost_per_unit": 2.5,
+              "currency": "USD"
+            }
+          ],
+          "free_tier": {
+            "dimension": "query",
+            "limit": 1000,
+            "period": "monthly"
+          }
+        },
+        "quality": {
+          "metrics": [
+            {
+              "name": "answer_relevance",
+              "score": 0.91,
+              "scale": "0-1",
+              "benchmark": "internal search relevance eval",
+              "self_reported": true
+            }
+          ]
+        },
+        "sla": {
+          "latency_p50": "650ms",
+          "latency_p99": "2s",
+          "uptime": 0.995,
+          "rate_limit": "60 req/min",
+          "regions": ["us-east-1", "eu-west-1"]
+        },
+        "payment": {
+          "methods": ["stripe"],
+          "auth_type": "oauth2",
+          "signup_url": "https://mcp.example.com/signup"
+        }
+      },
+      "asm_url": "https://mcp.example.com/.well-known/asm"
+    }
+  }
+}

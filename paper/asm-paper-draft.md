@@ -8,7 +8,7 @@
 
 ## Abstract
 
-Autonomous agents increasingly choose among competing AI services before they execute or pay. Existing protocols cover capability discovery (MCP), inter-agent communication (A2A), and payment execution (AP2), but a settlement layer is missing: agents can see what tools do, yet cannot compute what services are worth. We present **Agent Service Manifest (ASM)**, a lightweight settlement protocol: a JSON Schema giving agents standardised value descriptors across pricing, quality, SLA, provenance, verification, and payment. Two audits ground the gap: 0/50 MCP-related GitHub repositories and 0/14,519 entries across five MCP registries and directories (including the full MCPCorpus dataset) expose all four core value classes simultaneously. We validate ASM with **75 manifests across 47 taxonomies** and a two-stage selection engine (constraint filter + TOPSIS). On 200 synthetic tasks ASM improves preference-weighted utility by **23.1%** over random and cuts cost **59.2%** vs. most-expensive ($p < 10^{-6}$, < 5 ms scoring overhead); on 20 natural-language user requests, ASM is zero-regret on 100% vs. 75% for the strongest single-axis policy. Across three frontier LLMs (DeepSeek-V4-flash, Qwen3-Max, Kimi K2.5), swapping raw HTML for ASM manifests raises top-1 selection accuracy from **63.9-72.2% to 100.0%** with non-overlapping 95% CIs. A live-execution follow-up over 30 real tasks routed through five Chinese-LLM endpoints shows ASM-TOPSIS matching the strongest deterministic baseline on judge-rated quality at the same realised cost, but only after enforcing a same-benchmark candidate-set constraint, providing direct in-the-wild evidence of the protocol's quality-normalisation limitation. ASM's contribution is the surface change: brittle HTML parsing becomes deterministic numerical comparison, and its honest caveat is that the protocol inherits the data quality of the manifests it is fed.
+Autonomous agents increasingly choose among competing AI services before they execute or pay. Existing protocols cover capability discovery (MCP), inter-agent communication (A2A), and payment execution (AP2), but a settlement layer is missing: agents can see what tools do, yet cannot compute what services are worth. We present **Agent Service Manifest (ASM)**, a lightweight settlement protocol: a JSON Schema giving agents standardised value descriptors across pricing, quality, SLA, provenance, verification, and payment. Two audits ground the gap: 0/50 MCP-related GitHub repositories and 0/14,519 entries across five MCP registries and directories (including the full MCPCorpus dataset) expose all four core value classes simultaneously. We stress-test ASM across offline selection, LLM selection, live execution, and external preference signals using **75 manifests across 47 taxonomies** and a two-stage selection engine (constraint filter + TOPSIS). On 200 synthetic tasks ASM improves preference-weighted utility by **23.1%** over random and cuts cost **59.2%** vs. most-expensive ($p < 10^{-6}$, < 5 ms scoring overhead); on 20 natural-language user requests, ASM is zero-regret on 100% vs. 75% for the strongest single-axis policy. Across three frontier LLMs (DeepSeek-V4-flash, Qwen3-Max, Kimi K2.5), swapping raw HTML for ASM manifests raises top-1 selection accuracy from **63.9-72.2% to 100.0%** with non-overlapping 95% CIs. A live-execution follow-up over 30 real tasks routed through five Chinese-LLM endpoints shows ASM-TOPSIS matching the strongest deterministic baseline on judge-rated quality at the same realised cost, but only after enforcing a same-benchmark candidate-set constraint, providing direct in-the-wild evidence of the protocol's quality-normalisation limitation. ASM's contribution is the surface change: brittle HTML parsing becomes deterministic numerical comparison, and its honest caveat is that the protocol inherits the data quality of the manifests it is fed.
 
 ---
 
@@ -38,9 +38,9 @@ In this paper, we present **Agent Service Manifest (ASM)**, an open settlement p
 
 3. **A two-stage selection engine** — combining hard constraint filtering with TOPSIS (Technique for Order Preference by Similarity to Ideal Solution) multi-criteria ranking, producing preference-aware recommendations with full explainability.
 
-4. **An MCP-compatible integration path** — ASM can be deployed as an independent `.well-known/asm` endpoint (Phase 1), embedded as `x-asm` annotations in MCP ToolAnnotations (Phase 2), or adopted as native MCP fields (Phase 3), ensuring zero breaking changes at each stage.
+4. **An MCP-compatible integration path** — ASM can be deployed as an independent `.well-known/asm` endpoint (Phase 1), embedded today in MCP Registry `server.json` under `_meta.io.modelcontextprotocol.registry/publisher-provided.asm` (Phase 2), or proposed as a native registry/specification field through a SEP (Phase 3), ensuring zero breaking changes at each stage.
 
-We validate ASM with **75 real-world service manifests spanning 47 taxonomies**, all carrying explicit provenance metadata, and with two ecosystem audits (n=50 GitHub repositories and n=14,519 registry / directory entries) showing that structured value metadata is absent in current practice. A 200-task A/B evaluation, a 7-baseline regret analysis, a 20-request natural-language preference-alignment suite, a three-LLM ranking experiment, a live-execution follow-up, and an external Arena-Elo correlation study all converge on the same finding: when value metadata is structured and semantically comparable, selection becomes deterministic and cross-LLM-stable; when it is not, even frontier LLMs leave 28-36 percentage points of top-1 accuracy on the table or propagate bad benchmark assumptions. Our framing throughout this paper is therefore not "ASM is faster or cheaper than X"; it is **"without structured value metadata, agent service selection is not reproducible - and ASM is a runnable, reproducible, integrable layer that fixes this".**
+We stress-test ASM with **75 real-world service manifests spanning 47 taxonomies**, all carrying explicit provenance metadata, and with two ecosystem audits (n=50 GitHub repositories and n=14,519 registry / directory entries) showing that structured value metadata is absent in current practice. A 200-task A/B evaluation, a 7-baseline regret analysis, a 20-request natural-language preference-alignment suite, a three-LLM ranking experiment, a live-execution follow-up, and external Arena/OpenRouter stress tests converge on the same finding: when value metadata is structured and semantically comparable, selection becomes deterministic and cross-LLM-stable; when it is not, even frontier LLMs leave 28-36 percentage points of top-1 accuracy on the table or propagate bad benchmark assumptions. Our framing throughout this paper is therefore not "ASM is faster or cheaper than X"; it is **"without structured value metadata, agent service selection is not reproducible - and ASM is a runnable, reproducible, integrable layer that fixes this".**
 
 The remainder of this paper is organized as follows. Section 2 formalizes the service selection problem. Section 3 surveys related work. Section 4 presents the ASM protocol design. Section 5 describes the reference implementation. Section 6 evaluates ASM across multiple scenarios. Section 7 discusses limitations, trust mechanisms, and future directions. Section 8 concludes.
 
@@ -352,22 +352,27 @@ ASM is designed for progressive integration with the existing agent protocol sta
 
 **Phase 1: Independent endpoint** (current). Services publish ASM manifests at `.well-known/asm` or in a shared registry. Agents query the registry via MCP tools. This requires no changes to MCP itself.
 
-**Phase 2: MCP ToolAnnotations embedding**. ASM fields are embedded as `x-asm` annotations within MCP's existing `ToolAnnotations` metadata. This leverages MCP's extensibility without modifying the core specification:
+**Phase 2: MCP Registry `server.json` embedding**. ASM fields are embedded under the MCP Registry publisher-provided `_meta` namespace. This aligns with MCP's extension mechanism and allows registries, aggregators, and agents to consume ASM without requiring MCP hosts to understand it:
 
 ```json
 {
-  "name": "generate_image",
-  "annotations": {
-    "x-asm": {
-      "service_id": "bfl/flux-1.1-pro@1.1",
-      "taxonomy": "ai.vision.image_generation",
-      "pricing": { "billing_dimensions": [{ "dimension": "image", "unit": "per_1", "cost_per_unit": 0.04 }] }
+  "name": "io.example/search",
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "asm": {
+        "asm_version": "0.3",
+        "service_id": "example/search@1.0",
+        "taxonomy": "tool.data.search",
+        "pricing": { "billing_dimensions": [{ "dimension": "query", "unit": "per_1K", "cost_per_unit": 2.5 }] },
+        "sla": { "latency_p50": "650ms", "uptime": 0.995 }
+      },
+      "asm_url": "https://example.com/.well-known/asm"
     }
   }
 }
 ```
 
-**Phase 3: Native MCP fields**. If adopted through a Specification Enhancement Proposal (SEP), ASM fields become first-class MCP properties, eliminating the `x-asm` prefix.
+**Phase 3: Native registry/specification field**. If adopted through a Specification Enhancement Proposal (SEP), ASM becomes a first-class value-metadata field in MCP registries or the MCP specification. The `_meta` representation remains backward-compatible for older hosts.
 
 The **Signed Receipts integration** follows the W3C Verifiable Credentials data model. A receipt contains:
 
@@ -931,11 +936,11 @@ This positions ASM not as a marketplace itself, but as the data layer that enabl
 
 ## 8. Conclusion
 
-We have presented Agent Service Manifest (ASM), an open protocol for the missing value layer in the agent infrastructure stack. The central claim is empirical: across two independent ecosystem audits (n=50 GitHub repositories and n=14,519 registry/directory entries), zero entries expose all four core economic value classes (pricing, SLA, quality, payment) in machine-actionable form; across three independent frontier LLMs reading the same provider HTML, top-1 selection accuracy on a 36-task ranking suite is 63.9–72.2%, while the same LLMs given structured ASM manifests reach 100%. **Without structured value metadata, agent service selection is not reproducible. ASM is a runnable, reproducible, integrable layer that fixes this** — not a competing alternative to MCP / A2A / AP2, but the value-metadata layer those protocols leave room for.
+We have presented Agent Service Manifest (ASM), an open protocol for the missing value layer in the agent infrastructure stack. The central claim is empirical and deliberately bounded: across two independent ecosystem audits (n=50 GitHub repositories and n=14,519 registry/directory entries), zero entries expose all four core economic value classes (pricing, SLA, quality, payment) in machine-actionable form; across three independent frontier LLMs reading the same provider HTML, top-1 selection accuracy on a 36-task ranking suite is 63.9-72.2%, while the same LLMs given structured ASM manifests reach 100%. **Structured value metadata makes agent service selection reproducible.**
 
-ASM provides a minimal schema, a provenance-aware manifest format, a trust model that connects declarations to signed receipts, and a two-stage settlement engine that combines hard constraints with preference-weighted TOPSIS ranking. The reference implementation includes a Python scorer, a dual-protocol registry, an MCP integration path, two audit scripts, six evaluation harnesses (A/B, regret, preference alignment, LLM-as-selector, live execution, external preference correlation), 75 real-world manifests across 47 taxonomies, a Docker-based reproducibility image, and a one-command `make reproduce` target that re-derives every offline number in this paper.
+ASM provides a minimal schema, a provenance-aware manifest format, a trust model that connects declarations to signed receipts, and a two-stage settlement engine that combines hard constraints with preference-weighted TOPSIS ranking. The reference implementation includes a Python scorer, a dual-protocol registry, MCP Registry `server.json` examples, two audit scripts, six evaluation harnesses (A/B, regret, preference alignment, LLM-as-selector, live execution, external preference correlation), 75 real-world manifests across 47 taxonomies, a Docker-based reproducibility image, and a one-command `make reproduce` target that re-derives every offline number in this paper.
 
-The remaining work is adoption and broader external validation. Live execution experiments should expand beyond the current 30-task Chinese-LLM slice to more categories, repeated runs, realised constraint violations, and non-LLM services. External-annotator preference alignment should measure inter-annotator agreement on weights and whether ASM selects the majority-preferred service. Trust mechanisms should move from self-reported provenance toward third-party verification and receipt-backed updates.
+ASM does not prove that any provider's quality metric is inherently correct, nor that heterogeneous benchmarks can be safely collapsed into a universal scalar. The live-execution and external-signal stress tests show the opposite: registry-time semantic validation is necessary. The remaining work is therefore adoption and semantic hardening: MCP registries and aggregators should ingest ASM under `_meta`, enforce metric provenance and benchmark compatibility, and move trust mechanisms from self-reported provenance toward third-party verification and receipt-backed updates.
 
 If agents are to become economic actors, service selection cannot remain an unstructured browsing task. ASM makes settlement a computable, reproducible step in the agent stack.
 

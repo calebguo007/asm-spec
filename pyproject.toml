@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "asm-protocol"
+version = "0.3.1"
+description = "Agent Service Manifest: value metadata and scoring for autonomous service selection"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Yi Guo" }]
+dependencies = [
+  "jsonschema>=4.0",
+]
+
+[project.scripts]
+asm = "asm_cli:main"
+asm-mcp-validate = "mcp_server_json_asm:main"
+
+[tool.setuptools]
+py-modules = ["asm_cli", "mcp_server_json_asm"]
+packages = ["scorer"]
