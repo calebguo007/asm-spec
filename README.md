@@ -232,6 +232,7 @@ Live LLM/API experiments require external credentials and are documented separat
 ## Contributing
 
 Good first issues: [`docs/good-first-issues.md`](docs/good-first-issues.md).
+Open starter issues: [Cohere](https://github.com/calebguo007/asm-spec/issues/1), [Mistral AI](https://github.com/calebguo007/asm-spec/issues/2), [Together AI](https://github.com/calebguo007/asm-spec/issues/3), [Groq](https://github.com/calebguo007/asm-spec/issues/4), [Fireworks AI](https://github.com/calebguo007/asm-spec/issues/5).
 
 Common contribution paths:
 
