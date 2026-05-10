@@ -1,0 +1,19 @@
+{
+  "name": "asm-demo-video",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "render": "remotion render src/index.ts AsmCliDemo ../../docs/assets/asm-openrouter-demo.mp4",
+    "still": "remotion still src/index.ts AsmCliDemo --frame=300 ../../docs/assets/asm-openrouter-demo.png"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.379",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "remotion": "^4.0.379"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "typescript": "^5.9.3"
+  }
+}

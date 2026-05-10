@@ -15,6 +15,8 @@ Rank live OpenRouter models without writing manifests first:
 asm score --source openrouter 'cheap LLM under $1 per 1M tokens under 1s'
 ```
 
+![ASM OpenRouter CLI demo](docs/assets/asm-openrouter-demo.gif)
+
 If your Python script directory is not on `PATH`, use:
 
 ```bash
