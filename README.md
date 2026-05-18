@@ -150,6 +150,18 @@ Examples:
 
 ---
 
+## Reference Integrations
+
+Real third-party services that have implemented ASM-compatible value metadata or receipt formats. Each one ships a spec page in this repo plus, where applicable, a reference receipt example.
+
+| Service | Type | Status | Spec |
+|---|---|---|---|
+| **Akkhar-Code** (Akkhar-Labs) | Agentic IDE, `tool.code.orchestration` | Trust Delta receipt extension v0.1 | [`docs/integrations/akkhar-code-receipt-spec.md`](docs/integrations/akkhar-code-receipt-spec.md) · [reference receipt](examples/receipts/akkhar-code-receipt.json) · RFC [#7](https://github.com/calebguo007/asm-spec/issues/7), PR [#8](https://github.com/calebguo007/asm-spec/pull/8) |
+
+If you're implementing ASM (manifest, `.well-known/asm` endpoint, or a receipt emitter) and want a reference-integration row, open an issue with `integration` label.
+
+---
+
 ## Manifest Template
 
 Only three fields are required; value metadata is optional but makes the service rankable.
