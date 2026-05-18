@@ -488,6 +488,96 @@ def compute_trust_delta(
     return abs(declared - actual) / abs(declared)
 
 
+def cost_delta_from_receipt(
+    manifest: dict,
+    receipt: dict,
+) -> dict:
+    """Recompute the receipt's cost from the manifest's published pricing,
+    and surface the aggregate delta as a first-class Trust Delta signal.
+
+    Per RFC v0.1 (docs/rfcs/trust-delta-receipt-extension-v0.1.md) §2.4:
+    the trust signal is the AGGREGATE delta across all billing dimensions,
+    not per-dimension. Per-dimension breakdown is preserved as a diagnostic.
+
+    Args:
+        manifest: ASM manifest dict (must contain `pricing.billing_dimensions`).
+        receipt: Receipt body matching the envelope schema. Reads
+            `billing.cost`, `billing.observed_input_tokens`,
+            `billing.observed_output_tokens`, `billing.dimension`,
+            `billing.quantity` as available.
+
+    Returns:
+        dict with:
+          - `claimed_cost`: receipt.billing.cost
+          - `recomputed_cost`: sum across billing_dimensions of
+                               (observed_quantity * manifest_unit_cost)
+          - `cost_delta`: claimed_cost - recomputed_cost (signed)
+          - `per_dimension`: diagnostic dict mapping dimension -> recomputed cost
+          - `note`: free-form string explaining any missing fields / fallbacks
+
+    The delta is signed (not absolute): a positive delta means the publisher
+    over-claims relative to the manifest rate; negative means under-claims.
+    Trust Delta's downstream scoring decides what to do with the sign.
+    """
+    billing = (receipt or {}).get("billing") or {}
+    claimed_cost = float(billing.get("cost", 0) or 0)
+
+    pricing = (manifest or {}).get("pricing") or {}
+    dimensions = pricing.get("billing_dimensions") or []
+    if not dimensions:
+        return {
+            "claimed_cost": claimed_cost,
+            "recomputed_cost": 0.0,
+            "cost_delta": claimed_cost,
+            "per_dimension": {},
+            "note": "manifest pricing.billing_dimensions missing or empty",
+        }
+
+    # Map observed quantity for each manifest dimension. Receipt fields are:
+    #   billing.observed_input_tokens / observed_output_tokens (LLM-shaped)
+    #   billing.quantity (single-dimension shaped, e.g. pipeline_run)
+    obs_input = float(billing.get("observed_input_tokens", 0) or 0)
+    obs_output = float(billing.get("observed_output_tokens", 0) or 0)
+    obs_quantity = float(billing.get("quantity", 0) or 0)
+    primary_dim = billing.get("dimension")
+
+    per_dimension: dict[str, float] = {}
+    total = 0.0
+    note_parts: list[str] = []
+
+    for entry in dimensions:
+        dim_name = entry.get("dimension")
+        unit = (entry.get("unit") or "").lower()
+        cost_per_unit = float(entry.get("cost_per_unit", 0) or 0)
+
+        # Resolve observed quantity for this dimension.
+        if dim_name == "input_token":
+            qty = obs_input
+            multiplier = 1.0 / 1_000_000 if unit in ("per_1m", "per_1m_tokens") else 1.0
+        elif dim_name == "output_token":
+            qty = obs_output
+            multiplier = 1.0 / 1_000_000 if unit in ("per_1m", "per_1m_tokens") else 1.0
+        elif dim_name == primary_dim:
+            qty = obs_quantity
+            multiplier = 1.0
+        else:
+            note_parts.append(f"no observed quantity for dimension '{dim_name}'")
+            continue
+
+        contribution = qty * cost_per_unit * multiplier
+        per_dimension[dim_name] = contribution
+        total += contribution
+
+    cost_delta = claimed_cost - total
+    return {
+        "claimed_cost": claimed_cost,
+        "recomputed_cost": total,
+        "cost_delta": cost_delta,
+        "per_dimension": per_dimension,
+        "note": "; ".join(note_parts) if note_parts else "ok",
+    }
+
+
 def exponential_decay_weight(
     timestamp: float,
     now: float | None = None,

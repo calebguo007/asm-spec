@@ -19,7 +19,7 @@
       "type": "string",
       "pattern": "^[a-z]+\\.[a-z_]+(?:\\.[a-z_]+)?$",
       "description": "Standardized service category. Format: <domain>.<category>[.<subcategory>]",
-      "examples": ["ai.llm.chat", "ai.vision.image_generation", "ai.video.generation"]
+      "examples": ["ai.llm.chat", "ai.vision.image_generation", "ai.video.generation", "tool.code.orchestration"]
     },
     "display_name": {
       "type": "string",
@@ -381,6 +381,16 @@
       "type": "string",
       "format": "uri",
       "description": "Endpoint URL for Signed Receipts (IETF ACTA). After service execution, agents POST to this endpoint to obtain a cryptographically signed receipt proving actual delivery metrics. Enables the ASM trust delta: |declared - actual| / declared."
+    },
+    "receipt_envelope_version": {
+      "type": "string",
+      "description": "Latest receipt envelope schema version this service emits and consumes. v0.1 spec at schema/asm-receipt-envelope-v0.1.schema.json. Optional; absence implies the consumer does not yet accept envelope-formatted receipts and falls back to the legacy ACTA POST.",
+      "examples": ["0.1"]
+    },
+    "delegates_to_supported": {
+      "type": "boolean",
+      "description": "Whether receipts emitted by this service may carry a 'delegates_to' attribution chain. Pipelines that wrap sub-services (e.g. agentic IDEs delegating to upstream LLMs) SHOULD set this to true so consumers can resolve the full cost stack.",
+      "default": false
     },
     "receipt_types": {
       "type": "object",

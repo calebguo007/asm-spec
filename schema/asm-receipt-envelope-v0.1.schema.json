@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://asm-protocol.org/schemas/asm-receipt-envelope-v0.1.schema.json",
+  "title": "ASM Trust Delta receipt envelope v0.1",
+  "type": "object",
+  "description": "Envelope for delivering Trust Delta receipts from a publisher to a consumer. Push (POST to consumer's payment.receipt_endpoint) and poll (consumer GETs publisher's .well-known/asm-receipts) both use this envelope. Specifies the v0.1 receipt body shape, signature requirements, retry semantics, and the supersedes correction protocol. See RFC: docs/rfcs/trust-delta-receipt-extension-v0.1.md.",
+  "required": ["envelope_version", "publisher", "service_id", "issued_at", "receipts", "signature"],
+  "properties": {
+    "envelope_version": {
+      "type": "string",
+      "const": "0.1",
+      "description": "Envelope version. Pinned to '0.1' for this schema; later versions ship their own schema files."
+    },
+    "publisher": {
+      "type": "string",
+      "description": "Stable identifier for the receipt-emitting organisation. By convention the org prefix of the service_id (e.g. 'akkhar-labs')."
+    },
+    "service_id": {
+      "type": "string",
+      "description": "ASM service_id of the receipt emitter. MUST match the service_id field inside every receipt in this envelope."
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC3339 timestamp when this envelope was emitted (not when individual receipts were generated)."
+    },
+    "receipts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/receipt"
+      },
+      "description": "One or more receipt bodies. Multi-receipt batches are allowed for poll-mode efficiency; each receipt is independently verifiable."
+    },
+    "signature": {
+      "$ref": "#/$defs/signature"
+    },
+    "retry_advisory": {
+      "$ref": "#/$defs/retry_advisory",
+      "description": "Optional. Publisher advertises its expected push retry semantics so consumers can size their dead-letter handling accordingly. Advisory in v0.1; enforced in v0.2."
+    }
+  },
+  "$defs": {
+    "receipt": {
+      "type": "object",
+      "required": ["receipt_version", "pipeline_id", "service_id", "timestamp_start", "timestamp_end", "duration_ms", "seal", "billing"],
+      "properties": {
+        "receipt_version": {
+          "type": "string",
+          "description": "Semver of the receipt body shape. Pinned to '0.1' for this envelope version."
+        },
+        "pipeline_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Opaque identifier unique per invocation. Doubles as the idempotency key — consumers MUST treat repeated receipts with the same pipeline_id as duplicates of the original (use 'supersedes' for explicit corrections)."
+        },
+        "supersedes": {
+          "type": "string",
+          "description": "If present, this receipt corrects a previously-emitted receipt with the named pipeline_id. The original is not mutated; Trust Delta MUST record the correction as an explicit signal rather than a silent overwrite."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Optional human-readable explanation for a 'supersedes' correction. Recommended when supersedes is set."
+        },
+        "service_id": {
+          "type": "string",
+          "description": "ASM service_id of the emitter. MUST match the envelope-level service_id."
+        },
+        "timestamp_start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "timestamp_end": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "seal": {
+          "$ref": "#/$defs/seal"
+        },
+        "billing": {
+          "$ref": "#/$defs/billing"
+        },
+        "delegates_to": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/delegate" },
+          "description": "Optional attribution chain for receipts emitted by pipelines that wrap sub-services. v0.1 minimum: pipeline-level seal sufficient. v0.2 (future): each delegate carries its own provider-signed receipt for end-to-end verification."
+        },
+        "extensions": {
+          "type": "object",
+          "description": "Service-specific fields, keyed by the publisher's service_id. Consumers MUST ignore unknown extension keys."
+        }
+      }
+    },
+    "seal": {
+      "type": "object",
+      "required": ["algorithm", "scope", "digest"],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "const": "sha256",
+          "description": "Pinned to sha256 in v0.1."
+        },
+        "scope": {
+          "type": "string",
+          "description": "Identifies what the seal covers (e.g. 'execution_payload'). The byte-range construction is service-specific and documented in the publisher's integration spec."
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "description": "Hex SHA-256 digest prefixed with 'sha256:'. Covers the canonical bytes described by 'scope'."
+        },
+        "byte_range_spec": {
+          "type": "string",
+          "description": "Optional URL or anchor pointing at the publisher's documented seal construction. Lets verifiers recompute the seal offline."
+        }
+      }
+    },
+    "billing": {
+      "type": "object",
+      "required": ["currency", "cost"],
+      "properties": {
+        "dimension": {
+          "type": "string",
+          "description": "Primary billing dimension (e.g. 'pipeline_run', 'input_token', 'output_token'). MUST appear in the corresponding ASM manifest's pricing.billing_dimensions."
+        },
+        "unit": {
+          "type": "string",
+          "description": "Matches the manifest's pricing.billing_dimensions[*].unit (e.g. 'per_run', 'per_1M')."
+        },
+        "quantity": {
+          "type": "number",
+          "minimum": 0
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 code (e.g. 'USD')."
+        },
+        "cost": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Publisher's settlement claim. Trust Delta recomputes from observed_input_tokens + observed_output_tokens against manifest pricing and surfaces the delta as a first-class trust signal."
+        },
+        "observed_input_tokens": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Aggregate input tokens across all phases. Used for cost re-derivation."
+        },
+        "observed_output_tokens": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "delegate": {
+      "type": "object",
+      "required": ["asm_service_id"],
+      "properties": {
+        "phase": {
+          "type": "string",
+          "description": "Free-form label identifying which phase/step this delegate served."
+        },
+        "asm_service_id": {
+          "type": "string",
+          "description": "ASM service_id of the upstream provider this delegate represents."
+        },
+        "model_id": {
+          "type": "string",
+          "description": "Scoped identifier the parent service used internally (e.g. 'anthropic/claude-sonnet-4@4.0:phase2-planner')."
+        },
+        "tokens_consumed": {
+          "type": "object",
+          "properties": {
+            "input": { "type": "integer", "minimum": 0 },
+            "output": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "upstream_receipt_id": {
+          "type": "string",
+          "description": "Optional reference to a separately-issued ASM receipt from the upstream provider."
+        },
+        "upstream_seal_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "description": "Optional sha256 of the upstream provider's own seal, if it emitted one."
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "required": ["algorithm", "public_key_url", "value"],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "const": "ed25519",
+          "description": "Pinned to Ed25519 in v0.1. Pluggable algorithm list deferred to v0.2."
+        },
+        "public_key_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Stable URL hosting the Ed25519 public key (PEM format). Consumers cache and refresh per the URL's HTTP cache headers."
+        },
+        "public_key_fingerprint": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "description": "Optional in v0.1 (RECOMMENDED), REQUIRED in v0.2. SHA-256 of the DER-encoded public key. Lets consumers detect key substitution at the public_key_url between fetches without re-downloading every time."
+        },
+        "value": {
+          "type": "string",
+          "description": "Hex-encoded Ed25519 signature over canonical_json(envelope minus this signature.value field)."
+        }
+      }
+    },
+    "retry_advisory": {
+      "type": "object",
+      "description": "Advisory retry semantics for push delivery. Documented v0.1 defaults: 1s initial delay, 2x backoff, 5 retries (~31s window), dead-letter after 6 hours. Consumers MAY advertise different values via this object.",
+      "properties": {
+        "initial_delay_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 1000
+        },
+        "backoff_multiplier": {
+          "type": "number",
+          "minimum": 1,
+          "default": 2
+        },
+        "max_retries": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 5
+        },
+        "dead_letter_after_seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 21600
+        }
+      }
+    }
+  },
+  "recommended_max_bytes": {
+    "per_receipt": 65536,
+    "per_envelope": 1048576,
+    "note": "Advisory in v0.1 (not schema-enforced). Enforced in v0.2 once real payload distributions are observed."
+  }
+}

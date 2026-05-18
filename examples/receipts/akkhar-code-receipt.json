@@ -1,0 +1,69 @@
+{
+  "_comment": "Reference receipt example for Trust Delta receipt extension v0.1. Demonstrates the envelope format with a single Akkhar-Code execution receipt. Sourced from the Akkhar-Labs integration brief (docs/integrations/akkhar-code-receipt-spec.md) with permission. Validates against schema/asm-receipt-envelope-v0.1.schema.json.",
+  "envelope_version": "0.1",
+  "publisher": "akkhar-labs",
+  "service_id": "akkhar-labs/akkhar-code@1.0",
+  "issued_at": "2026-05-16T20:52:00Z",
+  "receipts": [
+    {
+      "receipt_version": "0.1",
+      "pipeline_id": "ak_pipe_8f3a1c9e-22b7-4d01-aef3-70bc4e5d99f1",
+      "service_id": "akkhar-labs/akkhar-code@1.0",
+      "timestamp_start": "2026-05-12T09:41:03.112Z",
+      "timestamp_end": "2026-05-12T09:41:04.887Z",
+      "duration_ms": 1775,
+      "seal": {
+        "algorithm": "sha256",
+        "scope": "execution_payload",
+        "digest": "sha256:e4b2c91f7a88d3ef1234567890abcdef1234567890abcdef1234567890abcdef",
+        "byte_range_spec": "https://github.com/calebguo007/asm-spec/blob/main/docs/integrations/akkhar-code-receipt-spec.md#2-seal-what-it-computes-over"
+      },
+      "billing": {
+        "dimension": "pipeline_run",
+        "unit": "per_run",
+        "quantity": 1,
+        "currency": "USD",
+        "cost": 0.0037,
+        "observed_input_tokens": 2840,
+        "observed_output_tokens": 11206
+      },
+      "delegates_to": [
+        {
+          "phase": "phase2_planning",
+          "asm_service_id": "anthropic/claude-sonnet-4@4.0",
+          "model_id": "anthropic/claude-sonnet-4-20250514@1.0:phase2-planner",
+          "tokens_consumed": { "input": 1200, "output": 4800 }
+        }
+      ],
+      "extensions": {
+        "akkhar-labs/akkhar-code@1.0": {
+          "plan_hash": "sha256:a1c4f89e3bd702f1234567890abcdef1234567890abcdef1234567890abcdef0",
+          "phase_summary": {
+            "phase1_discovery": { "ambiguities_surfaced": 3, "ambiguities_resolved": 3, "skipped": false },
+            "phase2_planning":  { "file_operations_planned": 7, "refinement_iterations": 1, "estimated_complexity": "moderate" },
+            "phase3_gating":    { "decision": "approved", "approved_at": "2026-05-12T09:41:02.004Z" },
+            "phase4_execution": { "status": "success", "operations_executed": 7, "operations_failed": 0, "rollback_performed": false, "bytes_written": 14382 }
+          },
+          "outcome": {
+            "files_created": 2,
+            "files_modified": 4,
+            "files_deleted": 1,
+            "test_strategy_emitted": true
+          }
+        }
+      }
+    }
+  ],
+  "signature": {
+    "algorithm": "ed25519",
+    "public_key_url": "https://akkhar-labs.example/.well-known/asm-pubkey.pem",
+    "public_key_fingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "value": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "retry_advisory": {
+    "initial_delay_ms": 1000,
+    "backoff_multiplier": 2,
+    "max_retries": 5,
+    "dead_letter_after_seconds": 21600
+  }
+}

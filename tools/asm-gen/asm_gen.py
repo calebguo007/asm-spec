@@ -81,6 +81,11 @@ TAXONOMY_KEYWORDS: Dict[str, List[str]] = {
     "ai.compute.gpu": [
         "gpu", "compute", "serverless gpu", "inference", "training",
     ],
+    "tool.code.orchestration": [
+        "agentic ide", "agentic code", "code orchestration", "multi-phase planner",
+        "plan-then-execute", "devin", "akkhar-code", "cursor agent mode",
+        "auto-coder", "autonomous coding agent", "deterministic executor",
+    ],
 }
 
 # endpoint 路径到 taxonomy 的映射

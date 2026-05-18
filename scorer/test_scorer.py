@@ -30,6 +30,7 @@ from scorer import (
     parse_manifest,
     score_topsis,
     score_weighted_average,
+    cost_delta_from_receipt,
     _extract_primary_cost,
     _extract_primary_quality,
     _parse_latency,
@@ -317,6 +318,91 @@ def test_cross_language_parity():
 
 
 # ============================================================
+# Trust Delta receipt extension v0.1 — cost_delta_from_receipt
+# ============================================================
+
+def test_cost_delta_agreement():
+    """When the receipt's claimed cost matches the manifest-recomputed cost,
+    cost_delta should be ~0."""
+    manifest = {
+        "pricing": {
+            "billing_dimensions": [
+                {"dimension": "input_token",  "unit": "per_1M", "cost_per_unit": 3.00,  "currency": "USD"},
+                {"dimension": "output_token", "unit": "per_1M", "cost_per_unit": 15.00, "currency": "USD"},
+            ]
+        }
+    }
+    receipt = {
+        "billing": {
+            "currency": "USD",
+            "cost": 0.0037,
+            "observed_input_tokens": 1000,    # 1000 * 3 / 1M  = 0.003
+            "observed_output_tokens": 50,     # 50  * 15 / 1M = 0.00075
+                                              # total = 0.00375
+        }
+    }
+    result = cost_delta_from_receipt(manifest, receipt)
+    assert result["claimed_cost"] == 0.0037
+    assert abs(result["recomputed_cost"] - 0.00375) < 1e-9, result
+    assert abs(result["cost_delta"] - (-0.00005)) < 1e-9, result
+    assert "input_token" in result["per_dimension"]
+    assert "output_token" in result["per_dimension"]
+    print("✅ Test 4 (cost_delta agreement): tiny delta (-5e-5 USD) matches expectation")
+
+
+def test_cost_delta_divergence():
+    """Publisher claims much less than the manifest rate implies — delta is negative
+    (publisher under-claims) and substantial."""
+    manifest = {
+        "pricing": {
+            "billing_dimensions": [
+                {"dimension": "input_token",  "unit": "per_1M", "cost_per_unit": 3.00,  "currency": "USD"},
+                {"dimension": "output_token", "unit": "per_1M", "cost_per_unit": 15.00, "currency": "USD"},
+            ]
+        }
+    }
+    receipt = {
+        "billing": {
+            "currency": "USD",
+            "cost": 0.001,        # publisher claims 0.001 USD
+            "observed_input_tokens": 1000,
+            "observed_output_tokens": 1000,
+            # manifest-recomputed = 1000*3/1M + 1000*15/1M = 0.018
+        }
+    }
+    result = cost_delta_from_receipt(manifest, receipt)
+    assert abs(result["recomputed_cost"] - 0.018) < 1e-9, result
+    assert result["cost_delta"] < -0.01, result  # publisher claimed much less than manifest rate
+    print(f"✅ Test 5 (cost_delta divergence): delta={result['cost_delta']:.6f} (under-claim of ~$0.017)")
+
+
+def test_cost_delta_pipeline_run():
+    """Pipeline-level service uses a single 'pipeline_run' dimension instead of token-based.
+    Receipt carries `quantity` and dimension. cost_delta should fall back to per-run pricing."""
+    manifest = {
+        "pricing": {
+            "billing_dimensions": [
+                {"dimension": "pipeline_run", "unit": "per_run", "cost_per_unit": 0.0037, "currency": "USD"},
+            ]
+        }
+    }
+    receipt = {
+        "billing": {
+            "dimension": "pipeline_run",
+            "unit": "per_run",
+            "quantity": 1,
+            "currency": "USD",
+            "cost": 0.0037,
+        }
+    }
+    result = cost_delta_from_receipt(manifest, receipt)
+    assert abs(result["recomputed_cost"] - 0.0037) < 1e-9, result
+    assert abs(result["cost_delta"]) < 1e-9, result
+    assert "pipeline_run" in result["per_dimension"]
+    print("✅ Test 6 (cost_delta pipeline_run): exact match, delta=0")
+
+
+# ============================================================
 # Main entry
 # ============================================================
 
@@ -334,6 +420,9 @@ def main():
         ("Test 1: TOPSIS Golden Test", test_topsis_golden),
         ("Test 2: io_ratio Regression", test_io_ratio_regression),
         ("Test 3: Cross-language Parity", test_cross_language_parity),
+        ("Test 4: cost_delta_from_receipt — agreement case", test_cost_delta_agreement),
+        ("Test 5: cost_delta_from_receipt — divergence case", test_cost_delta_divergence),
+        ("Test 6: cost_delta_from_receipt — pipeline_run dimension", test_cost_delta_pipeline_run),
     ]
 
     for name, test_fn in tests:
